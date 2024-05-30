@@ -109,7 +109,7 @@
                     </button>
                 </li>
             </ul>
-            <div class="container">
+            <div class="container" id="real-estate-phu-hop-container">
                 <!--Insert Card Data Here-->
             </div>
             <button class="btn btn-primary">Xem thêm</button>
@@ -197,6 +197,54 @@
             </div>
         </div>
     </footer>
+    <!-- Bootstrap JS-->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script>
+        /*** REGION 1 - Global variables - Vùng khai báo biến, hằng số, tham số TOÀN CỤC */
+
+        /*** REGION 2 - Vùng gán / thực thi hàm xử lý sự kiện cho các elements */
+        $(document).ready(function () {
+            // Load real estate data
+            $.ajax({
+                url: "http://localhost:8080/realestate?page=67",
+                type: "GET",
+            }).then(function (data) {
+                console.log(data);
+                // Load province and district data with AJAX promise
+                var promises = data.content.map(function (realEstate) {
+                    var provincePromise = $.ajax({
+                        url: "http://localhost:8080/province/" + realEstate.provinceId,
+                        type: "GET"
+                    });
+                    var districtPromise = $.ajax({
+                        url: "http://localhost:8080/district/" + realEstate.districtId,
+                        type: "GET"
+                    });
+                    return Promise.all([provincePromise, districtPromise]).then(function (results) {
+                        var province = results[0];
+                        var district = results[1];
+                        var realEstateCard = `
+                        <div class="card">
+                            <img src="${realEstate.photo}" class="card-img-top" alt="..." width="200px" height = "100px">
+                            <div class="card-body">
+                                <h5 class="card-title">${realEstate.title}</h5>
+                                <p class="card-text">${province.name}, ${district.name}</p>
+                                <p class="card-text">${realEstate.price}</p>
+                                <p class="card-text">${realEstate.acreage}</p>
+                            </div>
+                        </div>
+                        `;
+                        $("#real-estate-phu-hop-container").append(realEstateCard);
+                    });
+                });
+            });
+        });
+        /*** REGION 3 - Event handlers - Vùng khai báo các hàm xử lý sự kiện */
+
+        /*** REGION 4 - Common funtions - Vùng khai báo hàm dùng chung trong toàn bộ chương trình*/
+
+    </script>
 </body>
 
 </html>

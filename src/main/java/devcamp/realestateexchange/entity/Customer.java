@@ -4,10 +4,17 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.CascadeType;
+import javax.persistence.FetchType;
+import java.util.List;
 @Entity
 @Table(name = "customers")
 public class Customer {
@@ -36,6 +43,9 @@ public class Customer {
     private String createdDate;
     @Column(name = "updated_date")
     private String updatedDate;
+    @OneToMany(mappedBy = "customer", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH}, fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private List<RealEstate> realEstates;
     public Customer() {
     }
     public Customer(String contactName, String contactTitle, String address, String mobile, String email, String note, Employee createdBy, Employee updatedBy, String createdDate, String updatedDate) {
