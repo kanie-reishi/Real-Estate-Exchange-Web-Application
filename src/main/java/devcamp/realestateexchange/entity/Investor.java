@@ -8,9 +8,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "investor")
@@ -23,8 +26,9 @@ public class Investor {
     private String name;
     @Column(name = "description")
     private String description;
-    @Column(name = "projects")
-    private String projects;
+    @OneToMany(mappedBy = "investor" , cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH}, fetch = FetchType.EAGER)
+    @JsonManagedReference
+    private List<Project> projects;
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "address", referencedColumnName = "id")
     private AddressMap address;
@@ -42,7 +46,7 @@ public class Investor {
     private String note;
     public Investor() {
     }
-    public Investor(String name, String description, String projects, AddressMap address, String phone, String phone2, String fax, String email, String website, String note) {
+    public Investor(String name, String description, List<Project> projects, AddressMap address, String phone, String phone2, String fax, String email, String website, String note) {
         this.name = name;
         this.description = description;
         this.projects = projects;
@@ -72,10 +76,10 @@ public class Investor {
     public void setDescription(String description) {
         this.description = description;
     }
-    public String getProjects() {
+    public List<Project> getProjects() {
         return projects;
     }
-    public void setProjects(String projects) {
+    public void setProjects(List<Project> projects) {
         this.projects = projects;
     }
     public AddressMap getAddress() {

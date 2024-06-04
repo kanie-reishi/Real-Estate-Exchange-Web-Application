@@ -13,6 +13,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.JoinColumn;
 import javax.persistence.GenerationType;
+import javax.persistence.FetchType;
 @Entity
 @Table(name = "real_estate")
 public class RealEstate {
@@ -22,9 +23,9 @@ public class RealEstate {
     @Column(name = "title")
     private String title;
     @Column(name = "type")
-    private int type;
+    private Integer type;
     @Column(name = "request")
-    private int request;
+    private Integer request;
     @ManyToOne
     @JoinColumn(name = "province_id")
     @JsonBackReference
@@ -41,13 +42,13 @@ public class RealEstate {
     @JoinColumn(name = "street_id")
     @JsonBackReference
     private Street street;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "project_id")
     @JsonBackReference
     private Project project;
     @Column(name = "address")
     private String address;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id")
     @JsonBackReference
     private Customer customer;
@@ -56,98 +57,98 @@ public class RealEstate {
     @Column(name = "price_min")
     private BigDecimal priceMin;
     @Column(name = "price_time")
-    private int priceTime;
+    private Integer priceTime;
     @Column(name = "date_create")
     private Date dateCreate;
     @Column(name = "acreage")
-    private double acreage;
+    private Double acreage;
     @Column(name = "direction")
-    private int direction;
+    private Integer direction;
     @Column(name = "total_floors")
-    private int totalFloors;
+    private Integer totalFloors;
     @Column(name = "number_floors")
-    private int numberFloors;
+    private Integer numberFloors;
     @Column(name = "bath")
-    private int bath;
+    private Integer bath;
     @Column(name = "apart_code")
     private String apartCode;
     @Column(name = "wall_area")
-    private double wallArea;
+    private Double wallArea;
     @Column(name = "bedroom")
-    private int bedroom;
+    private Integer bedroom;
     @Column(name = "balcony")
-    private int balcony;
+    private Integer balcony;
     @Column(name = "landscape_view")    
     private String landscapeView;
     @Column(name = "apart_loca")
-    private int apartLoca;
+    private Integer apartLoca;
     @Column(name = "apart_type")
-    private int apartType;
+    private Integer apartType;
     @Column(name = "furniture_type")
-    private int furnitureType;
+    private Integer furnitureType;
     @Column(name = "price_rent")
-    private int priceRent;
+    private Integer priceRent;
     @Column(name = "return_rate")
-    private double returnRate;
+    private Double returnRate;
     @Column(name = "legal_doc")
-    private int legalDoc;
+    private Integer legalDoc;
     @Column(name = "description")
     private String description;
     @Column(name = "width_y")
-    private int widthY;
+    private Integer widthY;
     @Column(name = "long_x")
-    private int longX;
+    private Integer longX;
     @Column(name = "street_house")
-    private int streetHouse;
+    private Integer streetHouse;
     @Column(name = "FSBO")
-    private int FSBO;
+    private Integer FSBO;
     @Column(name = "view_num")
-    private int viewNum;
+    private Integer viewNum;
     @Column(name = "created_by")
-    private int created_by;
+    private Integer created_by;
     @Column(name = "updated_by")
-    private int updated_by;
+    private Integer updated_by;
     @Column(name = "shape")
     private String shape;
     @Column(name = "distance2facade")
-    private int distance2Facade;
+    private Integer distance2Facade;
     @Column(name = "adjacent_facade_num")
-    private int adjacentFacadeNum;
+    private Integer adjacentFacadeNum;
     @Column(name = "adjacent_road")
     private String adjacentRoad;
     @Column(name = "alley_min_width")
-    private int alleyMinWidth;
+    private Integer alleyMinWidth;
     @Column(name = "adjacent_alley_min_width")
-    private int adjacentAlleyMinWidth;
+    private Integer adjacentAlleyMinWidth;
     @Column(name = "factor")
-    private int factor;
+    private Integer factor;
     @Column(name = "structure")
     private String structure;
     @Column(name = "DTSXD")
-    private int DTSXD;
+    private Integer DTSXD;
     @Column(name = "CLCL")
-    private int CLCL;
+    private Integer CLCL;
     @Column(name = "CTXD_price")
-    private int ctxdPrice;
+    private Integer ctxdPrice;
     @Column(name = "CTXD_value")
-    private int ctxdValue;
+    private Integer ctxdValue;
     @Column(name = "photo")
     private String photo;
     @Column(name = "lat")
-    private double lat;
+    private Double lat;
     @Column(name = "lng")
-    private double lng;
+    private Double lng;
     public RealEstate() {
     }
-    public RealEstate(int id, String title, int type, int request, Province province, District district, Ward ward,
-            Street street, Project project, String address, Customer customer, BigDecimal price, BigDecimal priceMin, int priceTime,
-            Date dateCreate, double acreage, int direction, int totalFloors, int numberFloors, int bath,
-            String apartCode, double wallArea, int bedroom, int balcony, String landscapeView, int apartLoca,
-            int apartType, int furnitureType, int priceRent, double returnRate, int legalDoc, String description,
-            int widthY, int longX, int streetHouse, int fSBO, int viewNum, int created_by, int updated_by, String shape,
-            int distance2Facade, int adjacentFacadeNum, String adjacentRoad, int alleyMinWidth,
-            int adjacentAlleyMinWidth, int factor, String structure, int dTSXD, int cLCL, int ctxdPrice, int ctxdValue,
-            String photo, double lat, double lng) {
+    public RealEstate(int id, String title, Integer type, Integer request, Province province, District district, Ward ward,
+            Street street, Project project, String address, Customer customer, BigDecimal price, BigDecimal priceMin, Integer priceTime,
+            Date dateCreate, Double acreage, Integer direction, Integer totalFloors, Integer numberFloors, Integer bath,
+            String apartCode, Double wallArea, Integer bedroom, Integer balcony, String landscapeView, Integer apartLoca,
+            Integer apartType, Integer furnitureType, Integer priceRent, Double returnRate, Integer legalDoc, String description,
+            Integer widthY, Integer longX, Integer streetHouse, Integer fSBO, Integer viewNum, Integer created_by, Integer updated_by, String shape,
+            Integer distance2Facade, Integer adjacentFacadeNum, String adjacentRoad, Integer alleyMinWidth,
+            Integer adjacentAlleyMinWidth, Integer factor, String structure, Integer dTSXD, Integer cLCL, Integer ctxdPrice, Integer ctxdValue,
+            String photo, Double lat, Double lng) {
         this.id = id;
         this.title = title;
         this.type = type;
@@ -215,16 +216,16 @@ public class RealEstate {
     public void setTitle(String title) {
         this.title = title;
     }
-    public int getType() {
+    public Integer getType() {
         return type;
     }
-    public void setType(int type) {
+    public void setType(Integer type) {
         this.type = type;
     }
-    public int getRequest() {
+    public Integer getRequest() {
         return request;
     }
-    public void setRequest(int request) {
+    public void setRequest(Integer request) {
         this.request = request;
     }
     public Province getProvince() {
@@ -281,10 +282,10 @@ public class RealEstate {
     public void setPriceMin(BigDecimal priceMin) {
         this.priceMin = priceMin;
     }
-    public int getPriceTime() {
+    public Integer getPriceTime() {
         return priceTime;
     }
-    public void setPriceTime(int priceTime) {
+    public void setPriceTime(Integer priceTime) {
         this.priceTime = priceTime;
     }
     public Date getDateCreate() {
@@ -293,34 +294,34 @@ public class RealEstate {
     public void setDateCreate(Date dateCreate) {
         this.dateCreate = dateCreate;
     }
-    public double getAcreage() {
+    public Double getAcreage() {
         return acreage;
     }
-    public void setAcreage(double acreage) {
+    public void setAcreage(Double acreage) {
         this.acreage = acreage;
     }
-    public int getDirection() {
+    public Integer getDirection() {
         return direction;
     }
-    public void setDirection(int direction) {
+    public void setDirection(Integer direction) {
         this.direction = direction;
     }
-    public int getTotalFloors() {
+    public Integer getTotalFloors() {
         return totalFloors;
     }
-    public void setTotalFloors(int totalFloors) {
+    public void setTotalFloors(Integer totalFloors) {
         this.totalFloors = totalFloors;
     }
-    public int getNumberFloors() {
+    public Integer getNumberFloors() {
         return numberFloors;
     }
-    public void setNumberFloors(int numberFloors) {
+    public void setNumberFloors(Integer numberFloors) {
         this.numberFloors = numberFloors;
     }
-    public int getBath() {
+    public Integer getBath() {
         return bath;
     }
-    public void setBath(int bath) {
+    public void setBath(Integer bath) {
         this.bath = bath;
     }
     public String getApartCode() {
@@ -329,22 +330,22 @@ public class RealEstate {
     public void setApartCode(String apartCode) {
         this.apartCode = apartCode;
     }
-    public double getWallArea() {
+    public Double getWallArea() {
         return wallArea;
     }
-    public void setWallArea(double wallArea) {
+    public void setWallArea(Double wallArea) {
         this.wallArea = wallArea;
     }
-    public int getBedroom() {
+    public Integer getBedroom() {
         return bedroom;
     }
-    public void setBedroom(int bedroom) {
+    public void setBedroom(Integer bedroom) {
         this.bedroom = bedroom;
     }
-    public int getBalcony() {
+    public Integer getBalcony() {
         return balcony;
     }
-    public void setBalcony(int balcony) {
+    public void setBalcony(Integer balcony) {
         this.balcony = balcony;
     }
     public String getLandscapeView() {
@@ -353,40 +354,40 @@ public class RealEstate {
     public void setLandscapeView(String landscapeView) {
         this.landscapeView = landscapeView;
     }
-    public int getApartLoca() {
+    public Integer getApartLoca() {
         return apartLoca;
     }
-    public void setApartLoca(int apartLoca) {
+    public void setApartLoca(Integer apartLoca) {
         this.apartLoca = apartLoca;
     }
-    public int getApartType() {
+    public Integer getApartType() {
         return apartType;
     }
-    public void setApartType(int apartType) {
+    public void setApartType(Integer apartType) {
         this.apartType = apartType;
     }
-    public int getFurnitureType() {
+    public Integer getFurnitureType() {
         return furnitureType;
     }
-    public void setFurnitureType(int furnitureType) {
+    public void setFurnitureType(Integer furnitureType) {
         this.furnitureType = furnitureType;
     }
-    public int getPriceRent() {
+    public Integer getPriceRent() {
         return priceRent;
     }
-    public void setPriceRent(int priceRent) {
+    public void setPriceRent(Integer priceRent) {
         this.priceRent = priceRent;
     }
-    public double getReturnRate() {
+    public Double getReturnRate() {
         return returnRate;
     }
-    public void setReturnRate(double returnRate) {
+    public void setReturnRate(Double returnRate) {
         this.returnRate = returnRate;
     }
-    public int getLegalDoc() {
+    public Integer getLegalDoc() {
         return legalDoc;
     }
-    public void setLegalDoc(int legalDoc) {
+    public void setLegalDoc(Integer legalDoc) {
         this.legalDoc = legalDoc;
     }
     public String getDescription() {
@@ -395,46 +396,46 @@ public class RealEstate {
     public void setDescription(String description) {
         this.description = description;
     }
-    public int getWidthY() {
+    public Integer getWidthY() {
         return widthY;
     }
-    public void setWidthY(int widthY) {
+    public void setWidthY(Integer widthY) {
         this.widthY = widthY;
     }
-    public int getLongX() {
+    public Integer getLongX() {
         return longX;
     }
-    public void setLongX(int longX) {
+    public void setLongX(Integer longX) {
         this.longX = longX;
     }
-    public int getStreetHouse() {
+    public Integer getStreetHouse() {
         return streetHouse;
     }
-    public void setStreetHouse(int streetHouse) {
+    public void setStreetHouse(Integer streetHouse) {
         this.streetHouse = streetHouse;
     }
-    public int getFSBO() {
+    public Integer getFSBO() {
         return FSBO;
     }
-    public void setFSBO(int fSBO) {
+    public void setFSBO(Integer fSBO) {
         FSBO = fSBO;
     }
-    public int getViewNum() {
+    public Integer getViewNum() {
         return viewNum;
     }
-    public void setViewNum(int viewNum) {
+    public void setViewNum(Integer viewNum) {
         this.viewNum = viewNum;
     }
-    public int getCreated_by() {
+    public Integer getCreated_by() {
         return created_by;
     }
-    public void setCreated_by(int created_by) {
+    public void setCreated_by(Integer created_by) {
         this.created_by = created_by;
     }
-    public int getUpdated_by() {
+    public Integer getUpdated_by() {
         return updated_by;
     }
-    public void setUpdated_by(int updated_by) {
+    public void setUpdated_by(Integer updated_by) {
         this.updated_by = updated_by;
     }
     public String getShape() {
@@ -443,16 +444,16 @@ public class RealEstate {
     public void setShape(String shape) {
         this.shape = shape;
     }
-    public int getDistance2Facade() {
+    public Integer getDistance2Facade() {
         return distance2Facade;
     }
-    public void setDistance2Facade(int distance2Facade) {
+    public void setDistance2Facade(Integer distance2Facade) {
         this.distance2Facade = distance2Facade;
     }
-    public int getAdjacentFacadeNum() {
+    public Integer getAdjacentFacadeNum() {
         return adjacentFacadeNum;
     }
-    public void setAdjacentFacadeNum(int adjacentFacadeNum) {
+    public void setAdjacentFacadeNum(Integer adjacentFacadeNum) {
         this.adjacentFacadeNum = adjacentFacadeNum;
     }
     public String getAdjacentRoad() {
@@ -461,22 +462,22 @@ public class RealEstate {
     public void setAdjacentRoad(String adjacentRoad) {
         this.adjacentRoad = adjacentRoad;
     }
-    public int getAlleyMinWidth() {
+    public Integer getAlleyMinWidth() {
         return alleyMinWidth;
     }
-    public void setAlleyMinWidth(int alleyMinWidth) {
+    public void setAlleyMinWidth(Integer alleyMinWidth) {
         this.alleyMinWidth = alleyMinWidth;
     }
-    public int getAdjacentAlleyMinWidth() {
+    public Integer getAdjacentAlleyMinWidth() {
         return adjacentAlleyMinWidth;
     }
-    public void setAdjacentAlleyMinWidth(int adjacentAlleyMinWidth) {
+    public void setAdjacentAlleyMinWidth(Integer adjacentAlleyMinWidth) {
         this.adjacentAlleyMinWidth = adjacentAlleyMinWidth;
     }
-    public int getFactor() {
+    public Integer getFactor() {
         return factor;
     }
-    public void setFactor(int factor) {
+    public void setFactor(Integer factor) {
         this.factor = factor;
     }
     public String getStructure() {
@@ -485,28 +486,28 @@ public class RealEstate {
     public void setStructure(String structure) {
         this.structure = structure;
     }
-    public int getDTSXD() {
+    public Integer getDTSXD() {
         return DTSXD;
     }
-    public void setDTSXD(int dTSXD) {
+    public void setDTSXD(Integer dTSXD) {
         DTSXD = dTSXD;
     }
-    public int getCLCL() {
+    public Integer getCLCL() {
         return CLCL;
     }
-    public void setCLCL(int cLCL) {
+    public void setCLCL(Integer cLCL) {
         CLCL = cLCL;
     }
-    public int getCtxdPrice() {
+    public Integer getCtxdPrice() {
         return ctxdPrice;
     }
-    public void setCtxdPrice(int ctxdPrice) {
+    public void setCtxdPrice(Integer ctxdPrice) {
         this.ctxdPrice = ctxdPrice;
     }
-    public int getCtxdValue() {
+    public Integer getCtxdValue() {
         return ctxdValue;
     }
-    public void setCtxdValue(int ctxdValue) {
+    public void setCtxdValue(Integer ctxdValue) {
         this.ctxdValue = ctxdValue;
     }
     public String getPhoto() {
@@ -515,16 +516,16 @@ public class RealEstate {
     public void setPhoto(String photo) {
         this.photo = photo;
     }
-    public double getLat() {
+    public Double getLat() {
         return lat;
     }
-    public void setLat(double lat) {
+    public void setLat(Double lat) {
         this.lat = lat;
     }
-    public double getLng() {
+    public Double getLng() {
         return lng;
     }
-    public void setLng(double lng) {
+    public void setLng(Double lng) {
         this.lng = lng;
     }
     

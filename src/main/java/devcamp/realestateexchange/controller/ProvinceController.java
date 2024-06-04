@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import devcamp.realestateexchange.dto.ProvinceDto;
-import devcamp.realestateexchange.entity.Province;
 import devcamp.realestateexchange.services.ProvinceService;
 @RestController
 @CrossOrigin
@@ -22,6 +21,14 @@ public class ProvinceController {
         try {
             ProvinceDto province = provinceService.getProvinceDtoById(id);
             return ResponseEntity.ok(province);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+    @GetMapping("/provinces")
+    public ResponseEntity<Object> getProvinceList(){
+        try {
+            return ResponseEntity.ok(provinceService.getProvinceList());
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }

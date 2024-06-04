@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import devcamp.realestateexchange.dto.DistrictDto;
 import devcamp.realestateexchange.services.DistrictService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 @RestController
 @CrossOrigin
 @RequestMapping
@@ -21,6 +23,15 @@ public class DistrictController {
         try {
             DistrictDto district = districtService.getDistrictById(id);
             return ResponseEntity.ok(district);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+    @GetMapping("/district/province/{provinceId}")
+    public ResponseEntity<Object> getDistrictListByProvinceId(Pageable pageable, @PathVariable Integer provinceId){
+        try {
+            Page<DistrictDto> districtPage = districtService.getDistrictListByProvinceId(pageable, provinceId);
+            return ResponseEntity.ok(districtPage);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }

@@ -59,8 +59,7 @@
         </div>
     </nav>
     <!-- Search Box -->
-    <div class="container-fluid"
-        style="background-image: url('https://imgs.search.brave.com/dqf-jNh2ziQz_-JY9_x7LV64A_jqS0rrbi8jivM8NkA/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9zdDIu/ZGVwb3NpdHBob3Rv/cy5jb20vMTA0MTA4/OC83NjU2L2kvNDUw/L2RlcG9zaXRwaG90/b3NfNzY1NjcyMTEt/c3RvY2stcGhvdG8t/bmljZS1mcm9udC15/YXJkLXdpdGgtcG9y/Y2guanBn'); width: 100%; height: 300px;">
+    <div class="container-fluid">
         <div class="container">
             <ul class="nav nav-tabs">
                 <li class="nav-item">
@@ -89,7 +88,7 @@
                         </select>
                     </div>
                     <input type="text" class="form-control" placeholder="Nhập địa chỉ hoặc dự án" id="inp-address">
-                    <button class="btn btn-primary" id="btn-search">Tìm kiếm</button>
+                    <button class="btn btn-primary" id="search-button">Tìm kiếm</button>
                     <div class="col-sm-12 row">
                         <div class="dropdown col-sm-1" id="dropdown-price">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownGia"
@@ -115,7 +114,7 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="dropdown col-sm-1" id="dropdown-acreage">
+                        <div class="dropdown col-sm-2" id="dropdown-acreage">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownDienTich"
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 Diện tích
@@ -139,85 +138,38 @@
                                 </li>
                             </ul>
                         </div>
+                        <div class="dropdown col-sm-1" id="dropdown-room">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownPhong"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Phòng ngủ
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownPhong">
+                                <li>
+                                    <input type="radio" name="room" id="1-phong">
+                                    <span>1 phòng</span>
+                                </li>
+                                <li>
+                                    <input type="radio" name="room" id="2-phong">
+                                    <span>2 phòng</span>
+                                </li>
+                                <li>
+                                    <input type="radio" name="room" id="3-phong">
+                                    <span>3 phòng</span>
+                                </li>
+                                <li>
+                                    <input type="radio" name="room" id="4-phong">
+                                    <span>4 phòng</span>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Bat Dong San Phu Hop -->
-    <div class="container-fluid">
-        <div class="container">
-            <h2>Bất động sản phù hợp</h2>
-            <ul class="nav nav-tabs">
-                <li class="nav-item">
-                    <button class="nav-link active" id="mua-ban-tab" role="tab" aria-controls="mua bán"
-                        aria-selected="true">
-                        Mua bán
-                    </button>
-                </li>
-                <li class="nav-item">
-                    <button class="nav-link" id="mua-ban-tab" role="tab" aria-controls="mua bán" aria-selected="true">
-                        Cho thuê
-                    </button>
-                </li>
-                <li class="nav-item">
-                    <button class="nav-link" id="mua-ban-tab" role="tab" aria-controls="mua bán" aria-selected="true">
-                        Sang nhượng
-                    </button>
-                </li>
-            </ul>
-            <div class="container row" id="real-estate-phu-hop-container">
-                <!--Insert Card Data Here-->
-            </div>
-            <button class="btn btn-primary">Xem thêm</button>
-        </div>
-    </div>
-    <!-- Bat Dong San Noi Bat-->
-    <div class="container-fluid">
-        <div class="container">
-            <h2>Bất động sản nổi bật</h2>
-            <ul class="nav nav-tabs">
-                <li class="nav-item">
-                    <button class="nav-link active" id="mua-ban-tab" role="tab" aria-controls="mua bán"
-                        aria-selected="true">
-                        Mua bán
-                    </button>
-                </li>
-                <li class="nav-item">
-                    <button class="nav-link" id="mua-ban-tab" role="tab" aria-controls="mua bán" aria-selected="true">
-                        Cho thuê
-                    </button>
-                </li>
-                <li class="nav-item">
-                    <button class="nav-link" id="mua-ban-tab" role="tab" aria-controls="mua bán" aria-selected="true">
-                        Sang nhượng
-                    </button>
-                </li>
-            </ul>
-            <div class="container row" id="real-estate-noi-bat-container">
-                <!--Insert Card Data Here-->
-            </div>
-            <button class="btn btn-primary">Xem thêm</button>
-        </div>
-    </div>
-    <!-- Tin tuc -->
-    <div class="container-fluid">
-        <div class="container">
-            <h2>Tin tức</h2>
-            <div class="container">
-                <!--Insert Card Data Here-->
-            </div>
-            <button class="btn btn-primary">Xem thêm</button>
-        </div>
-    </div>
-    <!--Doi tac-->
-    <div class="container-fluid">
-        <div class="container">
-            <h2>Đối tác</h2>
-            <div class="container">
-                <!--Insert Carousel Here-->
-            </div>
-        </div>
+    <!-- List-->
+    <div class="container" id="real-estate-list">
+        <!-- Load List Item-->
     </div>
     <!--Footer-->
     <footer>
@@ -360,129 +312,113 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
+    <!-- Custom JS-->
     <script>
         /*** REGION 1 - Global variables - Vùng khai báo biến, hằng số, tham số TOÀN CỤC */
 
         /*** REGION 2 - Vùng gán / thực thi hàm xử lý sự kiện cho các elements */
         $(document).ready(function () {
-            // Load province data
+            // Load Province Data
             loadProvinceData();
-            // Load real estate data
-            loadBatDongSanPhuHop();
-            loadBatDongSanNoiBat();
-            // Handle search button click event
-            $("#btn-search").click(function () {
-                var provinceId = $("#province").val();
-                var address = $("#inp-address").val();
-                var price = $("input[name='price']:checked").val();
-                var acreage = $("input[name='acreage']:checked").val();
-                // go to list.html
-                window.location.href = "list.html?provinceId=" + provinceId + "&address=" + address + "&price=" + price + "&acreage=" + acreage;
+            // Handle Url Params
+            urlParamsHandle();
+            // Handle Search Button
+            $('#search-button').click(function () {
+                // Get Province Value
+                const province = $('#province').val();
+                // Get Price Value
+                const price = $('#dropdown-price input:checked').val()
+                // Get Acreage Value
+                const acreage = $('#dropdown-acreage input:checked').val();
+                // Get Room Value
+                const room = $('#dropdown-room input:checked').attr('id');
+                // Get Address Value
+                const address = $('#inp-address').val();
+                // Redirect to List Page with Params
+                window.location.href = `list.html?provinceId=${province}&price=${price}&acreage=${acreage}&room=${room}&address=${address}`;
             });
         });
         /*** REGION 3 - Event handlers - Vùng khai báo các hàm xử lý sự kiện */
-
+        
         /*** REGION 4 - Common funtions - Vùng khai báo hàm dùng chung trong toàn bộ chương trình*/
-        // Hàm load dữ liệu bất động sản phù hợp
-        function loadBatDongSanPhuHop() {
-            $.ajax({
-                url: "http://localhost:8080/realestate?size=6",
-                type: "GET",
-            }).then(function (data) {
-                console.log(data);
-                // Load province and district data with AJAX promise
-                var promises = data.content.map(function (realEstate) {
-                    var provincePromise = $.ajax({
-                        url: "http://localhost:8080/province/" + realEstate.provinceId,
-                        type: "GET"
-                    });
-                    var districtPromise = $.ajax({
-                        url: "http://localhost:8080/district/" + realEstate.districtId,
-                        type: "GET"
-                    });
-                    return Promise.all([provincePromise, districtPromise]).then(function (results) {
-                        var province = results[0];
-                        var district = results[1];
-                        if(realEstate.photo == ""){
-                            realEstate.photo = 'images/house.webp';
-                        }
-                        if(realEstate.title == null){
-                            realEstate.title = 'Không có tiêu đề';
-                        }
-                        var realEstateCard = `
-                        <div class="col-lg-4 col-sm-6 mb-4">
-                        <div class="card h-100">
-                            <img src="${realEstate.photo}" class="card-img-top" alt="Real Estate Image" width="200px" height = "100px">
-                            <div class="card-body">
-                                <h5 class="card-title">${realEstate.title}</h5>
-                                <p class="card-text">${realEstate.price} tỷ <i class="fa-solid fa-circle-dot"></i> ${realEstate.acreage} m<sup>2</sup></p>
-                                <p class="card-text"><i class="fa-solid fa-location-dot"></i> ${province.name}, ${district.name}</p>
-                            </div>
-                        </div>
-                        </div>
-                        `;
-                        $("#real-estate-phu-hop-container").append(realEstateCard);
-                    });
-                });
-            });
-        }
-        // Hàm load dữ liệu bất động sản nổi bật
-        function loadBatDongSanNoiBat() {
-            $.ajax({
-                url: "http://localhost:8080/realestate/viewcount?size=6",
-                type: "GET",
-            }).then(function (data) {
-                console.log(data);
-                // Load province and district data with AJAX promise
-                var promises = data.content.map(function (realEstate) {
-                    var provincePromise = $.ajax({
-                        url: "http://localhost:8080/province/" + realEstate.provinceId,
-                        type: "GET"
-                    });
-                    var districtPromise = $.ajax({
-                        url: "http://localhost:8080/district/" + realEstate.districtId,
-                        type: "GET"
-                    });
-                    return Promise.all([provincePromise, districtPromise]).then(function (results) {
-                        var province = results[0];
-                        var district = results[1];
-                        if(realEstate.photo == ""){
-                            realEstate.photo = 'images/house.webp';
-                        }
-                        if(realEstate.title == null){
-                            realEstate.title = 'Không có tiêu đề';
-                        }
-                        var realEstateCard = `
-                        <div class="col-lg-4 col-sm-6 mb-4">
-                        <div class="card h-100">
-                            <img src="${realEstate.photo}" class="card-img-top" alt="..." width="200px" height = "100px">
-                            <div class="card-body">
-                                <h5 class="card-title">${realEstate.title}</h5>
-                                <p class="card-text">${realEstate.price} tỷ <i class="fa-solid fa-circle-dot"></i> ${realEstate.acreage} m<sup>2</sup></p>
-                                <p class="card-text"><i class="fa-solid fa-location-dot"></i> ${province.name}, ${district.name}</p>
-                            </div>
-                        </div>
-                        </div>
-                        `;
-                        $("#real-estate-noi-bat-container").append(realEstateCard);
-                    });
-                });
-            });
-        }
-        // Hàm load dữ liệu tỉnh/thành phố
+        // Load Province Data
         function loadProvinceData() {
+            // Call API to get Province Data
             $.ajax({
-                url: "http://localhost:8080/provinces",
-                type: "GET",
-            }).then(function (data) {
-                console.log(data);
-                data.forEach(function (province) {
-                    var provinceOption = `<option value="${province.id}">${province.name}</option>`;
-                    $("#province").append(provinceOption);
-                });
+                url: 'http://localhost:8080/provinces',
+                type: 'GET',
+                success: function (data) {
+                    // Insert Province Data to Select Element
+                    data.forEach(province => {
+                        $('#province').append(`<option value="${province.id}">${province.name}</option>`);
+                    });
+                },
+                error: function (error) {
+                    console.log(error);
+                }
             });
+        }
+        // Handle Url Params
+        function urlParamsHandle(){
+            SearchObject = getDataFromUrlParams();
+            // Call API to get List Data
+            $.ajax({
+                url: 'http://localhost:8080/realestate/search?size=5',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(SearchObject),
+                success: function (data) {
+                    // Insert List Data to List Element
+                    data.content.forEach(item => {
+                        if(item.photo == ""){
+                            item.photo = 'images/house.webp';
+                        }
+                        if(item.title == null){
+                            item.title = 'Không có tiêu đề';
+                        }
+                        $('#real-estate-list').append(`
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <img src="${item.photo}" alt="Real Estate Image" class="img-fluid" width=200px height=100px>
+                                </div>
+                                <div class="col-md-8">
+                                    <h3>${item.title}</h3>
+                                    <p>Địa chỉ: ${item.address}</p>
+                                    <p class="card-text">${item.price} tỷ <i class="fa-solid fa-circle-dot"></i> ${item.acreage} m<sup>2</sup></p>
+                                </div>
+                            </div>
+                        `);
+                    });
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+        function getDataFromUrlParams(){
+            const urlParams = new URLSearchParams(window.location.search);
+            const provinceId = urlParams.get('provinceId');
+            const price = urlParams.get('price');
+            const acreage = urlParams.get('acreage');
+            const room = urlParams.get('room');
+            const address = urlParams.get('address');
+            let SearchObject = {};
+            if(provinceId && provinceId != 'Chọn tỉnh/thành phố'){
+                SearchObject.provinceId = provinceId;
+            }
+            if(price){
+                SearchObject.price = price;
+            }
+            if(acreage){
+                SearchObject.acreage = acreage;
+            }
+            if(room){
+                SearchObject.room = room;
+            }
+            if(address){
+                SearchObject.address = address;
+            }
+            return SearchObject;
         }
     </script>
 </body>
-
-</html>

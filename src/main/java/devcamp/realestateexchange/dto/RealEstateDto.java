@@ -11,6 +11,8 @@ public class RealEstateDto {
     private double acreage;
     private Date dateCreate;
     private String photo;
+    private String description;
+    private String address;
     public RealEstateDto(int id, String title, int provinceId, int districtId, BigDecimal price, double acreage,
             Date dateCreate, String photo) {
         this.id = id;
@@ -81,6 +83,31 @@ public class RealEstateDto {
     }
     public void setPhoto(String photo) {
         this.photo = photo;
+    }
+    public String getDescription() {
+        return description;
+    }
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    public String getAddress() {
+        return address;
+    }
+    public void setAddress(String address) {
+        this.address = address;
+    }
+    public RealEstateDto(int id, String title, int provinceId, int districtId, BigDecimal price, double acreage,
+            Date dateCreate, String photo, String description, String address) {
+        this.id = id;
+        this.title = title;
+        this.provinceId = provinceId;
+        this.districtId = districtId;
+        this.price = price;
+        this.acreage = acreage;
+        this.dateCreate = dateCreate;
+        this.photo = photo;
+        this.description = description;
+        this.address = address;
     }
     
 }
