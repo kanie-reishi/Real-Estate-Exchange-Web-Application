@@ -1,5 +1,4 @@
 package devcamp.realestateexchange.models;
-import org.springframework.data.domain.Pageable;
 public class RealEstateSearchParameters {
     private Integer provinceId;
     private Integer districtId;
