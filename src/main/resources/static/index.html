@@ -59,8 +59,7 @@
         </div>
     </nav>
     <!-- Search Box -->
-    <div class="container-fluid"
-        style="background-image: url('https://imgs.search.brave.com/dqf-jNh2ziQz_-JY9_x7LV64A_jqS0rrbi8jivM8NkA/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9zdDIu/ZGVwb3NpdHBob3Rv/cy5jb20vMTA0MTA4/OC83NjU2L2kvNDUw/L2RlcG9zaXRwaG90/b3NfNzY1NjcyMTEt/c3RvY2stcGhvdG8t/bmljZS1mcm9udC15/YXJkLXdpdGgtcG9y/Y2guanBn'); width: 100%; height: 300px;">
+    <div class="container-fluid" id="banner-container">
         <div class="container">
             <ul class="nav nav-tabs">
                 <li class="nav-item">
@@ -148,7 +147,7 @@
     <div class="container-fluid">
         <div class="container">
             <h2>Bất động sản phù hợp</h2>
-            <ul class="nav nav-tabs">
+            <ul class="nav nav-tabs mb-3">
                 <li class="nav-item">
                     <button class="nav-link active" id="mua-ban-tab" role="tab" aria-controls="mua bán"
                         aria-selected="true">
@@ -412,7 +411,7 @@
                         var realEstateCard = `
                         <div class="col-lg-4 col-sm-6 mb-4">
                         <div class="card h-100">
-                            <img src="${realEstate.photo}" class="card-img-top" alt="Real Estate Image" width="200px" height = "100px">
+                            <img src="${realEstate.photoUrls[0]}" class="card-img-top" alt="Real Estate Image" width="281.5px" height = "146px">
                             <div class="card-body">
                                 <h5 class="card-title">${realEstate.title}</h5>
                                 <p class="card-text">${realEstate.price} tỷ <i class="fa-solid fa-circle-dot"></i> ${realEstate.acreage} m<sup>2</sup></p>

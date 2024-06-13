@@ -10,7 +10,10 @@ import devcamp.realestateexchange.exceptions.FileUploadException;
 public interface FileService {
     String uploadFile(MultipartFile multipartFile) throws FileUploadException, IOException;
 
+    String uploadFile(MultipartFile multipartFile, int realEstateId) throws IOException;
+    
     Object downloadFile(String fileName) throws FileDownloadException, IOException;
 
     boolean delete(String fileName);
+
 }

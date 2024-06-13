@@ -2,6 +2,7 @@ package devcamp.realestateexchange.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -9,11 +10,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import devcamp.realestateexchange.dto.RealEstateDto;
+import devcamp.realestateexchange.entity.Photo;
+import devcamp.realestateexchange.entity.RealEstate;
 import devcamp.realestateexchange.repositories.IRealEstateRepository;
 import devcamp.realestateexchange.specification.RealEstateSpecification;
 import devcamp.realestateexchange.specification.SearchCriteria;
 import org.springframework.data.jpa.domain.Specification;
 import org.modelmapper.ModelMapper;
+import devcamp.realestateexchange.repositories.IPhotoRepository;
 
 @Service
 public class RealEstateService {
@@ -21,34 +25,18 @@ public class RealEstateService {
     private IRealEstateRepository realEstateRepository;
     @Autowired
     private ModelMapper modelMapper;
-    public Page<RealEstateDto> getRealEstateList(Pageable pageable) {
-        return realEstateRepository.findAllDto(pageable);
+    @Autowired
+    private IPhotoRepository photoRepository;
+    public Page<RealEstateDto> getAllRealEstateDtos(Pageable pageable) {
+        Page<RealEstateDto> realEstates = realEstateRepository.findAllDto(pageable);
+        realEstates.forEach(this::loadPhotoUrls);
+        return realEstates;
     }
-
-    public Page<RealEstateDto> getRealEstateListOrderByViewCount(Pageable pageable) {
-        return realEstateRepository.findAllDtoOrderByViewCount(pageable);
+    private void loadPhotoUrls(RealEstateDto dto) {
+        List<String> photoUrls = photoRepository.findUrlsByRealEstateId(dto.getId());
+        dto.setPhotoUrls(photoUrls);
     }
-
-    public Page<RealEstateDto> getRealEstateListFilterByProvinceId(Pageable pageable, Integer provinceId) {
-        return realEstateRepository.findAllDtoFilterByProvinceId(pageable, provinceId);
-    }
-
-    public Page<RealEstateDto> getRealEstateListFilterByDistrictId(Pageable pageable, Integer districtId) {
-        return realEstateRepository.findAllDtoFilterByDistrictId(pageable, districtId);
-    }
-
-    public Page<RealEstateDto> getRealEstateFilterByMinPriceAndMaxPrice(Pageable pageable, Double minPrice,
-            Double maxPrice) {
-        return realEstateRepository.findAllDtoFilterByMinPriceAndMaxPrice(pageable, minPrice, maxPrice);
-    }
-
-    public Page<RealEstateDto> getRealEstateFilterByAcreage(Pageable pageable, Double minAcreage, Double maxAcreage) {
-        return realEstateRepository.findAllDtoFilterByAcreage(pageable, minAcreage, maxAcreage);
-    }
-
-    public Page<RealEstateDto> getRealEstateFilterByBedroom(Pageable pageable, Integer bedroom) {
-        return realEstateRepository.findAllDtoFilterByNumberBedroom(pageable, bedroom);
-    }
+    
 
     public Page<RealEstateDto> searchRealEstates(Integer provinceId, Integer districtId, Double minPrice,
             Double maxPrice, Double minAcreage, Double maxAcreage, Integer bedroom, String address, Pageable pageable) {
