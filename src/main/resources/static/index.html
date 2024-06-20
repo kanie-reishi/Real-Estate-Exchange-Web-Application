@@ -13,246 +13,316 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <!-- Custom CSS-->
-    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="output.css">
 </head>
 
-<body>
-    <!-- Navbar-->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">RealEstate.com</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Mua bán</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Cho thuê</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Sang nhượng</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Dự án</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Tin tức</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Liên hệ</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Về chúng tôi</a>
-                    </li>
-                </ul>
-                <button class="btn" data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-dismiss="modal">
-                    <i class="fa-regular fa-user"></i>
-                    Đăng ký/ Đăng nhập
-                </button>
-                <button class="btn btn-outline-info">Đăng tin</button>
-            </div>
-            <button class="btn"><i class="fa-regular fa-heart"></i></button>
-        </div>
-    </nav>
-    <!-- Search Box -->
-    <div class="container-fluid" id="banner-container">
-        <div class="container">
-            <ul class="nav nav-tabs">
-                <li class="nav-item">
-                    <button class="nav-link active" id="mua-ban-tab" role="tab" aria-controls="mua bán"
-                        aria-selected="true">
-                        Mua bán
-                    </button>
-                </li>
-                <li class="nav-item">
-                    <button class="nav-link" id="mua-ban-tab" role="tab" aria-controls="mua bán" aria-selected="true">
-                        Cho thuê
-                    </button>
-                </li>
-                <li class="nav-item">
-                    <button class="nav-link" id="mua-ban-tab" role="tab" aria-controls="mua bán" aria-selected="true">
-                        Sang nhượng
-                    </button>
-                </li>
-            </ul>
-            <div class="search-box">
-                <div class="input-group">
-                    <div class="col-sm-3">
-                        <select class="form-select" id="province">
-                            <option selected>Chọn tỉnh/thành phố</option>
-                            <!--Insert Province Data Here-->
-                        </select>
+<body
+    class="overflow-x-hidden scrollbar-thin scrollbar-thumb-black-v3 scrollbar-thumb-rounded-full scrollbar-track-rounded-full w-screen h-screen relative">
+    <div>
+        <div>
+            <!-- Navbar-->
+            <header
+                class="inset-x-0 z-10 duration-300 ease-linear top-0 w-screen absolute ml:fixed ml:shadow-divide header-sticky-enter-done">
+                <div class="fresnel-container fresnel-greaterThanOrEqual-lg">
+                    <nav class="relative shadow dark:bg-gray-800 shadow-[inset_0_-1px_0_#ececec] bg-white">
+                        <div class="px-[1.5rem] py-[1.25rem] mx-auto">
+                            <div class="lg:flex lg:items-center lg:justify-between">
+                                <div class="flex items-center justify-between">
+                                    <div class="text-xl font-semibold text-gray-700 flex-shrink-0">
+                                        <h1>
+                                            <a class="text-2xl font-bold text-gray-800 transition-colors duration-300 transform dark:text-white lg:text-2xl hover:text-gray-700 dark:hover:text-gray-300"
+                                                href="#">RealEstate.com</a>
+                                        </h1>
+                                    </div>
+                                    <div class="flex flex-col lg:flex-row lg:items-center mx-1" id="navbarNav">
+                                        <div class="relative nav-item">
+                                            <a class="px-[0.625rem] py-[0.5rem] text-sm font-semibold transition-colors duration-300 transform rounded-[1.25rem] hover:bg-gray-v3 whitespace-nowrap text-black-v8"
+                                                href="#">Mua bán</a>
+                                        </div>
+                                        <div class="relative nav-item">
+                                            <a class="px-[0.625rem] py-[0.5rem] text-sm font-semibold transition-colors duration-300 transform rounded-[1.25rem] hover:bg-gray-v3 whitespace-nowrap text-black-v8"
+                                                href="#">Cho thuê</a>
+                                        </div>
+                                        <div class="relative nav-item">
+                                            <a class="px-[0.625rem] py-[0.5rem] text-sm font-semibold transition-colors duration-300 transform rounded-[1.25rem] hover:bg-gray-v3 whitespace-nowrap text-black-v8"
+                                                href="#">Sang nhượng</a>
+                                        </div>
+                                        <div class="relative nav-item">
+                                            <a class="px-[0.625rem] py-[0.5rem] text-sm font-semibold transition-colors duration-300 transform rounded-[1.25rem] hover:bg-gray-v3 whitespace-nowrap text-black-v8"
+                                                href="#">Dự án</a>
+                                        </div>
+                                        <div class="relative nav-item">
+                                            <a class="px-[0.625rem] py-[0.5rem] text-sm font-semibold transition-colors duration-300 transform rounded-[1.25rem] hover:bg-gray-v3 whitespace-nowrap text-black-v8"
+                                                href="#">Tin tức</a>
+                                        </div>
+                                        <div class="relative nav-item">
+                                            <a class="px-[0.625rem] py-[0.5rem] text-sm font-semibold transition-colors duration-300 transform rounded-[1.25rem] hover:bg-gray-v3 whitespace-nowrap text-black-v8"
+                                                href="#">Liên hệ</a>
+                                        </div>
+                                        <div class="relative nav-item">
+                                            <a class="px-[0.625rem] py-[0.5rem] text-sm font-semibold transition-colors duration-300 transform rounded-[1.25rem] hover:bg-gray-v3 whitespace-nowrap text-black-v8"
+                                                href="#">Về chúng tôi</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="absolute inset-x-0 z-20 lg:z-auto w-full px-6 py-4 transition-all duration-300 ease-in-out bg-white dark:bg-gray-800 lg:mt-0 lg:p-0 lg:top-0 lg:relative lg:bg-transparent lg:w-auto lg:opacity-100 lg:translate-x-0 lg:flex lg:items-center">
+                                    <button class="btn"><i class="fa-regular fa-heart"></i></button>
+                                    <button
+                                        class="whitespace-nowrap px-[0.625rem] text-sm font-medium transition-colors duration-300 transform button-gray-outline rounded-[2.25rem] bg-gray-v2 border-0 text-black-v8 flex items-center ml-4"
+                                        data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-dismiss="modal">
+                                        <i class="fa-regular fa-user"></i>
+                                        Đăng ký/ Đăng nhập
+                                    </button>
+                                    <a href="#"
+                                        class="whitespace-nowrap px-[0.625rem] py-[0.5rem] text-base text-secondary font-medium transition-colors duration-300 transform button-primary-outline rounded-[2.25rem] flex items-center cursor-pointer ml-5"><i
+                                            class="ml ml-add text-[1rem] text-secondary mr-[0.5rem]"></i>Đăng tin</a>
+                                </div>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </header>
+            <main class="relative lg:top-[76px] w-screen top-0">
+                <!-- Search Box -->
+                <div class="fresnel-container fresnel-greaterThanOrEqual-lg">
+                    <div class="relative text-white z-5 bg-gray-v1 font-normal">
+                        <div class="relative text-white z-5 bg-gray-v1 font-normal">
+                            <div class="overflow-hidden w-full home_home-banner__fK8Tn">
+                                <div class="w-full mx-auto h-full bg-[#D8D4C9]">
+                                    <div class="flex justify-center w-full h-full">
+                                        <span
+                                            style="box-sizing: border-box; display: inline-block; overflow: hidden; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px;position: relative; max-width: 100%;">
+                                            <span
+                                                style="box-sizing: border-box; display: block; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; max-width: 100%;">
+                                                <img alt="" aria-hidden="true"
+                                                    src="data:image/svg+xml,%3csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20version=%271.1%27%20width=%271911%27%20height=%27640%27/%3e"
+                                                    style="display: block; max-width: 100%; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px;">
+                                            </span>
+                                            <img alt="Banner Img" src="images/pexels-binyaminmellish-106399 (1).jpg"
+                                                class="object-cover w-full h-full"
+                                                style="position: absolute; inset: 0px; box-sizing: border-box; padding: 0px; border: none; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%;">
+                                            <noscript></noscript>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="absolute inset-0 top-[39px] 2xl:top-24 md:w-[800px] mx-auto">
+                                <div class="relative my-2">
+                                    <div class="flex items-start justify-center flex-col">
+                                        <div class="flex mb-2">
+                                            <div class="tab">
+                                                <div class="tab-item py-3 mr-6 text-white tab-item-home active"><button
+                                                        class="text-base" type="button">Mua bán</button>
+                                                </div>
+                                            </div>
+                                            <div class="tab">
+                                                <div class="tab-item py-3 mr-6 text-white tab-item-home"><button
+                                                        class="text-base undefined" type="button">Cho thuê</button>
+                                                </div>
+                                            </div>
+                                            <div class="tab">
+                                                <div class="tab-item py-3 mr-6 text-white tab-item-home"><button
+                                                        class="text-base undefined" type="button">Sang nhượng</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="relative w-full bg-white rounded-2xl search-input_search-input-wrapper__R8nkU">
+                                        <div class="flex justify-between items-center p-2">
+                                            <div class="w-full flex items-center"><input
+                                                    class="w-full text-base px-[20px] text-black-v8 search-input_search-input__IqSQH"
+                                                    type="text" placeholder="Nhập địa chỉ hoặc dự án" maxlength="100"
+                                                    value="">
+                                            </div><button
+                                                class="flex justify-center items-center w-[137px] h-[48px] button-primary rounded-[12px] shrink-0"
+                                                type="button"><i
+                                                    class="ml ml-search text-white text-[1.5rem] mr-1"></i>Tìm
+                                                kiếm</button>
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="relative inline-flex px-3 py-2 rounded-b-xl w-[633px] search-input_filter-desktop__yE7Y8">
+                                        <div class="relative select pl-2.5 w-[148px] mr-2">
+                                            <div
+                                                class="cursor-pointer flex items-center justify-between text-base pl-2 py-1 hover:bg-[rgba(221,221,221,0.3)] hover:rounded-lg">
+                                                <div class="truncate flex"><span
+                                                        class="overflow-hidden overflow-ellipsis">Loại
+                                                        nhà đất</span></div><i
+                                                    class="ml ml-expand_more text-white text-[1.5rem] flex-shrink-0"></i>
+                                            </div>
+                                        </div>
+                                        <div class="relative select pl-1.5 mr-2 w-[120px]">
+                                            <div
+                                                class="cursor-pointer flex items-center justify-between text-base pl-2 py-1 hover:bg-[rgba(221,221,221,0.3)] hover:rounded-lg">
+                                                <div class="truncate flex"><span
+                                                        class="overflow-hidden overflow-ellipsis">Khu
+                                                        vực</span></div><i
+                                                    class="ml ml-expand_more text-white text-[1.5rem] flex-shrink-0"></i>
+                                            </div>
+                                        </div>
+                                        <div class="relative select pl-1.5 mr-2 w-[116px]">
+                                            <div
+                                                class="cursor-pointer flex items-center justify-between text-base pl-2 py-1 hover:bg-[rgba(221,221,221,0.3)] hover:rounded-lg">
+                                                <div class="truncate flex"><span
+                                                        class="overflow-hidden overflow-ellipsis">Mức
+                                                        giá</span></div><i
+                                                    class="ml ml-expand_more text-white text-[1.5rem] flex-shrink-0"></i>
+                                            </div>
+                                        </div>
+                                        <div class="relative select pl-1.5 mr-2 w-[126px]">
+                                            <div
+                                                class="cursor-pointer flex items-center justify-between text-base pl-2 py-1 hover:bg-[rgba(221,221,221,0.3)] hover:rounded-lg">
+                                                <div class="truncate flex"><span
+                                                        class="overflow-hidden overflow-ellipsis">Diện
+                                                        tích</span></div><i
+                                                    class="ml ml-expand_more text-white text-[1.5rem] flex-shrink-0"></i>
+                                            </div>
+                                        </div>
+                                        <div class="relative select w-[78px]">
+                                            <div
+                                                class="cursor-pointer flex items-center justify-between text-base pl-2 py-1 hover:bg-[rgba(221,221,221,0.3)] hover:rounded-lg">
+                                                <div class="truncate flex"><span
+                                                        class="overflow-hidden overflow-ellipsis">Dự
+                                                        án</span></div><i
+                                                    class="ml ml-expand_more text-white text-[1.5rem] flex-shrink-0"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <input type="text" class="form-control" placeholder="Nhập địa chỉ hoặc dự án" id="inp-address">
-                    <button class="btn btn-primary" id="btn-search">Tìm kiếm</button>
-                    <div class="col-sm-12 row">
-                        <div class="dropdown col-sm-1" id="dropdown-price">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownGia"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                Giá
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownGia">
-                                <li>
-                                    <input type="radio" name="price" id="duoi-1-ty" value="duoi-1-ty">
-                                    <span>Dưới 1 tỷ</span>
-                                </li>
-                                <li>
-                                    <input type="radio" name="price" id="tu-1-ty-den-3-ty" value="tu-1-ty-den-3-ty">
-                                    <span>Từ 1 tỷ đến 3 tỷ</span>
-                                </li>
-                                <li>
-                                    <input type="radio" name="price" id="tu-3-ty-den-5-ty" value="tu-3-ty-den-5-ty">
-                                    <span>Từ 3 tỷ đến 5 tỷ</span>
-                                </li>
-                                <li>
-                                    <input type="radio" name="price" id="tren-5-ty" value="tren-5-ty">
-                                    <span>Trên 5 tỷ</span>
-                                </li>
+                </div>
+                <div>
+                    <div class="flex-1 grow">
+                        <div class="layout"></div>
+                        <!-- Bat Dong San Phu Hop -->
+                        <section class="mx-auto bg-white layout pb-6 lg:pb-0 lg:my-14 hidden-scrollbar">
+                            <div class="flex items-center justify-between mb-2 px-4 w-full mt-6 lg:mt-0 lg:px-0">
+                                <h2 class="text-xl text-black-v8 font-semibold md:text-3xl">Bất động sản phù hợp</h2>
+                                <div class="flex-shrink-0">
+                                    <div class="text-center block lg:hidden"><button
+                                            class="text-sm font-medium text-secondary"><a title="mua bán nhà đất"
+                                                href="/mua-ban-nha-dat">Xem tất cả</a></button></div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div role="tablist" class="flex px-4 xl:px-0">
+                                    <div class="py-3 tab-item mr-12 lg:hover:bg-gray-v3 rounded-lg transition-all ease-linear duration-200 lg:hover:px-[2rem] active"
+                                        role="presentation"><button
+                                            class="inline-block text-base whitespace-nowrap text-secondary font-medium"
+                                            data-tabs-target="#5deb722db4367252525c1d00" type="button" role="tab"
+                                            aria-selected="true" aria-label="tab-menu">Mua bán</button></div>
+                                    <div class="py-3 tab-item mr-12 lg:hover:bg-gray-v3 rounded-lg transition-all ease-linear duration-200 lg:hover:px-[2rem]"
+                                        role="presentation"><button
+                                            class="inline-block text-base whitespace-nowrap text-black-v7 md:text-black-v8"
+                                            data-tabs-target="#5deb722db4367252525c1d11" type="button" role="tab"
+                                            aria-selected="false" aria-label="tab-menu">Cho thuê</button></div>
+                                    <div class="py-3 tab-item mr-12 lg:hover:bg-gray-v3 rounded-lg transition-all ease-linear duration-200 lg:hover:px-[2rem]"
+                                        role="presentation"><button
+                                            class="inline-block text-base whitespace-nowrap text-black-v7 md:text-black-v8"
+                                            data-tabs-target="#5deb722db4367252525c1d16" type="button" role="tab"
+                                            aria-selected="false" aria-label="tab-menu">Sang nhượng</button></div>
+                                </div>
+                            </div>
+                            <div class="fresnel-container fresnel-greaterThanOrEqual-lg ">
+                                <div class="flex lg:grid lg:grid-cols-3 gap-6 py-2 px-4 lg:px-0"
+                                    id="real-estate-phu-hop-container">
+                                    <!--Insert Card Data Here-->
+                                </div>
+                            </div>
+                    </div>
+                </div>
+                <!-- Bat Dong San Noi Bat-->
+                <div class="container-fluid">
+                    <div class="container">
+                        <h2>Bất động sản nổi bật</h2>
+                        <ul class="nav nav-tabs">
+                            <li class="nav-item">
+                                <button class="nav-link active" id="mua-ban-tab" role="tab" aria-controls="mua bán"
+                                    aria-selected="true">
+                                    Mua bán
+                                </button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link" id="mua-ban-tab" role="tab" aria-controls="mua bán"
+                                    aria-selected="true">
+                                    Cho thuê
+                                </button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link" id="mua-ban-tab" role="tab" aria-controls="mua bán"
+                                    aria-selected="true">
+                                    Sang nhượng
+                                </button>
+                            </li>
+                        </ul>
+                        <div class="container row" id="real-estate-noi-bat-container">
+                            <!--Insert Card Data Here-->
+                        </div>
+                        <button class="btn btn-primary">Xem thêm</button>
+                    </div>
+                </div>
+                <!-- Tin tuc -->
+                <div class="container-fluid">
+                    <div class="container">
+                        <h2>Tin tức</h2>
+                        <div class="container">
+                            <!--Insert Card Data Here-->
+                        </div>
+                        <button class="btn btn-primary">Xem thêm</button>
+                    </div>
+                </div>
+                <!--Doi tac-->
+                <div class="container-fluid">
+                    <div class="container">
+                        <h2>Đối tác</h2>
+                        <div class="container">
+                            <!--Insert Carousel Here-->
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <!--Footer-->
+            <footer>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h3>RealEstate.com</h3>
+                            <p>RealEstate.com là trang web mua bán, cho thuê, sang nhượng bất động sản hàng đầu Việt Nam
+                            </p>
+                        </div>
+                        <div class="col-md-3">
+                            <h3>Liên hệ</h3>
+                            <p>Địa chỉ: 123 Đường ABC, Quận XYZ, TP. HCM</p>
+                            <p>Email:</p>
+                            <p>Điện thoại: 0123456789</p>
+                        </div>
+                        <div class="col-md-3">
+                            <h3>Liên kết</h3>
+                            <ul>
+                                <a href="#" class="nav-link">
+                                    <i class="fa-brands fa-facebook"></i>
+                                </a>
+                                <a href="#" class="nav-link">
+                                    <i class="fa-brands fa-youtube"></i>
+                                </a>
                             </ul>
                         </div>
-                        <div class="dropdown col-sm-1" id="dropdown-acreage">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownDienTich"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                Diện tích
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownDienTich">
-                                <li>
-                                    <input type="radio" name="acreage" id="duoi-50-m2" value="duoi-50-m2">
-                                    <span>Dưới 50 m<sup>2</sup></span>
-                                </li>
-                                <li>
-                                    <input type="radio" name="acreage" id="tu-50-m2-den-100-m2" value="tu-50-m2-den-100-m2">
-                                    <span>Từ 50 m<sup>2</sup> đến 100 m<sup>2</sup></span>
-                                </li>
-                                <li>
-                                    <input type="radio" name="acreage" id="tu-100-m2-den-200-m2" value="tu-100-m2-den-200-m2">
-                                    <span>Từ 100 m<sup>2</sup> đến 200 m<sup>2</sup></span>
-                                </li>
-                                <li>
-                                    <input type="radio" name="acreage" id="tren-200-m2" value="tren-200-m2">
-                                    <span>Trên 200 m<sup>2</sup></span>
-                                </li>
+                        <div class="col-md-3">
+                            <h3>Tải ứng dụng</h3>
+                            <ul>
+                                <li><img src="images/google-play.png" alt="Google Play"></li>
+                                <li><img src="images/app-store.png" alt="App Store"></li>
                             </ul>
                         </div>
                     </div>
                 </div>
-            </div>
+            </footer>
         </div>
     </div>
-    <!-- Bat Dong San Phu Hop -->
-    <div class="container-fluid">
-        <div class="container">
-            <h2>Bất động sản phù hợp</h2>
-            <ul class="nav nav-tabs mb-3">
-                <li class="nav-item">
-                    <button class="nav-link active" id="mua-ban-tab" role="tab" aria-controls="mua bán"
-                        aria-selected="true">
-                        Mua bán
-                    </button>
-                </li>
-                <li class="nav-item">
-                    <button class="nav-link" id="mua-ban-tab" role="tab" aria-controls="mua bán" aria-selected="true">
-                        Cho thuê
-                    </button>
-                </li>
-                <li class="nav-item">
-                    <button class="nav-link" id="mua-ban-tab" role="tab" aria-controls="mua bán" aria-selected="true">
-                        Sang nhượng
-                    </button>
-                </li>
-            </ul>
-            <div class="container row" id="real-estate-phu-hop-container">
-                <!--Insert Card Data Here-->
-            </div>
-            <button class="btn btn-primary">Xem thêm</button>
-        </div>
-    </div>
-    <!-- Bat Dong San Noi Bat-->
-    <div class="container-fluid">
-        <div class="container">
-            <h2>Bất động sản nổi bật</h2>
-            <ul class="nav nav-tabs">
-                <li class="nav-item">
-                    <button class="nav-link active" id="mua-ban-tab" role="tab" aria-controls="mua bán"
-                        aria-selected="true">
-                        Mua bán
-                    </button>
-                </li>
-                <li class="nav-item">
-                    <button class="nav-link" id="mua-ban-tab" role="tab" aria-controls="mua bán" aria-selected="true">
-                        Cho thuê
-                    </button>
-                </li>
-                <li class="nav-item">
-                    <button class="nav-link" id="mua-ban-tab" role="tab" aria-controls="mua bán" aria-selected="true">
-                        Sang nhượng
-                    </button>
-                </li>
-            </ul>
-            <div class="container row" id="real-estate-noi-bat-container">
-                <!--Insert Card Data Here-->
-            </div>
-            <button class="btn btn-primary">Xem thêm</button>
-        </div>
-    </div>
-    <!-- Tin tuc -->
-    <div class="container-fluid">
-        <div class="container">
-            <h2>Tin tức</h2>
-            <div class="container">
-                <!--Insert Card Data Here-->
-            </div>
-            <button class="btn btn-primary">Xem thêm</button>
-        </div>
-    </div>
-    <!--Doi tac-->
-    <div class="container-fluid">
-        <div class="container">
-            <h2>Đối tác</h2>
-            <div class="container">
-                <!--Insert Carousel Here-->
-            </div>
-        </div>
-    </div>
-    <!--Footer-->
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3">
-                    <h3>RealEstate.com</h3>
-                    <p>RealEstate.com là trang web mua bán, cho thuê, sang nhượng bất động sản hàng đầu Việt Nam</p>
-                </div>
-                <div class="col-md-3">
-                    <h3>Liên hệ</h3>
-                    <p>Địa chỉ: 123 Đường ABC, Quận XYZ, TP. HCM</p>
-                    <p>Email:</p>
-                    <p>Điện thoại: 0123456789</p>
-                </div>
-                <div class="col-md-3">
-                    <h3>Liên kết</h3>
-                    <ul>
-                        <a href="#" class="nav-link">
-                            <i class="fa-brands fa-facebook"></i>
-                        </a>
-                        <a href="#" class="nav-link">
-                            <i class="fa-brands fa-youtube"></i>
-                        </a>
-                    </ul>
-                </div>
-                <div class="col-md-3">
-                    <h3>Tải ứng dụng</h3>
-                    <ul>
-                        <li><img src="images/google-play.png" alt="Google Play"></li>
-                        <li><img src="images/app-store.png" alt="App Store"></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </footer>
     <!-- Modal Login -->
     <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -264,7 +334,8 @@
                 <div class="modal-body">
                     <form action="#">
                         <div class="mb-3">
-                            <label for="email" class="form-label" style="font-size: 13px;">Số điện thoại/ Email</label>
+                            <label for="email" class="form-label" style="font-size: 13px;">Số điện thoại/
+                                Email</label>
                             <input type="email" class="form-control" id="text" aria-describedby="emailHelp"
                                 placeholder="Nhập số điện thoại/ Email">
                         </div>
@@ -296,7 +367,8 @@
                     </div>
                     <div class="text-center" style="margin-bottom:1.5rem">
                         <p style="font-size: 13px;">
-                            Bằng cách đăng nhập, bạn đồng ý với Điều khoản dịch vụ và Chính sách bảo mật của chúng tôi
+                            Bằng cách đăng nhập, bạn đồng ý với Điều khoản dịch vụ và Chính sách bảo mật của chúng
+                            tôi
                         </p>
                     </div>
                 </div>
@@ -314,7 +386,8 @@
                 <div class="modal-body">
                     <form action="#">
                         <div class="mb-3">
-                            <label for="email" class="form-label" style="font-size: 13px;">Số điện thoại/ Email</label>
+                            <label for="email" class="form-label" style="font-size: 13px;">Số điện thoại/
+                                Email</label>
                             <input type="email" class="form-control" id="email" aria-describedby="emailHelp"
                                 placeholder="Nhập số điện thoại/ Email">
                         </div>
@@ -323,7 +396,8 @@
                             <input type="password" class="form-control" id="password" placeholder="Nhập mật khẩu">
                         </div>
                         <div class="mb-3">
-                            <label for="password" class="form-label" style="font-size: 13px;">Nhập lại mật khẩu</label>
+                            <label for="password" class="form-label" style="font-size: 13px;">Nhập lại mật
+                                khẩu</label>
                             <input type="password" class="form-control" id="password" placeholder="Nhập lại mật khẩu">
                         </div>
                         <div class="d-grid">
@@ -402,23 +476,102 @@
                     return Promise.all([provincePromise, districtPromise]).then(function (results) {
                         var province = results[0];
                         var district = results[1];
-                        if(realEstate.photo == ""){
+                        if (realEstate.photo == "") {
                             realEstate.photo = 'images/house.webp';
                         }
-                        if(realEstate.title == null){
+                        if (realEstate.title == null) {
                             realEstate.title = 'Không có tiêu đề';
                         }
                         var realEstateCard = `
-                        <div class="col-lg-4 col-sm-6 mb-4">
-                        <div class="card h-100">
-                            <img src="${realEstate.photoUrls[0]}" class="card-img-top" alt="Real Estate Image" width="281.5px" height = "146px">
-                            <div class="card-body">
-                                <h5 class="card-title">${realEstate.title}</h5>
-                                <p class="card-text">${realEstate.price} tỷ <i class="fa-solid fa-circle-dot"></i> ${realEstate.acreage} m<sup>2</sup></p>
-                                <p class="card-text"><i class="fa-solid fa-location-dot"></i> ${province.name}, ${district.name}</p>
+                        <div class="bg-white cursor-pointer slider-hover relative rounded-lg border border-gray-v1">
+                            <div class="rounded-lg transition-shadow duration-300 text-black-v8 bg-white w-full w-full">
+                                <div class="relative overflow-hidden rounded-lg">
+                                    <div>
+                                        <div class="image-fill-wrapper rounded-lg h-208px lg-h-220px w-full">
+                                            <img src="${realEstate.photoUrls[0]}" alt="${realEstate.title}" class="image-fill mx-auto mx-auto rounded-lg w-full" width="330" height="220">
+                                            </div>
+                                            <div class="absolute flex items-center bottom-3 z-[1] left-1/2 -translate-x-1/2">
+                                                <button class="inline-block h-1 w-1 bg-white opacity-50 mx-1 rounded-full flex-shrink-0 h-[0.375rem] w-[0.375rem] opacity-100" aria-label="dot"></button>
+                                                <button class="inline-block h-1 w-1 bg-white opacity-50 mx-1 rounded-full flex-shrink-0" aria-label="dot"></button>
+                                                <button class="inline-block h-1 w-1 bg-white opacity-50 mx-1 rounded-full flex-shrink-0" aria-label="dot"></button>
+                                                <button class="inline-block h-1 w-1 bg-white opacity-50 mx-1 rounded-full flex-shrink-0" aria-label="dot"></button>
+                                                <button class="inline-block h-1 w-1 bg-white opacity-50 mx-1 rounded-full flex-shrink-0" aria-label="dot"></button>
+                                                <button class="inline-block h-1 w-1 bg-white opacity-50 mx-1 rounded-full flex-shrink-0" aria-label="dot"></button>
+                                                <button class="inline-block h-1 w-1 bg-white opacity-50 mx-1 rounded-full flex-shrink-0" aria-label="dot"></button>
+                                                <button class="inline-block h-1 w-1 bg-white opacity-50 mx-1 rounded-full flex-shrink-0" aria-label="dot"></button>
+                                            </div>
+                                        </div>
+                                        <div class="absolute h-4 w-auto rounded-xl bg-[rgba(52,52,52,0.6)] text-xxs text-white bottom-1.5 left-2 flex items-center px-1 py-0.5">
+                                            <div class="w-[7px] h-[7px] bg-green-v3 border border-solid border-white rounded mr-1"></div>
+                                            <span>Môi giới</span>
+                                        </div>
+                                        <div class="absolute top-2 right-2">
+                                            <div class="fresnel-container fresnel-greaterThanOrEqual-xl ">
+                                                <button class="flex items-center justify-center relative h-8 w-8 rounded-full z-[1] bg-[rgba(52,52,52,0.25)]" aria-label="button-favorite">
+                                                    <i class="ml ml-favorite_border text-white absolute top-1/2 -translate-y-1/2 text-[22px]"></i>
+                                                    <i class="ml ml-favorite text-[rgba(52,52,52,0.4)] text-[20px]"></i>
+                                                </button>
+                                            </div>
+                                            <div class="fresnel-container fresnel-lessThan-xl "></div>
+                                            <div class="fresnel-container fresnel-greaterThanOrEqual-xl ">
+                                                <div class="mt-2">
+                                                    <button class="rounded-full z-[1] w-8 h-8 bg-[rgba(52,52,52,0.25)]" aria-label="button-compare">
+                                                        <div class="flex items-center justify-center relative">
+                                                            <span class="ml ml-compare text-[1.25rem]">
+                                                                <span class="path1 text-[rgba(52,52,52,0.4)]"></span>
+                                                                <span class="path2 text-[rgba(52,52,52,0.4)]"></span>
+                                                                <span class="path3 text-white"></span>
+                                                            </span>
+                                                        </div>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="fresnel-container fresnel-lessThan-xl "></div>
+                                        </div>
+                                        <div class="absolute bottom-2 right-2 z-[1] text-white text-xs font-medium flex items-center">
+                                            <div class="flex items-center">
+                                                <i class="ml ml-image text-white text-[1rem] mr-0.5"></i>
+                                                <span>8</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="h-[168px] md:h-[168px] p-3">
+                                        <div class="flex flex-col">
+                                            <div>
+                                                <div class="mb-[0.375rem] lg:mb-3 text-base font-medium line-clamp-2 text-[#2b2b2b] h-12">
+                                                    <h3>
+                                                        <a title="${realEstate.title}" href="/co-dien-tich-chung-la-90m2-ban-nha-vi-tri-thuan-loi-toa-lac-tren-cau-giay-ha-noi-nhin-chung-gom-20-phong-ngu-20-wc-lien-he-chinh-chu-1712081528257">
+                                                            ${realEstate.title} 
+                                                        </a>
+                                                    </h3>
+                                                </div>
+                                            </div>
+                                            <p class="h-7 mb-1 text-base font-semibold lg:line-clamp-1 flex items-center">
+                                                <span>${realEstate.price} Tỷ</span>
+                                                <span class="h-[3px] w-[3px] inline-block bg-[#C4C4C4] rounded mx-1.5 mb-1"></span>
+                                                <span>${(realEstate.price * 1000 / realEstate.acreage).toPrecision(4)} Tr/m²</span>
+                                            </p>
+                                            <div class="text-sm text-black-v6 lg:text-black-v8 flex h-5">
+                                                <div class="text-sm break-word line-clamp-1">
+                                                    <span>${realEstate.acreage} m
+                                                        <sup>2</sup>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="w-full border-b border-dashed border-black-v1 my-2"></div>
+                                            <div class="flex items-center justify-between text-sm text-black-v7">
+                                                <p class="line-clamp-1">${district.name}, ${province.name}</p>
+                                                <p class="inline-block whitespace-nowrap ml-4 text-xs">${realEstate.dateCreate}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="fresnel-container fresnel-greaterThanOrEqual-lg "></div>
+                                </div>
+                                <div class="absolute top-[60%] bg-black-v1 w-full h-[1px] opacity-0"></div>
+                                <div class="absolute top-[50%] right-0 bg-black-v1 w-4 h-4 opacity-0"></div>
                             </div>
-                        </div>
-                        </div>
                         `;
                         $("#real-estate-phu-hop-container").append(realEstateCard);
                     });
@@ -445,10 +598,10 @@
                     return Promise.all([provincePromise, districtPromise]).then(function (results) {
                         var province = results[0];
                         var district = results[1];
-                        if(realEstate.photo == ""){
+                        if (realEstate.photo == "") {
                             realEstate.photo = 'images/house.webp';
                         }
-                        if(realEstate.title == null){
+                        if (realEstate.title == null) {
                             realEstate.title = 'Không có tiêu đề';
                         }
                         var realEstateCard = `
@@ -474,7 +627,6 @@
                 url: "http://localhost:8080/provinces",
                 type: "GET",
             }).then(function (data) {
-                console.log(data);
                 data.forEach(function (province) {
                     var provinceOption = `<option value="${province.id}">${province.name}</option>`;
                     $("#province").append(provinceOption);

@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RealEstate.com</title>
+    <!-- Font Awesome-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Bootstrap CSS-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- Custom CSS-->
+    <link rel="stylesheet" href="output.css">
+</head>
+
+<body
+    class="overflow-x-hidden scrollbar-thin scrollbar-thumb-black-v3 scrollbar-thumb-rounded-full scrollbar-track-rounded-full w-screen h-screen relative">
+    <div>
+        <div>
+            <!-- Navbar-->
+            <header
+                class="inset-x-0 z-10 duration-300 ease-linear top-0 w-screen absolute ml:fixed ml:shadow-divide header-sticky-enter-done">
+                <div class="fresnel-container fresnel-greaterThanOrEqual-lg">
+                    <nav class="relative shadow dark:bg-gray-800 shadow-[inset_0_-1px_0_#ececec] bg-white">
+                        <div class="px-[1.5rem] py-[1.25rem] mx-auto">
+                            <div class="lg:flex lg:items-center lg:justify-between">
+                                <div class="flex items-center justify-between">
+                                    <div class="text-xl font-semibold text-gray-700 flex-shrink-0">
+                                        <h1>
+                                            <a class="text-2xl font-bold text-gray-800 transition-colors duration-300 transform dark:text-white lg:text-2xl hover:text-gray-700 dark:hover:text-gray-300"
+                                                href="#">RealEstate.com</a>
+                                        </h1>
+                                    </div>
+                                    <div class="flex flex-col lg:flex-row lg:items-center mx-1" id="navbarNav">
+                                        <div class="relative nav-item">
+                                            <a class="px-[0.625rem] py-[0.5rem] text-sm font-semibold transition-colors duration-300 transform rounded-[1.25rem] hover:bg-gray-v3 whitespace-nowrap text-black-v8"
+                                                href="#">Mua bán</a>
+                                        </div>
+                                        <div class="relative nav-item">
+                                            <a class="px-[0.625rem] py-[0.5rem] text-sm font-semibold transition-colors duration-300 transform rounded-[1.25rem] hover:bg-gray-v3 whitespace-nowrap text-black-v8"
+                                                href="#">Cho thuê</a>
+                                        </div>
+                                        <div class="relative nav-item">
+                                            <a class="px-[0.625rem] py-[0.5rem] text-sm font-semibold transition-colors duration-300 transform rounded-[1.25rem] hover:bg-gray-v3 whitespace-nowrap text-black-v8"
+                                                href="#">Sang nhượng</a>
+                                        </div>
+                                        <div class="relative nav-item">
+                                            <a class="px-[0.625rem] py-[0.5rem] text-sm font-semibold transition-colors duration-300 transform rounded-[1.25rem] hover:bg-gray-v3 whitespace-nowrap text-black-v8"
+                                                href="#">Dự án</a>
+                                        </div>
+                                        <div class="relative nav-item">
+                                            <a class="px-[0.625rem] py-[0.5rem] text-sm font-semibold transition-colors duration-300 transform rounded-[1.25rem] hover:bg-gray-v3 whitespace-nowrap text-black-v8"
+                                                href="#">Tin tức</a>
+                                        </div>
+                                        <div class="relative nav-item">
+                                            <a class="px-[0.625rem] py-[0.5rem] text-sm font-semibold transition-colors duration-300 transform rounded-[1.25rem] hover:bg-gray-v3 whitespace-nowrap text-black-v8"
+                                                href="#">Liên hệ</a>
+                                        </div>
+                                        <div class="relative nav-item">
+                                            <a class="px-[0.625rem] py-[0.5rem] text-sm font-semibold transition-colors duration-300 transform rounded-[1.25rem] hover:bg-gray-v3 whitespace-nowrap text-black-v8"
+                                                href="#">Về chúng tôi</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="absolute inset-x-0 z-20 lg:z-auto w-full px-6 py-4 transition-all duration-300 ease-in-out bg-white dark:bg-gray-800 lg:mt-0 lg:p-0 lg:top-0 lg:relative lg:bg-transparent lg:w-auto lg:opacity-100 lg:translate-x-0 lg:flex lg:items-center">
+                                    <button class="btn"><i class="fa-regular fa-heart"></i></button>
+                                    <button
+                                        class="whitespace-nowrap px-[0.625rem] text-sm font-medium transition-colors duration-300 transform button-gray-outline rounded-[2.25rem] bg-gray-v2 border-0 text-black-v8 flex items-center ml-4"
+                                        data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-dismiss="modal">
+                                        <i class="fa-regular fa-user"></i>
+                                        Đăng ký/ Đăng nhập
+                                    </button>
+                                    <a href="#"
+                                        class="whitespace-nowrap px-[0.625rem] py-[0.5rem] text-base text-secondary font-medium transition-colors duration-300 transform button-primary-outline rounded-[2.25rem] flex items-center cursor-pointer ml-5"><i
+                                            class="ml ml-add text-[1rem] text-secondary mr-[0.5rem]"></i>Đăng tin</a>
+                                </div>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </header>
+            <main class="relative lg:top-[76px] w-screen top-0">
+                <h1 class="absolute overflow-hidden border-none h-[1px] w-[1px] p-0">Đăng tin bất động sản hiệu quả,
+                    đăng tin mua bán cho thuê nhà đất miễn phí</h1>
+                <div class="md:bg-[#f4f6f8] pb-16">
+                    <div>
+                        <div class="max-w-[1140px] mx-auto">
+                            <form id="article-form">
+                                <div
+                                    class="lg:grid lg:grid-cols-3 xl:grid-cols-[minmax(auto,780px)_repeat(1,minmax(0,1fr))] lg:gap-6">
+                                    <div
+                                        class="p-0 md:py-8 md:px-6 bg-white rounded-lg md:col-span-2 xl:col-auto relative">
+                                        <div class="flex items-center w-full justify-center">
+                                            <h1 class="text-xl text-black-v8 font-semibold md:text-3xl">Thông tin cơ bản
+                                            </h1>
+                                        </div>
+                                        <div class="md:flex md:flex-row md:items-center mb-4">
+                                            <div class="md:w-28 px-4 md:px-0">
+                                                <label
+                                                    class="text-base md:text-sm font-normal md:font-medium text-black-v7 md:text-black-v6">Nhu
+                                                    cầu
+                                                    <span class="text-red-v6"> *</span>
+                                                </label>
+                                            </div>
+                                            <div class="md:ml-4">
+                                                <div
+                                                    class="flex items-center overflow-x-auto md:overflow-visible mt-2 md:mt-0">
+                                                    <div
+                                                        class="chip-action px-2.5 cursor-pointer text-center mr-2 flex items-center justify-center min-w-fit text-sm md:text-base h-9 first:ml-4 py-[6px] last:mr-4 bg-primary text-white">
+                                                        Mua bán</div>
+                                                    <div
+                                                        class="chip-action px-2.5 cursor-pointer text-center mr-2 flex items-center justify-center min-w-fit text-sm md:text-base h-9 first:ml-4 py-[6px] last:mr-4">
+                                                        Cho thuê</div>
+                                                    <div
+                                                        class="chip-action px-2.5 cursor-pointer text-center mr-2 flex items-center justify-center min-w-fit text-sm md:text-base h-9 first:ml-4 py-[6px] last:mr-4">
+                                                        Sang nhượng</div>
+                                                    <div
+                                                        class="fresnel-container fresnel-greaterThanOrEqual-md flex-shrink-0">
+                                                        <div class="relative">
+                                                            <div
+                                                                class="chip-action px-2.5 cursor-pointer text-center mr-2 flex items-center justify-center min-w-fit text-sm md:text-base h-9 py-[6px]">
+                                                                Khác
+                                                                <i
+                                                                    class="ml ml-expand_more text-[1.125rem] flex-shrink-0"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="fresnel-container fresnel-lessThan-md flex-shrink-0">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="md:flex md:flex-row md:items-center mb-4" id="userTypes">
+                                            <div class="md:w-28 px-4 md:px-0">
+                                                <label
+                                                    class="text-base md:text-sm font-normal md:font-medium text-black-v7 md:text-black-v6">Bạn
+                                                    là
+                                                    <span class="text-red-v6"> *</span>
+                                                </label>
+                                            </div>
+                                            <div class="md:ml-4">
+                                                <div class="flex items-center mt-2 md:mt-0">
+                                                    <div
+                                                        class="chip-action px-2.5 cursor-pointer text-center mr-2 flex items-center justify-center min-w-fit text-sm md:text-base h-9 py-[6px] first:ml-4 last:mr-4 flex-1 bg-primary text-white">
+                                                        Môi giới</div>
+                                                    <div
+                                                        class="chip-action px-2.5 cursor-pointer text-center mr-2 flex items-center justify-center min-w-fit text-sm md:text-base h-9 py-[6px] first:ml-4 last:mr-4 flex-1">
+                                                        Chính chủ</div>
+                                                    <div class="fresnel-container fresnel-greaterThanOrEqual-md ">
+                                                        <div class="relative">
+                                                            <div
+                                                                class="chip-action px-2.5 cursor-pointer text-center mr-2 flex items-center justify-center min-w-fit text-sm md:text-base h-9 py-[6px]">
+                                                                Khác
+                                                                <i
+                                                                    class="ml ml-expand_more text-[1.125rem] flex-shrink-0"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="fresnel-container fresnel-lessThan-md flex-1"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="md:grid grid-cols-2 gap-x-10">
+                                            <div class="mb-4 grid grid-cols-5 gap-2 md:block">
+                                                <div class="md:mb-1 col-span-2 flex items-center justify-start"
+                                                    id="typeOfHouse">
+                                                    <label
+                                                        class="text-base md:text-sm font-normal md:font-medium text-black-v7 md:text-black-v6 md:flex-shrink-0 px-4 md:px-0 ">Loại
+                                                        nhà đất
+                                                        <span class="text-red-v6"> *</span>
+                                                    </label>
+                                                </div>
+                                                <div class="col-span-3 mr-4 md:mr-0">
+                                                    <div class="fresnel-container fresnel-greaterThanOrEqual-md ">
+                                                        <div>
+                                                            <select class="form-select w-full h-9 text-sm md:text-base"
+                                                                id="typeOfHouse">
+                                                                <option value="0">Chọn loại nhà đất</option>
+                                                                <option value="1">Chung cư</option>
+                                                                <option value="2">Nhà riêng</option>
+                                                                <option value="3">Biệt thự</option>
+                                                                <option value="4">Nhà mặt phố</option>
+                                                                <option value="5">Đất nền</option>
+                                                                <option value="6">Đất nền dự án</option>
+                                                                <option value="7">Đất nông nghiệp</option>
+                                                                <option value="8">Đất thổ cư</option>
+                                                                <option value="9">Đất trang trại</option>
+                                                                <option value="10">Đất công nghiệp</option>
+                                                                <option value="11">Đất dự án</option>
+                                                                <option value="12">Đất ở</option>
+                                                                <option value="13">Đất thổ cư</option>
+                                                                <option value="14">Đất trang trại</option>
+                                                                <option value="15">Đất công nghiệp</option>
+                                                                <option value="16">Đất dự án</option>
+                                                                <option value="17">Đất ở</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="fresnel-container fresnel-lessThan-md "></div>
+                                                    <div class=""></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="md:grid grid-cols-2 gap-x-10">
+                                            <div>
+                                                <div class="mb-4 grid grid-cols-5 gap-2 md:block">
+                                                    <div class="md:mb-1 col-span-2 flex items-center justify-start"
+                                                        id="project">
+                                                        <label
+                                                            class="text-base md:text-sm font-normal md:font-medium text-black-v7 md:text-black-v6 md:flex-shrink-0 px-4 md:px-0 ">
+                                                            Tỉnh/ thành phố
+                                                            <span class="text-red-v6"> *</span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-span-3 mr-4 md:mr-0">
+                                                        <div class="fresnel-container fresnel-greaterThanOrEqual-md ">
+                                                            <div>
+                                                                <select
+                                                                    class="form-select w-full h-9 text-sm md:text-base"
+                                                                    id="province">
+                                                                    <option value="0">Chọn Tỉnh/ thành phố</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="fresnel-container fresnel-lessThan-md "></div>
+                                                        <div class=""></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div class="mb-4 grid grid-cols-5 gap-2 md:block">
+                                                    <div class="md:mb-1 col-span-2 flex items-center justify-start"
+                                                        id="project">
+                                                        <label
+                                                            class="text-base md:text-sm font-normal md:font-medium text-black-v7 md:text-black-v6 md:flex-shrink-0 px-4 md:px-0 ">
+                                                            Quận/ huyện
+                                                            <span class="text-red-v6"> *</span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-span-3 mr-4 md:mr-0">
+                                                        <div class="fresnel-container fresnel-greaterThanOrEqual-md">
+                                                            <div>
+                                                                <div class="relative">
+                                                                    <div
+                                                                        class="border-b md:border md:pl-4 md:pr-3 py-2 md:py-2.5 md:rounded-lg text-base text-black-v6 cursor-pointer bg-white border-gray-v1">
+                                                                        <select class="form-select w-full h-9 text-sm md:text-base"
+                                                                            id="district">
+                                                                            <option value="0">Chọn Quận/ huyện</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="fresnel-container fresnel-lessThan-md "></div>
+                                                        <div class=""></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <!--Footer-->
+            <footer>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h3>RealEstate.com</h3>
+                            <p>RealEstate.com là trang web mua bán, cho thuê, sang nhượng bất động sản hàng đầu Việt Nam
+                            </p>
+                        </div>
+                        <div class="col-md-3">
+                            <h3>Liên hệ</h3>
+                            <p>Địa chỉ: 123 Đường ABC, Quận XYZ, TP. HCM</p>
+                            <p>Email:</p>
+                            <p>Điện thoại: 0123456789</p>
+                        </div>
+                        <div class="col-md-3">
+                            <h3>Liên kết</h3>
+                            <ul>
+                                <a href="#" class="nav-link">
+                                    <i class="fa-brands fa-facebook"></i>
+                                </a>
+                                <a href="#" class="nav-link">
+                                    <i class="fa-brands fa-youtube"></i>
+                                </a>
+                            </ul>
+                        </div>
+                        <div class="col-md-3">
+                            <h3>Tải ứng dụng</h3>
+                            <ul>
+                                <li><img src="images/google-play.png" alt="Google Play"></li>
+                                <li><img src="images/app-store.png" alt="App Store"></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <!-- Modal Login -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginModalLabel">Đăng nhập</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="#">
+                        <div class="mb-3">
+                            <label for="email" class="form-label" style="font-size: 13px;">Số điện thoại/
+                                Email</label>
+                            <input type="email" class="form-control" id="text" aria-describedby="emailHelp"
+                                placeholder="Nhập số điện thoại/ Email">
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label" style="font-size: 13px;">Mật khẩu</label>
+                            <input type="password" class="form-control" id="password" placeholder="Nhập mật khẩu">
+                        </div>
+                        <div style="margin-bottom:1.5rem" class="d-grid">
+                            <button style="text-align: right;font-size: 15px;" class="btn">Quên mật khẩu?</button>
+                        </div>
+                        <div style="margin-bottom:1.5rem" class="d-grid">
+                            <button class="btn btn-primary">Đăng nhập</button>
+                        </div>
+                    </form>
+                    <div class="text-center" style="margin-bottom:1.5rem">
+                        <span>
+                            Bạn chưa có tài khoản?
+                            <button class="btn btn-link" data-bs-toggle="modal" data-bs-target="#registerModal"
+                                data-bs-dismiss="modal">Đăng ký
+                            </button>
+                        </span>
+                    </div>
+                    <div class="text-center">
+                        <span>Hoặc đăng nhập bằng</span>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-primary btn-">Facebook</button>
+                        <button class="btn btn-danger">Google</button>
+                    </div>
+                    <div class="text-center" style="margin-bottom:1.5rem">
+                        <p style="font-size: 13px;">
+                            Bằng cách đăng nhập, bạn đồng ý với Điều khoản dịch vụ và Chính sách bảo mật của chúng
+                            tôi
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Register -->
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="registerModalLabel">Đăng ký</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="#">
+                        <div class="mb-3">
+                            <label for="email" class="form-label" style="font-size: 13px;">Số điện thoại/
+                                Email</label>
+                            <input type="email" class="form-control" id="email" aria-describedby="emailHelp"
+                                placeholder="Nhập số điện thoại/ Email">
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label" style="font-size: 13px;">Mật khẩu</label>
+                            <input type="password" class="form-control" id="password" placeholder="Nhập mật khẩu">
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label" style="font-size: 13px;">Nhập lại mật
+                                khẩu</label>
+                            <input type="password" class="form-control" id="password" placeholder="Nhập lại mật khẩu">
+                        </div>
+                        <div class="d-grid">
+                            <button class="btn btn-primary">Đăng ký</button>
+                        </div>
+                    </form>
+                    <div class="text-center" style="margin-bottom:1.5rem">
+                        <span>
+                            Bạn đã có tài khoản?
+                            <button class="btn btn-link" data-bs-toggle="modal" data-bs-target="#loginModal"
+                                data-bs-dismiss="modal">Đăng nhập
+                            </button>
+                        </span>
+                    </div>
+                    <div class="text-center" style="margin-bottom:1.5rem">
+                        <span>Hoặc đăng ký bằng</span>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-primary">Facebook</button>
+                        <button class="btn btn-danger">Google</button>
+                    </div>
+                    <div class="text-center" style="margin-bottom:1.5rem">
+                        <p style="font-size: 13px;">
+                            Bằng cách đăng ký, bạn đồng ý với Điều khoản dịch vụ và Chính sách bảo mật của chúng tôi
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Bootstrap JS-->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+</body>
