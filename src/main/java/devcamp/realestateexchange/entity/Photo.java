@@ -32,7 +32,6 @@ public class Photo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column(name = "name")
-    @NotEmpty(message = "Photo name is required")
     private String name;
     @Column(name = "url")
     @NotEmpty(message = "Photo url is required")

@@ -34,7 +34,7 @@ public class RealEstateController {
     }
 
 
-    @PostMapping("/realestate/search")
+    @GetMapping("/realestate/search")
     public ResponseEntity<Object> searchRealEstates(@RequestBody RealEstateSearchParameters parameters, Pageable pageable) {
         try {
             Page<RealEstateDto> realEstatePage = realEstateService.searchRealEstates(
@@ -48,6 +48,15 @@ public class RealEstateController {
                     parameters.getAddress(),
                     pageable);
             return ResponseEntity.ok(realEstatePage);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+    @PostMapping("/realestate")
+    public ResponseEntity<Object> createRealEstate(@RequestBody RealEstateDto realEstateDto) {
+        try {
+            realEstateService.createRealEstate(realEstateDto);
+            return ResponseEntity.ok("Real estate created successfully");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }

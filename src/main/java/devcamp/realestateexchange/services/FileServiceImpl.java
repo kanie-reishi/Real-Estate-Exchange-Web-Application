@@ -56,11 +56,13 @@ public class FileServiceImpl implements FileService {
         metadata.setContentLength(file.length());
         request.setMetadata(metadata);
         s3Client.putObject(request);
- 
+        
+        // generate file url
+        String url = s3Client.getUrl(bucketName, fileName).toExternalForm();
         // delete file
         file.delete();
 
-        return fileName;
+        return url;
     }
     // Overloaded method
     @Override

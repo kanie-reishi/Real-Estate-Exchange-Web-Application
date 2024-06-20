@@ -13,12 +13,14 @@ module.exports = {
         'red-v6': '#e35b47',
       },
   },
-  plugins: [],
+  plugins: [
+  ],
   variants: {
     extend: {
       backgroundColor: ['hover'], // add 'hover' to the array if it's not already there
       flex: ['hover', 'focus'],
       darkMode: 'class',
+      textColor: ['placeholder'],
     }
   },
   important: true,

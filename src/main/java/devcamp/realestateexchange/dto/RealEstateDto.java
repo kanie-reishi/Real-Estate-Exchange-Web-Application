@@ -15,16 +15,17 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class RealEstateDto {
-    private int id;
+    private Integer id;
     private String title;
-    private int provinceId;
-    private int districtId;
+    private Integer provinceId;
+    private Integer districtId;
     private BigDecimal price;
-    private double acreage;
+    private Double acreage;
     private Date dateCreate;
     private List<String> photoUrls;
     private String description;
     private String address;
+    private Integer request;
     public RealEstateDto(Integer id, String title, String description, BigDecimal price, Double acreage, Integer provinceId, Integer districtId, String address, Date dateCreate) {
         this.id = id;
         this.title = title;

@@ -70,4 +70,12 @@ public class RealEstateService {
         return realEstateRepository.findAll(result, pageable)
                 .map(realEstate -> modelMapper.map(realEstate, RealEstateDto.class));
     }
+    public void createRealEstate(RealEstateDto realEstateDto) {
+        RealEstate realEstate = modelMapper.map(realEstateDto, RealEstate.class);
+        realEstateRepository.save(realEstate);
+        List<Photo> photos = realEstateDto.getPhotoUrls().stream().map(url -> 
+            Photo.builder().url(url).realEstate(realEstate).build())
+                .collect(Collectors.toList());
+        photoRepository.saveAll(photos);
+    }
 }

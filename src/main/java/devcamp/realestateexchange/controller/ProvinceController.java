@@ -16,7 +16,7 @@ import devcamp.realestateexchange.services.ProvinceService;
 public class ProvinceController {
     @Autowired
     private ProvinceService provinceService;
-    @GetMapping("/province/{id}")
+    @GetMapping("/provinces/{id}")
     public ResponseEntity<Object> getProvinceById(@PathVariable Integer id){
         try {
             ProvinceDto province = provinceService.getProvinceDtoById(id);

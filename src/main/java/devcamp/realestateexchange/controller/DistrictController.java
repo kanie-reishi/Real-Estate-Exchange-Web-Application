@@ -18,7 +18,7 @@ import org.springframework.data.domain.Pageable;
 public class DistrictController {
     @Autowired
     private DistrictService districtService;
-    @GetMapping("/district/{id}")
+    @GetMapping("/districts/{id}")
     public ResponseEntity<Object> getDistrictById(@PathVariable Integer id){
         try {
             DistrictDto district = districtService.getDistrictById(id);
@@ -27,7 +27,7 @@ public class DistrictController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-    @GetMapping("/district/province/{provinceId}")
+    @GetMapping("/provinces/{provinceId}/districts")
     public ResponseEntity<Object> getDistrictListByProvinceId(Pageable pageable, @PathVariable Integer provinceId){
         try {
             Page<DistrictDto> districtPage = districtService.getDistrictListByProvinceId(pageable, provinceId);
