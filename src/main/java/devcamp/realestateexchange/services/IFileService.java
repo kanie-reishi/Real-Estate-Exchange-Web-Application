@@ -7,7 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 import devcamp.realestateexchange.exceptions.FileDownloadException;
 import devcamp.realestateexchange.exceptions.FileUploadException;
 
-public interface FileService {
+public interface IFileService {
     String uploadFile(MultipartFile multipartFile) throws FileUploadException, IOException;
 
     String uploadFile(MultipartFile multipartFile, int realEstateId) throws IOException;

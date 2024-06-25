@@ -10,24 +10,22 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.io.FilenameUtils;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.bind.annotation.PathVariable;
-import devcamp.realestateexchange.exceptions.FileDownloadException;
+
+import devcamp.realestateexchange.dto.APIResponse;
 import devcamp.realestateexchange.exceptions.FileEmptyException;
 import devcamp.realestateexchange.exceptions.FileUploadException;
-import devcamp.realestateexchange.services.FileService;
-import devcamp.realestateexchange.web.APIResponse;
+import devcamp.realestateexchange.services.IFileService;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
@@ -36,10 +34,10 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/photo")
 @Validated
 public class FileUploadController {
-   private final FileService fileService;
+   private final IFileService fileService;
 
 
-   public FileUploadController(FileService fileUploadService) {
+   public FileUploadController(IFileService fileUploadService) {
        this.fileService = fileUploadService;
    }
 

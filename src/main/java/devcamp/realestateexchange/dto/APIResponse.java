@@ -1,4 +1,4 @@
-package devcamp.realestateexchange.web;
+package devcamp.realestateexchange.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

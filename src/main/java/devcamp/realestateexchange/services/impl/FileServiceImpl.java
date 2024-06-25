@@ -1,4 +1,4 @@
-package devcamp.realestateexchange.services;
+package devcamp.realestateexchange.services.impl;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -21,6 +21,8 @@ import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
+
+import devcamp.realestateexchange.services.IFileService;
 import devcamp.realestateexchange.services.PhotoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import devcamp.realestateexchange.exceptions.FileDownloadException;
@@ -30,7 +32,7 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class FileServiceImpl implements FileService {
+public class FileServiceImpl implements IFileService {
     @Value("${aws.bucket.name}")
     private String bucketName;
  
