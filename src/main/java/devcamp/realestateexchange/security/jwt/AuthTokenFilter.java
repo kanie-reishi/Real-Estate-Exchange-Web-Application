@@ -1,4 +1,4 @@
-package security.jwt;
+package devcamp.realestateexchange.security.jwt;
 
 import java.io.IOException;
 
@@ -16,7 +16,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
-import security.services.UserDetailsServiceImpl;
+import devcamp.realestateexchange.security.jwt.JwtUtils;
+import devcamp.realestateexchange.security.services.UserDetailsServiceImpl;
+import javax.servlet.http.Cookie;
 
 public class AuthTokenFilter extends OncePerRequestFilter {
   @Autowired
@@ -38,9 +40,9 @@ public class AuthTokenFilter extends OncePerRequestFilter {
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         UsernamePasswordAuthenticationToken authentication =
             new UsernamePasswordAuthenticationToken(
-                userDetails,
-                null,
-                userDetails.getAuthorities());
+                userDetails, // the authenticated user's details
+                null, // don't need the password at this point
+                userDetails.getAuthorities()); // the user's roles or permissions
         authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -53,12 +55,14 @@ public class AuthTokenFilter extends OncePerRequestFilter {
   }
 
   public String parseJwt(HttpServletRequest request) {
-    String headerAuth = request.getHeader("Authorization");
-
-    if (StringUtils.hasText(headerAuth) && headerAuth.startsWith("Bearer ")) {
-      return headerAuth.substring(7, headerAuth.length());
+    Cookie[] cookies = request.getCookies();
+    if (cookies != null) {
+        for (Cookie cookie : cookies) {
+            if ("token".equals(cookie.getName())) {
+                return cookie.getValue();
+            }
+        }
     }
-
     return null;
   }
 }
