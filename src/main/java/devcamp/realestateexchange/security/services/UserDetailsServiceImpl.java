@@ -33,12 +33,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
   @Autowired
   private IRoleRepository roleRepository;
 
+  // Load user by username
   @Override
   @Transactional
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
     User user = userRepository.findByUsername(username)
         .orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + username));
     Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
+    // Add roles and permissions to granted authorities
     for (Role role : user.getRoles()) {
       grantedAuthorities.add(new SimpleGrantedAuthority(role.getRoleKey()));
       for (Permission permission : role.getPermissions()) {

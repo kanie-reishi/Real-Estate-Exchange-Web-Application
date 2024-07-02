@@ -2,6 +2,10 @@
 
 /*** REGION 2 - Vùng gán / thực thi hàm xử lý sự kiện cho các elements */
 $(document).ready(function () {
+    if (sessionStorage.getItem("isLoggedIn")) {
+        var user = JSON.parse(sessionStorage.getItem("user"));
+        $('#btn-navbar-login').text('Hello, ' + user.username);
+    }
     // Xử lý sự kiện khi click vào nút hiển thị / ẩn mật khẩu
     $(".password-visibility").click(function () {
         togglePasswordVisibility(this);
@@ -9,6 +13,12 @@ $(document).ready(function () {
     // Xử lý sự kiện khi click vào nút đăng nhập
     $("#btn-login").click(function () {
         onBtnLoginClick();
+    })
+    $("#btn-logout").click(function() {
+        // Clear user information
+        sessionStorage.removeItem("user");
+        // Clear login status
+        sessionStorage.removeItem("isLoggedIn");
     })
 });
 /*** REGION 3 - Event handlers - Vùng khai báo các hàm xử lý sự kiện */
@@ -24,18 +34,24 @@ function onBtnLoginClick(){
             contentType: "application/json",
             data: JSON.stringify(userCreditiant),
             success: function (response) {
-                if(response.status === 200){
+                if(response.statusCode === 200){
                     alert("Đăng nhập thành công");
                     // Lưu thông tin user vào sessionStorage
                     sessionStorage.setItem("user", JSON.stringify(response.data));
+                    // Lưu trạng thái đăng nhập
+                    sessionStorage.setItem("isLoggedIn", true);
                     console.log(response.data);
+                    var user = JSON.parse(sessionStorage.getItem("user"));
+                    $('#btn-navbar-login').text('Hello, ' + user.username);
                     // Tải lại trang
                     // location.reload();
                 } else {
+                    console.log(response);
                     alert("Đăng nhập thất bại");
                 }
             },
             error: function (response) {
+                console.log(response);
                 alert("Đăng nhập thất bại");
             }
         });
@@ -56,16 +72,20 @@ function togglePasswordVisibility(passwordVisibility) {
 }
 // Hàm thu thập dữ liệu đăng nhập
 function collectLoginData(){
-    var user = {};
+    var user = {
+        username: undefined,
+        email: undefined,
+        phoneNumber: undefined,
+        password: undefined
+    };
     var inputUsername = $("#inp-login-username").val();
     // check if inputUsername is username, email or phone number
     if (inputUsername.includes("@")) {
         user.email = inputUsername;
-    } else if (inputUsername.includes("0") || inputUsername.includes("1") || inputUsername.includes("2") || inputUsername.includes("3") || inputUsername.includes("4") || inputUsername.includes("5") || inputUsername.includes("6") || inputUsername.includes("7") || inputUsername.includes("8") || inputUsername.includes("9")) {
-        user.phoneNumber = inputUsername;
     } else {
         user.username = inputUsername;
     }
+    console.log(user);
     user.password = $("#inp-login-password").val();
     return user;
 }

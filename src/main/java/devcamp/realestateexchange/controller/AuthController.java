@@ -52,11 +52,12 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest,
             HttpServletResponse response) {
-
+        // Authenticate user
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
-
+        // Set the authentication object to the SecurityContext
         SecurityContextHolder.getContext().setAuthentication(authentication);
+        // Generate JWT token
         String jwt = jwtUtils.generateJwtToken(authentication);
 
         // Create a new cookie
@@ -67,12 +68,13 @@ public class AuthController {
         // jwtCookie.setSecure(true);
         // Add the cookie to the response
         response.addCookie(jwtCookie);
-
+        // Get the UserDetailsImpl object from the authentication object
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-
+        // Get the roles from the UserDetailsImpl object
         List<String> roles = userDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
+        // Create a response object
         APIResponse apiResponse = APIResponse.builder()
                 .data(JwtResponse.builder()
                         .id(userDetails.getId())
