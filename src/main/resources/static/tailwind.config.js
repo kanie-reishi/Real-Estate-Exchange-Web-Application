@@ -1,7 +1,8 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['*.html'],
+  content: ['*.html', './js/*.js'],
   theme: {
+    extend: {
       colors: {
         'secondary': '#004dd1',
         'gray-v1': '#ececec',
@@ -10,9 +11,10 @@ module.exports = {
         'black-v6': '#717171',
         'black-v7': '#646464',
         'black-v8': '#343434',
-        'green-v3' : '#00d623',
+        'green-v3': '#00d623',
         'red-v6': '#e35b47',
       },
+    }
   },
   plugins: [
   ],

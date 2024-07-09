@@ -27,12 +27,13 @@ public class RealEstateDto {
     private String address;
     private Integer request;
     private Integer bedroom;
-    public RealEstateDto(Integer id, String title, String description, BigDecimal price, Double acreage, Integer provinceId, Integer districtId, String address, Date dateCreate) {
+    public RealEstateDto(Integer id, String title, String description, BigDecimal price, Double acreage, Integer bedroom, Integer provinceId, Integer districtId, String address, Date dateCreate) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.price = price;
         this.acreage = acreage;
+        this.bedroom = bedroom;
         this.provinceId = provinceId;
         this.districtId = districtId;
         this.address = address;

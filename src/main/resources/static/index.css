@@ -595,9 +595,6 @@ input[type=number], input[type=password], input[type=text], textarea {
 .font-medium {
     font-weight: 500 !important;
 }
-.border-gray-v1 {
-    border-color: var(--color-gray-v1) !important;
-}
 
 .border-t, .border-t-\[1px\] {
     border-top-width: 1px !important;
