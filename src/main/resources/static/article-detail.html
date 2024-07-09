@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RealEstate.com</title>
+    <!-- Font Awesome-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Bootstrap CSS-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!--PhotoSwipe CSS-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/5.4.4/photoswipe.min.css"
+        integrity="sha512-LFWtdAXHQuwUGH9cImO9blA3a3GfQNkpF2uRlhaOpSbDevNyK1rmAjs13mtpjvWyi+flP7zYWboqY+8Mkd42xA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Custom CSS-->
+    <link rel="stylesheet" href="output.css">
+</head>
+
+<body
+    class="overflow-x-hidden scrollbar-thin scrollbar-thumb-black-v3 scrollbar-thumb-rounded-full scrollbar-track-rounded-full w-screen h-screen relative">
+    <div>
+        <div>
+            <!-- Navbar-->
+            <header
+                class="inset-x-0 z-10 duration-300 ease-linear top-0 w-screen absolute ml:fixed ml:shadow-divide header-sticky-enter-done">
+                <div class="fresnel-container fresnel-greaterThanOrEqual-lg">
+                    <nav class="relative shadow dark:bg-gray-800 shadow-[inset_0_-1px_0_#ececec] bg-white">
+                        <div class="px-[1.5rem] py-[1.25rem] mx-auto">
+                            <div class="lg:flex lg:items-center lg:justify-between">
+                                <div class="flex items-center justify-between">
+                                    <div class="text-xl font-semibold text-gray-700 flex-shrink-0">
+                                        <h1>
+                                            <a class="text-2xl font-bold text-gray-800 transition-colors duration-300 transform dark:text-white lg:text-2xl hover:text-gray-700 dark:hover:text-gray-300"
+                                                href="#">RealEstate.com</a>
+                                        </h1>
+                                    </div>
+                                    <div class="flex flex-col lg:flex-row lg:items-center mx-1" id="navbarNav">
+                                        <div class="relative nav-item">
+                                            <a class="px-[0.625rem] py-[0.5rem] text-sm font-semibold transition-colors duration-300 transform rounded-[1.25rem] hover:bg-gray-v3 whitespace-nowrap text-black-v8"
+                                                href="#">Mua bán</a>
+                                        </div>
+                                        <div class="relative nav-item">
+                                            <a class="px-[0.625rem] py-[0.5rem] text-sm font-semibold transition-colors duration-300 transform rounded-[1.25rem] hover:bg-gray-v3 whitespace-nowrap text-black-v8"
+                                                href="#">Cho thuê</a>
+                                        </div>
+                                        <div class="relative nav-item">
+                                            <a class="px-[0.625rem] py-[0.5rem] text-sm font-semibold transition-colors duration-300 transform rounded-[1.25rem] hover:bg-gray-v3 whitespace-nowrap text-black-v8"
+                                                href="#">Sang nhượng</a>
+                                        </div>
+                                        <div class="relative nav-item">
+                                            <a class="px-[0.625rem] py-[0.5rem] text-sm font-semibold transition-colors duration-300 transform rounded-[1.25rem] hover:bg-gray-v3 whitespace-nowrap text-black-v8"
+                                                href="#">Dự án</a>
+                                        </div>
+                                        <div class="relative nav-item">
+                                            <a class="px-[0.625rem] py-[0.5rem] text-sm font-semibold transition-colors duration-300 transform rounded-[1.25rem] hover:bg-gray-v3 whitespace-nowrap text-black-v8"
+                                                href="#">Tin tức</a>
+                                        </div>
+                                        <div class="relative nav-item">
+                                            <a class="px-[0.625rem] py-[0.5rem] text-sm font-semibold transition-colors duration-300 transform rounded-[1.25rem] hover:bg-gray-v3 whitespace-nowrap text-black-v8"
+                                                href="#">Liên hệ</a>
+                                        </div>
+                                        <div class="relative nav-item">
+                                            <a class="px-[0.625rem] py-[0.5rem] text-sm font-semibold transition-colors duration-300 transform rounded-[1.25rem] hover:bg-gray-v3 whitespace-nowrap text-black-v8"
+                                                href="#">Về chúng tôi</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="absolute inset-x-0 z-20 lg:z-auto w-full px-6 py-4 transition-all duration-300 ease-in-out bg-white dark:bg-gray-800 lg:mt-0 lg:p-0 lg:top-0 lg:relative lg:bg-transparent lg:w-auto lg:opacity-100 lg:translate-x-0 lg:flex lg:items-center">
+                                    <button class="btn"><i class="fa-regular fa-heart"></i></button>
+                                    <button
+                                        class="whitespace-nowrap px-[0.625rem] text-sm font-medium transition-colors duration-300 transform button-gray-outline rounded-[2.25rem] bg-gray-v2 border-0 text-black-v8 flex items-center ml-4"
+                                        data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-dismiss="modal"
+                                        id="btn-navbar-login">
+                                        <i class="fa-regular fa-user"></i>
+                                        Đăng ký/ Đăng nhập
+                                    </button>
+                                    <a href="#"
+                                        class="whitespace-nowrap px-[0.625rem] py-[0.5rem] text-base text-secondary font-medium transition-colors duration-300 transform button-primary-outline rounded-[2.25rem] flex items-center cursor-pointer ml-5"><i
+                                            class="ml ml-add text-[1rem] text-secondary mr-[0.5rem]"></i>Đăng tin</a>
+                                </div>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </header>
+            <main class="relative lg:top-[76px] w-screen top-[104px]">
+                <div>
+                    <div class="flex-1 grow">
+                        <div class="layout">
+                            <div
+                                class="flex justify-end items-center space-x-4 text-base font-medium text-black-v7 mb-4 mt-5 px-4 xl:px-0">
+                                <button aria-label="button-favorite" class="flex items-center cursor-pointer">
+                                    <i class="ml ml-favorite text-[1.25rem] text-black-v6"></i>
+                                    <span class="ml-1 text-black-v7">Lưu</span>
+                                </button>
+                                <div class="w-[1px] h-5 bg-black-v3"></div>
+                                <button aria-label="button-compare" class="flex items-center">
+                                    <span class="ml ml-compare text-[1.25rem]">
+                                        <span class="path1 text-white"></span>
+                                        <span class="path2 text-white"></span>
+                                        <span class="path3"></span>
+                                    </span>
+                                    <span class="ml-1 text-black-v7">So sánh</span>
+                                </button>
+                                <div class="w-[1px] h-5 bg-black-v3"></div>
+                                <button aria-label="button-share" class="flex items-center cursor-pointer"
+                                    type="button">
+                                    <i class="ml ml-share text-[1.25rem] text-black-v6"></i>
+                                    <span class="ml-1">Chia sẻ</span>
+                                </button>
+                                <div class="w-[1px] h-5 bg-black-v3"></div>
+                                <div class="flex items-center cursor-pointer">
+                                    <i class="ml text-[1.25rem] mr-1 ml-note_add text-black-v6"></i>
+                                    <span class="">Ghi chú</span>
+                                </div>
+                            </div>
+                            <div class="relative mb-4 flex" id="image">
+
+                            </div>
+                            <div class="grid grid-cols-3 gap-6">
+                                <div class="col-span-3 lg:col-span-2">
+                                    <div class="w-full">
+                                        <div class="fresnel-container fresnel-lessThan-lg "></div>
+                                        <div class="fresnel-container fresnel-greaterThanOrEqual-lg ">
+                                            <div
+                                                class="flex items-start space-x-[0.875rem] mb-[1.875rem] text-black-v8 px-4 lg:px-0">
+                                                <div class="w-full">
+                                                    <h1
+                                                        class="text-lg font-semibold line-clamp-2 mb-[0.625rem] text-[#2b2b2b]" id="title">
+                                                        </h1>
+                                                    <div
+                                                        class="h-[1.375rem] flex items-start justify-between text-base space-x-4">
+                                                        <p class="line-clamp-2" id="address"></p>
+                                                        <p class="flex-shrink-0" id="createDate"></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="fresnel-container fresnel-greaterThanOrEqual-lg ">
+                                            <div>
+                                                <div class="flex justify-between py-5 border-t border-b border-gray-v1">
+                                                    <div class="text-black-v6 h-[4.5rem] basis-auto flex-grow">
+                                                        <p class="text-base mb-[2px]">Giá bán</p>
+                                                        <h3 class="text-lg font-semibold text-black-v8" id="h3-price"></h3>
+                                                        <span class="text-xs" id="price"></span>
+                                                    </div>
+                                                    <div
+                                                        class="text-black-v6 h-[4.5rem] basis-auto flex-grow pl-4 border-l border-gray-v1">
+                                                        <p class="text-base mb-[2px]">Diện tích</p>
+                                                        <h3 class="text-lg font-semibold text-black-v8" id="h3-acreage"></h3>
+                                                    </div>
+                                                    <div
+                                                        class="text-black-v6 h-[4.5rem] basis-auto flex-grow pl-4 border-l border-gray-v1">
+                                                        <p class="text-base mb-[2px]">Phòng ngủ</p>
+                                                        <h3 class="text-lg font-semibold text-black-v8" id="h3-bedroom"></h3>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="fresnel-container fresnel-lessThan-lg "></div>
+                                        <div class="px-4 lg:px-0">
+                                            <div class="py-6 lg:py-8 lg:border-t border-gray-v1">
+                                                <h3 class="text-lg font-semibold text-black-v8 mb-5">Thông tin mô tả
+                                                </h3>
+                                                <div class="text-black-v8 text-base lg:text-sm">
+                                                    <div class="overflow-hidden" style="max-height: 340px;">
+                                                        <div style="overflow-wrap: break-word; display: block;">
+                                                            <div class="text-base text-black-v8 leading-[1.875rem]"
+                                                                style="display: inline-block;" id="description">
+                                                            </div>
+                                                            <button
+                                                                class="flex items-center my-auto text-secondary font-medium cursor-pointer text-sm lg:text-base"
+                                                                type="button" aria-label="button-view-more">
+                                                                <span class="hover:underline">
+                                                                    <span>Xem thêm
+                                                                        <span class="hidden lg:inline">mô tả</span>
+                                                                    </span>
+                                                                </span>
+                                                                <i
+                                                                    class="ml ml-expand_more text-secondary text-[1rem]"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="py-6 lg:py-8 border-t border-gray-v1" id="Property">
+                                                <h3 class="text-lg font-semibold text-black-v8 mb-5">Thông tin cơ bản
+                                                </h3>
+                                                <div class="flex text-base text-black-v8 py-2 space-x-8">
+                                                    <p class="w-1/3 flex-shrink-0 lg:w-1/4 lg:min-w-[11.125rem]">Loại
+                                                        nhà đất
+                                                        <span class="lg:inline">:</span>
+                                                    </p>
+                                                    <p class="font-medium line-clamp-2">Nhà riêng </p>
+                                                </div>
+                                                <div class="flex text-base text-black-v8 py-2 space-x-8">
+                                                    <p class="w-1/3 flex-shrink-0 lg:w-1/4 lg:min-w-[11.125rem]">Diện
+                                                        tích
+                                                        <span class="lg:inline">:</span>
+                                                    </p>
+                                                    <p class="font-medium line-clamp-2" id="p-creage"></p>
+                                                </div>
+                                                <div class="flex text-base text-black-v8 py-2 space-x-8">
+                                                    <p class="w-1/3 flex-shrink-0 lg:w-1/4 lg:min-w-[11.125rem]">Số
+                                                        phòng ngủ
+                                                        <span class="lg:inline">:</span>
+                                                    </p>
+                                                    <p class="font-medium line-clamp-2" id="p-bedroom"> </p>
+                                                </div>
+                                                <div class="flex text-base text-black-v8 py-2 space-x-8">
+                                                    <p class="w-1/3 flex-shrink-0 lg:w-1/4 lg:min-w-[11.125rem]">Số
+                                                        phòng tắm/ Toilet
+                                                        <span class="lg:inline">:</span>
+                                                    </p>
+                                                    <p class="font-medium line-clamp-2">20 </p>
+                                                </div>
+                                            </div>
+                                            <div class="py-6 lg:py-8 border-t border-gray-v1">
+                                                <h3 class="text-lg font-semibold text-black-v8 mb-5">Thông tin chi tiết
+                                                </h3>
+                                                <div>
+                                                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-6">
+                                                        <div>
+                                                            <div
+                                                                class="fresnel-container fresnel-greaterThanOrEqual-lg ">
+                                                                <div
+                                                                    class="flex py-3 px-4 text-base text-black-v8 space-x-4 rounded-lg justify-between bg-gray-v4">
+                                                                    <p class="flex-grow flex-shrink-0">Mặt tiền</p>
+                                                                    <div
+                                                                        class="fresnel-container fresnel-greaterThanOrEqual-xl ">
+                                                                        <p class="font-medium line-clamp-1">6 m</p>
+                                                                    </div>
+                                                                    <div class="fresnel-container fresnel-lessThan-xl ">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="fresnel-container fresnel-lessThan-lg "></div>
+                                                        </div>
+                                                        <div>
+                                                            <div
+                                                                class="fresnel-container fresnel-greaterThanOrEqual-lg ">
+                                                                <div
+                                                                    class="flex py-3 px-4 text-base text-black-v8 space-x-4 rounded-lg justify-between bg-gray-v4">
+                                                                    <p class="flex-grow flex-shrink-0">Số tầng</p>
+                                                                    <div
+                                                                        class="fresnel-container fresnel-greaterThanOrEqual-xl ">
+                                                                        <p class="font-medium line-clamp-1">6</p>
+                                                                    </div>
+                                                                    <div class="fresnel-container fresnel-lessThan-xl ">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="fresnel-container fresnel-lessThan-lg "></div>
+                                                        </div>
+                                                        <div>
+                                                            <div
+                                                                class="fresnel-container fresnel-greaterThanOrEqual-lg ">
+                                                                <div
+                                                                    class="flex py-3 px-4 text-base text-black-v8 space-x-4 rounded-lg justify-between">
+                                                                    <p class="flex-grow flex-shrink-0">Loại hình BĐS</p>
+                                                                    <div
+                                                                        class="fresnel-container fresnel-greaterThanOrEqual-xl ">
+                                                                        <p class="font-medium line-clamp-1">Nhà thổ cư
+                                                                        </p>
+                                                                    </div>
+                                                                    <div class="fresnel-container fresnel-lessThan-xl ">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="fresnel-container fresnel-lessThan-lg "></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="py-6 lg:py-8 border-t border-gray-v1">
+                                                <h3 class="text-lg font-semibold text-black-v8 mb-5">Tiện ích</h3>
+                                                <div class="grid grid-cols-2 lg:grid-cols-3 gap-x-4">
+                                                    <div class="py-3 flex">
+                                                        <div class="h-5 w-10 flex items-center justify-center relative">
+                                                            <span
+                                                                style="box-sizing: border-box; display: block; overflow: hidden; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: absolute; inset: 0px;">
+                                                                <img alt="Thang máy" sizes="100vw"
+                                                                    srcset="https://s3.amazonaws.com/v4.meeyland/icon/thang_may.svg 640w, https://s3.amazonaws.com/v4.meeyland/icon/thang_may.svg 750w, https://s3.amazonaws.com/v4.meeyland/icon/thang_may.svg 828w, https://s3.amazonaws.com/v4.meeyland/icon/thang_may.svg 1080w, https://s3.amazonaws.com/v4.meeyland/icon/thang_may.svg 1200w, https://s3.amazonaws.com/v4.meeyland/icon/thang_may.svg 1920w, https://s3.amazonaws.com/v4.meeyland/icon/thang_may.svg 2048w, https://s3.amazonaws.com/v4.meeyland/icon/thang_may.svg 3840w"
+                                                                    src="https://s3.amazonaws.com/v4.meeyland/icon/thang_may.svg"
+                                                                    decoding="async" data-nimg="fill"
+                                                                    class="mr-2 flex-shrink-0"
+                                                                    style="position: absolute; inset: 0px; box-sizing: border-box; padding: 0px; border: none; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%;">
+                                                            </span>
+                                                        </div>
+                                                        <p class="text-base flex-grow">Thang máy</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="py-6 lg:py-8 border-t border-gray-v1">
+                                                <h3 class="text-lg font-semibold text-black-v8 mb-5">Nội thất, thiết bị
+                                                </h3>
+                                                <div class="grid grid-cols-2 lg:grid-cols-3 gap-x-4">
+                                                    <div class="py-3 flex">
+                                                        <div class="h-5 w-10 flex items-center justify-center relative">
+                                                            <span
+                                                                style="box-sizing: border-box; display: block; overflow: hidden; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: absolute; inset: 0px;">
+                                                                <img alt="Điều hòa"
+                                                                    src="https://s3.amazonaws.com/v4.meeyland/icon/dieu_hoa.svg"
+                                                                    decoding="async" data-nimg="fill"
+                                                                    class="mr-2 flex-shrink-0"
+                                                                    style="position: absolute; inset: 0px; box-sizing: border-box; padding: 0px; border: none; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%;"
+                                                                    sizes="100vw"
+                                                                    srcset="https://s3.amazonaws.com/v4.meeyland/icon/dieu_hoa.svg 640w, https://s3.amazonaws.com/v4.meeyland/icon/dieu_hoa.svg 750w, https://s3.amazonaws.com/v4.meeyland/icon/dieu_hoa.svg 828w, https://s3.amazonaws.com/v4.meeyland/icon/dieu_hoa.svg 1080w, https://s3.amazonaws.com/v4.meeyland/icon/dieu_hoa.svg 1200w, https://s3.amazonaws.com/v4.meeyland/icon/dieu_hoa.svg 1920w, https://s3.amazonaws.com/v4.meeyland/icon/dieu_hoa.svg 2048w, https://s3.amazonaws.com/v4.meeyland/icon/dieu_hoa.svg 3840w">
+                                                            </span>
+                                                        </div>
+                                                        <p class="text-base flex-grow">Điều hòa</p>
+                                                    </div>
+                                                    <div class="py-3 flex">
+                                                        <div class="h-5 w-10 flex items-center justify-center relative">
+                                                            <span
+                                                                style="box-sizing: border-box; display: block; overflow: hidden; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: absolute; inset: 0px;">
+                                                                <img alt="Tủ lạnh"
+                                                                    src="https://s3.amazonaws.com/v4.meeyland/icon/tu_lanh.svg"
+                                                                    decoding="async" data-nimg="fill"
+                                                                    class="mr-2 flex-shrink-0"
+                                                                    style="position: absolute; inset: 0px; box-sizing: border-box; padding: 0px; border: none; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%;"
+                                                                    sizes="100vw"
+                                                                    srcset="https://s3.amazonaws.com/v4.meeyland/icon/tu_lanh.svg 640w, https://s3.amazonaws.com/v4.meeyland/icon/tu_lanh.svg 750w, https://s3.amazonaws.com/v4.meeyland/icon/tu_lanh.svg 828w, https://s3.amazonaws.com/v4.meeyland/icon/tu_lanh.svg 1080w, https://s3.amazonaws.com/v4.meeyland/icon/tu_lanh.svg 1200w, https://s3.amazonaws.com/v4.meeyland/icon/tu_lanh.svg 1920w, https://s3.amazonaws.com/v4.meeyland/icon/tu_lanh.svg 2048w, https://s3.amazonaws.com/v4.meeyland/icon/tu_lanh.svg 3840w">
+                                                            </span>
+                                                        </div>
+                                                        <p class="text-base flex-grow">Tủ lạnh</p>
+                                                    </div>
+                                                    <div class="py-3 flex">
+                                                        <div class="h-5 w-10 flex items-center justify-center relative">
+                                                            <span
+                                                                style="box-sizing: border-box; display: block; overflow: hidden; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: absolute; inset: 0px;">
+                                                                <img alt="Máy giặt"
+                                                                    src="https://s3.amazonaws.com/v4.meeyland/icon/may_giat.svg"
+                                                                    decoding="async" data-nimg="fill"
+                                                                    class="mr-2 flex-shrink-0"
+                                                                    style="position: absolute; inset: 0px; box-sizing: border-box; padding: 0px; border: none; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%;"
+                                                                    sizes="100vw"
+                                                                    srcset="https://s3.amazonaws.com/v4.meeyland/icon/may_giat.svg 640w, https://s3.amazonaws.com/v4.meeyland/icon/may_giat.svg 750w, https://s3.amazonaws.com/v4.meeyland/icon/may_giat.svg 828w, https://s3.amazonaws.com/v4.meeyland/icon/may_giat.svg 1080w, https://s3.amazonaws.com/v4.meeyland/icon/may_giat.svg 1200w, https://s3.amazonaws.com/v4.meeyland/icon/may_giat.svg 1920w, https://s3.amazonaws.com/v4.meeyland/icon/may_giat.svg 2048w, https://s3.amazonaws.com/v4.meeyland/icon/may_giat.svg 3840w">
+                                                            </span>
+                                                        </div>
+                                                        <p class="text-base flex-grow">Máy giặt</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="fresnel-container fresnel-greaterThanOrEqual-lg ">
+                                                <div class="py-6 lg:py-8 border-t border-gray-v1">
+                                                    <h3 class="text-lg font-semibold text-black-v8 mb-5">Ưu điểm BĐS
+                                                    </h3>
+                                                    <div class="flex mb-4 space-x-5 text-base">
+                                                        <p class="font-semibold w-1/3 mt-3 flex-shrink-0 text-black-v8">
+                                                            Khu vực xung quanh</p>
+                                                        <div class="grid grid-cols-2 gap-4 w-full">
+                                                            <div class="flex items-start space-x-2 py-3 text-black-v8">
+                                                                <i
+                                                                    class="ml ml-check text-green-v3 text-[1.25rem] inline-block"></i>
+                                                                <p>Vị trí trung tâm</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex mb-4 space-x-5 text-base">
+                                                        <p class="font-semibold w-1/3 mt-3 flex-shrink-0 text-black-v8">
+                                                            Đặc điểm thiết kế</p>
+                                                        <div class="grid grid-cols-2 gap-4 w-full">
+                                                            <div class="flex items-start space-x-2 py-3 text-black-v8">
+                                                                <i
+                                                                    class="ml ml-check text-green-v3 text-[1.25rem] inline-block"></i>
+                                                                <p>Thang máy, thang chờ</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex mb-4 space-x-5 text-base">
+                                                        <p class="font-semibold w-1/3 mt-3 flex-shrink-0 text-black-v8">
+                                                            Tình trạng xây dựng</p>
+                                                        <div class="grid grid-cols-2 gap-4 w-full">
+                                                            <div class="flex items-start space-x-2 py-3 text-black-v8">
+                                                                <i
+                                                                    class="ml ml-check text-green-v3 text-[1.25rem] inline-block"></i>
+                                                                <p>Xây mới</p>
+                                                            </div>
+                                                            <div class="flex items-start space-x-2 py-3 text-black-v8">
+                                                                <i
+                                                                    class="ml ml-check text-green-v3 text-[1.25rem] inline-block"></i>
+                                                                <p>Phân lô liền kề</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="fresnel-container fresnel-lessThan-lg "></div>
+                                        </div>
+                                        <div class="fresnel-container fresnel-greaterThanOrEqual-lg "></div>
+                                        <div class="px-4 lg:px-0">
+                                            <div class="py-6 lg:py-8" id="lazy-load-wrapper">
+                                                <h3 class="text-lg font-semibold text-black-v8 mb-5">Vị trí trên bản đồ
+                                                </h3>
+                                                <div class="overflow-hidden" style="height: 240px;">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="fresnel-container fresnel-greaterThanOrEqual-lg ">
+                                    <div class="grid grid-cols-1 gap-y-6">
+                                        <div class="bg-white w-full h-fit rounded-lg default-shadow py-4 lg:p-5">
+                                            <div class="flex space-x-3">
+                                                <span
+                                                    class="w-14 h-14 bg-black-v4 text-xl flex text-center items-center justify-center text-white flex-shrink-0 rounded-full">H</span>
+                                                <div class="text-black-v8 flex flex-col justify-between">
+                                                    <div class="font-semibold text-lg break-word">Hoàng Bá Thiện</div>
+                                                    <p class="text-sm text-[#626262]">Môi giới</p>
+                                                </div>
+                                            </div>
+                                            <div class="w-full h-[1px] bg-gray-v1 mt-4"></div>
+                                            <div class="text-sm text-black-v8">
+                                                <div class="flex items-center mt-4">
+                                                    <i
+                                                        class="ml ml-date_range text-[1.25rem] text-[#B0B0B0] flex-shrink-0 mr-2"></i>
+                                                    <span>Tham gia Meey Land:
+                                                        <span class="font-medium">12/08/2021</span>
+                                                    </span>
+                                                </div>
+                                                <div class="flex items-center mt-4">
+                                                    <i
+                                                        class="ml ml-timelapse text-[1.25rem] text-[#B0B0B0] flex-shrink-0 mr-2"></i>
+                                                    <span>Thời gian phản hồi:
+                                                        <span class="font-medium">30 phút</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="flex space-x-2.5 mt-6 text-base font-semibold mb-3"></div>
+                                            <button
+                                                class="button-primary w-full px-5 h-11 flex justify-center items-center whitespace-nowrap"
+                                                aria-label="button-phone">
+                                                <i class="ml ml-phone text-white text-[1.25rem] mr-2"></i>
+                                                <span class="text-base mr-4">0962551***</span>
+                                                <span class="text-base lg:text-sm underline font-normal">Hiện số</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <footer class="relative lg:top-[76px] top-[104px]">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h3>RealEstate.com</h3>
+                            <p>RealEstate.com là trang web mua bán, cho thuê, sang nhượng bất động sản hàng đầu Việt Nam
+                            </p>
+                        </div>
+                        <div class="col-md-3">
+                            <h3>Liên hệ</h3>
+                            <p>Địa chỉ: 123 Đường ABC, Quận XYZ, TP. HCM</p>
+                            <p>Email:</p>
+                            <p>Điện thoại: 0123456789</p>
+                        </div>
+                        <div class="col-md-3">
+                            <h3>Liên kết</h3>
+                            <ul>
+                                <a href="#" class="nav-link">
+                                    <i class="fa-brands fa-facebook"></i>
+                                </a>
+                                <a href="#" class="nav-link">
+                                    <i class="fa-brands fa-youtube"></i>
+                                </a>
+                            </ul>
+                        </div>
+                        <div class="col-md-3">
+                            <h3>Tải ứng dụng</h3>
+                            <ul>
+                                <li><img src="images/google-play.png" alt="Google Play"></li>
+                                <li><img src="images/app-store.png" alt="App Store"></li>
+                            </ul>
+                            <button class="btn btn-danger" id="btn-logout">Log Out</button>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+            <!-- Modal Login -->
+            <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div class="_58cdb">
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="text-center">
+                                <h5 class="modal-title _8a2a5" id="loginModalLabel">Đăng nhập</h5>
+                            </div>
+                            <form action="#">
+                                <div class="mb-3">
+                                    <label for="email" class="form-label" style="font-weight: 500;
+                            font-size: 13px;
+                            color: #646464;
+                            line-height: 20px;
+                            margin-bottom: 4px;">Số điện thoại/
+                                        Email</label>
+                                    <div class="_41aa8">
+                                        <span class="_21450 _56724">
+                                        </span>
+                                        <input type="text" class="form-control _0fdc7" id="inp-login-username"
+                                            aria-describedby="emailHelp" placeholder="Nhập số điện thoại/ Email">
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="password" class="form-label" style="font-weight: 500;
+                                font-size: 13px;
+                                color: #646464;
+                                line-height: 20px;
+                                margin-bottom: 4px;">Mật khẩu</label>
+                                    <div class="_41aa8">
+                                        <span class="_21450 _15981">
+                                        </span>
+                                        <input type="password" class="form-control _0fdc7" id="inp-login-password"
+                                            placeholder="Nhập mật khẩu">
+                                        <span class="_21450 password-hide _4ba06 password-visibility"
+                                            style="width:70px">
+                                        </span>
+                                    </div>
+                                </div>
+                                <div style="margin-bottom:1.5rem" class="_915e5">
+                                    <button style="text-align: right;font-size: 15px;" class="_3c7f2 _85f51">Quên mật
+                                        khẩu?</button>
+                                </div>
+                                <div class="_915e5" style="margin-bottom:1rem">
+                                    <button class="_3c7f2 _8272b" id="btn-login">Đăng nhập</button>
+                                </div>
+                            </form>
+                            <div class="text-center" style="margin-bottom:1.5rem">
+                                <span>
+                                    Bạn chưa có tài khoản?
+                                    <button class="btn btn-link _85f51" data-bs-toggle="modal"
+                                        data-bs-target="#registerModal" data-bs-dismiss="modal">Đăng ký
+                                    </button>
+                                </span>
+                            </div>
+                            <div class="text-center">
+                                <span>Hoặc đăng nhập bằng</span>
+                            </div>
+                            <div class="_915e5 b2acb _68c1f">
+                                <button class="_3c7f2 d633f aa3b1 b7a08"><i
+                                        class="fa-brands fa-facebook social-icon"></i></button>
+                                <button class="_3c7f2 d633f aa3b1 b7a08"><i
+                                        class="fa-brands fa-google social-icon"></i></button>
+                            </div>
+                            <div class="text-center" style="margin-bottom:1.5rem">
+                                <p style="font-size: 13px;">
+                                    Bằng cách đăng nhập, bạn xác nhận và đồng ý với Điều khoản dịch vụ và Chính sách bảo
+                                    mật của
+                                    chúng
+                                    tôi
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal Register -->
+            <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div class="_58cdb">
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="text-center">
+                                <h5 class="modal-title _8a2a5" id="loginModalLabel">Đăng ký tài khoản</h5>
+                            </div>
+                            <form action="#">
+                                <div class="mb-3">
+                                    <label for="email" class="form-label" style="font-weight: 500;
+                            font-size: 13px;
+                            color: #646464;
+                            line-height: 20px;
+                            margin-bottom: 4px;">Số điện thoại/
+                                        Email</label>
+                                    <div class="_41aa8">
+                                        <span class="_21450 _56724">
+                                        </span>
+                                        <input type="email" class="form-control _0fdc7" id="email"
+                                            aria-describedby="emailHelp" placeholder="Nhập số điện thoại/ Email">
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="password" class="form-label" style="font-weight: 500;
+                            font-size: 13px;
+                            color: #646464;
+                            line-height: 20px;
+                            margin-bottom: 4px;">Mật khẩu</label>
+                                    <div class="_41aa8">
+                                        <span class="_21450 _15981">
+                                        </span>
+                                        <input type="password" class="form-control _0fdc7" id="password"
+                                            placeholder="Nhập mật khẩu">
+                                        <span class="_21450 password-hide _4ba06 password-visibility"
+                                            style="width:70px">
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="password" class="form-label" style="font-weight: 500;
+                            font-size: 13px;
+                            color: #646464;
+                            line-height: 20px;
+                            margin-bottom: 4px;">Nhập lại mật khẩu</label>
+                                    <div class="_41aa8">
+                                        <span class="_21450 _15981">
+                                        </span>
+                                        <input type="password" class="form-control _0fdc7" id="password"
+                                            placeholder="Nhập lại mật khẩu">
+                                        <span class="_21450 password-hide _4ba06 password-visibility"
+                                            style="width:70px">
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="_915e5" style="margin-bottom:1rem">
+                                    <button class="_3c7f2 _8272b">Đăng ký</button>
+                                </div>
+                            </form>
+                            <div class="text-center" style="margin-bottom:1.5rem">
+                                <span>
+                                    Bạn đã có tài khoản?
+                                    <button class="btn btn-link _85f51" data-bs-toggle="modal"
+                                        data-bs-target="#registerModal" data-bs-dismiss="modal">Đăng nhập
+                                    </button>
+                                </span>
+                            </div>
+                            <div class="text-center" style="margin-bottom:1.5rem">
+                                <span>Hoặc đăng nhập bằng</span>
+                            </div>
+                            <div class="_915e5 b2acb _68c1f">
+                                <button class="_3c7f2 d633f aa3b1 b7a08"><i
+                                        class="fa-brands fa-facebook social-icon"></i></button>
+                                <button class="_3c7f2 d633f aa3b1 b7a08"><i
+                                        class="fa-brands fa-google social-icon"></i></button>
+                            </div>
+                            <div class="text-center" style="margin-bottom:1.5rem">
+                                <p style="font-size: 13px;">
+                                    Bằng cách đăng ký, bạn xác nhận và đồng ý với Điều khoản dịch vụ và Chính sách bảo
+                                    mật của
+                                    chúng tôi
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Jquery -->
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <!-- Bootstrap JS-->
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+                crossorigin="anonymous"></script>
+            <!-- PhotoSwipe JS-->
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/5.4.4/photoswipe-lightbox.esm.min.js"
+                type="module"
+                integrity="sha512-S9RkWnGja84tXKFxTN7iLVP3pUCsnfqnF+0ZK2CSOhmCqa6lxoutHUoizBVnqCIsH8HW7e/3u9HEOOwlR01TLA=="
+                crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            <!-- Custom JS-->
+            <script src="js/login.js"> </script>
+            <script type="module">
+                /*** REGION 1 - Global variables - Vùng khai báo biến, hằng số, tham số TOÀN CỤC */
+
+                /*** REGION 2 - Vùng gán / thực thi hàm xử lý sự kiện cho các elements */
+                $(document).ready(function () {
+                    loadRealEstateDetail();
+                });
+                /*** REGION 3 - Event handlers - Vùng khai báo các hàm xử lý sự kiện */
+
+                /*** REGION 4 - Common funtions - Vùng khai báo hàm dùng chung trong toàn bộ chương trình*/
+                function loadRealEstateDetail() {
+                    const realEstateId = getQueryParam('article-id');
+                    $.ajax({
+                        url: "http://localhost:8080/realestate/" + realEstateId
+                    }).then(function (data) {
+                        console.log(data);
+                        // Load province and district data with AJAX promise
+                        var provincePromise = $.ajax({
+                            url: "http://localhost:8080/provinces/" + data.provinceId,
+                            type: "GET"
+                        });
+                        var districtPromise = $.ajax({
+                            url: "http://localhost:8080/districts/" + data.districtId,
+                            type: "GET"
+                        });
+                        $.when(provincePromise, districtPromise).done(function (provinceData, districtData) {
+                            // Render real estate detail
+                            renderRealEstateDetail(data, provinceData[0], districtData[0]);
+                        });
+                    });
+                }
+                function getQueryParam(param) {
+                    const urlParams = new URLSearchParams(window.location.search);
+                    return urlParams.get(param);
+                }
+                function renderRealEstateDetail(realEstate, province, district) {
+                    // Render real estate images
+                    var images = realEstate.photoUrls;
+                    var imageHtml = '';
+                    for (var i = 0; i < images.length; i++) {
+                        imageHtml += '<a href="' + images[i] + '" data-pswp-width="2500" data-pswp-height="1800" target="_blank"><img src="' + images[i] + '" alt="Image" class="image-fill mx-auto mx-auto rounded-lg" width="330" height="220"></a>';
+                    }
+                    $('#image').html(imageHtml);
+                    // Render real estate detail
+                    $('#title').text(realEstate.title);
+                    $('#h3-price').text(realEstate.price + ' ' + "Tỷ");
+                    $('#p-price').text(realEstate.price + ' ' + "Tỷ");
+                    $('#address').text(district.name + ', ' + province.name);
+                    $('#description').html(realEstate.description);
+                    $('#h3-acreage').html(realEstate.acreage + ' ' + "m<sup>2</sup>");
+                    $('#p-acreage').html(realEstate.acreage + ' ' + "m<sup>2</sup>");
+                    $('#h3-bedroom').text(realEstate.bedroom);
+                    $('#p-bedroom').text(realEstate.bedroom);
+                    $('#createDate').text(convertDate(realEstate.dateCreate));
+                }
+                // Hàm đổi date
+                function convertDate(paramDate) {
+                    var date = new Date(paramDate);
+                    var day = date.getDate();
+                    var month = date.getMonth() + 1; // Months are zero based
+                    var year = date.getFullYear();
+                    return day + '/' + month + '/' + year;
+                }
+            </script>
+            <script type='module'>
+                import PhotoSwipeLightbox from 'https://cdn.jsdelivr.net/npm/photoswipe@5.3.7/dist/photoswipe-lightbox.esm.js';
+                const lightbox = new PhotoSwipeLightbox({
+                    gallery: '#image',
+                    children: 'a',
+                    pswpModule: () => import('https://cdn.jsdelivr.net/npm/photoswipe@5.3.7/dist/photoswipe.esm.js')
+                });
+                lightbox.init();
+            </script>
+</body>
+
+</html>

@@ -11,4 +11,6 @@ import devcamp.realestateexchange.entity.RealEstate;
 public interface IRealEstateRepository extends JpaRepository<RealEstate, Integer>, JpaSpecificationExecutor<RealEstate> {
     @Query("SELECT new devcamp.realestateexchange.dto.RealEstateDto(r.id, r.title, r.description, r.price, r.acreage, r.province.id, r.district.id, r.address, r.dateCreate) FROM RealEstate r")
     Page<RealEstateDto> findAllDto(Pageable pageable);
+    @Query("SELECT new devcamp.realestateexchange.dto.RealEstateDto(r.id, r.title, r.description, r.price, r.acreage, r.bedroom, r.province.id, r.district.id, r.address, r.dateCreate) FROM RealEstate r WHERE r.id = :id")
+    RealEstateDto getRealEstateById(Integer id);
 }

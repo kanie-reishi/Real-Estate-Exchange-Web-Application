@@ -26,6 +26,7 @@ public class RealEstateDto {
     private String description;
     private String address;
     private Integer request;
+    private Integer bedroom;
     public RealEstateDto(Integer id, String title, String description, BigDecimal price, Double acreage, Integer provinceId, Integer districtId, String address, Date dateCreate) {
         this.id = id;
         this.title = title;

@@ -78,4 +78,9 @@ public class RealEstateService {
                 .collect(Collectors.toList());
         photoRepository.saveAll(photos);
     }
+    public RealEstateDto getRealEstateById(Integer id){
+        RealEstateDto realEstateDto = realEstateRepository.getRealEstateById(id);
+        loadPhotoUrls(realEstateDto);
+        return realEstateDto;
+    }
 }

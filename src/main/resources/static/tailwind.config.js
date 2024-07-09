@@ -8,6 +8,7 @@ module.exports = {
         'gray-v2': '#f2f4f8',
         'gray-v3': '#f2f3f5',
         'black-v6': '#717171',
+        'black-v7': '#646464',
         'black-v8': '#343434',
         'green-v3' : '#00d623',
         'red-v6': '#e35b47',
