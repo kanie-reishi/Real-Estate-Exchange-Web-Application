@@ -2,15 +2,13 @@ package devcamp.realestateexchange.specification;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import javax.persistence.criteria.Join;
+
 import org.springframework.data.jpa.domain.Specification;
 
-import devcamp.realestateexchange.entity.Province;
-import devcamp.realestateexchange.entity.District;
-import devcamp.realestateexchange.entity.RealEstate;
-import devcamp.realestateexchange.specification.SearchCriteria;
+import devcamp.realestateexchange.entity.realestate.RealEstate;
 
 public class RealEstateSpecification implements Specification<RealEstate> {
 

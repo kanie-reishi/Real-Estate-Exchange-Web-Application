@@ -14,12 +14,12 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import devcamp.realestateexchange.entity.Permission;
-import devcamp.realestateexchange.entity.User;
-import devcamp.realestateexchange.entity.Role;
-import devcamp.realestateexchange.entity.ERole;
-import devcamp.realestateexchange.repositories.IUserRepository;
-import devcamp.realestateexchange.repositories.IRoleRepository;
+import devcamp.realestateexchange.entity.authentication.ERole;
+import devcamp.realestateexchange.entity.authentication.Permission;
+import devcamp.realestateexchange.entity.authentication.Role;
+import devcamp.realestateexchange.entity.authentication.User;
+import devcamp.realestateexchange.repositories.authentication.IRoleRepository;
+import devcamp.realestateexchange.repositories.authentication.IUserRepository;
 import devcamp.realestateexchange.security.jwt.JwtUtils;
 
 @Service

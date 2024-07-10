@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import devcamp.realestateexchange.dto.ProvinceDto;
-import devcamp.realestateexchange.services.ProvinceService;
+import devcamp.realestateexchange.dto.location.ProvinceDto;
+import devcamp.realestateexchange.services.location.ProvinceService;
 @RestController
 @CrossOrigin
 @RequestMapping

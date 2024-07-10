@@ -10,9 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
-import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -38,12 +36,6 @@ public abstract class BaseEntity implements Serializable {
 
     @LastModifiedDate
     private Date updatedAt;
-
-    @CreatedBy
-    private Long createdBy;
-
-    @LastModifiedBy
-    private Long updatedBy;
 
 	/**
 	 * @return the id
@@ -99,33 +91,5 @@ public abstract class BaseEntity implements Serializable {
 	 */
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
-	}
-
-	/**
-	 * @return the createdBy
-	 */
-	public Long getCreatedBy() {
-		return createdBy;
-	}
-
-	/**
-	 * @param createdBy the createdBy to set
-	 */
-	public void setCreatedBy(Long createdBy) {
-		this.createdBy = createdBy;
-	}
-
-	/**
-	 * @return the updatedBy
-	 */
-	public Long getUpdatedBy() {
-		return updatedBy;
-	}
-
-	/**
-	 * @param updatedBy the updatedBy to set
-	 */
-	public void setUpdatedBy(Long updatedBy) {
-		this.updatedBy = updatedBy;
 	}
 }

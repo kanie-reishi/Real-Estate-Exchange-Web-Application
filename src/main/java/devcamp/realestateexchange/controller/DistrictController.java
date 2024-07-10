@@ -8,8 +8,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import devcamp.realestateexchange.dto.DistrictDto;
-import devcamp.realestateexchange.services.DistrictService;
+import devcamp.realestateexchange.dto.location.DistrictDto;
+import devcamp.realestateexchange.services.location.DistrictService;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 @RestController

@@ -8,8 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import devcamp.realestateexchange.dto.WardDto;
-import devcamp.realestateexchange.services.WardService;
+
+import devcamp.realestateexchange.dto.location.WardDto;
+import devcamp.realestateexchange.services.location.WardService;
 @RestController
 @CrossOrigin
 @RequestMapping

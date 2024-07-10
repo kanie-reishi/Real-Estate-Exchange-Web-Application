@@ -25,7 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 import devcamp.realestateexchange.dto.APIResponse;
 import devcamp.realestateexchange.exceptions.FileEmptyException;
 import devcamp.realestateexchange.exceptions.FileUploadException;
-import devcamp.realestateexchange.services.IFileService;
+import devcamp.realestateexchange.services.interfacep.IFileService;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController

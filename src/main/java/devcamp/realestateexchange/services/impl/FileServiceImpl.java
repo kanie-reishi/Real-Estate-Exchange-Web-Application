@@ -22,8 +22,9 @@ import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
 
-import devcamp.realestateexchange.services.IFileService;
-import devcamp.realestateexchange.services.PhotoService;
+import devcamp.realestateexchange.services.interfacep.IFileService;
+import devcamp.realestateexchange.services.media.PhotoService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import devcamp.realestateexchange.exceptions.FileDownloadException;
 import lombok.RequiredArgsConstructor;

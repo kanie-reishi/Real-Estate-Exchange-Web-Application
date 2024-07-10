@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import devcamp.realestateexchange.dto.RealEstateDto;
+import devcamp.realestateexchange.dto.realestate.RealEstateDto;
 import devcamp.realestateexchange.models.RealEstateSearchParameters;
-import devcamp.realestateexchange.services.RealEstateService;
+import devcamp.realestateexchange.services.realestate.RealEstateService;
 
 @RestController
 @CrossOrigin

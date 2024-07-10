@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 import devcamp.realestateexchange.dto.APIResponse;
 import devcamp.realestateexchange.dto.JwtResponse;
-import devcamp.realestateexchange.dto.LoginRequest;
-import devcamp.realestateexchange.dto.SignupRequest;
-import devcamp.realestateexchange.entity.User;
+import devcamp.realestateexchange.dto.authentication.LoginRequest;
+import devcamp.realestateexchange.dto.authentication.SignupRequest;
+import devcamp.realestateexchange.entity.authentication.User;
 import devcamp.realestateexchange.security.jwt.JwtUtils;
 import devcamp.realestateexchange.security.services.UserDetailsImpl;
 import devcamp.realestateexchange.security.services.UserDetailsServiceImpl;

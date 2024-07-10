@@ -1,6 +1,7 @@
 package devcamp.realestateexchange.controller;
-import devcamp.realestateexchange.dto.StreetDto;
-import devcamp.realestateexchange.services.StreetService;
+import devcamp.realestateexchange.dto.location.StreetDto;
+import devcamp.realestateexchange.services.location.StreetService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
