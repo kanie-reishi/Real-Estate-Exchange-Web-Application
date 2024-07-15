@@ -16,6 +16,7 @@ import devcamp.realestateexchange.entity.social.Article;
 import devcamp.realestateexchange.entity.social.ArticleLike;
 import devcamp.realestateexchange.entity.social.Reply;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -25,6 +26,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Customer extends UserReferenceEntity {
     // Tên khách hàng
     @Column(name = "contact_name")
@@ -37,6 +39,14 @@ public class Customer extends UserReferenceEntity {
     // Địa chỉ
     @Column(name = "address")
     private String address;
+
+    // Số điện thoại
+    @Column(name = "phone")
+    private String phone;
+
+    // Email
+    @Column(name = "email")
+    private String email;
 
     // Ghi chú
     @Column(name = "note")

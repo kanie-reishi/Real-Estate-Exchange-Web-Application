@@ -6,6 +6,7 @@ import java.util.Date;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
@@ -16,6 +17,10 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.UnsupportedJwtException;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @Component
 public class JwtUtils {
@@ -27,6 +32,8 @@ public class JwtUtils {
     @Value("${devcamp.app.jwtExpirationMs}")
     private int jwtExpirationMs;
 
+    @Autowired
+    private StringRedisTemplate redisTemplate;
     // Generate JWT token
     public String generateJwtToken(Authentication authentication) {
 
@@ -39,7 +46,11 @@ public class JwtUtils {
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact();
     }
-
+    // Storing the token in Redis
+    public void storeTokenInRedis(String token, String username) {
+        redisTemplate.opsForValue().set(username, token);
+        redisTemplate.expire(username, jwtExpirationMs, java.util.concurrent.TimeUnit.MILLISECONDS);
+    }
     // Get username from JWT token
     public String getUserNameFromJwtToken(String token) {
         return Jwts.parser()
@@ -87,8 +98,36 @@ public class JwtUtils {
     public boolean isTokenExpired(String token) {
         // Get the expiration date from the token
         Date expiration = getExpirationDateFromToken(token);
+        // Get the expiration date from redis
+        Date expirationRedis = new Date(redisTemplate.getExpire(getUserNameFromJwtToken(token)));
+        if (expiration == null || expirationRedis == null) {
+            return false;
+        }
+         // Check if the token is expired and mismatched with the expiration date in Redis or not
+        return expiration.before(new Date()) || !expiration.equals(expirationRedis);
+    }
 
-        // Check if the token is expired
-        return expiration.before(new Date());
+    public String getJwtFromCookie(HttpServletRequest request) {
+        // Get the cookies from the request
+        Cookie[] cookies = request.getCookies();
+
+        // If there are no cookies, return null
+        if (cookies == null) {
+            return null;
+        }
+
+        // Loop through the cookies
+        for (Cookie cookie : cookies) {
+            // If the cookie name is "token", return the cookie value
+            if (cookie.getName().equals("token")) {
+                return cookie.getValue();
+            }
+        }
+
+        // If no cookie with the name "token" is found, return null
+        return null;
+    }
+    public void removeTokenFromRedis(String token) {
+        redisTemplate.delete(getUserNameFromJwtToken(token));
     }
 }

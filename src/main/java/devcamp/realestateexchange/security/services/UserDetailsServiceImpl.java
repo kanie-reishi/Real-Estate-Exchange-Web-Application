@@ -87,4 +87,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     return userRepository.existsByEmail(email);
   }
 
+  public boolean existsByPhone(String phone) {
+    return userRepository.existsByPhone(phone);
+  }
+
 }
