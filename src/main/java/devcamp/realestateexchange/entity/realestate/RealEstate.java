@@ -34,7 +34,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @NamedEntityGraph(name = "RealEstate.photos",
     attributeNodes = @NamedAttributeNode("photos"))
 public class RealEstate extends UserReferenceEntity {
