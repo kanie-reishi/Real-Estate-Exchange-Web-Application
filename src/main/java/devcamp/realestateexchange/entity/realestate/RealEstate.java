@@ -110,9 +110,9 @@ public class RealEstate extends UserReferenceEntity {
     @Column(name = "price_min")
     private BigDecimal priceMin;
 
-    // 	Thời gian bán: 1.Bán nhanh, 2.Bán chậm
+    // Thời gian bán
     @Column(name = "price_time")
-    private Integer priceTime;
+    private String priceTime;
 
     // diện tích bđs, diện tích thông thủy
     @Column(name = "acreage")

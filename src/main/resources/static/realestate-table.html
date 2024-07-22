@@ -22,8 +22,6 @@
 	<link href="css/font-awesome.css" rel="stylesheet">
 	<!-- DataTables CSS-->
 	<link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.min.css">
-	<!-- DataTables JS-->
-	<script src="https://cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
 </head>
 
 <body class="dashboard-page">
@@ -302,20 +300,23 @@
 				<div class="agile-tables">
 					<div class="w3l-table-info">
 						<h2>Thông tin BĐS</h2>
-						<table id="table">
+						<table id="realestate-table">
 							<thead>
 								<tr>
-									<th>STT</th>
-									<th>Mã BĐS</th>
-									<th>Tên BĐS</th>
-									<th>Loại BĐS</th>
-									<th>Giá</th>
-									<th>Diện tích</th>
-									<th>Địa chỉ</th>
-									<th>Ngày đăng</th>
-									<th>Ngày hết hạn</th>
-									<th>Trạng thái</th>
 									<th>Chức năng</th>
+									<th>Mã BĐS</th>
+									<th>Tỉnh, thành phố</th>
+									<th>Quận, huyện</th>
+									<th>Phường, xã</th>
+									<th>Đường phố</th>
+									<th>Loại BĐS</th>
+									<th>Nhu cầu</th>
+									<th>Khách hàng</th>
+									<th>Giá đăng</th>
+									<th>Ngày đăng</th>
+									<th>Diện tích</th>
+									<th>Thời gian bán</th>
+									<th>Hình ảnh</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -333,7 +334,7 @@
 		<!-- //footer -->
 	</section>
 	<!-- //font-awesome icons -->
-	<script src="js/jquery2.0.3.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 	<script src="js/modernizr.js"></script>
 	<script src="js/jquery.cookie.js"></script>
 	<script src="js/screenfull.js"></script>
@@ -361,6 +362,10 @@
 	</script>
 	<script src="js/bootstrap.js"></script>
 	<script src="js/proton.js"></script>
+	<!-- DataTables JS-->
+	<script src="https://cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
+	<!-- Custom JS-->
+	<script src="js/realestate-table.js"></script>
 </body>
 
 </html>

@@ -20,7 +20,6 @@ import io.jsonwebtoken.UnsupportedJwtException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
 
 @Component
 public class JwtUtils {

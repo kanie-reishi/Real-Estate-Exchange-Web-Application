@@ -17,6 +17,7 @@ import devcamp.realestateexchange.repositories.realestate.IRealEstateRepository;
 import devcamp.realestateexchange.specification.RealEstateSpecification;
 import devcamp.realestateexchange.specification.SearchCriteria;
 import org.springframework.data.jpa.domain.Specification;
+import org.hibernate.MappingException;
 import org.modelmapper.ModelMapper;
 
 @Service
@@ -28,15 +29,15 @@ public class RealEstateService {
     @Autowired
     private IPhotoRepository photoRepository;
     public Page<RealEstateDto> getAllRealEstateDtos(Pageable pageable) {
-        Page<RealEstateDto> realEstates = realEstateRepository.findAllDto(pageable);
-        realEstates.forEach(this::loadPhotoUrls);
-        return realEstates;
+        Page<RealEstate> realEstatePage = realEstateRepository.findAllByOrderByCreatedAtDesc(pageable);
+        try{
+        Page<RealEstateDto> dtoPage = realEstatePage.map(realEstate -> modelMapper.map(realEstate, RealEstateDto.class));
+        return dtoPage;
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
-    private void loadPhotoUrls(RealEstateDto dto) {
-        List<String> photoUrls = photoRepository.findUrlsByRealEstateId(dto.getId());
-        dto.setPhotoUrls(photoUrls);
-    }
-    
 
     public Page<RealEstateDto> searchRealEstates(Integer provinceId, Integer districtId, Double minPrice,
             Double maxPrice, Double minAcreage, Double maxAcreage, Integer bedroom, String address, Pageable pageable) {
@@ -79,8 +80,8 @@ public class RealEstateService {
         photoRepository.saveAll(photos);
     }
     public RealEstateDto getRealEstateById(Integer id){
-        RealEstateDto realEstateDto = realEstateRepository.getRealEstateById(id);
-        loadPhotoUrls(realEstateDto);
+        RealEstate realEstate = realEstateRepository.findById(id).orElse(null);
+        RealEstateDto realEstateDto = modelMapper.map(realEstate, RealEstateDto.class);
         return realEstateDto;
     }
 }
