@@ -34,6 +34,8 @@ public class RealEstateDto {
     private Integer type;
     // Nhu cầu 0.Cần bán, 2.Cần mua, 3.Cho thuê, 4.Cần thuê
     private Integer request;
+    // Mã bất động sản
+    private String realEstateCode;
     // Giá hiện tại đăng tin
     private BigDecimal price;
     // Đơn vị giá: 0.Triệu, 1.Tỷ, 2.Triệu/m2, 3.Tỷ/m2
@@ -207,13 +209,13 @@ public class RealEstateDto {
         this.createdAt = realEstate.getCreatedAt();
         this.photoUrls = realEstate.getPhotos().stream().map(photo -> photo.getUrl())
                 .collect(java.util.stream.Collectors.toList());
-        this.customer = new CustomerDto(realEstate.getCustomer().getId(), realEstate.getCustomer().getContactName(),
+        this.customer = new CustomerDto(realEstate.getCustomer().getId(), realEstate.getCustomer().getFullName(),
                 realEstate.getCustomer().getPhoto().getUrl());
         this.address = new AddressDto(realEstate.getAddress(),
                 new ProvinceDto(realEstate.getProvince().getId(), realEstate.getProvince().getName()),
-                new DistrictDto(realEstate.getDistrict().getId(), realEstate.getDistrict().getName()),
-                new WardDto(realEstate.getWard().getId(), realEstate.getWard().getName()),
-                new StreetDto(realEstate.getStreet().getId(), realEstate.getStreet().getName()),
+                new DistrictDto(realEstate.getDistrict().getId(), realEstate.getDistrict().getName(), realEstate.getDistrict().getPrefix()),
+                new WardDto(realEstate.getWard().getId(), realEstate.getWard().getName(), realEstate.getWard().getPrefix()),
+                new StreetDto(realEstate.getStreet().getId(), realEstate.getStreet().getName(), realEstate.getStreet().getPrefix()),
                 realEstate.getAddressMap().getLatitude(),
                 realEstate.getAddressMap().getLongitude());
         this.article = new ArticleDto(realEstate.getArticle());

@@ -30,7 +30,7 @@ import lombok.Setter;
 public class Customer extends UserReferenceEntity {
     // Tên khách hàng
     @Column(name = "contact_name")
-    private String contactName;
+    private String fullName;
 
     // Chức vụ
     @Column(name = "contact_title")

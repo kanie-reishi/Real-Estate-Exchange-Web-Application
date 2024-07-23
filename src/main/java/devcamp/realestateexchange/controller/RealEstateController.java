@@ -33,15 +33,15 @@ public class RealEstateController {
         }
     }
 
-    @GetMapping("/realestate/{id}")
+    /*@GetMapping("/realestate/{id}")
     public ResponseEntity<Object> getRealEstateById(@PathVariable Integer id){
         try {
             RealEstateDto realEstate = realEstateService.getRealEstateDtoById(id);
-            return ResponseEntity.ok(realEstate);
+           return ResponseEntity.ok(realEstate);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
-    }
+    } */
 
     @GetMapping("/realestate/search")
     public ResponseEntity<Object> searchRealEstates(@RequestBody RealEstateSearchParameters parameters, Pageable pageable) {

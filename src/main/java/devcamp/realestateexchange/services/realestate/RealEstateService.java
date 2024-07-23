@@ -12,6 +12,10 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import devcamp.realestateexchange.dto.realestate.RealEstateDto;
+import devcamp.realestateexchange.dto.user.CustomerDto;
+import devcamp.realestateexchange.dto.location.AddressDto;
+import devcamp.realestateexchange.dto.location.DistrictDto;
+import devcamp.realestateexchange.dto.location.ProvinceDto;
 import devcamp.realestateexchange.entity.location.District;
 import devcamp.realestateexchange.entity.location.Province;
 import devcamp.realestateexchange.entity.location.Street;
@@ -29,6 +33,7 @@ import devcamp.realestateexchange.repositories.user.ICustomerRepository;
 import devcamp.realestateexchange.services.media.PhotoService;
 import devcamp.realestateexchange.specification.RealEstateSpecification;
 import devcamp.realestateexchange.specification.SearchCriteria;
+import devcamp.realestateexchange.projections.RealEstateBasicProjection;
 
 @Service
 public class RealEstateService {
@@ -49,17 +54,47 @@ public class RealEstateService {
     @Autowired
     private ModelMapper modelMapper;
     public Page<RealEstateDto> getAllRealEstateDtos(Pageable pageable) {
-        try{
-        Page<RealEstateDto> realEstatePage = realEstateRepository.findAllDtos(pageable);
-        realEstatePage.forEach(this::loadPhotoUrls);
-        return realEstatePage;
-        } catch (MappingException e) {
-            throw new MappingException("Error mapping RealEstate to RealEstateDto");
-        }
+    Page<RealEstateBasicProjection> projections = realEstateRepository.findAllBasicProjections(pageable);
+    return projections.map(this::convertBasicProjectionToDto);
     }
-    private void loadPhotoUrls(RealEstateDto dto){
+    private RealEstateDto convertBasicProjectionToDto(RealEstateBasicProjection projection){
+        RealEstateDto dto = new RealEstateDto();
+        dto.setId(projection.getId());
+        dto.setTitle(projection.getTitle());
+        dto.setType(projection.getType());
+        dto.setRequest(projection.getRequest());
+        dto.setRealEstateCode(projection.getRealEstateCode());
+        dto.setPrice(projection.getPrice());
+        dto.setPriceUnit(projection.getPriceUnit());
+        dto.setAcreage(projection.getAcreage());
+        dto.setAcreageUnit(projection.getAcreageUnit());
+        dto.setBedroom(projection.getBedroom());
+        dto.setVerify(projection.getVerify());
+        dto.setCreatedAt(projection.getCreatedAt());
+
+        CustomerDto customerDto = new CustomerDto();
+        customerDto.setId(projection.getCustomer().getId());
+        customerDto.setFullName(projection.getCustomer().getFullName());
+        customerDto.setPhone(projection.getCustomer().getPhone());
+        dto.setCustomer(customerDto);
+
+        AddressDto addressDto = new AddressDto();
+        ProvinceDto provinceDto = new ProvinceDto();
+        DistrictDto districtDto = new DistrictDto();
+
+        provinceDto.setId(projection.getProvince().getId());
+        provinceDto.setName(projection.getProvince().getName());
+        addressDto.setProvince(provinceDto);
+        districtDto.setId(projection.getDistrict().getId());
+        districtDto.setName(projection.getDistrict().getName());
+        districtDto.setPrefix(projection.getDistrict().getPrefix());
+        addressDto.setDistrict(districtDto);
+
+        dto.setAddress(addressDto);
+        
         List<String> photoUrls = photoService.getUrlsByRealEstateId(dto.getId());
         dto.setPhotoUrls(photoUrls);
+        return dto;
     }
     public Page<RealEstateDto> searchRealEstates(Integer provinceId, Integer districtId, Double minPrice,
             Double maxPrice, Double minAcreage, Double maxAcreage, Integer bedroom, String address, Pageable pageable) {
@@ -93,13 +128,13 @@ public class RealEstateService {
         return realEstateRepository.findAll(result, pageable)
                 .map(realEstate -> modelMapper.map(realEstate, RealEstateDto.class));
     }
-    public RealEstateDto getRealEstateDtoById(Integer id) {
+    /*public RealEstateDto getRealEstateDtoById(Integer id) {
        RealEstateDto realEstateDto = realEstateRepository.findDtoById(id)
                 .orElseThrow(() -> new RuntimeException("RealEstate not found"));
         List<String> photoUrls = photoService.getUrlsByRealEstateId(id);
         realEstateDto.setPhotoUrls(photoUrls);
         return realEstateDto;
-    }
+    }*/
     public RealEstateDto saveRealEstate(RealEstateDto realEstateDto) {
         RealEstate realEstate = new RealEstate();
         realEstate.setTitle(realEstateDto.getTitle());
@@ -162,17 +197,4 @@ public class RealEstateService {
         return new RealEstateDto(realEstate);
     }
 
-
-    public List<RealEstateDto> findAllByViewCount(Pageable pageable) {
-        List<Object[]> results = realEstateRepository.findAllByViewCountTest(pageable);
-        List<RealEstateDto> dtos = new ArrayList<>();
-        for (Object[] result : results) {
-            RealEstateDto dto = new RealEstateDto();
-            dto.setId((Integer) result[0]);
-            dto.setTitle((String) result[1]);
-            // set other fields...
-            dtos.add(dto);
-        }
-        return dtos;
-    }
 }

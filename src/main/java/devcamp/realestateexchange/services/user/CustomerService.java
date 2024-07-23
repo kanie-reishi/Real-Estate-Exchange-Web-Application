@@ -32,8 +32,8 @@ public class CustomerService {
         if (existingCustomer == null) {
             return null;
         }
-        if(existingCustomer.getContactName() != null) {
-            existingCustomer.setContactName(customer.getContactName());
+        if(existingCustomer.getFullName() != null) {
+            existingCustomer.setFullName(customer.getFullName());
         }
         if(existingCustomer.getPhone() != null) {
             existingCustomer.setPhone(customer.getPhone());

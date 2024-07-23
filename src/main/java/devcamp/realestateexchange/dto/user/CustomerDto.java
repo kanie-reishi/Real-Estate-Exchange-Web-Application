@@ -9,14 +9,14 @@ import lombok.Setter;
 @AllArgsConstructor
 public class CustomerDto {
     private Integer id;
-    private String contactName;
+    private String fullName;
     private String contactTitle;
     private String phone;
     private String email;
     private String avatarUrl;
-    public CustomerDto(Integer id, String contactName, String avatarUrl) {
+    public CustomerDto(Integer id, String fullName, String avatarUrl) {
         this.id = id;
-        this.contactName = contactName;
+        this.fullName = fullName;
         this.avatarUrl = avatarUrl;
     }
 }
