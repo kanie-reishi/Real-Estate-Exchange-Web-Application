@@ -13,4 +13,10 @@ public class CustomerDto {
     private String contactTitle;
     private String phone;
     private String email;
+    private String avatarUrl;
+    public CustomerDto(Integer id, String contactName, String avatarUrl) {
+        this.id = id;
+        this.contactName = contactName;
+        this.avatarUrl = avatarUrl;
+    }
 }

@@ -15,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import devcamp.realestateexchange.dto.APIResponse;
+import devcamp.realestateexchange.entity.media.Photo;
 import devcamp.realestateexchange.exceptions.FileEmptyException;
 import devcamp.realestateexchange.exceptions.FileUploadException;
 import devcamp.realestateexchange.services.interfacep.IFileService;
@@ -40,36 +40,6 @@ public class FileUploadController {
    public FileUploadController(IFileService fileUploadService) {
        this.fileService = fileUploadService;
    }
-
-   @PostMapping("/upload/{realestateId}")
-   public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile[] multipartFiles, @PathVariable int realEstateId) throws FileEmptyException, FileUploadException, IOException {
-        if (multipartFiles.length == 0){
-              throw new FileEmptyException("File is empty. Cannot save an empty file");
-        }
-        List<APIResponse> apiResponses = new ArrayList<>();
-        for(MultipartFile multipartFile: multipartFiles){
-            boolean isValidFile = isValidFile(multipartFile);
-            List<String> allowedFileExtensions = new ArrayList<>(Arrays.asList("png", "jpg", "jpeg"));
-            if (isValidFile && allowedFileExtensions.contains(FilenameUtils.getExtension(multipartFile.getOriginalFilename()))){
-                String fileName = fileService.uploadFile(multipartFile, realEstateId);
-                APIResponse apiResponse = APIResponse.builder()
-                        .message("file uploaded successfully. File unique name =>" + fileName)
-                        .isSuccessful(true)
-                        .statusCode(200)
-                        .build();
-                apiResponses.add(apiResponse);
-            } else {
-                APIResponse apiResponse = APIResponse.builder()
-                        .message("Invalid File. File extension or File name is not supported")
-                        .isSuccessful(false)
-                        .statusCode(400)
-                        .build();
-                apiResponses.add(apiResponse);
-                return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
-            }
-        }
-        return ResponseEntity.ok(apiResponses);
-   }
    @PostMapping("/upload")
    public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile multipartFile) throws FileEmptyException, FileUploadException, IOException {
        if (multipartFile.isEmpty()){
@@ -78,10 +48,10 @@ public class FileUploadController {
        boolean isValidFile = isValidFile(multipartFile);
        List<String> allowedFileExtensions = new ArrayList<>(Arrays.asList("png", "jpg", "jpeg"));
        if (isValidFile && allowedFileExtensions.contains(FilenameUtils.getExtension(multipartFile.getOriginalFilename()))){
-           String fileUrl = fileService.uploadFile(multipartFile);
+           Photo photo = fileService.uploadFile(multipartFile);
            APIResponse apiResponse = APIResponse.builder()
                    .message("file uploaded successfully")
-                   .data(fileUrl)
+                   .data(photo)
                    .isSuccessful(true)
                    .statusCode(200)
                    .build();

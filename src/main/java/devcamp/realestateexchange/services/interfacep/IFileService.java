@@ -4,13 +4,12 @@ import java.io.IOException;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import devcamp.realestateexchange.entity.media.Photo;
 import devcamp.realestateexchange.exceptions.FileDownloadException;
 import devcamp.realestateexchange.exceptions.FileUploadException;
 
 public interface IFileService {
-    String uploadFile(MultipartFile multipartFile) throws FileUploadException, IOException;
-
-    String uploadFile(MultipartFile multipartFile, int realEstateId) throws IOException;
+    Photo uploadFile(MultipartFile multipartFile) throws FileUploadException, IOException;
     
     Object downloadFile(String fileName) throws FileDownloadException, IOException;
 

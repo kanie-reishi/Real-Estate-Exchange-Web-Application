@@ -6,9 +6,12 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import devcamp.realestateexchange.entity.realestate.RealEstate;
 import devcamp.realestateexchange.entity.user.UserReferenceEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -40,4 +43,9 @@ public class Article extends UserReferenceEntity{
     // Quan hệ 1-n với bảng Reply
     @OneToMany(mappedBy = "article", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Reply> replies;
+
+    // Quan hệ 1-1 với RealEstate
+    @OneToOne
+    @JoinColumn(name = "real_estate_id")
+    private RealEstate realEstate;
 }

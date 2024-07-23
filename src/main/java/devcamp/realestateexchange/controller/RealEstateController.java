@@ -36,7 +36,7 @@ public class RealEstateController {
     @GetMapping("/realestate/{id}")
     public ResponseEntity<Object> getRealEstateById(@PathVariable Integer id){
         try {
-            RealEstateDto realEstate = realEstateService.getRealEstateById(id);
+            RealEstateDto realEstate = realEstateService.getRealEstateDtoById(id);
             return ResponseEntity.ok(realEstate);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -64,7 +64,7 @@ public class RealEstateController {
     @PostMapping("/realestate")
     public ResponseEntity<Object> createRealEstate(@RequestBody RealEstateDto realEstateDto) {
         try {
-            realEstateService.createRealEstate(realEstateDto);
+            realEstateService.saveRealEstate(realEstateDto);
             return ResponseEntity.ok("Real estate created successfully");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());

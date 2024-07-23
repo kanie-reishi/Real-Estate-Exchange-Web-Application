@@ -50,7 +50,7 @@ const uppy = new Uppy({
         },
         proudlyDisplayPoweredByUppy: false,
     })
-    .use(XHRUpload, { endpoint: 'http://localhost:8080/photo/upload?realEstateId=6' });
+    .use(XHRUpload, { endpoint: 'http://localhost:8080/photo/upload' });
 // Listen on file added event
 uppy.on('file-added', (file) => {
     const url = URL.createObjectURL(file.data);

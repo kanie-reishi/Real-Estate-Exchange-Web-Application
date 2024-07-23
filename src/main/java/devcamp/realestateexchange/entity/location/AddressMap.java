@@ -22,8 +22,8 @@ public class AddressMap extends BaseEntity {
     private String address;
     // Vĩ độ
     @Column(name = "_lat")
-    double latitude;
+    Double latitude;
     // Kinh độ
     @Column(name = "_long")
-    double longitude;
+    Double longitude;
 }

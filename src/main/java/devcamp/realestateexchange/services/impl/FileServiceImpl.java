@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.io.FilenameUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -22,11 +23,10 @@ import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
 
+import devcamp.realestateexchange.entity.media.Photo;
+import devcamp.realestateexchange.exceptions.FileDownloadException;
 import devcamp.realestateexchange.services.interfacep.IFileService;
 import devcamp.realestateexchange.services.media.PhotoService;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import devcamp.realestateexchange.exceptions.FileDownloadException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -41,7 +41,7 @@ public class FileServiceImpl implements IFileService {
     @Autowired
     private PhotoService photoService;
     @Override
-    public String uploadFile(MultipartFile multipartFile) throws IOException {
+    public Photo uploadFile(MultipartFile multipartFile) throws IOException {
         // convert multipart file  to a file
         File file = new File(multipartFile.getOriginalFilename());
         try (FileOutputStream fileOutputStream = new FileOutputStream(file)){
@@ -62,40 +62,12 @@ public class FileServiceImpl implements IFileService {
         
         // generate file url
         String url = s3Client.getUrl(bucketName, fileName).toExternalForm();
+
         // delete file
         file.delete();
 
-        return url;
-    }
-    // Overloaded method
-    @Override
-    public String uploadFile(MultipartFile multipartFile, int realEstateId) throws IOException {
-        // convert multipart file  to a file
-        File file = new File(multipartFile.getOriginalFilename());
-        try (FileOutputStream fileOutputStream = new FileOutputStream(file)){
-            fileOutputStream.write(multipartFile.getBytes());
-        }
-    
-        // generate file name
-        String fileName = generateFileName(multipartFile);
-    
-        // upload file
-        PutObjectRequest request = new PutObjectRequest(bucketName, fileName, file);
-        ObjectMetadata metadata = new ObjectMetadata();
-        metadata.setContentType("plain/"+ FilenameUtils.getExtension(multipartFile.getOriginalFilename()));
-        metadata.addUserMetadata("Title", "File Upload - " + fileName);
-        metadata.setContentLength(file.length());
-        request.setMetadata(metadata);
-        s3Client.putObject(request);
-    
-        // save photo metadata
-        String url = s3Client.getUrl(bucketName, fileName).toExternalForm();
-        photoService.savePhotoMetadata(multipartFile, url, realEstateId);
-    
-        // delete file
-        file.delete();
-    
-        return fileName;
+        // save photo data
+        return photoService.savePhotoMetadata(multipartFile, url);
     }
  
     @Override
