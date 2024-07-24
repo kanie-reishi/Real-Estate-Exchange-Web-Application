@@ -128,8 +128,4 @@ public class RealEstateDetail {
     // Giá bán tối thiểu
     @Column(name = "price_min")
     private BigDecimal priceMin;
-
-    // Thời gian bán
-    @Column(name = "price_time")
-    private String priceTime;
 }

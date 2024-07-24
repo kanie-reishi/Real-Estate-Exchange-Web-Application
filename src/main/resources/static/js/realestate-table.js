@@ -7,13 +7,15 @@ $(document).ready(function () {
         "processing": true,
         "serverSide": true,
         "ajax": {
-            "url": "http://localhost:8080/realestate",
+            "url": "http://localhost:8080/realestate/table",
             "type": "GET",
-            "dataSrc": "content",
-            "data": function (d) {
-                d.length = 10; // Fetch 10 records
-            }
+            "dataSrc": "data",
         },
+        "lengthMenu": [[10, 25, 50], [10, 25, 50]], 
+        "columnDefs": [
+            {"orderable": false,
+        "targets": [0, 1, 2, 3, 4, 5, 6, 7, 8, 13]}
+        ],
         "columns": [
             { "data": null, // Chức năng
                 "render": (data, type, row) => {
@@ -147,9 +149,11 @@ $(document).ready(function () {
                             break;
                     }
                     return row.price + " " + priceUnitName;
-                }
+                },
+                "orderable": true
              },
-            { "data": "createdAt" },// Ngày đăng
+            { "data": "createdAt",
+            "orderable": true },// Ngày đăng
             {
                 "data": null, // Diện tích
                 "render": function (data, type, row) {
@@ -164,13 +168,12 @@ $(document).ready(function () {
                             break;
                     }
                     return row.acreage + " " + acreageUnitName;
-                }
+                },
+                "orderable": true
             },
             {
-                "data": null,
-                "render": function (data, type, row) {
-                    return '<a href="/realestate/' + row.id + '/edit">Sửa</a>';
-                }
+                "data": "priceTime",
+                "orderable": true
             },
             {
                 "data": null, // Hình ảnh

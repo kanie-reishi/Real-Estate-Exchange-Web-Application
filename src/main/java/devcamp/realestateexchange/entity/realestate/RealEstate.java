@@ -120,6 +120,10 @@ public class RealEstate extends UserReferenceEntity {
     @Column(name = "price_unit")
     private Integer priceUnit;
 
+    // Thời gian bán
+    @Column(name = "price_time")
+    private String priceTime;
+    
     // diện tích bđs, diện tích thông thủy
     @Column(name = "acreage")
     private Double acreage;

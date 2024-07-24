@@ -73,21 +73,29 @@ public class RealEstateService {
         dto.setCreatedAt(projection.getCreatedAt());
 
         CustomerDto customerDto = new CustomerDto();
+        if(projection.getCustomer() != null){ // Check null
         customerDto.setId(projection.getCustomer().getId());
         customerDto.setFullName(projection.getCustomer().getFullName());
         customerDto.setPhone(projection.getCustomer().getPhone());
+        }
         dto.setCustomer(customerDto);
 
         AddressDto addressDto = new AddressDto();
         ProvinceDto provinceDto = new ProvinceDto();
         DistrictDto districtDto = new DistrictDto();
 
+        if(projection.getProvince() != null){ // Check null
         provinceDto.setId(projection.getProvince().getId());
         provinceDto.setName(projection.getProvince().getName());
         addressDto.setProvince(provinceDto);
-        districtDto.setId(projection.getDistrict().getId());
-        districtDto.setName(projection.getDistrict().getName());
-        districtDto.setPrefix(projection.getDistrict().getPrefix());
+        }
+        addressDto.setProvince(provinceDto);
+
+        if(projection.getDistrict() != null){ // Check null
+            districtDto.setId(projection.getDistrict().getId());
+            districtDto.setName(projection.getDistrict().getName());
+            districtDto.setPrefix(projection.getDistrict().getPrefix());
+        }
         addressDto.setDistrict(districtDto);
 
         dto.setAddress(addressDto);

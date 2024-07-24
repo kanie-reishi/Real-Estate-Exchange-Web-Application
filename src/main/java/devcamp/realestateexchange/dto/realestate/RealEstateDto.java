@@ -40,6 +40,8 @@ public class RealEstateDto {
     private BigDecimal price;
     // Đơn vị giá: 0.Triệu, 1.Tỷ, 2.Triệu/m2, 3.Tỷ/m2
     private Integer priceUnit;
+    // Thời gian bán
+    private String priceTime;
     // diện tích bđs, diện tích thông thủy
     private Double acreage;
     // Đơn vị diện tích: 0.m2, 1.ha
@@ -103,7 +105,6 @@ public class RealEstateDto {
             RealEstateDetail detail = new RealEstateDetail();
             detail.setDescription(description);
             detail.setPriceMin(priceMin);
-            detail.setPriceTime(priceTime);
             detail.setTotalFloors(totalFloors);
             detail.setBath(bath);
             detail.setWallArea(wallArea);
@@ -143,7 +144,7 @@ public class RealEstateDto {
         private Integer apartType;
         private Integer numberFloors;
     }
-    
+
     public RealEstateDto(Integer id, String title, Integer type, Integer request, BigDecimal price, Integer priceUnit,
             Double acreage, Integer acreageUnit, Integer bedroom, Integer verify, Date createdAt) {
         this.id = id;
@@ -194,7 +195,6 @@ public class RealEstateDto {
         this.address = address;
     }
 
-    // To Dto
     public RealEstateDto(RealEstate realEstate) {
         this.id = realEstate.getId();
         this.title = realEstate.getTitle();
@@ -202,27 +202,36 @@ public class RealEstateDto {
         this.request = realEstate.getRequest();
         this.price = realEstate.getPrice();
         this.priceUnit = realEstate.getPriceUnit();
+        this.priceTime = realEstate.getPriceTime();
         this.acreage = realEstate.getAcreage();
         this.acreageUnit = realEstate.getAcreageUnit();
         this.bedroom = realEstate.getBedroom();
         this.verify = realEstate.getVerify();
         this.createdAt = realEstate.getCreatedAt();
+
         this.photoUrls = realEstate.getPhotos().stream().map(photo -> photo.getUrl())
                 .collect(java.util.stream.Collectors.toList());
+
         this.customer = new CustomerDto(realEstate.getCustomer().getId(), realEstate.getCustomer().getFullName(),
                 realEstate.getCustomer().getPhoto().getUrl());
+
         this.address = new AddressDto(realEstate.getAddress(),
                 new ProvinceDto(realEstate.getProvince().getId(), realEstate.getProvince().getName()),
-                new DistrictDto(realEstate.getDistrict().getId(), realEstate.getDistrict().getName(), realEstate.getDistrict().getPrefix()),
-                new WardDto(realEstate.getWard().getId(), realEstate.getWard().getName(), realEstate.getWard().getPrefix()),
-                new StreetDto(realEstate.getStreet().getId(), realEstate.getStreet().getName(), realEstate.getStreet().getPrefix()),
+                new DistrictDto(realEstate.getDistrict().getId(), realEstate.getDistrict().getName(),
+                        realEstate.getDistrict().getPrefix()),
+                new WardDto(realEstate.getWard().getId(), realEstate.getWard().getName(),
+                        realEstate.getWard().getPrefix()),
+                new StreetDto(realEstate.getStreet().getId(), realEstate.getStreet().getName(),
+                        realEstate.getStreet().getPrefix()),
                 realEstate.getAddressMap().getLatitude(),
                 realEstate.getAddressMap().getLongitude());
+
+        
         this.article = new ArticleDto(realEstate.getArticle());
+
         this.detail = new RealEstateDetailDto();
         this.detail.setDescription(realEstate.getDetail().getDescription());
         this.detail.setPriceMin(realEstate.getDetail().getPriceMin());
-        this.detail.setPriceTime(realEstate.getDetail().getPriceTime());
         this.detail.setTotalFloors(realEstate.getDetail().getTotalFloors());
         this.detail.setBath(realEstate.getDetail().getBath());
         this.detail.setWallArea(realEstate.getDetail().getWallArea());
