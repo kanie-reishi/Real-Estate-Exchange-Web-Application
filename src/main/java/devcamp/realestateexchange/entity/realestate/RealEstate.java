@@ -16,6 +16,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.apache.lucene.document.Field.Index;
+import org.apache.lucene.document.Field.Store;
+import org.hibernate.search.annotations.Analyze;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import devcamp.realestateexchange.entity.location.AddressMap;
@@ -38,6 +44,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Indexed
 @NamedEntityGraph(name = "RealEstate.photos", attributeNodes = @NamedAttributeNode("photos"))
 public class RealEstate extends UserReferenceEntity {
     // Tiêu đề tin
@@ -91,6 +98,7 @@ public class RealEstate extends UserReferenceEntity {
 
     // Địa chỉ chi tiết nhà.
     @Column(name = "address")
+    @Field
     private String address;
 
     // Id người đăng tin bđs

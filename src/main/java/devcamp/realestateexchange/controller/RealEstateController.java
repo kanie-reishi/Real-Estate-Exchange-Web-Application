@@ -31,7 +31,7 @@ public class RealEstateController {
     @GetMapping("/realestate")
     public ResponseEntity<Object> getRealEstateList(Pageable pageable) {
         try {
-            Page<RealEstateDto> realEstatePage = realEstateService.getAllRealEstateDtos(pageable);
+            Page<RealEstateDto> realEstatePage = realEstateService.getAllRealEstateDtos(null, pageable);
             return ResponseEntity.ok(realEstatePage);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -56,11 +56,11 @@ public class RealEstateController {
             @RequestParam("length") Integer length,
             @RequestParam("order[0][column]") Integer orderColumn,
             @RequestParam("order[0][dir]") String orderDir,
+            @RequestParam("search[value]") String searchTerm,
+            @RequestParam("search[regex]") Boolean searchRegex,
+            @RequestParam("columns[0][search][value]") String columnSearchValue,
             @RequestParam Map<String, String> allParams) {
         try {
-            // Define sort direction
-            Sort.Direction direction = Sort.Direction.fromString(orderDir);
-
             // Define sort column
             String[] columns = new String[] { "feature", "realEstateCode", "province", "district", "ward", "street",
                     "type", "request", "customer", "price", "createdAt", "acreage", "priceTime", "images" };
@@ -68,10 +68,12 @@ public class RealEstateController {
             String orderableKey = "columns[" + orderColumn + "][orderable]";
             String orderable = allParams.get(orderableKey);
             if ("true".equals(orderable)) {
+                // Define sort direction
+                Sort.Direction direction = Sort.Direction.fromString(orderDir);
                 Sort sort = Sort.by(direction, columns[orderColumn]);
 
                 Pageable pageable = PageRequest.of(start / length, length, sort);
-                Page<RealEstateDto> realEstatePage = realEstateService.getAllRealEstateDtos(pageable);
+                Page<RealEstateDto> realEstatePage = realEstateService.getAllRealEstateDtos(searchTerm, pageable);
 
                 // Create response object
                 Map<String, Object> response = new HashMap<>();
@@ -83,7 +85,7 @@ public class RealEstateController {
                 return ResponseEntity.ok(response);
             } else {
                 Pageable pageable = PageRequest.of(start / length, length);
-                Page<RealEstateDto> realEstatePage = realEstateService.getAllRealEstateDtos(pageable);
+                Page<RealEstateDto> realEstatePage = realEstateService.getAllRealEstateDtos(searchTerm, pageable);
 
                 // Create response object
                 Map<String, Object> response = new HashMap<>();
