@@ -8,10 +8,6 @@ import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.hibernate.search.jpa.FullTextEntityManager;
-import org.hibernate.search.jpa.FullTextQuery;
-import org.hibernate.search.jpa.Search;
-import org.hibernate.search.query.dsl.QueryBuilder;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -62,104 +58,19 @@ public class RealEstateService {
     PhotoService photoService;
     @Autowired
     private ModelMapper modelMapper;
-    /*@PersistenceContext
-    private EntityManager entityManager; */
 
     public Page<RealEstateDto> getAllRealEstateDtos(String searchTerm, Pageable pageable) {
         if (searchTerm == null || searchTerm.isEmpty()) {
             Page<RealEstateBasicProjection> projections = realEstateRepository.findAllBasicProjections(pageable);
             return projections.map(this::convertBasicProjectionToDto);
-        } /* else { 
+        } else { 
             try {
-                 // Get the full-text entity manager
-                FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
-
-                // Create a query builder
-                QueryBuilder queryBuilder = fullTextEntityManager.getSearchFactory()
-                        .buildQueryBuilder()
-                        .forEntity(RealEstate.class)
-                        .get();
-
-                // Create a Lucene full-text query
-                org.apache.lucene.search.Query query = queryBuilder
-                        .keyword()
-                        .onFields("title", "detail.description", "address") // Specify the fields to search in
-                        .matching(searchTerm)
-                        .createQuery();
-
-                // Wrap the Lucene query in a javax.persistence.Query
-                FullTextQuery jpaQuery = fullTextEntityManager.createFullTextQuery(query, RealEstate.class);
-
-                jpaQuery.setProjection("id", "title", "type", "request", "price", "priceUnit", "acreage", "acreageUnit",
-                        "bedroom", "verify", "realEstateCode", "createdAt", "customer", "province", "district");
-
-                // Set pagination
-                jpaQuery.setFirstResult((int) pageable.getOffset());
-                jpaQuery.setMaxResults(pageable.getPageSize());
-
-                // Execute the query and get the results
-                List<Object[]> results = jpaQuery.getResultList();
-
-                List<RealEstateDto> dtos = results.stream()
-                        .map(result -> {
-                            RealEstateDto dto = new RealEstateDto();
-                            dto.setId((Integer) result[0]);
-                            dto.setTitle((String) result[1]);
-                            dto.setRequest((Integer) result[3]);
-                            dto.setPrice((BigDecimal) result[4]);
-                            dto.setPriceUnit((Integer) result[5]);
-                            dto.setAcreage((Double) result[6]);
-                            dto.setAcreageUnit((Integer) result[7]);
-                            dto.setBedroom((Integer) result[8]);
-                            dto.setVerify((Integer) result[9]);
-                            dto.setRealEstateCode((String) result[10]);
-                            if (result[11] instanceof java.sql.Date) {
-                                dto.setCreatedAt(new java.util.Date(((java.sql.Date) result[11]).getTime()));
-                            } else if (result[11] instanceof java.sql.Timestamp) {
-                                dto.setCreatedAt(new java.util.Date(((java.sql.Timestamp) result[11]).getTime()));
-                            }
-                            Customer customer = (Customer) result[12];
-                            if (customer != null) {
-                                CustomerDto customerDto = new CustomerDto();
-                                customerDto.setId(customer.getId());
-                                customerDto.setFullName(customer.getFullName());
-                                customerDto.setPhone(customer.getPhone());
-                                dto.setCustomer(customerDto);
-                            }
-                            Province province = (Province) result[13];
-                            if (province != null) {
-                                ProvinceDto provinceDto = new ProvinceDto();
-                                provinceDto.setId(province.getId());
-                                provinceDto.setName(province.getName());
-                                AddressDto addressDto = new AddressDto();
-                                addressDto.setProvince(provinceDto);
-                                dto.setAddress(addressDto);
-                            }
-                            District district = (District) result[14];
-                            if (district != null) {
-                                DistrictDto districtDto = new DistrictDto();
-                                districtDto.setId(district.getId());
-                                districtDto.setName(district.getName());
-                                districtDto.setPrefix(district.getPrefix());
-                                AddressDto addressDto = dto.getAddress();
-                                addressDto.setDistrict(districtDto);
-                                dto.setAddress(addressDto);
-                            }
-
-                            return dto;
-                        })
-                        .collect(Collectors.toList());
-                // Get the total number of results
-                jpaQuery = fullTextEntityManager.createFullTextQuery(query);
-                int total = jpaQuery.getResultList().size();
-
-                // Return the results as a Page
-                return new PageImpl<>(dtos, pageable, total);
+                List<RealEstateDto> realEstateDtos = realEstateRepository.search(searchTerm);
+                return new PageImpl<>(realEstateDtos, pageable, realEstateDtos.size());
             } catch (Exception e) {
                 e.printStackTrace();
-                return null;
-            } 
-        } */
+            }
+        } 
         return null;
     }
 

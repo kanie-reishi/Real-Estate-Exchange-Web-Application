@@ -16,11 +16,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import org.apache.lucene.document.Field.Index;
-import org.apache.lucene.document.Field.Store;
-import org.hibernate.search.annotations.Analyze;
-import org.hibernate.search.annotations.Field;
-import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.FullTextField;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.Indexed;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -49,6 +46,7 @@ import lombok.Setter;
 public class RealEstate extends UserReferenceEntity {
     // Tiêu đề tin
     @Column(name = "title")
+    @FullTextField
     private String title;
 
     // Danh mục tin đăng: 0.Đất, 1.Nhà ở,
@@ -98,7 +96,6 @@ public class RealEstate extends UserReferenceEntity {
 
     // Địa chỉ chi tiết nhà.
     @Column(name = "address")
-    @Field
     private String address;
 
     // Id người đăng tin bđs

@@ -67,6 +67,8 @@ public class RealEstateDto {
     // Chi tiết chung cư
     private ApartDetailDto apartDetail;
 
+    private Integer customerId;
+
     @Getter
     @Setter
     @NoArgsConstructor
@@ -195,6 +197,25 @@ public class RealEstateDto {
         this.address = address;
     }
 
+    public RealEstateDto(Integer id, String title, Integer type, Integer request, String realEstateCode,
+            BigDecimal price, Integer priceUnit, String priceTime, Double acreage, Integer acreageUnit, Integer bedroom,
+            Integer verify, Date createdAt, Integer customerId) {
+        this.id = id;
+        this.title = title;
+        this.type = type;
+        this.request = request;
+        this.realEstateCode = realEstateCode;
+        this.price = price;
+        this.priceUnit = priceUnit;
+        this.priceTime = priceTime;
+        this.acreage = acreage;
+        this.acreageUnit = acreageUnit;
+        this.bedroom = bedroom;
+        this.verify = verify;
+        this.createdAt = createdAt;
+        this.customerId = customerId;
+    }
+
     public RealEstateDto(RealEstate realEstate) {
         this.id = realEstate.getId();
         this.title = realEstate.getTitle();
@@ -266,4 +287,24 @@ public class RealEstateDto {
             this.apartDetail.setNumberFloors(realEstate.getApartDetail().getNumberFloors());
         }
     }
+
+    public static RealEstateDto fromFields(List<?> fields) {
+        RealEstateDto dto = new RealEstateDto();
+        dto.id = (Integer) fields.get(0);
+        dto.title = (String) fields.get(1);
+        dto.type = (Integer) fields.get(2);
+        dto.request = (Integer) fields.get(3);
+        dto.realEstateCode = (String) fields.get(4);
+        dto.price = (BigDecimal) fields.get(5);
+        dto.priceUnit = (Integer) fields.get(6);
+        dto.priceTime = (String) fields.get(7);
+        dto.acreage = (Double) fields.get(8);
+        dto.acreageUnit = (Integer) fields.get(9);
+        dto.bedroom = (Integer) fields.get(10);
+        dto.verify = (Integer) fields.get(11);
+        dto.createdAt = (Date) fields.get(12);
+        dto.customerId = (Integer) fields.get(13);
+        return dto;
+    }
+    
 }

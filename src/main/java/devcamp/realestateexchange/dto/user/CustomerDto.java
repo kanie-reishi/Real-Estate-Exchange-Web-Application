@@ -14,9 +14,9 @@ public class CustomerDto {
     private String phone;
     private String email;
     private String avatarUrl;
-    public CustomerDto(Integer id, String fullName, String avatarUrl) {
+    public CustomerDto(Integer id, String fullName, String phone) {
         this.id = id;
         this.fullName = fullName;
-        this.avatarUrl = avatarUrl;
+        this.phone = phone;
     }
 }
