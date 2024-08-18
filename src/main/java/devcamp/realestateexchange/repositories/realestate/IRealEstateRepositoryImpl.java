@@ -3,6 +3,8 @@ package devcamp.realestateexchange.repositories.realestate;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
+
 import org.hibernate.search.mapper.orm.Search;
 import org.hibernate.search.mapper.orm.session.SearchSession;
 import org.springframework.stereotype.Repository;
@@ -15,10 +17,11 @@ import devcamp.realestateexchange.dto.location.ProvinceDto;
 import devcamp.realestateexchange.dto.location.DistrictDto;
 
 @Repository
-public class RealEstateRepositoryImpl implements RealEstateRepositoryCustom {
+public class IRealEstateRepositoryImpl implements RealEstateRepositoryCustom {
     @PersistenceContext
     private EntityManager entityManager;
 
+    @Transactional
     @Override
     public List<RealEstateDto> search(String keyword) {
         SearchSession searchSession = Search.session(entityManager);

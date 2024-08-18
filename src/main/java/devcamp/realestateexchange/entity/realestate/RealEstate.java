@@ -119,6 +119,7 @@ public class RealEstate extends UserReferenceEntity {
 
     // Mã bất động sản
     @Column(name = "real_estate_code")
+    @FullTextField
     private String realEstateCode;
 
     // Đơn vị giá: 0.Triệu, 1.Tỷ, 2.Triệu/m2, 3.Tỷ/m2

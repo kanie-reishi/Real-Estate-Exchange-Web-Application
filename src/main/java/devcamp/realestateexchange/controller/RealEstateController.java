@@ -51,23 +51,23 @@ public class RealEstateController {
      */
     @GetMapping("/realestate/table")
     public ResponseEntity<Object> getRealEstateTable(
-            @RequestParam("draw") Integer draw,
-            @RequestParam("start") Integer start,
-            @RequestParam("length") Integer length,
-            @RequestParam("order[0][column]") Integer orderColumn,
-            @RequestParam("order[0][dir]") String orderDir,
-            @RequestParam("search[value]") String searchTerm,
-            @RequestParam("search[regex]") Boolean searchRegex,
-            @RequestParam("columns[0][search][value]") String columnSearchValue,
-            @RequestParam Map<String, String> allParams) {
+            @RequestParam Map<String, String> allRequestParams) {
         try {
+            Integer draw = Integer.parseInt(allRequestParams.get("draw"));
+            Integer start = Integer.parseInt(allRequestParams.get("start"));
+            Integer length = Integer.parseInt(allRequestParams.get("length"));
+            String orderColumnStr = allRequestParams.get("order[0][column]");
+            Integer orderColumn = orderColumnStr != null ? Integer.parseInt(allRequestParams.get("order[0][column]")) : null;
+            String orderDir = allRequestParams.get("order[0][dir]");
+            String searchTerm = allRequestParams.get("search[value]");
+            Boolean searchRegex = Boolean.parseBoolean(allRequestParams.get("search[regex]"));
             // Define sort column
             String[] columns = new String[] { "feature", "realEstateCode", "province", "district", "ward", "street",
                     "type", "request", "customer", "price", "createdAt", "acreage", "priceTime", "images" };
             // Check if the column is orderable
             String orderableKey = "columns[" + orderColumn + "][orderable]";
-            String orderable = allParams.get(orderableKey);
-            if ("true".equals(orderable)) {
+            String orderable = allRequestParams.get(orderableKey);
+            if ("true".equals(orderable) && orderColumn != null) {
                 // Define sort direction
                 Sort.Direction direction = Sort.Direction.fromString(orderDir);
                 Sort sort = Sort.by(direction, columns[orderColumn]);
@@ -83,19 +83,18 @@ public class RealEstateController {
                 response.put("data", realEstatePage.getContent());
 
                 return ResponseEntity.ok(response);
-            } else {
-                Pageable pageable = PageRequest.of(start / length, length);
-                Page<RealEstateDto> realEstatePage = realEstateService.getAllRealEstateDtos(searchTerm, pageable);
-
-                // Create response object
-                Map<String, Object> response = new HashMap<>();
-                response.put("draw", draw);
-                response.put("recordsTotal", realEstatePage.getTotalElements());
-                response.put("recordsFiltered", realEstatePage.getTotalElements());
-                response.put("data", realEstatePage.getContent());
-
-                return ResponseEntity.ok(response);
             }
+            Pageable pageable = PageRequest.of(start / length, length);
+            Page<RealEstateDto> realEstatePage = realEstateService.getAllRealEstateDtos(searchTerm, pageable);
+
+            // Create response object
+            Map<String, Object> response = new HashMap<>();
+            response.put("draw", draw);
+            response.put("recordsTotal", realEstatePage.getTotalElements());
+            response.put("recordsFiltered", realEstatePage.getTotalElements());
+            response.put("data", realEstatePage.getContent());
+
+            return ResponseEntity.ok(response);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
