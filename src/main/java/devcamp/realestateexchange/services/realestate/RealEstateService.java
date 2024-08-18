@@ -1,15 +1,14 @@
 package devcamp.realestateexchange.services.realestate;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -29,6 +28,7 @@ import devcamp.realestateexchange.entity.media.Photo;
 import devcamp.realestateexchange.entity.realestate.ApartDetail;
 import devcamp.realestateexchange.entity.realestate.RealEstate;
 import devcamp.realestateexchange.entity.user.Customer;
+import devcamp.realestateexchange.event.RealEstateChangedEvent;
 import devcamp.realestateexchange.projections.RealEstateBasicProjection;
 import devcamp.realestateexchange.repositories.location.IDistrictRepository;
 import devcamp.realestateexchange.repositories.location.IProvinceRepository;
@@ -39,7 +39,6 @@ import devcamp.realestateexchange.repositories.user.ICustomerRepository;
 import devcamp.realestateexchange.services.media.PhotoService;
 import devcamp.realestateexchange.specification.RealEstateSpecification;
 import devcamp.realestateexchange.specification.SearchCriteria;
-
 @Service
 public class RealEstateService {
     @Autowired
@@ -58,19 +57,17 @@ public class RealEstateService {
     PhotoService photoService;
     @Autowired
     private ModelMapper modelMapper;
-
+    @Autowired
+    private ApplicationEventPublisher eventPublisher;
+    @Autowired
+    private RealEstateChangedEventHandler realEstateChangedEventHandler;
+    @PersistenceContext
+    private EntityManager entityManager;
     public Page<RealEstateDto> getAllRealEstateDtos(String searchTerm, Pageable pageable) {
         if (searchTerm == null || searchTerm.isEmpty()) {
             Page<RealEstateBasicProjection> projections = realEstateRepository.findAllBasicProjections(pageable);
             return projections.map(this::convertBasicProjectionToDto);
-        } else { 
-            try {
-                List<RealEstateDto> realEstateDtos = realEstateRepository.search(searchTerm);
-                return new PageImpl<>(realEstateDtos, pageable, realEstateDtos.size());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } 
+        }
         return null;
     }
 
@@ -224,7 +221,14 @@ public class RealEstateService {
                     realEstateDto.getApartDetail().getNumberFloors()));
         }
         realEstate = realEstateRepository.save(realEstate);
-
+        eventPublisher.publishEvent(new RealEstateChangedEvent(realEstate));
         return new RealEstateDto(realEstate);
+    }
+    public void indexAllRealEstates(){
+        List<RealEstate> realEsates = realEstateRepository.findAll();
+        
+        for(RealEstate realEstate : realEstates){
+            realEstateChangedEventHandler.handleRealEsateChangedEvent(new RealEstateChangedEvent(realEstate));
+        }
     }
 }

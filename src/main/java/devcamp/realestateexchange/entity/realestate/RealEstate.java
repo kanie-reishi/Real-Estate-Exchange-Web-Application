@@ -16,8 +16,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import org.hibernate.search.mapper.pojo.mapping.definition.annotation.FullTextField;
-import org.hibernate.search.mapper.pojo.mapping.definition.annotation.Indexed;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -41,12 +39,10 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Indexed
 @NamedEntityGraph(name = "RealEstate.photos", attributeNodes = @NamedAttributeNode("photos"))
 public class RealEstate extends UserReferenceEntity {
     // Tiêu đề tin
     @Column(name = "title")
-    @FullTextField
     private String title;
 
     // Danh mục tin đăng: 0.Đất, 1.Nhà ở,
@@ -119,7 +115,6 @@ public class RealEstate extends UserReferenceEntity {
 
     // Mã bất động sản
     @Column(name = "real_estate_code")
-    @FullTextField
     private String realEstateCode;
 
     // Đơn vị giá: 0.Triệu, 1.Tỷ, 2.Triệu/m2, 3.Tỷ/m2

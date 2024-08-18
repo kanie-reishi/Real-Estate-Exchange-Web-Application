@@ -1,6 +1,7 @@
 package devcamp.realestateexchange.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import devcamp.realestateexchange.dto.realestate.RealEstateDto;
+import devcamp.realestateexchange.entity.realestate.RealEstate;
 import devcamp.realestateexchange.models.RealEstateSearchParameters;
 import devcamp.realestateexchange.services.realestate.RealEstateService;
 
@@ -125,6 +127,15 @@ public class RealEstateController {
         try {
             realEstateService.saveRealEstate(realEstateDto);
             return ResponseEntity.ok("Real estate created successfully");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+    @GetMapping("/realestate/indexall")
+    public ResponseEntity<Object> indexAllRealEstate(){
+        try{
+            realEstateService.indexAllRealEstate();
+            return ResponseEntity.ok("Index All Real Estate successfully");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
