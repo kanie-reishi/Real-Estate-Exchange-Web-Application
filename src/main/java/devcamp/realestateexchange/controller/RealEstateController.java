@@ -132,9 +132,9 @@ public class RealEstateController {
         }
     }
     @GetMapping("/realestate/indexall")
-    public ResponseEntity<Object> indexAllRealEstate(){
+    public ResponseEntity<Object> indexAllRealEstates(){
         try{
-            realEstateService.indexAllRealEstate();
+            realEstateService.indexAllRealEstates();
             return ResponseEntity.ok("Index All Real Estate successfully");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());

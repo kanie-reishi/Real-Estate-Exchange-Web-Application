@@ -2,7 +2,7 @@ package devcamp.realestateexchange.services.realestate;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Optional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -225,10 +225,8 @@ public class RealEstateService {
         return new RealEstateDto(realEstate);
     }
     public void indexAllRealEstates(){
-        List<RealEstate> realEsates = realEstateRepository.findAll();
-        
-        for(RealEstate realEstate : realEstates){
-            realEstateChangedEventHandler.handleRealEsateChangedEvent(new RealEstateChangedEvent(realEstate));
-        }
+        Optional<RealEstate> realEstateOptional = realEstateRepository.findById(1);
+        RealEstate realEstate = realEstateOptional.get();
+        eventPublisher.publishEvent(new RealEstateChangedEvent(realEstate));
     }
 }
