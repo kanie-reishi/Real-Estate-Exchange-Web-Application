@@ -55,6 +55,10 @@ public class RealEstate extends UserReferenceEntity {
     @Column(name = "request")
     private Integer request;
 
+    // Mô tả chi tiết bđs
+    @Column(name = "description")
+    private String description;
+
     // Tỉnh thành phố
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "province_id")
@@ -140,6 +144,19 @@ public class RealEstate extends UserReferenceEntity {
     // Đã xác minh hay chưa: 0.Chưa xác minh, 1.Đã xác minh
     @Column(name = "verify")
     private Integer verify;
+    // Hướng nhà, căn hộ Đông: 1, Tây: 2, Bắc: 3, Nam: 4
+    // Đông Bắc: 5, Tây Bắc: 6, Đông Nam: 7, Tây Nam: 8
+    // Không rõ: 9
+    @Column(name = "direction")
+    private Integer direction;
+
+    // Tổng số tầng nhà có
+    @Column(name = "total_floors")
+    private Integer totalFloors;
+
+    // Số nhà vệ sinh có
+    @Column(name = "bath")
+    private Integer bath;
 
     // Thông tin chi tiết bất động sản
     @Embedded

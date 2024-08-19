@@ -1,13 +1,13 @@
 package devcamp.realestateexchange.event;
-import devcamp.realestateexchange.entity.realestate.RealEstate;
+import devcamp.realestateexchange.dto.realestate.RealEstateDto;
 public class RealEstateChangedEvent {
-    private RealEstate entity;
+    private RealEstateDto dto;
 
-    public RealEstateChangedEvent(RealEstate entity) {
-        this.entity = entity;
+    public RealEstateChangedEvent(RealEstateDto dto) {
+        this.dto = dto;
     }
 
-    public RealEstate getEntity() {
-        return entity;
+    public RealEstateDto getDto() {
+        return dto;
     }
 }

@@ -34,8 +34,18 @@ public class RealEstateDto {
     private Integer type;
     // Nhu cầu 0.Cần bán, 2.Cần mua, 3.Cho thuê, 4.Cần thuê
     private Integer request;
+    // Mô tả chi tiết bđs
+    private String description;
     // Mã bất động sản
     private String realEstateCode;
+    // Hướng nhà, căn hộ Đông: 1, Tây: 2, Bắc: 3, Nam: 4
+    // Đông Bắc: 5, Tây Bắc: 6, Đông Nam: 7, Tây Nam: 8
+    // Không rõ: 9
+    private Integer direction;
+    // Số tầng
+    private Integer totalFloors;
+    // Số nhà vệ sinh có
+    private Integer bath;
     // Giá hiện tại đăng tin
     private BigDecimal price;
     // Đơn vị giá: 0.Triệu, 1.Tỷ, 2.Triệu/m2, 3.Tỷ/m2
@@ -66,7 +76,7 @@ public class RealEstateDto {
     private RealEstateDetailDto detail;
     // Chi tiết chung cư
     private ApartDetailDto apartDetail;
-
+    // Id người đăng tin
     private Integer customerId;
 
     @Getter
@@ -74,14 +84,10 @@ public class RealEstateDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class RealEstateDetailDto {
-        private String description;
         private BigDecimal priceMin;
         private String priceTime;
-        private Integer totalFloors;
-        private Integer bath;
         private Double wallArea;
         private String landscapeView;
-        private Integer direction;
         private Integer balcony;
         private Integer furnitureType;
         private Integer furnitureStatus;
@@ -105,13 +111,9 @@ public class RealEstateDto {
 
         public RealEstateDetail toEntity() {
             RealEstateDetail detail = new RealEstateDetail();
-            detail.setDescription(description);
             detail.setPriceMin(priceMin);
-            detail.setTotalFloors(totalFloors);
-            detail.setBath(bath);
             detail.setWallArea(wallArea);
             detail.setLandscapeView(landscapeView);
-            detail.setDirection(direction);
             detail.setBalcony(balcony);
             detail.setFurnitureType(furnitureType);
             detail.setFurnitureStatus(furnitureStatus);
@@ -220,6 +222,7 @@ public class RealEstateDto {
         this.id = realEstate.getId();
         this.title = realEstate.getTitle();
         this.type = realEstate.getType();
+        this.description = realEstate.getDescription();
         this.request = realEstate.getRequest();
         this.price = realEstate.getPrice();
         this.priceUnit = realEstate.getPriceUnit();
@@ -229,7 +232,9 @@ public class RealEstateDto {
         this.bedroom = realEstate.getBedroom();
         this.verify = realEstate.getVerify();
         this.createdAt = realEstate.getCreatedAt();
-
+        this.direction = realEstate.getDirection();
+        this.totalFloors = realEstate.getTotalFloors();
+        this.bath = realEstate.getBath();
         this.photoUrls = realEstate.getPhotos().stream().map(photo -> photo.getUrl())
                 .collect(java.util.stream.Collectors.toList());
 
@@ -251,13 +256,9 @@ public class RealEstateDto {
         this.article = new ArticleDto(realEstate.getArticle());
 
         this.detail = new RealEstateDetailDto();
-        this.detail.setDescription(realEstate.getDetail().getDescription());
         this.detail.setPriceMin(realEstate.getDetail().getPriceMin());
-        this.detail.setTotalFloors(realEstate.getDetail().getTotalFloors());
-        this.detail.setBath(realEstate.getDetail().getBath());
         this.detail.setWallArea(realEstate.getDetail().getWallArea());
         this.detail.setLandscapeView(realEstate.getDetail().getLandscapeView());
-        this.detail.setDirection(realEstate.getDetail().getDirection());
         this.detail.setBalcony(realEstate.getDetail().getBalcony());
         this.detail.setFurnitureType(realEstate.getDetail().getFurnitureType());
         this.detail.setFurnitureStatus(realEstate.getDetail().getFurnitureStatus());

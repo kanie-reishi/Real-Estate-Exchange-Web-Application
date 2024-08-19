@@ -1,27 +1,28 @@
-package devcamp.realestateexchange.services.realestate;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import devcamp.realestateexchange.entity.realestate.RealEstate;
-import devcamp.realestateexchange.event.RealEstateChangedEvent;
-import org.elasticsearch.action.index.IndexRequest;
-import org.elasticsearch.action.index.IndexResponse;
-import org.elasticsearch.client.RequestOptions;
-import org.elasticsearch.client.RestHighLevelClient;
+package devcamp.realestateexchange.event;
+import java.util.Map;
+
+import org.elasticsearch.client.Request;
+import org.elasticsearch.client.Response;
+import org.elasticsearch.client.RestClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import com.fasterxml.jackson.core.type.TypeReference;
-import java.util.Map;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import devcamp.realestateexchange.dto.realestate.RealEstateDto;
 @Service
 public class RealEstateChangedEventHandler {
     @Autowired
-    private RestHighLevelClient client;
+    private RestClient client;
 
     private static final Logger logger = LoggerFactory.getLogger(RealEstateChangedEventHandler.class);
     @EventListener
     public void handleRealEstateChangedEvent(RealEstateChangedEvent event) {
-        RealEstate realestate = event.getEntity();
+        RealEstateDto realestate = event.getDto();
 
         // convert entity to JSON
         try {
@@ -31,12 +32,12 @@ public class RealEstateChangedEventHandler {
             Map<String, Object> map = new ObjectMapper().readValue(json, new TypeReference<Map<String, Object>>(){});
 
             // create index request
-            IndexRequest request = new IndexRequest("realesate_index");
-            request.id(realestate.getId().toString());
-            request.source(map);
+            Request request = new Request("PUT", "/realestate_index/_doc/" + realestate.getId());
+            request.setJsonEntity(json);
 
             // index data into Elasticsearch
-            IndexResponse respones = client.index(request, RequestOptions.DEFAULT);
+            Response response = client.performRequest(request);
+            logger.info("Response: {}", response);
         } catch (Exception e) {
             e.printStackTrace();
         }

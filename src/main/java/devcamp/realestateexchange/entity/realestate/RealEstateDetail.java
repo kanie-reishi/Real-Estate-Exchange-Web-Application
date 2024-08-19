@@ -14,19 +14,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @Embeddable
 public class RealEstateDetail {
-    // Hướng nhà, căn hộ Đông: 1, Tây: 2, Bắc: 3, Nam: 4
-    // Đông Bắc: 5, Tây Bắc: 6, Đông Nam: 7, Tây Nam: 8
-    // Không rõ: 9
-    @Column(name = "direction")
-    private Integer direction;
-
-    // Tổng số tầng nhà có
-    @Column(name = "total_floors")
-    private Integer totalFloors;
-
-    // Số nhà vệ sinh có
-    @Column(name = "bath")
-    private Integer bath;
 
     // Diện tích tim tường
     @Column(name = "wall_area")
@@ -58,10 +45,6 @@ public class RealEstateDetail {
     // Pháp lý: 0.Sổ đỏ, 1.Sổ hồng, 2.Sổ đỏ chính chủ, 3.Sổ hồng chính chủ
     @Column(name = "legal_doc")
     private Integer legalDoc;
-
-    // Mô tả chi tiết bđs
-    @Column(name = "description")
-    private String description;
 
     // Chiều rộng
     @Column(name = "width_y")

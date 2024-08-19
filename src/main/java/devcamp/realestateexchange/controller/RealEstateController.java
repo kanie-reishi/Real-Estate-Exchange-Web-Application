@@ -103,20 +103,10 @@ public class RealEstateController {
     }
 
     @GetMapping("/realestate/search")
-    public ResponseEntity<Object> searchRealEstates(@RequestBody RealEstateSearchParameters parameters,
-            Pageable pageable) {
+    public ResponseEntity<Object> searchRealEstates(@RequestBody RealEstateSearchParameters realEstateSearchParameters) {
         try {
-            Page<RealEstateDto> realEstatePage = realEstateService.searchRealEstates(
-                    parameters.getProvinceId(),
-                    parameters.getDistrictId(),
-                    parameters.getMinPrice(),
-                    parameters.getMaxPrice(),
-                    parameters.getMinAcreage(),
-                    parameters.getMaxAcreage(),
-                    parameters.getBedroom(),
-                    parameters.getAddress(),
-                    pageable);
-            return ResponseEntity.ok(realEstatePage);
+            realEstateService.search(realEstateSearchParameters);
+            return ResponseEntity.ok("Search Real Estate successfully");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }

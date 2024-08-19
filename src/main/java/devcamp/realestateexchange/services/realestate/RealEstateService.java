@@ -2,18 +2,28 @@ package devcamp.realestateexchange.services.realestate;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.apache.http.util.EntityUtils;
+import org.elasticsearch.client.Request;
+import org.elasticsearch.client.Response;
+import org.elasticsearch.client.RestClient;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import devcamp.realestateexchange.dto.location.AddressDto;
 import devcamp.realestateexchange.dto.location.DistrictDto;
@@ -29,6 +39,8 @@ import devcamp.realestateexchange.entity.realestate.ApartDetail;
 import devcamp.realestateexchange.entity.realestate.RealEstate;
 import devcamp.realestateexchange.entity.user.Customer;
 import devcamp.realestateexchange.event.RealEstateChangedEvent;
+import devcamp.realestateexchange.event.RealEstateChangedEventHandler;
+import devcamp.realestateexchange.models.RealEstateSearchParameters;
 import devcamp.realestateexchange.projections.RealEstateBasicProjection;
 import devcamp.realestateexchange.repositories.location.IDistrictRepository;
 import devcamp.realestateexchange.repositories.location.IProvinceRepository;
@@ -37,8 +49,7 @@ import devcamp.realestateexchange.repositories.location.IWardRepository;
 import devcamp.realestateexchange.repositories.realestate.IRealEstateRepository;
 import devcamp.realestateexchange.repositories.user.ICustomerRepository;
 import devcamp.realestateexchange.services.media.PhotoService;
-import devcamp.realestateexchange.specification.RealEstateSpecification;
-import devcamp.realestateexchange.specification.SearchCriteria;
+
 @Service
 public class RealEstateService {
     @Autowired
@@ -63,6 +74,10 @@ public class RealEstateService {
     private RealEstateChangedEventHandler realEstateChangedEventHandler;
     @PersistenceContext
     private EntityManager entityManager;
+    @Autowired
+    private RestClient client;
+    private static final Logger logger = LoggerFactory.getLogger(RealEstateChangedEventHandler.class);
+
     public Page<RealEstateDto> getAllRealEstateDtos(String searchTerm, Pageable pageable) {
         if (searchTerm == null || searchTerm.isEmpty()) {
             Page<RealEstateBasicProjection> projections = realEstateRepository.findAllBasicProjections(pageable);
@@ -119,39 +134,6 @@ public class RealEstateService {
         return dto;
     }
 
-    public Page<RealEstateDto> searchRealEstates(Integer provinceId, Integer districtId, Double minPrice,
-            Double maxPrice, Double minAcreage, Double maxAcreage, Integer bedroom, String address, Pageable pageable) {
-        List<Specification> specifications = new ArrayList<>();
-        if (provinceId != null) {
-            specifications.add(new RealEstateSpecification(new SearchCriteria("province.id", ":", provinceId)));
-        }
-        if (districtId != null) {
-            specifications.add(new RealEstateSpecification(new SearchCriteria("district.id", ":", districtId)));
-        }
-        if (minPrice != null) {
-            specifications.add(new RealEstateSpecification(new SearchCriteria("price", ">", minPrice)));
-        }
-        if (maxPrice != null) {
-            specifications.add(new RealEstateSpecification(new SearchCriteria("price", "<", maxPrice)));
-        }
-        if (minAcreage != null) {
-            specifications.add(new RealEstateSpecification(new SearchCriteria("acreage", ">", minAcreage)));
-        }
-        if (maxAcreage != null) {
-            specifications.add(new RealEstateSpecification(new SearchCriteria("acreage", "<", maxAcreage)));
-        }
-        if (bedroom != null) {
-            specifications.add(new RealEstateSpecification(new SearchCriteria("bedroom", ":", bedroom)));
-        }
-        if (address != null) {
-            specifications.add(new RealEstateSpecification(new SearchCriteria("address", ":", address)));
-        }
-
-        Specification result = specifications.stream().reduce((spec1, spec2) -> spec1.and(spec2)).orElse(null);
-        return realEstateRepository.findAll(result, pageable)
-                .map(realEstate -> modelMapper.map(realEstate, RealEstateDto.class));
-    }
-
     /*
      * public RealEstateDto getRealEstateDtoById(Integer id) {
      * RealEstateDto realEstateDto = realEstateRepository.findDtoById(id)
@@ -165,6 +147,7 @@ public class RealEstateService {
         RealEstate realEstate = new RealEstate();
         realEstate.setTitle(realEstateDto.getTitle());
         realEstate.setType(realEstateDto.getType());
+        realEstate.setDescription(realEstateDto.getDescription());
         realEstate.setRequest(realEstateDto.getRequest());
         realEstate.setPrice(realEstateDto.getPrice());
         realEstate.setPriceUnit(realEstateDto.getPriceUnit());
@@ -221,12 +204,130 @@ public class RealEstateService {
                     realEstateDto.getApartDetail().getNumberFloors()));
         }
         realEstate = realEstateRepository.save(realEstate);
-        eventPublisher.publishEvent(new RealEstateChangedEvent(realEstate));
+        eventPublisher.publishEvent(new RealEstateChangedEvent(realEstateDto));
         return new RealEstateDto(realEstate);
     }
-    public void indexAllRealEstates(){
-        Optional<RealEstate> realEstateOptional = realEstateRepository.findById(1);
-        RealEstate realEstate = realEstateOptional.get();
-        eventPublisher.publishEvent(new RealEstateChangedEvent(realEstate));
+
+    public void indexAllRealEstates() {
+        List<RealEstate> realEstates = realEstateRepository.findAll();
+        createIndexWithCustomAnalyzer();
+        for (RealEstate realEstate : realEstates) {
+            RealEstateDto realEstateDto = convertRealEstateToDtoSearch(realEstate);
+            eventPublisher.publishEvent(new RealEstateChangedEvent(realEstateDto));
+        }
+    }
+
+    public List<RealEstate> search(RealEstateSearchParameters realEstateSearchParameters) {
+        List<RealEstate> result = new ArrayList<>();
+
+        try {
+            Request request = new Request("POST", "/realestate_index/_search");
+            ObjectMapper mapper = new ObjectMapper();
+            ObjectNode rootNode = mapper.createObjectNode();
+            if (realEstateSearchParameters.getSize() != null) {
+                rootNode.put("size", realEstateSearchParameters.getSize());
+            }
+            ObjectNode queryNode = rootNode.putObject("query");
+            ObjectNode boolNode = queryNode.putObject("bool");
+            ObjectNode mustNode = boolNode.putObject("must");
+
+            if (realEstateSearchParameters.getSearchText() != null) {
+                // Add the multi_match query to the bool query
+                ObjectNode multiMatchNode = boolNode.putObject("multi_match");
+                String text = realEstateSearchParameters.getSearchText();
+                multiMatchNode.put("query", text);
+                multiMatchNode.put("analyzer", "vietnamese_analyzer");
+                // Specify the fields to search
+                ArrayNode fieldsNode = multiMatchNode.putArray("fields");
+                fieldsNode.add("title");
+                fieldsNode.add("description");
+                // Add the fuzzy query to the bool query
+                ArrayNode shouldNode = boolNode.putArray("should");
+                ObjectNode fuzzyNode = shouldNode.addObject().putObject("fuzzy");
+                fuzzyNode.putObject("address").put("value", text);
+            }
+
+            String jsonString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(rootNode);
+            logger.info("jsonString {}", jsonString);
+            request.setJsonEntity(jsonString);
+
+            // Add API key to request header
+            Response response = client.performRequest(request);
+            // Parse the response
+            String responseBody = EntityUtils.toString(response.getEntity());
+            logger.info("response body {}", responseBody);
+            JSONObject jsonObject = new JSONObject(responseBody);
+            JSONArray hits = jsonObject.getJSONObject("hits").getJSONArray("hits");
+            // Convert each hit to a RealEstateDto and add it to the result list
+            for (int i = 0; i < hits.length(); i++) {
+                JSONObject hit = hits.getJSONObject(i);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public void createIndexWithCustomAnalyzer() {
+        try {
+            Request request = new Request("PUT", "/realestate_index");
+            ObjectMapper mapper = new ObjectMapper();
+            ObjectNode rootNode = mapper.createObjectNode();
+
+            ObjectNode settingsNode = rootNode.putObject("settings");
+            ObjectNode analysisNode = settingsNode.putObject("analysis");
+            ObjectNode analyzerNode = analysisNode.putObject("analyzer");
+            ObjectNode vietnameseAnalyzerNode = analyzerNode.putObject("vietnamese_analyzer");
+            vietnameseAnalyzerNode.put("tokenizer", "standard");
+            ArrayNode filterNode = vietnameseAnalyzerNode.putArray("filter");
+            // Add the vietnamese analyzer filters
+            filterNode.add("lowercase");
+            filterNode.add("asciifolding");
+
+            ObjectNode mappingsNode = rootNode.putObject("mappings");
+            ObjectNode propertiesNode = mappingsNode.putObject("properties");
+            // Add the title field to the properties
+            ObjectNode titleNode = propertiesNode.putObject("title");
+            titleNode.put("type", "text");
+            titleNode.put("analyzer", "vietnamese_analyzer");
+            // Add the address field to the properties
+            ObjectNode addressNode = propertiesNode.putObject("address");
+            addressNode.put("type", "text");
+            addressNode.put("analyzer", "vietnamese_analyzer");
+            // Add the description field to properties
+            ObjectNode descriptionNode = propertiesNode.putObject("description");
+            descriptionNode.put("type", "text");
+            descriptionNode.put("analyzer", "vietnamese_analyzer");
+            // Convert the JSON object to a string
+            String jsonString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(rootNode);
+            // Set the JSON entity of the request
+            request.setJsonEntity(jsonString);
+            // Send the request
+            Response response = client.performRequest(request);
+            // Handle the response...
+            logger.info("Response {}", response);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public RealEstateDto convertRealEstateToDtoSearch(RealEstate realEstate){
+        RealEstateDto realEstateDto = new RealEstateDto();
+        realEstateDto.setType(realEstate.getType());
+        realEstateDto.setRequest(realEstate.getRequest());
+        realEstateDto.setRealEstateCode(realEstate.getRealEstateCode());
+        realEstateDto.setPrice(realEstate.getPrice());
+        realEstateDto.setPriceUnit(realEstate.getPriceUnit());
+        realEstateDto.setAcreage(realEstate.getAcreage());
+        realEstateDto.setAcreageUnit(realEstate.getAcreageUnit());
+        realEstateDto.setBedroom(realEstate.getBedroom());
+        realEstateDto.setBath(realEstate.getBath());
+        realEstateDto.setTotalFloors(realEstate.getTotalFloors());
+        realEstateDto.setDirection(realEstate.getDirection());
+        realEstateDto.setVerify(realEstate.getVerify());
+        realEstateDto.setTitle(realEstate.getTitle());
+        realEstateDto.setDescription(realEstate.getDescription());
+
+        return realEstateDto;
     }
 }
