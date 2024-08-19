@@ -37,7 +37,6 @@ import devcamp.realestateexchange.security.services.LoginAttemptService;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/")
 public class AuthController {
 
         @Autowired

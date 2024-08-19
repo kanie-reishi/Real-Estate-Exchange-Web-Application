@@ -33,6 +33,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import devcamp.realestateexchange.dto.location.AddressDto;
 import devcamp.realestateexchange.dto.location.DistrictDto;
 import devcamp.realestateexchange.dto.location.ProvinceDto;
+import devcamp.realestateexchange.dto.location.StreetDto;
 import devcamp.realestateexchange.dto.location.WardDto;
 import devcamp.realestateexchange.dto.realestate.RealEstateDto;
 import devcamp.realestateexchange.dto.user.CustomerDto;
@@ -91,6 +92,25 @@ public class RealEstateService {
         return projections.map(this::convertBasicProjectionToDto);
     }
 
+    public RealEstate getRealEstateById(Integer id) {
+        return realEstateRepository.findById(id).orElse(null);
+    }
+
+    public RealEstate deleteRealEstateById(Integer id) {
+        RealEstate realEstate = realEstateRepository.findById(id).orElse(null);
+        if (realEstate != null) {
+            realEstateRepository.delete(realEstate);
+        }
+        // Delete document in Elasticsearch
+        Request request = new Request("DELETE", "/realestate_index/_doc/" + id);
+        try {
+            client.performRequest(request);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return realEstate;
+    }
+    
     private RealEstateDto convertBasicProjectionToDto(RealEstateBasicProjection projection) {
         RealEstateDto dto = new RealEstateDto();
         dto.setId(projection.getId());
@@ -104,7 +124,7 @@ public class RealEstateService {
         dto.setAcreageUnit(projection.getAcreageUnit());
         dto.setBedroom(projection.getBedroom());
         dto.setVerify(projection.getVerify());
-        if(projection.getCreatedAt() != null) {
+        if (projection.getCreatedAt() != null) {
             String createdAtIso = isoFormat.format(projection.getCreatedAt());
             dto.setCreatedAt(createdAtIso);
         } else {
@@ -262,8 +282,9 @@ public class RealEstateService {
             ObjectNode queryNode = rootNode.putObject("query");
             ObjectNode boolNode = queryNode.putObject("bool");
             ArrayNode mustNode = boolNode.putArray("must");
-
-            if (realEstateSearchParameters.getSearchText() != null) {
+            // Add the multi_match query to the bool query
+            if (realEstateSearchParameters.getSearchText() != null
+                    && !realEstateSearchParameters.getSearchText().isEmpty()) {
                 // Add the multi_match query to the bool query
                 ObjectNode multiMatchNode = mustNode.addObject().putObject("multi_match");
                 String text = realEstateSearchParameters.getSearchText();
@@ -274,6 +295,7 @@ public class RealEstateService {
                 multiMatchNode.put("fuzziness", "AUTO"); // Apply fuzzy search
                 // You can set this to a specific value like "1", "2", etc.
             }
+            // Add the filters to the bool query
             if (realEstateSearchParameters.getType() != null) {
                 ObjectNode matchNode = mustNode.addObject().putObject("match");
                 matchNode.put("type", realEstateSearchParameters.getType());
@@ -354,7 +376,12 @@ public class RealEstateService {
                 String createdAtIso = isoFormat.format(realEstateSearchParameters.getCreatedAt());
                 createdAtNode.put("gte", createdAtIso);
             }
-
+            // Add sort to the root node
+            if (realEstateSearchParameters.getSort() != null) {
+                ObjectNode sortNode = rootNode.putObject("sort");
+                ObjectNode sortFieldNode = sortNode.putObject(realEstateSearchParameters.getSort());
+                sortFieldNode.put("order", realEstateSearchParameters.getOrder());
+            }
             String jsonString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(rootNode);
             logger.info("Request {}", jsonString);
             request.setJsonEntity(jsonString);
@@ -366,27 +393,31 @@ public class RealEstateService {
             JSONObject jsonObject = new JSONObject(responseBody);
             logger.info("responseBody {}", responseBody);
             JSONArray hits = jsonObject.getJSONObject("hits").getJSONArray("hits");
+            // Get the total number of hits
+            long totalHits = jsonObject.getJSONObject("hits").getJSONObject("total").getInt("value");
             // Convert each hit to a RealEstateDto and add it to the result list
             for (int i = 0; i < hits.length(); i++) {
                 JSONObject hit = hits.getJSONObject(i);
                 JSONObject source = hit.getJSONObject("_source");
                 RealEstateDto realEstateDto = mapper.readValue(source.toString(), RealEstateDto.class);
+                addPhotoUrls(realEstateDto);
                 result.add(realEstateDto);
             }
+            int start = realEstateSearchParameters.getFrom() != null ? realEstateSearchParameters.getFrom() : 0;
+            int size = realEstateSearchParameters.getSize() != null ? realEstateSearchParameters.getSize()
+                    : result.size();
+            if (size == 0) {
+                return new PageImpl<>(result);
+            }
+            Pageable pageable = PageRequest.of(start / size, size);
+            int end = Math.min((start + size), result.size());
 
+            Page<RealEstateDto> page = new PageImpl<>(result, pageable, totalHits);
+            return page;
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        int start = realEstateSearchParameters.getFrom() != null ? realEstateSearchParameters.getFrom() : 0;
-        int size = realEstateSearchParameters.getSize() != null ? realEstateSearchParameters.getSize() : result.size();
-        if (size == 0) {
             return new PageImpl<>(result);
         }
-        Pageable pageable = PageRequest.of(start / size, size);
-        int end = Math.min((start + size), result.size());
-
-        Page<RealEstateDto> page = new PageImpl<>(result.subList(start, end), pageable, result.size());
-        return page;
     }
 
     public void createIndexWithCustomAnalyzer() {
@@ -455,29 +486,36 @@ public class RealEstateService {
         ProvinceDto provinceDto = new ProvinceDto();
         DistrictDto districtDto = new DistrictDto();
         WardDto wardDto = new WardDto();
-        if(realEstate.getProvince() != null) {
+        StreetDto streetDto = new StreetDto();
+        if (realEstate.getProvince() != null) {
             provinceDto.setId(realEstate.getProvince().getId());
             provinceDto.setName(realEstate.getProvince().getName());
             addressDto.setProvince(provinceDto);
         }
-        if(realEstate.getDistrict() != null) {
+        if (realEstate.getDistrict() != null) {
             districtDto.setId(realEstate.getDistrict().getId());
             districtDto.setName(realEstate.getDistrict().getName());
             districtDto.setPrefix(realEstate.getDistrict().getPrefix());
             addressDto.setDistrict(districtDto);
         }
-        if(realEstate.getWard() != null) {
+        if (realEstate.getWard() != null) {
             wardDto.setId(realEstate.getWard().getId());
             wardDto.setName(realEstate.getWard().getName());
             addressDto.setWard(wardDto);
         }
+        if (realEstate.getStreet() != null) {
+            streetDto.setId(realEstate.getStreet().getId());
+            streetDto.setName(realEstate.getStreet().getName());
+            addressDto.setStreet(streetDto);
+        }
         addressDto.setProvince(provinceDto);
         addressDto.setDistrict(districtDto);
         addressDto.setWard(wardDto);
+        addressDto.setStreet(streetDto);
         realEstateDto.setAddressDetail(addressDto);
 
         CustomerDto customerDto = new CustomerDto();
-        if(realEstate.getCustomer() != null) {
+        if (realEstate.getCustomer() != null) {
             customerDto.setId(realEstate.getCustomer().getId());
             customerDto.setFullName(realEstate.getCustomer().getFullName());
             customerDto.setPhone(realEstate.getCustomer().getPhone());
@@ -487,7 +525,15 @@ public class RealEstateService {
         if (realEstate.getCreatedAt() != null) {
             String createdAtIso = isoFormat.format(realEstate.getCreatedAt());
             realEstateDto.setCreatedAt(createdAtIso);
+        } else {
+            // Xử lý trường hợp thiếu trường createdAt
+            realEstateDto.setCreatedAt("N/A"); // Hoặc giá trị mặc định khác
         }
         return realEstateDto;
+    }
+
+    public void addPhotoUrls(RealEstateDto realEstateDto) {
+        List<String> photoUrls = photoService.getUrlsByRealEstateId(realEstateDto.getId());
+        realEstateDto.setPhotoUrls(photoUrls);
     }
 }

@@ -6,6 +6,7 @@ $(document).ready(function () {
     $('#realestate-table').DataTable({
         "processing": true,
         "serverSide": true,
+        "scrollX": true,
         "ajax": {
             "url": "http://localhost:8080/realestate/table",
             "type": "GET",
@@ -14,7 +15,7 @@ $(document).ready(function () {
         "lengthMenu": [[10, 25, 50], [10, 25, 50]], 
         "columnDefs": [
             {"orderable": false,
-        "targets": [0, 1, 2, 3, 4, 5, 6, 7, 8, 13]}
+        "targets": [0, 16]}
         ],
         "columns": [
             { "data": null, // Chức năng
@@ -37,23 +38,23 @@ $(document).ready(function () {
                     if(row.address == null){
                         return "";
                     }
-                    return row.address.province ? row.address.province.name : "";
+                    return row.addressDetail.province ? row.addressDetail.province.name : "";
                 }
             },
             { "data": null, // Quận huyện
                 "render": (data, type, row) => {
-                    if(row.address == null){
+                    if(row.addressDetail == null){
                         return "";
                     }
-                    return row.address.district ? row.address.district.name : "";
+                    return row.addressDetail.district ? row.addressDetail.district.name : "";
                 }
              },
             { "data": null, // Phường xã
                 "render": (data, type, row) => {
-                    if(row.address == null){
+                    if(row.addressDetail == null){
                         return "";
                     }
-                    return row.address.ward ? row.address.ward.name : "";
+                    return row.addressDetail.ward ? row.addressDetail.ward.name : "";
                 }
              },
             { "data": null, // Đường phố
@@ -64,6 +65,9 @@ $(document).ready(function () {
                     return row.address.street ? row.address.street.name : "";
                 } 
             },
+            { "data": "address" }, // Địa chỉ
+            { "data": "title" }, // Tiêu đề
+            { "data": "description" }, // Mô tả
             { "data": null, // Loại hình bđs
                 "render": (data, type, row) => {
                     // Danh mục tin đăng: 0.Đất, 1.Nhà ở,
@@ -121,7 +125,13 @@ $(document).ready(function () {
             },
             { "data": null, // Thông tin khách hàng
                 "render": (data, type, row) => {
-                    return row.customer.fullName + "-" + row.customer.phone;
+                    let customer = row.customer;
+                    if(customer == null){
+                        return "";
+                    }
+                    let customerName = customer.fullName ? customer.fullName : "";
+                    let customerPhone = customer.phone ? customer.phone : "";
+                    return customerName + " - " + customerPhone;
                 }},
             { "data": null, // Giá đăng
                 "render": (data, type, row) => {
@@ -152,7 +162,11 @@ $(document).ready(function () {
                 },
                 "orderable": true
              },
-            { "data": "createdAt",
+            { "data": null,
+                "render": (data, type, row) => {
+                    let createdDate = new Date(row.createdAt);
+                    return createdDate.toLocaleDateString();
+                },
             "orderable": true },// Ngày đăng
             {
                 "data": null, // Diện tích
