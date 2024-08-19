@@ -33,7 +33,7 @@ public class RealEstateController {
     @GetMapping("/realestate")
     public ResponseEntity<Object> getRealEstateList(Pageable pageable) {
         try {
-            Page<RealEstateDto> realEstatePage = realEstateService.getAllRealEstateDtos(null, pageable);
+            Page<RealEstateDto> realEstatePage = realEstateService.getAllRealEstateDtos( pageable);
             return ResponseEntity.ok(realEstatePage);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -75,7 +75,7 @@ public class RealEstateController {
                 Sort sort = Sort.by(direction, columns[orderColumn]);
 
                 Pageable pageable = PageRequest.of(start / length, length, sort);
-                Page<RealEstateDto> realEstatePage = realEstateService.getAllRealEstateDtos(searchTerm, pageable);
+                Page<RealEstateDto> realEstatePage = realEstateService.getAllRealEstateDtos(pageable);
 
                 // Create response object
                 Map<String, Object> response = new HashMap<>();
@@ -87,7 +87,7 @@ public class RealEstateController {
                 return ResponseEntity.ok(response);
             }
             Pageable pageable = PageRequest.of(start / length, length);
-            Page<RealEstateDto> realEstatePage = realEstateService.getAllRealEstateDtos(searchTerm, pageable);
+            Page<RealEstateDto> realEstatePage = realEstateService.getAllRealEstateDtos(pageable);
 
             // Create response object
             Map<String, Object> response = new HashMap<>();
@@ -105,8 +105,8 @@ public class RealEstateController {
     @GetMapping("/realestate/search")
     public ResponseEntity<Object> searchRealEstates(@RequestBody RealEstateSearchParameters realEstateSearchParameters) {
         try {
-            realEstateService.search(realEstateSearchParameters);
-            return ResponseEntity.ok("Search Real Estate successfully");
+            Page<RealEstateDto> realEstateDtos = realEstateService.search(realEstateSearchParameters);
+            return ResponseEntity.ok(realEstateDtos);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -126,6 +126,15 @@ public class RealEstateController {
         try{
             realEstateService.indexAllRealEstates();
             return ResponseEntity.ok("Index All Real Estate successfully");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+    @GetMapping("/realestate/indextest")
+    public ResponseEntity<Object> indexTestRealEstate(){
+        try{
+            realEstateService.indexTestRealEstate();
+            return ResponseEntity.ok("Index Test Real Estate successfully");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }

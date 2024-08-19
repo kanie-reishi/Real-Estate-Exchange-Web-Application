@@ -28,8 +28,6 @@ public class RealEstateChangedEventHandler {
         try {
             String json = new ObjectMapper().writeValueAsString(realestate);
             logger.info("JSON: {}", json);
-            // Convert JSON string to Map
-            Map<String, Object> map = new ObjectMapper().readValue(json, new TypeReference<Map<String, Object>>(){});
 
             // create index request
             Request request = new Request("PUT", "/realestate_index/_doc/" + realestate.getId());
@@ -39,7 +37,7 @@ public class RealEstateChangedEventHandler {
             Response response = client.performRequest(request);
             logger.info("Response: {}", response);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Error indexing real estate data", e);
         }
     }
 }

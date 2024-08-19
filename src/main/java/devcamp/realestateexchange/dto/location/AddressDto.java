@@ -8,7 +8,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AddressDto {
-    private String address;
+    private String addressDetail;
     private ProvinceDto province;
     private DistrictDto district;
     private WardDto ward;

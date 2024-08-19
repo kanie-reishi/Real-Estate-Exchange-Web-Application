@@ -1,6 +1,7 @@
 package devcamp.realestateexchange.dto.realestate;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -61,7 +62,9 @@ public class RealEstateDto {
     // Đã xác minh hay chưa: 0.Chưa xác minh, 1.Đã xác minh
     private Integer verify;
     // Ngày đăng tin
-    private Date createdAt;
+    private String createdAt;
+    // Địa chỉ bđs
+    private String address;
     // Đường dẫn ảnh
     private List<String> photoUrls;
     // Id ảnh
@@ -69,7 +72,7 @@ public class RealEstateDto {
     // Thông tin người đăng tin
     private CustomerDto customer;
     // Địa chỉ bđs
-    private AddressDto address;
+    private AddressDto addressDetail;
     // Article
     private ArticleDto article;
     // Chi tiết bđs
@@ -79,6 +82,7 @@ public class RealEstateDto {
     // Id người đăng tin
     private Integer customerId;
 
+    private static final SimpleDateFormat isoFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
     @Getter
     @Setter
     @NoArgsConstructor
@@ -150,7 +154,7 @@ public class RealEstateDto {
     }
 
     public RealEstateDto(Integer id, String title, Integer type, Integer request, BigDecimal price, Integer priceUnit,
-            Double acreage, Integer acreageUnit, Integer bedroom, Integer verify, Date createdAt) {
+            Double acreage, Integer acreageUnit, Integer bedroom, Integer verify, String createdAt) {
         this.id = id;
         this.title = title;
         this.type = type;
@@ -166,7 +170,7 @@ public class RealEstateDto {
 
     // Constructor for getting multiple real estate
     public RealEstateDto(Integer id, String title, Integer type, Integer request, BigDecimal price, Integer priceUnit,
-            Double acreage, Integer acreageUnit, Integer bedroom, Integer verify, Date createdAt, AddressDto address) {
+            Double acreage, Integer acreageUnit, Integer bedroom, Integer verify, String createdAt, String address) {
         this.id = id;
         this.title = title;
         this.type = type;
@@ -182,8 +186,8 @@ public class RealEstateDto {
     }
 
     public RealEstateDto(Integer id, String title, Integer type, Integer request, BigDecimal price, Integer priceUnit,
-            Double acreage, Integer acreageUnit, Integer bedroom, Integer verify, Date createdAt, CustomerDto customer,
-            AddressDto address) {
+            Double acreage, Integer acreageUnit, Integer bedroom, Integer verify, String createdAt, CustomerDto customer,
+            String address) {
         this.id = id;
         this.title = title;
         this.type = type;
@@ -201,7 +205,7 @@ public class RealEstateDto {
 
     public RealEstateDto(Integer id, String title, Integer type, Integer request, String realEstateCode,
             BigDecimal price, Integer priceUnit, String priceTime, Double acreage, Integer acreageUnit, Integer bedroom,
-            Integer verify, Date createdAt, Integer customerId) {
+            Integer verify, String createdAt, Integer customerId) {
         this.id = id;
         this.title = title;
         this.type = type;
@@ -231,7 +235,7 @@ public class RealEstateDto {
         this.acreageUnit = realEstate.getAcreageUnit();
         this.bedroom = realEstate.getBedroom();
         this.verify = realEstate.getVerify();
-        this.createdAt = realEstate.getCreatedAt();
+        this.createdAt = isoFormat.format(realEstate.getCreatedAt());
         this.direction = realEstate.getDirection();
         this.totalFloors = realEstate.getTotalFloors();
         this.bath = realEstate.getBath();
@@ -241,7 +245,7 @@ public class RealEstateDto {
         this.customer = new CustomerDto(realEstate.getCustomer().getId(), realEstate.getCustomer().getFullName(),
                 realEstate.getCustomer().getPhoto().getUrl());
 
-        this.address = new AddressDto(realEstate.getAddress(),
+        this.addressDetail = new AddressDto(realEstate.getAddress(),
                 new ProvinceDto(realEstate.getProvince().getId(), realEstate.getProvince().getName()),
                 new DistrictDto(realEstate.getDistrict().getId(), realEstate.getDistrict().getName(),
                         realEstate.getDistrict().getPrefix()),
@@ -287,25 +291,6 @@ public class RealEstateDto {
             this.apartDetail.setApartType(realEstate.getApartDetail().getApartType());
             this.apartDetail.setNumberFloors(realEstate.getApartDetail().getNumberFloors());
         }
-    }
-
-    public static RealEstateDto fromFields(List<?> fields) {
-        RealEstateDto dto = new RealEstateDto();
-        dto.id = (Integer) fields.get(0);
-        dto.title = (String) fields.get(1);
-        dto.type = (Integer) fields.get(2);
-        dto.request = (Integer) fields.get(3);
-        dto.realEstateCode = (String) fields.get(4);
-        dto.price = (BigDecimal) fields.get(5);
-        dto.priceUnit = (Integer) fields.get(6);
-        dto.priceTime = (String) fields.get(7);
-        dto.acreage = (Double) fields.get(8);
-        dto.acreageUnit = (Integer) fields.get(9);
-        dto.bedroom = (Integer) fields.get(10);
-        dto.verify = (Integer) fields.get(11);
-        dto.createdAt = (Date) fields.get(12);
-        dto.customerId = (Integer) fields.get(13);
-        return dto;
     }
     
 }
