@@ -38,6 +38,10 @@ public abstract class UnitEntity extends UserReferenceEntity {
     @JoinColumn(name = "address", referencedColumnName = "id")
     private AddressMap addressMap;
 
+    // Địa chỉ
+    @Column(name = "address")
+    private String address;
+    
     // Số điện thoại
     @Column(name = "phone")
     private String phone;

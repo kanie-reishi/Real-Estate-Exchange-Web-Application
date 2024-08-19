@@ -73,7 +73,7 @@ public class Project extends UserReferenceEntity{
 
     // Diện tích xây dựng
     @Column(name = "construct_area")
-    private Double constuctArea;
+    private Double constructArea;
 
     // Số block dự án có
     @Column(name = "num_block")

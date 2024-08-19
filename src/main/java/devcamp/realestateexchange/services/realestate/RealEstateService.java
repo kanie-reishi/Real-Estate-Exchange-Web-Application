@@ -6,16 +6,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
 import org.apache.http.util.EntityUtils;
 import org.elasticsearch.client.Request;
 import org.elasticsearch.client.Response;
 import org.elasticsearch.client.RestClient;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,13 +70,7 @@ public class RealEstateService {
     @Autowired
     PhotoService photoService;
     @Autowired
-    private ModelMapper modelMapper;
-    @Autowired
     private ApplicationEventPublisher eventPublisher;
-    @Autowired
-    private RealEstateChangedEventHandler realEstateChangedEventHandler;
-    @PersistenceContext
-    private EntityManager entityManager;
     @Autowired
     private RestClient client;
     private static final Logger logger = LoggerFactory.getLogger(RealEstateChangedEventHandler.class);
@@ -163,15 +153,6 @@ public class RealEstateService {
         return dto;
     }
 
-    /*
-     * public RealEstateDto getRealEstateDtoById(Integer id) {
-     * RealEstateDto realEstateDto = realEstateRepository.findDtoById(id)
-     * .orElseThrow(() -> new RuntimeException("RealEstate not found"));
-     * List<String> photoUrls = photoService.getUrlsByRealEstateId(id);
-     * realEstateDto.setPhotoUrls(photoUrls);
-     * return realEstateDto;
-     * }
-     */
     public RealEstateDto saveRealEstate(RealEstateDto realEstateDto) {
         RealEstate realEstate = new RealEstate();
         realEstate.setTitle(realEstateDto.getTitle());
