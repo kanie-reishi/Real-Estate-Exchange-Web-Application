@@ -37,6 +37,10 @@ public class RegionLink extends UserReferenceEntity {
     @Column(name = "description")
     private String description;
 
+    // Địa chỉ
+    @Column(name = "address")
+    private String address;
+    
     // Quan hệ 1-n với Photo
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "region_link_id")

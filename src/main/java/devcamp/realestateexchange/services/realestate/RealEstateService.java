@@ -77,15 +77,18 @@ public class RealEstateService {
 
     private static final SimpleDateFormat isoFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
+    // Phương thức lấy tất cả RealEstateDto
     public Page<RealEstateDto> getAllRealEstateDtos(Pageable pageable) {
         Page<RealEstateBasicProjection> projections = realEstateRepository.findAllBasicProjections(pageable);
         return projections.map(this::convertBasicProjectionToDto);
     }
 
+    // Phương thức lấy RealEstateDto theo id
     public RealEstate getRealEstateById(Integer id) {
         return realEstateRepository.findById(id).orElse(null);
     }
 
+    // Phương thức lấy RealEstateDto theo id
     public RealEstate deleteRealEstateById(Integer id) {
         RealEstate realEstate = realEstateRepository.findById(id).orElse(null);
         if (realEstate != null) {
@@ -100,8 +103,10 @@ public class RealEstateService {
         }
         return realEstate;
     }
-    
+
+    // Phương thức lấy RealEstateDto theo id
     private RealEstateDto convertBasicProjectionToDto(RealEstateBasicProjection projection) {
+        // Chuyển đổi RealEstateBasicProjection thành RealEstateDto
         RealEstateDto dto = new RealEstateDto();
         dto.setId(projection.getId());
         dto.setTitle(projection.getTitle());
@@ -114,12 +119,14 @@ public class RealEstateService {
         dto.setAcreageUnit(projection.getAcreageUnit());
         dto.setBedroom(projection.getBedroom());
         dto.setVerify(projection.getVerify());
+        // Chuyển đổi createdAt thành định dạng ISO 8601
         if (projection.getCreatedAt() != null) {
             String createdAtIso = isoFormat.format(projection.getCreatedAt());
             dto.setCreatedAt(createdAtIso);
         } else {
             dto.setCreatedAt(null);
         }
+        // Thêm thông tin khách hàng vào RealEstateDto
         CustomerDto customerDto = new CustomerDto();
         if (projection.getCustomer() != null) { // Check null
             customerDto.setId(projection.getCustomer().getId());
@@ -127,7 +134,7 @@ public class RealEstateService {
             customerDto.setPhone(projection.getCustomer().getPhone());
         }
         dto.setCustomer(customerDto);
-
+        // Thêm thông tin địa chỉ vào RealEstateDto
         AddressDto addressDto = new AddressDto();
         ProvinceDto provinceDto = new ProvinceDto();
         DistrictDto districtDto = new DistrictDto();
@@ -147,12 +154,14 @@ public class RealEstateService {
         addressDto.setDistrict(districtDto);
 
         dto.setAddressDetail(addressDto);
-
+        // Thêm thông tin ảnh vào RealEstateDto
         List<String> photoUrls = photoService.getUrlsByRealEstateId(dto.getId());
         dto.setPhotoUrls(photoUrls);
+        // Trả về RealEstateDto
         return dto;
     }
 
+    // Phương thức lưu RealEstate
     public RealEstateDto saveRealEstate(RealEstateDto realEstateDto) {
         RealEstate realEstate = new RealEstate();
         realEstate.setTitle(realEstateDto.getTitle());
@@ -166,7 +175,7 @@ public class RealEstateService {
         realEstate.setBedroom(realEstateDto.getBedroom());
 
         Date createdAt = null;
-
+        // Parse createdAt from ISO 8601 format
         try {
             createdAt = isoFormat.parse(realEstateDto.getCreatedAt());
         } catch (ParseException e) {
@@ -175,7 +184,9 @@ public class RealEstateService {
         }
 
         realEstate.setCreatedAt(createdAt);
-        realEstate.setDetail(realEstateDto.getDetail().toEntity());
+        if (realEstateDto.getDetail() != null) {
+            realEstate.setDetail(realEstateDto.getDetail().toEntity());
+        }
         realEstate.setAddress(realEstateDto.getAddress());
         Customer customer = customerRepository.findById(realEstateDto.getCustomer().getId())
                 .orElseThrow(() -> new RuntimeException("Customer not found"));
@@ -229,6 +240,7 @@ public class RealEstateService {
         return new RealEstateDto(realEstate);
     }
 
+    // Phương thức index tất cả RealEstate
     public void indexAllRealEstates() {
         List<RealEstate> realEstates = realEstateRepository.findAll();
         createIndexWithCustomAnalyzer();
@@ -238,6 +250,7 @@ public class RealEstateService {
         }
     }
 
+    // Phương thức test index RealEstate
     public void indexTestRealEstate() {
         RealEstate realEstate = realEstateRepository.findById(1)
                 .orElseThrow(() -> new RuntimeException("RealEstate not found"));
@@ -246,9 +259,9 @@ public class RealEstateService {
         eventPublisher.publishEvent(new RealEstateChangedEvent(realEstateDto));
     }
 
+    // Phương thức tìm kiếm RealEstate theo các tham số tìm kiếm
     public Page<RealEstateDto> search(RealEstateSearchParameters realEstateSearchParameters) {
         List<RealEstateDto> result = new ArrayList<>();
-
         try {
             Request request = new Request("POST", "/realestate_index/_search");
             ObjectMapper mapper = new ObjectMapper();
@@ -271,7 +284,7 @@ public class RealEstateService {
                 String text = realEstateSearchParameters.getSearchText();
                 multiMatchNode.put("query", text);
                 multiMatchNode.put("analyzer", "vietnamese_analyzer");
-                multiMatchNode.putArray("fields").add("title").add("description").add("address");
+                multiMatchNode.putArray("fields").add("title").add("description").add("address").add("keywords");
                 multiMatchNode.put("type", "best_fields");
                 multiMatchNode.put("fuzziness", "AUTO"); // Apply fuzzy search
                 // You can set this to a specific value like "1", "2", etc.
@@ -363,11 +376,12 @@ public class RealEstateService {
                 ObjectNode sortFieldNode = sortNode.putObject(realEstateSearchParameters.getSort());
                 sortFieldNode.put("order", realEstateSearchParameters.getOrder());
             }
+            // Convert the JSON object to a string
             String jsonString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(rootNode);
             logger.info("Request {}", jsonString);
             request.setJsonEntity(jsonString);
 
-            // Add API key to request header
+            // Execute the request
             Response response = client.performRequest(request);
             // Parse the response
             String responseBody = EntityUtils.toString(response.getEntity());
@@ -375,7 +389,7 @@ public class RealEstateService {
             logger.info("responseBody {}", responseBody);
             JSONArray hits = jsonObject.getJSONObject("hits").getJSONArray("hits");
             // Get the total number of hits
-            long totalHits = jsonObject.getJSONObject("hits").getJSONObject("total").getInt("value");
+            int totalHits = jsonObject.getJSONObject("hits").getJSONObject("total").getInt("value");
             // Convert each hit to a RealEstateDto and add it to the result list
             for (int i = 0; i < hits.length(); i++) {
                 JSONObject hit = hits.getJSONObject(i);
@@ -384,6 +398,7 @@ public class RealEstateService {
                 addPhotoUrls(realEstateDto);
                 result.add(realEstateDto);
             }
+            // Create a Page object from the result list
             int start = realEstateSearchParameters.getFrom() != null ? realEstateSearchParameters.getFrom() : 0;
             int size = realEstateSearchParameters.getSize() != null ? realEstateSearchParameters.getSize()
                     : result.size();
@@ -391,9 +406,9 @@ public class RealEstateService {
                 return new PageImpl<>(result);
             }
             Pageable pageable = PageRequest.of(start / size, size);
-            int end = Math.min((start + size), result.size());
 
             Page<RealEstateDto> page = new PageImpl<>(result, pageable, totalHits);
+            // Return the page
             return page;
         } catch (Exception e) {
             e.printStackTrace();
@@ -401,22 +416,34 @@ public class RealEstateService {
         }
     }
 
+    // Phương thức tạo index với analyzer tùy chỉnh(vietnamese_analyzer)
     public void createIndexWithCustomAnalyzer() {
         try {
+            // Tạo request để tạo index
             Request request = new Request("PUT", "/realestate_index");
+            // Tạo JSON object để thiết lập cấu hình index
             ObjectMapper mapper = new ObjectMapper();
+            // Tạo root node
             ObjectNode rootNode = mapper.createObjectNode();
 
+            // Tạo và thêm settings node vào root node
             ObjectNode settingsNode = rootNode.putObject("settings");
+            // Tạo và thêm analysis node vào settings node
             ObjectNode analysisNode = settingsNode.putObject("analysis");
+            // Tạo và thêm analyzer node vào analysis node
             ObjectNode analyzerNode = analysisNode.putObject("analyzer");
+            // Tạo và thêm vietnamese_analyzer node vào analyzer node
             ObjectNode vietnameseAnalyzerNode = analyzerNode.putObject("vietnamese_analyzer");
+            // Thiết lập các thuộc tính cho vietnamese_analyzer
+            // Sử dụng tokenizer standard
             vietnameseAnalyzerNode.put("tokenizer", "standard");
+            // Tạo và thêm filter node vào vietnamese_analyzer
             ArrayNode filterNode = vietnameseAnalyzerNode.putArray("filter");
-            // Add the vietnamese analyzer filters
+            // Add the vietnamese analyzer filters to the filter node (lowercase,
+            // asciifolding)
             filterNode.add("lowercase");
             filterNode.add("asciifolding");
-
+            // Tạo và thêm char_filter node vào analysis node
             ObjectNode mappingsNode = rootNode.putObject("mappings");
             ObjectNode propertiesNode = mappingsNode.putObject("properties");
             // Add the title field to the properties
@@ -444,7 +471,9 @@ public class RealEstateService {
         }
     }
 
+    // Phương thức chuyển đổi RealEstate thành RealEstateDto
     public RealEstateDto convertRealEstateToDtoSearch(RealEstate realEstate) {
+        // Chuyển đổi RealEstate thành RealEstateDto
         RealEstateDto realEstateDto = new RealEstateDto();
         realEstateDto.setId(realEstate.getId());
         realEstateDto.setType(realEstate.getType());
@@ -463,6 +492,102 @@ public class RealEstateService {
         realEstateDto.setDescription(realEstate.getDescription());
         realEstateDto.setAddress(realEstate.getAddress());
 
+        if (realEstateDto.getType() != null) {
+            // Danh mục tin đăng: 0.Đất, 1.Nhà ở,
+            // 2.Căn hộ/Chung cư, 3.Văn phòng, Mặt bằng
+            // 4.Kinh doanh, 5.Phòng trọ,
+            // 6.Kho/Nhà xưởng
+            // Khởi tạo danh sách keywords nếu chưa có
+            if (realEstateDto.getKeywords() == null) {
+                realEstateDto.setKeywords(new ArrayList<>());
+            }
+            switch (realEstateDto.getType()) {
+                case 0:
+                    realEstateDto.getKeywords().add("Đất");
+                    break;
+                case 1:
+                    realEstateDto.getKeywords().add("Nhà ở");
+                    break;
+                case 2:
+                    realEstateDto.getKeywords().add("Căn hộ/Chung cư");
+                    break;
+                case 3:
+                    realEstateDto.getKeywords().add("Văn phòng");
+                    realEstateDto.getKeywords().add("Mặt bằng");
+                    break;
+                case 4:
+                    realEstateDto.getKeywords().add("Kinh doanh");
+                    break;
+                case 5:
+                    realEstateDto.getKeywords().add("Phòng trọ");
+                    break;
+                case 6:
+                    realEstateDto.getKeywords().add("Kho");
+                    realEstateDto.getKeywords().add("Nhà xưởng");
+                    break;
+                default:
+                    break;
+            }
+        }
+        if (realEstateDto.getRequest() != null) {
+            // Nhu cầu 0.Cần bán, 1.Cần mua, 2.Cho thuê, 3.Cần thuê
+            // Khởi tạo danh sách keywords nếu chưa có
+            if (realEstateDto.getKeywords() == null) {
+                realEstateDto.setKeywords(new ArrayList<>());
+            }
+            switch (realEstateDto.getRequest()) {
+                case 0:
+                    realEstateDto.getKeywords().add("Cần bán");
+                    break;
+                case 1:
+                    realEstateDto.getKeywords().add("Cần mua");
+                    break;
+                case 2:
+                    realEstateDto.getKeywords().add("Cho thuê");
+                    break;
+                case 3:
+                    realEstateDto.getKeywords().add("Cần thuê");
+                    break;
+                default:
+                    break;
+            }
+        }
+        if (realEstateDto.getDirection() != null) {
+            // Hướng nhà, căn hộ Đông: 1, Tây: 2, Bắc: 3, Nam: 4
+            // Đông Bắc: 5, Tây Bắc: 6, Đông Nam: 7, Tây Nam: 8
+            // Khởi tạo danh sách keywords nếu chưa có
+            if (realEstateDto.getKeywords() == null) {
+                realEstateDto.setKeywords(new ArrayList<>());
+            }
+            switch (realEstateDto.getDirection()) {
+                case 1:
+                    realEstateDto.getKeywords().add("Đông");
+                    break;
+                case 2:
+                    realEstateDto.getKeywords().add("Tây");
+                    break;
+                case 3:
+                    realEstateDto.getKeywords().add("Bắc");
+                    break;
+                case 4:
+                    realEstateDto.getKeywords().add("Nam");
+                    break;
+                case 5:
+                    realEstateDto.getKeywords().add("Đông Bắc");
+                    break;
+                case 6:
+                    realEstateDto.getKeywords().add("Tây Bắc");
+                    break;
+                case 7:
+                    realEstateDto.getKeywords().add("Đông Nam");
+                    break;
+                case 8:
+                    realEstateDto.getKeywords().add("Tây Nam");
+                    break;
+                default:
+                    break;
+            }
+        }
         AddressDto addressDto = new AddressDto();
         ProvinceDto provinceDto = new ProvinceDto();
         DistrictDto districtDto = new DistrictDto();
@@ -513,6 +638,7 @@ public class RealEstateService {
         return realEstateDto;
     }
 
+    // Phương thức thêm photoUrls vào RealEstateDto
     public void addPhotoUrls(RealEstateDto realEstateDto) {
         List<String> photoUrls = photoService.getUrlsByRealEstateId(realEstateDto.getId());
         realEstateDto.setPhotoUrls(photoUrls);

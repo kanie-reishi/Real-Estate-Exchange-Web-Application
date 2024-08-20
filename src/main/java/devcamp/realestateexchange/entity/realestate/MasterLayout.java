@@ -46,7 +46,7 @@ public class MasterLayout extends UserReferenceEntity {
 
     // Danh sách căn hộ điển hình của mặt bằng, dùng để copy cho các căn hộ khác.
     @Column(name = "apartment_list")
-    private String apartmentList;
+    private List<String> apartmentList;
 
     // Quan hệ 1-n với Photo
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

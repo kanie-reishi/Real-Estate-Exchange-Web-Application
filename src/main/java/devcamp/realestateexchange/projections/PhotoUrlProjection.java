@@ -1,5 +1,5 @@
 package devcamp.realestateexchange.projections;
 
-public interface PhotoProjection {
+public interface PhotoUrlProjection {
     String getUrl();
 }

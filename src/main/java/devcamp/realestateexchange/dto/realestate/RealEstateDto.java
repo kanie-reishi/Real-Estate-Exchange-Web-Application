@@ -33,7 +33,7 @@ public class RealEstateDto {
     // 2.Căn hộ/Chung cư, 3.Văn phòng, Mặt bằng
     // 4.Kinh doanh, 5.Phòng trọ,
     private Integer type;
-    // Nhu cầu 0.Cần bán, 2.Cần mua, 3.Cho thuê, 4.Cần thuê
+    // Nhu cầu 0.Cần bán, 1.Cần mua, 2.Cho thuê, 3.Cần thuê
     private Integer request;
     // Mô tả chi tiết bđs
     private String description;
@@ -65,8 +65,12 @@ public class RealEstateDto {
     private String createdAt;
     // Địa chỉ bđs
     private String address;
+    // Danh sách keyword
+    private List<String> keywords;
     // Đường dẫn ảnh
     private List<String> photoUrls;
+    // Đường dẫn video
+    private List<String> videoUrls;
     // Id ảnh
     private List<Integer> photoIds;
     // Thông tin người đăng tin

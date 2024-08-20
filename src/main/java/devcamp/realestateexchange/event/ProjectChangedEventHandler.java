@@ -1,4 +1,5 @@
 package devcamp.realestateexchange.event;
+
 import org.elasticsearch.client.Request;
 import org.elasticsearch.client.Response;
 import org.elasticsearch.client.RestClient;
@@ -10,31 +11,33 @@ import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import devcamp.realestateexchange.dto.realestate.RealEstateDto;
+import devcamp.realestateexchange.dto.realestate.ProjectDto;
+
 @Service
-public class RealEstateChangedEventHandler {
+public class ProjectChangedEventHandler {
     @Autowired
     private RestClient client;
 
     private static final Logger logger = LoggerFactory.getLogger(RealEstateChangedEventHandler.class);
+
     @EventListener
-    public void handleRealEstateChangedEvent(RealEstateChangedEvent event) {
-        RealEstateDto realestate = event.getDto();
+    public void handleProjectChangedEvent(ProjectChangedEvent event) {
+        ProjectDto project = event.getDto();
 
         // convert entity to JSON
         try {
-            String json = new ObjectMapper().writeValueAsString(realestate);
+            String json = new ObjectMapper().writeValueAsString(project);
             logger.info("JSON: {}", json);
 
             // create index request
-            Request request = new Request("PUT", "/realestate_index/_doc/" + realestate.getId());
+            Request request = new Request("PUT", "/project_index/_doc/" + project.getId());
             request.setJsonEntity(json);
 
             // index data into Elasticsearch
             Response response = client.performRequest(request);
             logger.info("Response: {}", response);
         } catch (Exception e) {
-            logger.error("Error indexing real estate data", e);
+            logger.error("Error indexing project data", e);
         }
     }
 }

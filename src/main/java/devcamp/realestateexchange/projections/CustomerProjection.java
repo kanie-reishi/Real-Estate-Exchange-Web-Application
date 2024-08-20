@@ -5,5 +5,5 @@ public interface CustomerProjection {
     String getFullName();
     String getPhone();
     String getEmail();
-    PhotoProjection getPhoto();
+    PhotoUrlProjection getPhoto();
 }

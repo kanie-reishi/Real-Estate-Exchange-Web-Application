@@ -1,6 +1,7 @@
 package devcamp.realestateexchange.projections;
 
 import java.util.Date;
+import java.util.List;
 
 public interface ProjectProjection {
     Integer getId();
@@ -15,4 +16,10 @@ public interface ProjectProjection {
     String getApartmentArea();
     Date getCreatedAt();
     Date getUpdatedAt();
+    List<MasterLayoutProjection> getMasterLayout();
+    List<UtilitiesProjection> getUtilities();
+    List<ContractorProjection> getContractor();
+    List<DesignUnitProjection> getDesignUnit();
+    List<InvestorProjection> getInvestor();
+    List<RegionLinkProjection> getRegionLink();
 }

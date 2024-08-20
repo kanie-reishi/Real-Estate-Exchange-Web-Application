@@ -39,7 +39,7 @@ public class RealEstateController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-    
+
     @GetMapping("/realestate/table")
     public ResponseEntity<Object> getRealEstateTable(
             @RequestParam Map<String, String> allRequestParams) {
@@ -57,19 +57,22 @@ public class RealEstateController {
             Boolean searchRegex = Boolean.parseBoolean(allRequestParams.get("search[regex]") != null
                     ? allRequestParams.get("search[regex]")
                     : "false");
-
-            // Define sort column
-            String[] columns = new String[] { "", "realEstateCode", "addressDetail.province.id", "addressDetail.district.id", "addressDetail.ward.id", "addressDetail.street.id",
-                    "address", "title", "description", "type", "request", "customer.id", "price", "createdAt", "acreage", "priceTime", "images" };
-            // Check if the column is orderable
             String orderableKey = "columns[" + orderColumn + "][orderable]";
             String orderable = allRequestParams.get(orderableKey);
 
+            // Define sort column
+            String[] columns = new String[] { "", "realEstateCode", "addressDetail.province.id",
+                    "addressDetail.district.id", "addressDetail.ward.id", "addressDetail.street.id",
+                    "address", "title", "description", "type", "request", "customer.id", "price", "createdAt",
+                    "acreage", "priceTime", "images" };
+            // Define search parameters
             RealEstateSearchParameters realEstateSearchParameters = new RealEstateSearchParameters();
             realEstateSearchParameters.setSearchText(searchTerm);
             realEstateSearchParameters.setSize(length);
             realEstateSearchParameters.setFrom(start);
-            if (orderColumn != null && orderColumn >= 0 && orderColumn < columns.length && orderable.equals("true") && orderColumnStr != null && orderDir != null) {
+            // Check if the column is orderable
+            if (orderColumn != null && orderColumn >= 0 && orderColumn < columns.length && orderable.equals("true")
+                    && orderColumnStr != null && orderDir != null) {
                 realEstateSearchParameters.setSort(columns[orderColumn]);
                 realEstateSearchParameters.setOrder(orderDir);
             } else {
@@ -111,6 +114,7 @@ public class RealEstateController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
     @PostMapping("/realestate")
     public ResponseEntity<Object> createRealEstate(@RequestBody RealEstateDto realEstateDto) {
         try {
@@ -120,6 +124,7 @@ public class RealEstateController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
     @PutMapping("/realestate")
     public ResponseEntity<Object> updateRealEstate(@RequestBody RealEstateDto realEstateDto) {
         try {

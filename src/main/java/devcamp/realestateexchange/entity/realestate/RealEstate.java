@@ -16,7 +16,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import devcamp.realestateexchange.entity.location.AddressMap;
@@ -25,6 +24,7 @@ import devcamp.realestateexchange.entity.location.Province;
 import devcamp.realestateexchange.entity.location.Street;
 import devcamp.realestateexchange.entity.location.Ward;
 import devcamp.realestateexchange.entity.media.Photo;
+import devcamp.realestateexchange.entity.media.Video;
 import devcamp.realestateexchange.entity.social.Article;
 import devcamp.realestateexchange.entity.user.Customer;
 import devcamp.realestateexchange.entity.user.UserReferenceEntity;
@@ -112,6 +112,11 @@ public class RealEstate extends UserReferenceEntity {
     @OneToMany(mappedBy = "realEstate", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JsonBackReference
     private List<Photo> photos;
+
+    // Lưu đường dẫn video
+    @OneToMany(mappedBy = "realEstate", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonBackReference
+    private List<Video> videos;
 
     // Giá hiện tại đăng tin
     @Column(name = "price")

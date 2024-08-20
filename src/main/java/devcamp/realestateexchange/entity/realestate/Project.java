@@ -22,6 +22,7 @@ import devcamp.realestateexchange.entity.location.Province;
 import devcamp.realestateexchange.entity.location.Street;
 import devcamp.realestateexchange.entity.location.Ward;
 import devcamp.realestateexchange.entity.media.Photo;
+import devcamp.realestateexchange.entity.media.Video;
 import devcamp.realestateexchange.entity.user.UserReferenceEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -95,6 +96,11 @@ public class Project extends UserReferenceEntity{
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "project_id")
     private Set<Photo> photos;
+
+    // Quan hệ 1-n với Video
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "project_id")
+    private Set<Video> videos;
     
     // Quan hệ 1-1 với AddressMap
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

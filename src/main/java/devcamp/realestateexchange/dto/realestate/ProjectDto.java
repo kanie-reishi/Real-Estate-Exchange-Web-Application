@@ -5,6 +5,7 @@ import java.util.List;
 
 import devcamp.realestateexchange.dto.location.AddressDto;
 import devcamp.realestateexchange.dto.user.CustomerDto;
+import devcamp.realestateexchange.entity.realestate.MasterLayout;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -38,17 +39,19 @@ public class ProjectDto {
     // Diện tích căn hộ, có thể là khoảng
     private String apartmentArea;
     // Thông tin ngày tạo
-    private Date createdAt;
+    private String createdAt;
+    // Thông tin ngày cập nhật
+    private String updatedAt;
     // Danh sách các hình ảnh của dự án
     private List<String> images;
     // Danh sách các video của dự án
     private List<String> videos;
     // Danh sách các tiện ích của dự án
-    private List<String> utilities;
+    private List<UtilitiesDto> utilities;
     // Danh sách các tiện ích xung quanh của dự án
-    private List<String> regionLinks;
+    private List<RegionLinkDto> regionLinks;
     // Danh sách master layout của dự án
-    private List<String> masterLayouts;
+    private List<MasterLayoutDto> masterLayouts;
     // Danh sách các bds của dự án
     private List<RealEstateDto> realEstates;
     // Danh sách các nhà thầu của dự án

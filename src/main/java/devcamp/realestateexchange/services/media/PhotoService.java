@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import devcamp.realestateexchange.entity.media.Photo;
+import devcamp.realestateexchange.projections.PhotoUrlProjection;
 import devcamp.realestateexchange.repositories.media.IPhotoRepository;
 @Service
 public class PhotoService {
@@ -32,8 +33,42 @@ public class PhotoService {
     public void deletePhoto(Photo photo){
         photoRepository.delete(photo);
     }
-
+    // Get all photo urls by real estate id
     public List<String> getUrlsByRealEstateId(Integer id){
         return photoRepository.findUrlsByRealEstateId(id);
     }
+    // Get all photo urls by project id
+    public List<PhotoUrlProjection> getPhotoUrlsByProjectId(Long id){
+        return photoRepository.findPhotoUrlsByProjectId(id);
+    }
+
+    // Get all photo urls by master layout id
+    public List<PhotoUrlProjection> getPhotoUrlsByMasterLayoutId(Long id){
+        return photoRepository.findPhotoUrlsByMasterLayoutId(id);
+    }
+
+    // Get all photo urls by region link id
+    public List<PhotoUrlProjection> getPhotoUrlsByRegionLinkId(Long id){
+        return photoRepository.findPhotoUrlsByRegionLinkId(id);
+    }
+
+    // Get all photo urls by Utilities id
+    public List<PhotoUrlProjection> getPhotoUrlsByUtilitiesId(Long id){
+        return photoRepository.findPhotoUrlsByUtilitiesId(id);
+    }
+
+    // Get photo url by customer id
+    public PhotoUrlProjection getPhotoUrlByCustomerId(Long id){
+        return photoRepository.findPhotoUrlByCustomerId(id);
+    }
+
+    // Get photo url by employee id
+    public PhotoUrlProjection getPhotoUrlsByEmployeeId(Long id){
+        return photoRepository.findPhotoUrlsByEmployeeId(id);
+    }
+
+    public Photo save(Photo photo){
+        return photoRepository.save(photo);
+    }
+
 }
