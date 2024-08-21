@@ -105,7 +105,7 @@ public class RealEstateService {
     }
 
     // Phương thức lấy RealEstateDto theo id
-    private RealEstateDto convertBasicProjectionToDto(RealEstateBasicProjection projection) {
+    public RealEstateDto convertBasicProjectionToDto(RealEstateBasicProjection projection) {
         // Chuyển đổi RealEstateBasicProjection thành RealEstateDto
         RealEstateDto dto = new RealEstateDto();
         dto.setId(projection.getId());

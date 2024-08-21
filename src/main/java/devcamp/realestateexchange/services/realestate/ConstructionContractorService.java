@@ -40,4 +40,10 @@ public class ConstructionContractorService {
     public ContractorDto convertToDto(ConstructionContractor constructionContractor) {
         return modelMapper.map(constructionContractor, ContractorDto.class);
     }
+    public ConstructionContractor convertToEntity(ContractorDto contractorDto) {
+        return modelMapper.map(contractorDto, ConstructionContractor.class);
+    }
+    public void deleteConstructionContractor(Integer id) {
+        constructionContractorRepository.deleteById(id);
+    }
 }
