@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -85,6 +86,15 @@ public class ProjectController {
             response.put("recordsFiltered", projectPage.getTotalElements());
             response.put("data", projectPage.getContent());
             return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+    @GetMapping("/projects/search")
+    public ResponseEntity<Object> searchProject(@RequestBody ProjectSearchParameters searchParameters) {
+        try {
+            Page<ProjectDto> projectPage = projectService.search(searchParameters);
+            return ResponseEntity.ok(projectPage);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
