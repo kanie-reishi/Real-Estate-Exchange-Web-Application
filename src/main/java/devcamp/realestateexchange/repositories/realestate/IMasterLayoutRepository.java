@@ -13,10 +13,15 @@ import devcamp.realestateexchange.entity.realestate.MasterLayout;
 import devcamp.realestateexchange.projections.MasterLayoutProjection;
 
 public interface IMasterLayoutRepository extends JpaRepository<MasterLayout, Integer>, JpaSpecificationExecutor<MasterLayout> {
+    // Get all master layout
     @Query("SELECT ml FROM MasterLayout ml")
     Page<MasterLayoutProjection> findAllProjections(Pageable pageable);
 
     // Get all master layout by project id
     @Query("SELECT ml FROM MasterLayout ml WHERE ml.project.id = :projectId")
     List<MasterLayoutProjection> findMasterLayoutByProjectId(@Param("projectId") Integer projectId);
+
+    // Get master layout by id
+    @Query("SELECT ml FROM MasterLayout ml WHERE ml.id = :id")
+    MasterLayout getMasterLayoutById(@Param("id") Integer id);
 }

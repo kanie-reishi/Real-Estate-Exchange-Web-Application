@@ -23,6 +23,7 @@ import devcamp.realestateexchange.services.realestate.ProjectService;
 public class ProjectController {
     @Autowired
     private ProjectService projectService;
+    // Get project by id @param id @return ProjectDto
     @GetMapping("/projects/{id}")
     public ResponseEntity<Object> getProjectById(@PathVariable Integer id){
         try {
@@ -32,6 +33,7 @@ public class ProjectController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+    // Get all projects @return Page<ProjectDto>
     @GetMapping("/projects")
     public ResponseEntity<Object> getProjectList(Pageable pageable){
         try {
@@ -41,6 +43,7 @@ public class ProjectController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+    // Get project table for datatable @param allRequestParams @return ResponseEntity<Object>
     @GetMapping("/projects/table")
     public ResponseEntity<Object> getProjectTable(
             @RequestParam Map<String, String> allRequestParams) {
@@ -90,9 +93,10 @@ public class ProjectController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+    // Search project @return Page<ProjectDto>
     @GetMapping("/projects/search")
-    public ResponseEntity<Object> searchProject(@RequestBody ProjectSearchParameters searchParameters) {
-        try {
+    public ResponseEntity<Object> searchProject(@RequestBody ProjectSearchParameters searchParameters){
+        try{
             Page<ProjectDto> projectPage = projectService.search(searchParameters);
             return ResponseEntity.ok(projectPage);
         } catch (Exception e) {
