@@ -14,7 +14,7 @@ public interface IUtilitiesRepository extends JpaRepository<Utilities, Integer>,
     @Query("SELECT u FROM Utilities u")
     Page<UtilitiesProjection> findAllProjections(Pageable pageable);
     // Get all utilities by project id
-    @Query("SELECT u FROM Utilities u WHERE u.project.id = :projectId")
+    @Query("SELECT u FROM Utilities u JOIN u.projects p WHERE p.id = :projectId")
     List<UtilitiesProjection> findUtilitiesByProjectId(Integer projectId);
     // Get utilities by id
     @Query("SELECT u FROM Utilities u WHERE u.id = :id")

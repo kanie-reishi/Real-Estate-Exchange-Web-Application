@@ -35,7 +35,7 @@ public abstract class UnitEntity extends UserReferenceEntity {
 
     // Địa chỉ map
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "address", referencedColumnName = "id")
+    @JoinColumn(name = "addressmap_id", referencedColumnName = "id")
     private AddressMap addressMap;
 
     // Địa chỉ

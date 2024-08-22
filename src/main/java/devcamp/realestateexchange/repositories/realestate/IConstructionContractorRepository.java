@@ -16,7 +16,7 @@ public interface IConstructionContractorRepository extends JpaRepository<Constru
     Page<ContractorProjection> findAllProjections(Pageable pageable);
 
     // Get all construction contractor by project id
-    @Query("SELECT cc FROM ConstructionContractor cc WHERE cc.project.id = :projectId")
+    @Query("SELECT cc FROM ConstructionContractor cc JOIN cc.projectConstructionContractors pcc WHERE pcc.project.id = :projectId")
     List<ContractorProjection> findConstructionContractorByProjectId(@Param("projectId") Integer projectId);
 
     @Query("SELECT cc FROM ConstructionContractor cc WHERE cc.id = :id")

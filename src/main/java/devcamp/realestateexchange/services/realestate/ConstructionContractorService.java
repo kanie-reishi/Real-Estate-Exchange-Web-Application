@@ -2,8 +2,9 @@ package devcamp.realestateexchange.services.realestate;
 
 import java.util.List;
 
-import org.elasticsearch.common.recycler.Recycler.C;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,7 +13,6 @@ import org.springframework.stereotype.Service;
 import devcamp.realestateexchange.dto.realestate.ContractorDto;
 import devcamp.realestateexchange.entity.realestate.ConstructionContractor;
 import devcamp.realestateexchange.projections.ContractorProjection;
-import devcamp.realestateexchange.projections.UnitProjection;
 import devcamp.realestateexchange.repositories.realestate.IConstructionContractorRepository;
 
 @Service
@@ -21,6 +21,7 @@ public class ConstructionContractorService {
     private IConstructionContractorRepository constructionContractorRepository;
     @Autowired
     private ModelMapper modelMapper;
+    private static final Logger logger = LoggerFactory.getLogger(ConstructionContractorService.class.getName());
     public ContractorDto getConstructionContractorById(Integer id) {
         ContractorProjection unitProjection = constructionContractorRepository.getConstructionContractorById(id);
         return modelMapper.map(unitProjection, ContractorDto.class);
@@ -28,6 +29,9 @@ public class ConstructionContractorService {
     public Page<ContractorDto> getConstructionContractors(Pageable pageable) {
         Page<ContractorProjection> unitProjections = constructionContractorRepository.findAllProjections(pageable);
         return unitProjections.map(unitProjection -> modelMapper.map(unitProjection, ContractorDto.class));
+    }
+    public List<ConstructionContractor> getConstructionContractors() {
+        return constructionContractorRepository.findAll();
     }
     public List<ContractorDto> getConstructionContractorsByProjectId(Integer projectId) {
         List<ContractorProjection> unitProjections = constructionContractorRepository.findConstructionContractorByProjectId(projectId);

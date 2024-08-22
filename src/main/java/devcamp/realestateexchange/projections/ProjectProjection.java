@@ -8,6 +8,7 @@ public interface ProjectProjection {
     String getName();
     String getSlogan();
     String getDescription();
+    String getAddress();
     Double getAcreage();
     Double getConstructArea();
     Integer getNumBlock();
@@ -16,11 +17,10 @@ public interface ProjectProjection {
     String getApartmentArea();
     Date getCreatedAt();
     Date getUpdatedAt();
-    List<MasterLayoutProjection> getMasterLayout();
+    List<MasterLayoutProjection> getMasterLayouts();
     List<UtilitiesProjection> getUtilities();
-    List<ProjectContractorProjection> getContractor();
-    List<ProjectDesignUnitProjection> getDesignUnit();
-    List<ProjectInvestorProjection> getInvestor();
-    List<RegionLinkProjection> getRegionLink();
-    List<RealEstateBasicProjection> getRealEstate();
+    List<ProjectContractorProjection> getProjectConstructionContractors();
+    List<ProjectDesignUnitProjection> getProjectDesignUnits();
+    List<ProjectInvestorProjection> getProjectInvestors();
+    List<RegionLinkProjection> getRegionLinks();
 }

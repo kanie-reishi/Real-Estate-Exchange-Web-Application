@@ -104,7 +104,7 @@ public class RealEstateService {
         return realEstate;
     }
 
-    // Phương thức lấy RealEstateDto theo id
+    // Phương thức chuyển đổi RealEstateBasicProjection thành RealEstateDto
     public RealEstateDto convertBasicProjectionToDto(RealEstateBasicProjection projection) {
         // Chuyển đổi RealEstateBasicProjection thành RealEstateDto
         RealEstateDto dto = new RealEstateDto();
@@ -152,6 +152,22 @@ public class RealEstateService {
             districtDto.setPrefix(projection.getDistrict().getPrefix());
         }
         addressDto.setDistrict(districtDto);
+
+        if (projection.getWard() != null) { // Check null
+            WardDto wardDto = new WardDto();
+            wardDto.setId(projection.getWard().getId());
+            wardDto.setName(projection.getWard().getName());
+            addressDto.setWard(wardDto);
+        }
+
+        if (projection.getStreet() != null) { // Check null
+            StreetDto streetDto = new StreetDto();
+            streetDto.setId(projection.getStreet().getId());
+            streetDto.setName(projection.getStreet().getName());
+            addressDto.setStreet(streetDto);
+        }
+
+        addressDto.setAddressDetail(projection.getAddress());
 
         dto.setAddressDetail(addressDto);
         // Thêm thông tin ảnh vào RealEstateDto

@@ -13,6 +13,7 @@ import devcamp.realestateexchange.dto.realestate.RealEstateDto;
 import devcamp.realestateexchange.dto.user.CustomerDto;
 import devcamp.realestateexchange.entity.user.Customer;
 import devcamp.realestateexchange.projections.RealEstateBasicProjection;
+import devcamp.realestateexchange.repositories.realestate.IRealEstateRepository;
 import devcamp.realestateexchange.repositories.user.ICustomerRepository;
 import devcamp.realestateexchange.services.realestate.RealEstateService;
 @Service
@@ -23,6 +24,8 @@ public class CustomerService {
     private ModelMapper modelMapper;
     @Autowired
     private RealEstateService realEstateService;
+    @Autowired
+    private IRealEstateRepository realEstateRepository;
     // Get customer by id method
     public CustomerDto getCustomerById(Integer id) {
         Customer customer = customerRepository.findById(id).orElse(null);
@@ -82,7 +85,7 @@ public class CustomerService {
     }
     // Get real estate by customer id method @param pageable, customerId
     public Page<RealEstateDto> getRealEstateByCustomerId(Pageable pageable, Integer customerId) {
-        List<RealEstateBasicProjection> realEstateProjections = customerRepository.getRealEstatesByCustomerId(customerId);
+        List<RealEstateBasicProjection> realEstateProjections = realEstateRepository.findRealEstateByCustomerId(customerId, pageable).getContent();
         List<RealEstateDto> realEstateDtos = new ArrayList<>();
         for(RealEstateBasicProjection realEstateProjection : realEstateProjections) {
             RealEstateDto realEstateDto = realEstateService.convertBasicProjectionToDto(realEstateProjection);

@@ -18,7 +18,7 @@ public interface IMasterLayoutRepository extends JpaRepository<MasterLayout, Int
     Page<MasterLayoutProjection> findAllProjections(Pageable pageable);
 
     // Get all master layout by project id
-    @Query("SELECT ml FROM MasterLayout ml WHERE ml.project.id = :projectId")
+    @Query("SELECT ml FROM MasterLayout ml JOIN ml.projects p WHERE p.id = :projectId")
     List<MasterLayoutProjection> findMasterLayoutByProjectId(@Param("projectId") Integer projectId);
 
     // Get master layout by id

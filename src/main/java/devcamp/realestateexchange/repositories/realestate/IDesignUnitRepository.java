@@ -18,7 +18,7 @@ public interface IDesignUnitRepository extends JpaRepository<DesignUnit, Integer
     Page<DesignUnitProjection> findAllProjections(Pageable pageable);
 
     // Get all design unit by project id
-    @Query("SELECT du FROM DesignUnit du WHERE du.project.id = :projectId")
+    @Query("SELECT du FROM DesignUnit du JOIN du.projectDesignUnits pdu WHERE pdu.project.id = :projectId")
     List<DesignUnitProjection> findDesignUnitByProjectId(@Param("projectId") Integer projectId);
 
     // Get design unit by id

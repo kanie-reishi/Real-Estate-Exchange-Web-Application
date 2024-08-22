@@ -68,7 +68,7 @@ public class WebSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.exceptionHandling(exceptionHandling -> exceptionHandling.authenticationEntryPoint(unauthorizedHandler))
                 .authorizeRequests(auth -> auth
-                        .antMatchers("/").permitAll()
+                        .antMatchers("/**").permitAll()
                         .antMatchers("/admin/**").hasAnyRole("ADMIN", "EMPlOYEE")
                         .antMatchers("/user/**").hasRole("USER")
                         .anyRequest().authenticated())

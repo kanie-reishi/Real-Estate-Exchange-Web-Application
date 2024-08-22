@@ -110,52 +110,63 @@ public class ProjectService {
             projectDto.setUpdatedAt(isoFormat.format(projectProjection.getUpdatedAt()));
         }
         // Convert contractors to DTOs
-        for(ProjectContractorProjection projectContractorProjection : projectProjection.getContractor()) {
+        for(ProjectContractorProjection projectContractorProjection : projectProjection.getProjectConstructionContractors()) {
             ContractorDto contractorDto = new ContractorDto();
             contractorDto.setId(projectContractorProjection.getContractor().getId());
             contractorDto.setName(projectContractorProjection.getContractor().getName());
+            if(projectDto.getContractors() == null) {
+                projectDto.setContractors(new ArrayList<>());
+            }
             projectDto.getContractors().add(contractorDto);
         }
         // Convert investors to DTOs
-        for(ProjectInvestorProjection projectInvestorProjection : projectProjection.getInvestor()) {
+        for(ProjectInvestorProjection projectInvestorProjection : projectProjection.getProjectInvestors()) {
             InvestorDto investorDto = new InvestorDto();
             investorDto.setId(projectInvestorProjection.getInvestor().getId());
             investorDto.setName(projectInvestorProjection.getInvestor().getName());
+            if(projectDto.getInvestors() == null) {
+                projectDto.setInvestors(new ArrayList<>());
+            }
             projectDto.getInvestors().add(investorDto);
         }
         // Convert design units to DTOs
-        for(ProjectDesignUnitProjection projectDesignUnitProjection : projectProjection.getDesignUnit()) {
+        for(ProjectDesignUnitProjection projectDesignUnitProjection : projectProjection.getProjectDesignUnits()) {
             DesignUnitDto designUnitDto = new DesignUnitDto();
             designUnitDto.setId(projectDesignUnitProjection.getDesignUnit().getId());
             designUnitDto.setName(projectDesignUnitProjection.getDesignUnit().getName());
+            if(projectDto.getDesignUnits() == null) {
+                projectDto.setDesignUnits(new ArrayList<>());
+            }
             projectDto.getDesignUnits().add(designUnitDto);
-        }
-        // Convert real estates to DTOs
-        for(RealEstateBasicProjection realEstate : projectProjection.getRealEstate()) {
-            RealEstateDto realEstateDto = new RealEstateDto();
-            realEstateDto.setId(realEstate.getId());
-            realEstateDto.setTitle(realEstate.getTitle());
-            projectDto.getRealEstates().add(realEstateDto);
         }
         // Convert utilities to DTOs
         for(UtilitiesProjection utilities : projectProjection.getUtilities()) {
             UtilitiesDto utilitiesDto = new UtilitiesDto();
             utilitiesDto.setId(utilities.getId());
             utilitiesDto.setName(utilities.getName());
+            if(projectDto.getUtilities() == null) {
+                projectDto.setUtilities(new ArrayList<>());
+            }
             projectDto.getUtilities().add(utilitiesDto);
         }
         // Convert region links to DTOs
-        for(RegionLinkProjection regionLink : projectProjection.getRegionLink()) {
+        for(RegionLinkProjection regionLink : projectProjection.getRegionLinks()) {
             RegionLinkDto regionLinkDto = new RegionLinkDto();
             regionLinkDto.setId(regionLink.getId());
             regionLinkDto.setName(regionLink.getName());
+            if(projectDto.getRegionLinks() == null) {
+                projectDto.setRegionLinks(new ArrayList<>());
+            }
             projectDto.getRegionLinks().add(regionLinkDto);
         }
         // Convert master layouts to DTOs
-        for(MasterLayoutProjection masterLayout : projectProjection.getMasterLayout()) {
+        for(MasterLayoutProjection masterLayout : projectProjection.getMasterLayouts()) {
             MasterLayoutDto masterLayoutDto = new MasterLayoutDto();
             masterLayoutDto.setId(masterLayout.getId());
             masterLayoutDto.setName(masterLayout.getName());
+            if(projectDto.getMasterLayouts() == null) {
+                projectDto.setMasterLayouts(new ArrayList<>());
+            }
             projectDto.getMasterLayouts().add(masterLayoutDto);
         }
         return projectDto;

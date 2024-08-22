@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -37,7 +38,8 @@ public class MasterLayout extends UserReferenceEntity {
     private String description;
 
     // Quan hệ n-n với Project
-    @ManyToMany(mappedBy = "masterLayouts", cascade = {CascadeType.PERSIST, CascadeType.MERGE},fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "masterLayouts", cascade = { CascadeType.PERSIST,
+            CascadeType.MERGE }, fetch = FetchType.LAZY)
     private List<Project> projects;
 
     // Diện tích
@@ -46,11 +48,11 @@ public class MasterLayout extends UserReferenceEntity {
 
     // Danh sách căn hộ điển hình của mặt bằng, dùng để copy cho các căn hộ khác.
     @Column(name = "apartment_list")
-    private List<String> apartmentList;
+    private String apartmentList;
 
     // Quan hệ 1-n với Photo
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "master_layout_id")
     private Set<Photo> photos;
-    
+
 }

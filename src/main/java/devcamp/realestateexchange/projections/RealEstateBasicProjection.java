@@ -16,8 +16,11 @@ public interface RealEstateBasicProjection {
     Integer getVerify();
     String getRealEstateCode();
     Date getCreatedAt();
+    String getAddress();
 
     CustomerProjection getCustomer();
     ProvinceProjection getProvince();
     DistrictProjection getDistrict();
+    WardProjection getWard();
+    StreetProjection getStreet();
 }

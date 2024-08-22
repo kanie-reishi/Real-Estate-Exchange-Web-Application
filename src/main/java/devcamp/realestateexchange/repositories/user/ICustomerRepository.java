@@ -12,6 +12,4 @@ import devcamp.realestateexchange.projections.RealEstateBasicProjection;
 public interface ICustomerRepository extends JpaRepository<Customer, Integer>{
     // Get all customer
     Page<Customer> findAll(Pageable pageable);
-    // Get real estates by customer id
-    List<RealEstateBasicProjection> getRealEstatesByCustomerId(Integer customerId);
 }

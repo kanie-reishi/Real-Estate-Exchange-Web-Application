@@ -16,7 +16,7 @@ public interface IRegionLinkRepository extends JpaRepository<RegionLink, Integer
     Page<RegionLinkProjection> findAllProjections(Pageable pageable);
 
     // Get all region link by project id
-    @Query("SELECT rl FROM RegionLink rl WHERE rl.project.id = :projectId")
+    @Query("SELECT rl FROM RegionLink rl JOIN rl.projects p WHERE p.id = :projectId")
     List<RegionLinkProjection> findRegionLinkByProjectId(@Param("projectId") Integer projectId);
 
     // Get region link by id

@@ -46,6 +46,15 @@ public class ConstructionContractorController {
         }
     }
 
+    @GetMapping("/constructionContractors")
+    public ResponseEntity<Object> getConstructionContractors(){
+        try {
+            List<ConstructionContractor> constructionContractorList = constructionContractorService.getConstructionContractors();
+            return ResponseEntity.ok(constructionContractorList);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
     @GetMapping("/projects/{projectId}/constructionContractors")
     public ResponseEntity<Object> getConstructionContractorListByProjectId(Pageable pageable, @PathVariable Integer projectId){
         try {

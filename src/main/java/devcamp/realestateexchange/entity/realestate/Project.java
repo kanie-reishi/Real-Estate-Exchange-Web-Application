@@ -68,6 +68,10 @@ public class Project extends UserReferenceEntity{
     @Column(name = "description")
     private String description;
 
+    // Địa chỉ dự án
+    @Column(name = "address")
+    private String address;
+
     // Diện tích tổng của dự án
     @Column(name = "acreage")
     private Double acreage;
@@ -104,7 +108,7 @@ public class Project extends UserReferenceEntity{
     
     // Quan hệ 1-1 với AddressMap
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "address", referencedColumnName = "id")
+    @JoinColumn(name = "addressMap_id", referencedColumnName = "id")
     private AddressMap addressMap;
 
     // Quan hệ n-n với Ultilities

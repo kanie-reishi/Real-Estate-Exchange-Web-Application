@@ -30,11 +30,11 @@ function loadBatDongSanPhuHop() {
         // Load province and district data with AJAX promise
         var promises = data.content.map(function (realEstate) {
             var provincePromise = $.ajax({
-                url: "http://localhost:8080/provinces/" + realEstate.provinceId,
+                url: "http://localhost:8080/provinces/" + realEstate.addressDetail.provinceId,
                 type: "GET"
             });
             var districtPromise = $.ajax({
-                url: "http://localhost:8080/districts/" + realEstate.districtId,
+                url: "http://localhost:8080/districts/" + realEstate.addressDetail.districtId,
                 type: "GET"
             });
             return Promise.all([provincePromise, districtPromise]).then(function (results) {

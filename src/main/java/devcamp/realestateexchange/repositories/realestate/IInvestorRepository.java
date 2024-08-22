@@ -15,7 +15,7 @@ public interface IInvestorRepository extends JpaRepository<Investor, Integer>, J
     @Query("SELECT i FROM Investor i")
     Page<InvestorProjection> findAllProjections(Pageable pageable);
     // Get all investors by project id
-    @Query("SELECT i FROM Investor i WHERE i.project.id = :projectId")
+    @Query("SELECT i FROM Investor i JOIN i.projectInvestors pi WHERE pi.project.id = :projectId")
     List<InvestorProjection> findInvestorByProjectId(@Param("projectId") Integer projectId);
     // Get investor by id
     @Query("SELECT i FROM Investor i WHERE i.id = :id")

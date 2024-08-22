@@ -15,4 +15,8 @@ public interface IRealEstateRepository
                 extends JpaRepository<RealEstate, Integer>, JpaSpecificationExecutor<RealEstate> {
         @Query("SELECT r FROM RealEstate r")
         Page<RealEstateBasicProjection> findAllBasicProjections(Pageable pageable);
+
+        // Get real estates by customer id
+        @Query("SELECT r FROM RealEstate r WHERE r.customer.id = :customerId")
+        Page<RealEstateBasicProjection> findRealEstateByCustomerId(Integer customerId, Pageable pageable);
 }
