@@ -45,7 +45,14 @@ import devcamp.realestateexchange.entity.realestate.Utilities;
 import devcamp.realestateexchange.event.ProjectChangedEvent;
 import devcamp.realestateexchange.event.RealEstateChangedEventHandler;
 import devcamp.realestateexchange.models.ProjectSearchParameters;
+import devcamp.realestateexchange.projections.MasterLayoutProjection;
+import devcamp.realestateexchange.projections.ProjectContractorProjection;
+import devcamp.realestateexchange.projections.ProjectDesignUnitProjection;
+import devcamp.realestateexchange.projections.ProjectInvestorProjection;
 import devcamp.realestateexchange.projections.ProjectProjection;
+import devcamp.realestateexchange.projections.RealEstateBasicProjection;
+import devcamp.realestateexchange.projections.RegionLinkProjection;
+import devcamp.realestateexchange.projections.UtilitiesProjection;
 import devcamp.realestateexchange.repositories.location.IDistrictRepository;
 import devcamp.realestateexchange.repositories.location.IProvinceRepository;
 import devcamp.realestateexchange.repositories.location.IStreetRepository;
@@ -101,6 +108,55 @@ public class ProjectService {
         }
         if (projectProjection.getUpdatedAt() != null) {
             projectDto.setUpdatedAt(isoFormat.format(projectProjection.getUpdatedAt()));
+        }
+        // Convert contractors to DTOs
+        for(ProjectContractorProjection projectContractorProjection : projectProjection.getContractor()) {
+            ContractorDto contractorDto = new ContractorDto();
+            contractorDto.setId(projectContractorProjection.getContractor().getId());
+            contractorDto.setName(projectContractorProjection.getContractor().getName());
+            projectDto.getContractors().add(contractorDto);
+        }
+        // Convert investors to DTOs
+        for(ProjectInvestorProjection projectInvestorProjection : projectProjection.getInvestor()) {
+            InvestorDto investorDto = new InvestorDto();
+            investorDto.setId(projectInvestorProjection.getInvestor().getId());
+            investorDto.setName(projectInvestorProjection.getInvestor().getName());
+            projectDto.getInvestors().add(investorDto);
+        }
+        // Convert design units to DTOs
+        for(ProjectDesignUnitProjection projectDesignUnitProjection : projectProjection.getDesignUnit()) {
+            DesignUnitDto designUnitDto = new DesignUnitDto();
+            designUnitDto.setId(projectDesignUnitProjection.getDesignUnit().getId());
+            designUnitDto.setName(projectDesignUnitProjection.getDesignUnit().getName());
+            projectDto.getDesignUnits().add(designUnitDto);
+        }
+        // Convert real estates to DTOs
+        for(RealEstateBasicProjection realEstate : projectProjection.getRealEstate()) {
+            RealEstateDto realEstateDto = new RealEstateDto();
+            realEstateDto.setId(realEstate.getId());
+            realEstateDto.setTitle(realEstate.getTitle());
+            projectDto.getRealEstates().add(realEstateDto);
+        }
+        // Convert utilities to DTOs
+        for(UtilitiesProjection utilities : projectProjection.getUtilities()) {
+            UtilitiesDto utilitiesDto = new UtilitiesDto();
+            utilitiesDto.setId(utilities.getId());
+            utilitiesDto.setName(utilities.getName());
+            projectDto.getUtilities().add(utilitiesDto);
+        }
+        // Convert region links to DTOs
+        for(RegionLinkProjection regionLink : projectProjection.getRegionLink()) {
+            RegionLinkDto regionLinkDto = new RegionLinkDto();
+            regionLinkDto.setId(regionLink.getId());
+            regionLinkDto.setName(regionLink.getName());
+            projectDto.getRegionLinks().add(regionLinkDto);
+        }
+        // Convert master layouts to DTOs
+        for(MasterLayoutProjection masterLayout : projectProjection.getMasterLayout()) {
+            MasterLayoutDto masterLayoutDto = new MasterLayoutDto();
+            masterLayoutDto.setId(masterLayout.getId());
+            masterLayoutDto.setName(masterLayout.getName());
+            projectDto.getMasterLayouts().add(masterLayoutDto);
         }
         return projectDto;
     }

@@ -18,8 +18,9 @@ public interface ProjectProjection {
     Date getUpdatedAt();
     List<MasterLayoutProjection> getMasterLayout();
     List<UtilitiesProjection> getUtilities();
-    List<ContractorProjection> getContractor();
-    List<DesignUnitProjection> getDesignUnit();
-    List<InvestorProjection> getInvestor();
+    List<ProjectContractorProjection> getContractor();
+    List<ProjectDesignUnitProjection> getDesignUnit();
+    List<ProjectInvestorProjection> getInvestor();
     List<RegionLinkProjection> getRegionLink();
+    List<RealEstateBasicProjection> getRealEstate();
 }
