@@ -7,13 +7,15 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import devcamp.realestateexchange.entity.realestate.ConstructionContractor;
 import devcamp.realestateexchange.projections.ContractorProjection;
 import devcamp.realestateexchange.projections.UnitProjection;
+@Repository
 public interface IConstructionContractorRepository extends JpaRepository<ConstructionContractor, Integer>, JpaSpecificationExecutor<ConstructionContractor> {
     @Query("SELECT cc FROM ConstructionContractor cc")
-    Page<ContractorProjection> findAllProjections(Pageable pageable);
+    Page<ContractorProjection> findAllBasicProjections(Pageable pageable);
 
     // Get all construction contractor by project id
     @Query("SELECT cc FROM ConstructionContractor cc JOIN cc.projectConstructionContractors pcc WHERE pcc.project.id = :projectId")

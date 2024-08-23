@@ -5,4 +5,6 @@ public interface RegionLinkProjection {
     String getName();
     String getDescription();
     String getAddress();
+    Double getLatitude();
+    Double getLongitude();
 }

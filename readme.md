@@ -10,7 +10,7 @@ The Real Estate Exchange Web Application is a platform designed to facilitate th
 - Feature 1
 Create, Read, Delete, Update Real Estate
 - Feature 2
-Advanced Search Filters
+Advanced Search Filters with Elasticsearch
 - Feature 3
 User Login System
 - Feature 4
@@ -32,4 +32,4 @@ Admin Panel for managing users and properties
 ## Technologies Used
 
 - Front End: HTML, CSS, Tailwind CSS, BootStrap, JavaScript, UppyJs, SwiperJs
-- Back End: Java Spring Boot, Hibernate, SQL
+- Back End: Java Spring Boot, Hibernate, SQL, Elasticsearch, Redis, AWS S3

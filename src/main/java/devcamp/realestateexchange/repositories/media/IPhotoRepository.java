@@ -15,25 +15,25 @@ public interface IPhotoRepository extends JpaRepository<Photo, Integer>, JpaSpec
     List<String> findUrlsByRealEstateId(@Param("realEstateId") Integer realEstateId);
     // Get all photo urls by project id
     @Query("SELECT p.url AS url FROM Photo p WHERE p.project.id = :projectId")
-    List<PhotoUrlProjection> findPhotoUrlsByProjectId(@Param("projectId") Long projectId);
+    List<String> findPhotoUrlsByProjectId(@Param("projectId") Integer projectId);
     // Get all photo urls by master layout id
     @Query("SELECT p.url AS url FROM Photo p WHERE p.masterLayout.id = :masterLayoutId")
-    List<PhotoUrlProjection> findPhotoUrlsByMasterLayoutId(@Param("masterLayoutId") Long masterLayoutId);
+    List<String> findPhotoUrlsByMasterLayoutId(@Param("masterLayoutId") Integer masterLayoutId);
 
     // Get all photo urls by region link id
     @Query("SELECT p.url AS url FROM Photo p WHERE p.regionLink.id = :regionLinkId")
-    List<PhotoUrlProjection> findPhotoUrlsByRegionLinkId(@Param("regionLinkId") Long regionLinkId);
+    List<String> findPhotoUrlsByRegionLinkId(@Param("regionLinkId") Integer regionLinkId);
 
     // Get all photo urls by Utilities id
     @Query("SELECT p.url AS url FROM Photo p WHERE p.utilities.id = :utilitiesId")
-    List<PhotoUrlProjection> findPhotoUrlsByUtilitiesId(@Param("utilitiesId") Long utilitiesId);
+    List<String> findPhotoUrlsByUtilitiesId(@Param("utilitiesId") Integer utilitiesId);
 
     // Get all photo url by customer id
     @Query("SELECT p.url AS url FROM Photo p WHERE p.customer.id = :customerId")
-    PhotoUrlProjection findPhotoUrlByCustomerId(@Param("customerId") Long customerId);
+    List<String> findPhotoUrlByCustomerId(@Param("customerId") Integer customerId);
 
     // Get all photo urls by employee id
     @Query("SELECT p.url AS url FROM Photo p WHERE p.employee.id = :employeeId")
-    PhotoUrlProjection findPhotoUrlsByEmployeeId(@Param("employeeId") Long employeeId);
+    List<String> findPhotoUrlsByEmployeeId(@Param("employeeId") Integer employeeId);
     
 }

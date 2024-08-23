@@ -33,7 +33,7 @@ public class Utilities extends UserReferenceEntity{
     // Mô tả về tiện ích
     @Column(name = "description")
     private String description;
-
+    
     // Ảnh
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "utilities_id")

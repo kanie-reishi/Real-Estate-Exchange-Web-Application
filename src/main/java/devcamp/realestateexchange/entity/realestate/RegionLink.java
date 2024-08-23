@@ -46,10 +46,13 @@ public class RegionLink extends UserReferenceEntity {
     @JoinColumn(name = "region_link_id")
     private Set<Photo> photos;
 
-    // Địa chỉ map
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "addressmap_id", referencedColumnName = "id")
-    private AddressMap addressMap;
+    // kinh độ
+    @Column(name = "_lng")
+    private Double longitude;
+
+    // vĩ độ
+    @Column(name = "_lat")
+    private Double latitude;
     
     // Quan hệ n-n với Project
     @ManyToMany(mappedBy = "regionLinks")

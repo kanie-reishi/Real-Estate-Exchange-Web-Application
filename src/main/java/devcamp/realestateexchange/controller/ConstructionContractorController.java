@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import devcamp.realestateexchange.dto.realestate.ContractorDto;
 import devcamp.realestateexchange.entity.realestate.ConstructionContractor;
+import devcamp.realestateexchange.projections.ContractorProjection;
 import devcamp.realestateexchange.services.realestate.ConstructionContractorService;
 
 @RestController
@@ -30,26 +31,17 @@ public class ConstructionContractorController {
     @GetMapping("/constructionContractors/{id}")
     public ResponseEntity<Object> getConstructionContractorById(@PathVariable Integer id){
         try {
-            ContractorDto constructionContractor = constructionContractorService.getConstructionContractorById(id);
+            ConstructionContractor constructionContractor = constructionContractorService.getConstructionContractorById(id);
             return ResponseEntity.ok(constructionContractor);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
-    }
-    @GetMapping("/constructionContractors")
-    public ResponseEntity<Object> getConstructionContractors(Pageable pageable){
-        try {
-            Page<ContractorDto> constructionContractorPage = constructionContractorService.getConstructionContractors(pageable);
-            return ResponseEntity.ok(constructionContractorPage);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
     @GetMapping("/constructionContractors")
-    public ResponseEntity<Object> getConstructionContractors(){
+    public ResponseEntity<Object> getAllConstructionContractors(Pageable pageable){
         try {
-            List<ConstructionContractor> constructionContractorList = constructionContractorService.getConstructionContractors();
+            Page<ConstructionContractor> constructionContractorList = constructionContractorService.getConstructionContractorsAll(pageable);
             return ResponseEntity.ok(constructionContractorList);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());

@@ -21,15 +21,29 @@ public class InvestorService {
     private ModelMapper modelMapper;
     public InvestorDto getInvestorById(Integer id) {
         InvestorProjection investorProjection = investorRepository.getInvestorById(id);
-        return modelMapper.map(investorProjection, InvestorDto.class);
+        return convertProjectionToDto(investorProjection);
     }
     public Page<InvestorDto> getInvestors(Pageable pageable) {
         Page<InvestorProjection> investorProjections = investorRepository.findAllProjections(pageable);
-        return investorProjections.map(investorProjection -> modelMapper.map(investorProjection, InvestorDto.class));
+        return investorProjections.map(investorProjection -> convertProjectionToDto(investorProjection));
     }
     public List<InvestorDto> getInvestorsByProjectId(Integer projectId) {
         List<InvestorProjection> investorProjections = investorRepository.findInvestorByProjectId(projectId);
-        return investorProjections.stream().map(investorProjection -> modelMapper.map(investorProjection, InvestorDto.class)).toList();
+        return investorProjections.stream().map(designUnitProjection -> convertProjectionToDto(designUnitProjection)).toList();
+    }
+    public InvestorDto convertProjectionToDto(InvestorProjection investorProjection) {
+        InvestorDto investorDto = new InvestorDto();
+        investorDto.setId(investorProjection.getId());
+        investorDto.setName(investorProjection.getName());
+        investorDto.setDescription(investorProjection.getDescription());
+        investorDto.setAddress(investorProjection.getAddress());
+        investorDto.setPhone(investorProjection.getPhone());
+        investorDto.setPhone2(investorProjection.getPhone2());
+        investorDto.setFax(investorProjection.getFax());
+        investorDto.setEmail(investorProjection.getEmail());
+        investorDto.setWebsite(investorProjection.getWebsite());
+        investorDto.setNote(investorProjection.getNote());
+        return investorDto;
     }
     public Investor saveInvestor(InvestorDto investorDto) {
         Investor investor = modelMapper.map(investorDto, Investor.class);

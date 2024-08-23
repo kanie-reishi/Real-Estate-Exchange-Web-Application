@@ -28,6 +28,15 @@ public class MasterLayoutService {
         MasterLayout masterLayout = modelMapper.map(masterLayoutDto, MasterLayout.class);
         return masterLayoutRepository.save(masterLayout);
     }
+    public MasterLayoutDto convertProjectionToDto(MasterLayout masterLayout) {
+        MasterLayoutDto masterLayoutDto = new MasterLayoutDto();
+        masterLayoutDto.setId(masterLayout.getId());
+        masterLayoutDto.setName(masterLayout.getName());
+        masterLayoutDto.setDescription(masterLayout.getDescription());
+        masterLayoutDto.setAcreage(masterLayout.getAcreage());
+        masterLayoutDto.setApartmentList(masterLayout.getApartmentList());
+        return masterLayoutDto;
+    }
     public MasterLayoutDto convertToDto(MasterLayout masterLayout) {
         return modelMapper.map(masterLayout, MasterLayoutDto.class);
     }

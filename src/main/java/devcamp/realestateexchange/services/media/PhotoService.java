@@ -38,32 +38,32 @@ public class PhotoService {
         return photoRepository.findUrlsByRealEstateId(id);
     }
     // Get all photo urls by project id
-    public List<PhotoUrlProjection> getPhotoUrlsByProjectId(Long id){
+    public List<String> getPhotoUrlsByProjectId(Integer id){
         return photoRepository.findPhotoUrlsByProjectId(id);
     }
 
     // Get all photo urls by master layout id
-    public List<PhotoUrlProjection> getPhotoUrlsByMasterLayoutId(Long id){
+    public List<String> getPhotoUrlsByMasterLayoutId(Integer id){
         return photoRepository.findPhotoUrlsByMasterLayoutId(id);
     }
 
     // Get all photo urls by region link id
-    public List<PhotoUrlProjection> getPhotoUrlsByRegionLinkId(Long id){
+    public List<String> getPhotoUrlsByRegionLinkId(Integer id){
         return photoRepository.findPhotoUrlsByRegionLinkId(id);
     }
 
     // Get all photo urls by Utilities id
-    public List<PhotoUrlProjection> getPhotoUrlsByUtilitiesId(Long id){
+    public List<String> getPhotoUrlsByUtilitiesId(Integer id){
         return photoRepository.findPhotoUrlsByUtilitiesId(id);
     }
 
     // Get photo url by customer id
-    public PhotoUrlProjection getPhotoUrlByCustomerId(Long id){
+    public List<String> getPhotoUrlByCustomerId(Integer id){
         return photoRepository.findPhotoUrlByCustomerId(id);
     }
 
     // Get photo url by employee id
-    public PhotoUrlProjection getPhotoUrlsByEmployeeId(Long id){
+    public List<String> getPhotoUrlsByEmployeeId(Integer id){
         return photoRepository.findPhotoUrlsByEmployeeId(id);
     }
 

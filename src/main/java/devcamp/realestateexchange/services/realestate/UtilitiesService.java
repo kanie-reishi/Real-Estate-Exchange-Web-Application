@@ -21,26 +21,33 @@ public class UtilitiesService {
     @Autowired
     private ModelMapper modelMapper;
 
-    public UtilitiesDto getUtilitiesById(Integer id) {
+    public UtilitiesDto getUtilityById(Integer id) {
         UtilitiesProjection utilitiesProjection = utilitiesRepository.getUtilitiesById(id);
-        return modelMapper.map(utilitiesProjection, UtilitiesDto.class);
+        return convertProjectionToDto(utilitiesProjection);
     }
 
-    public Page<UtilitiesDto> getUtilitiess(Pageable pageable) {
+    public Page<UtilitiesDto> getUtilities(Pageable pageable) {
         Page<UtilitiesProjection> utilitiesProjections = utilitiesRepository.findAllProjections(pageable);
-        return utilitiesProjections.map(utilitiesProjection -> modelMapper.map(utilitiesProjection, UtilitiesDto.class));
+        return utilitiesProjections.map(utilitiesProjection -> convertProjectionToDto(utilitiesProjection));
     }
 
     public List<UtilitiesDto> getUtilitiessByProjectId(Integer projectId) {
         List<UtilitiesProjection> utilitiesProjections = utilitiesRepository.findUtilitiesByProjectId(projectId);
-        return utilitiesProjections.stream().map(utilitiesProjection -> modelMapper.map(utilitiesProjection, UtilitiesDto.class)).toList();
+        return utilitiesProjections.stream().map(utilitiesProjection -> convertProjectionToDto(utilitiesProjection)).toList();
     }
 
-    public Utilities saveUtilities(UtilitiesDto utilitiesDto) {
+    public Utilities saveUtility(UtilitiesDto utilitiesDto) {
         Utilities utilities = modelMapper.map(utilitiesDto, Utilities.class);
         return utilitiesRepository.save(utilities);
     }
 
+    public UtilitiesDto convertProjectionToDto(UtilitiesProjection utilitiesProjection) {
+        UtilitiesDto utilitiesDto = new UtilitiesDto();
+        utilitiesDto.setId(utilitiesProjection.getId());
+        utilitiesDto.setName(utilitiesProjection.getName());
+        utilitiesDto.setDescription(utilitiesProjection.getDescription());
+        return utilitiesDto;
+    }
     public UtilitiesDto convertToDto(Utilities utilities) {
         return modelMapper.map(utilities, UtilitiesDto.class);
     }
@@ -49,7 +56,7 @@ public class UtilitiesService {
         return modelMapper.map(utilitiesDto, Utilities.class);
     }
 
-    public void deleteUtilities(Integer id) {
+    public void deleteUtility(Integer id) {
         utilitiesRepository.deleteById(id);
     }
 

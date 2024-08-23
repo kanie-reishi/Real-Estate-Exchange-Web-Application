@@ -24,25 +24,4 @@ public class ContractorMappingTest {
         modelMapper = new ModelMapper();
     }
 
-    @Test
-    public void testGetConstructionContractorById() {
-        // Tạo mock object cho ContractorProjection
-        ContractorProjection contractorProjection = mock(ContractorProjection.class);
-
-        // Tạo mock object cho IConstructionContractorRepository
-        IConstructionContractorRepository repository = mock(IConstructionContractorRepository.class);
-        when(repository.getConstructionContractorById(1)).thenReturn(contractorProjection);
-
-        // Tạo instance của ConstructionContractorService và tiêm các mock object
-        ConstructionContractorService service = new ConstructionContractorService();
-        ReflectionTestUtils.setField(service, "constructionContractorRepository", repository);
-        ReflectionTestUtils.setField(service, "modelMapper", new ModelMapper());
-
-        // Gọi phương thức và kiểm tra kết quả
-        ContractorDto contractorDto = service.getConstructionContractorById(1);
-        assertNotNull(contractorDto);
-        assertEquals((Integer) 0, contractorProjection.getId());
-        assertEquals("John Doe", contractorProjection.getName());
-        assertEquals("john.doe@example.com", contractorProjection.getEmail());
-    }
 }

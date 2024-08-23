@@ -14,6 +14,6 @@ public class MasterLayoutDto {
     private String name;
     private String description;
     private Double acreage;
-    private List<String> apartmentList;
+    private String apartmentList;
     private List<String> photoUrls;
 }

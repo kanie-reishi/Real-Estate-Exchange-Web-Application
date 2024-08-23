@@ -17,5 +17,6 @@ public class RegionLinkDto {
     private String description;
     private List<String> photos;
     private List<ProjectDto> projects;
+    private List<String> photoUrls;
     private AddressDto address;
 }

@@ -22,16 +22,11 @@ public class ConstructionContractorService {
     @Autowired
     private ModelMapper modelMapper;
     private static final Logger logger = LoggerFactory.getLogger(ConstructionContractorService.class.getName());
-    public ContractorDto getConstructionContractorById(Integer id) {
-        ContractorProjection unitProjection = constructionContractorRepository.getConstructionContractorById(id);
-        return modelMapper.map(unitProjection, ContractorDto.class);
+    public ConstructionContractor getConstructionContractorById(Integer id) {
+        return constructionContractorRepository.findById(id).orElse(null);
     }
-    public Page<ContractorDto> getConstructionContractors(Pageable pageable) {
-        Page<ContractorProjection> unitProjections = constructionContractorRepository.findAllProjections(pageable);
-        return unitProjections.map(unitProjection -> modelMapper.map(unitProjection, ContractorDto.class));
-    }
-    public List<ConstructionContractor> getConstructionContractors() {
-        return constructionContractorRepository.findAll();
+    public Page<ConstructionContractor> getConstructionContractorsAll(Pageable pageable) {
+        return constructionContractorRepository.findAll(pageable);
     }
     public List<ContractorDto> getConstructionContractorsByProjectId(Integer projectId) {
         List<ContractorProjection> unitProjections = constructionContractorRepository.findConstructionContractorByProjectId(projectId);
