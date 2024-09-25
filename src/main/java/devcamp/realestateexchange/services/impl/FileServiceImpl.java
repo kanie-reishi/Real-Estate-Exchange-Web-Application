@@ -72,21 +72,27 @@ public class FileServiceImpl implements IFileService {
  
     @Override
     public Object downloadFile(String fileName) throws FileDownloadException, IOException {
+        // check if bucket is empty
         if (bucketIsEmpty()) {
             throw new FileDownloadException("Requested bucket does not exist or is empty");
         }
+        // download file
         S3Object object = s3Client.getObject(bucketName, fileName);
+        // create a temp file
         try (S3ObjectInputStream s3is = object.getObjectContent()) {
             try (FileOutputStream fileOutputStream = new FileOutputStream(fileName)) {
+                // create a buffer
                 byte[] read_buf = new byte[1024];
                 int read_len = 0;
+                // write to file
                 while ((read_len = s3is.read(read_buf)) > 0) {
                     fileOutputStream.write(read_buf, 0, read_len);
                 }
             }
+            // create a resources object
             Path pathObject = Paths.get(fileName);
             Resource resource = new UrlResource(pathObject.toUri());
- 
+            // check if file exists
             if (resource.exists() || resource.isReadable()) {
                 return resource;
             } else {
@@ -106,14 +112,16 @@ public class FileServiceImpl implements IFileService {
     }
  
     private boolean bucketIsEmpty() {
+        // check if bucket is empty by listing objects
         ListObjectsV2Result result = s3Client.listObjectsV2(this.bucketName);
         if (result == null){
             return false;
         }
+        // get objects
         List<S3ObjectSummary> objects = result.getObjectSummaries();
         return objects.isEmpty();
     }
- 
+    // generate file name
     private String generateFileName(MultipartFile multiPart) {
         return new Date().getTime() + "-" + multiPart.getOriginalFilename().replace(" ", "_");
     }

@@ -51,9 +51,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
   }
 
   public User createUser(User user) {
+    // Set default role to user
     Role userRole = roleRepository.findByRoleKey(ERole.ROLE_USER.name())
         .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
     user.setRoles(Collections.singleton(userRole));
+    // Save user
     return userRepository.saveAndFlush(user);
   }
 

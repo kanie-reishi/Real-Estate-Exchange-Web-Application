@@ -68,7 +68,7 @@ public class DesignUnitService {
         designUnit.setNote(designUnitDto.getNote());
         return designUnit;
     }
-
+    // Delete design unit
     public void deleteDesignUnit(Integer id) {
         designUnitRepository.deleteById(id);
     }

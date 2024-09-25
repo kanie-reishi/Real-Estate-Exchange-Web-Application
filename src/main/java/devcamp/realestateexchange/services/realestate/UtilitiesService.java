@@ -20,27 +20,27 @@ public class UtilitiesService {
 
     @Autowired
     private ModelMapper modelMapper;
-
+    // Get utility by id
     public UtilitiesDto getUtilityById(Integer id) {
         UtilitiesProjection utilitiesProjection = utilitiesRepository.getUtilitiesById(id);
         return convertProjectionToDto(utilitiesProjection);
     }
-
+    // Get all utilities
     public Page<UtilitiesDto> getUtilities(Pageable pageable) {
         Page<UtilitiesProjection> utilitiesProjections = utilitiesRepository.findAllProjections(pageable);
         return utilitiesProjections.map(utilitiesProjection -> convertProjectionToDto(utilitiesProjection));
     }
-
+    // Get utility by project id
     public List<UtilitiesDto> getUtilitiessByProjectId(Integer projectId) {
         List<UtilitiesProjection> utilitiesProjections = utilitiesRepository.findUtilitiesByProjectId(projectId);
         return utilitiesProjections.stream().map(utilitiesProjection -> convertProjectionToDto(utilitiesProjection)).toList();
     }
-
+    // Save utility
     public Utilities saveUtility(UtilitiesDto utilitiesDto) {
         Utilities utilities = modelMapper.map(utilitiesDto, Utilities.class);
         return utilitiesRepository.save(utilities);
     }
-
+    // Convert Projection to Dto
     public UtilitiesDto convertProjectionToDto(UtilitiesProjection utilitiesProjection) {
         UtilitiesDto utilitiesDto = new UtilitiesDto();
         utilitiesDto.setId(utilitiesProjection.getId());
@@ -48,14 +48,15 @@ public class UtilitiesService {
         utilitiesDto.setDescription(utilitiesProjection.getDescription());
         return utilitiesDto;
     }
+    // Convert to DTO
     public UtilitiesDto convertToDto(Utilities utilities) {
         return modelMapper.map(utilities, UtilitiesDto.class);
     }
-
+    // Convert to Entity
     public Utilities convertToEntity(UtilitiesDto utilitiesDto) {
         return modelMapper.map(utilitiesDto, Utilities.class);
     }
-
+    // Delete utility
     public void deleteUtility(Integer id) {
         utilitiesRepository.deleteById(id);
     }

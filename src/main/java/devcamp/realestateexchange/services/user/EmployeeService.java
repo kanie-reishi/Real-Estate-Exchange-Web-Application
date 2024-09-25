@@ -12,15 +12,19 @@ import devcamp.realestateexchange.repositories.user.IEmployeeRepository;
 public class EmployeeService {
     @Autowired
     private IEmployeeRepository employeeRepository;
+    // Get employee by id
     public Employee getEmployeeById(Integer id) {
         return employeeRepository.getEmployeeById(id);
     }
+    // Get all employees
     public Page<Employee> getEmployees(Pageable pageable) {
         return employeeRepository.findAll(pageable);
     }
+    // Save employee
     public Employee saveEmployee(Employee employee) {
         return employeeRepository.save(employee);
     }
+    // Delete employee
     public void deleteEmployee(Integer id) {
         employeeRepository.deleteById(id);
     }

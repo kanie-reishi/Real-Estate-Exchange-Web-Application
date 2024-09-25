@@ -279,9 +279,13 @@ public class RealEstateService {
     public Page<RealEstateDto> search(RealEstateSearchParameters realEstateSearchParameters) {
         List<RealEstateDto> result = new ArrayList<>();
         try {
+            // Create a request to Elasticsearch
             Request request = new Request("POST", "/realestate_index/_search");
+            // Create a JSON object to store the search query
             ObjectMapper mapper = new ObjectMapper();
+            // Create the root node
             ObjectNode rootNode = mapper.createObjectNode();
+            // Add the size and from parameters to the root node
             if (realEstateSearchParameters.getSize() != null) {
                 rootNode.put("size", realEstateSearchParameters.getSize());
             }
@@ -297,13 +301,16 @@ public class RealEstateService {
                     && !realEstateSearchParameters.getSearchText().isEmpty()) {
                 // Add the multi_match query to the bool query
                 ObjectNode multiMatchNode = mustNode.addObject().putObject("multi_match");
+                // Get the search text
                 String text = realEstateSearchParameters.getSearchText();
+                // Set the query and the analyzers
                 multiMatchNode.put("query", text);
-                multiMatchNode.put("analyzer", "vietnamese_analyzer");
+                multiMatchNode.put("analyzer", "vietnamese_analyzer");// Use the custom analyzer
+                // Add the fields to search in
                 multiMatchNode.putArray("fields").add("title").add("description").add("address").add("keywords");
+                // Set the type of the multi_match query
                 multiMatchNode.put("type", "best_fields");
-                multiMatchNode.put("fuzziness", "AUTO"); // Apply fuzzy search
-                // You can set this to a specific value like "1", "2", etc.
+                multiMatchNode.put("fuzziness", "AUTO"); // Apply fuzzy search, You can set this to a specific value like "1", "2", etc.
             }
             // Add the filters to the bool query
             if (realEstateSearchParameters.getType() != null) {
@@ -604,6 +611,7 @@ public class RealEstateService {
                     break;
             }
         }
+        // Khai báo các đối tượng AddressDto, ProvinceDto, DistrictDto, WardDto, StreetDto
         AddressDto addressDto = new AddressDto();
         ProvinceDto provinceDto = new ProvinceDto();
         DistrictDto districtDto = new DistrictDto();
@@ -635,7 +643,7 @@ public class RealEstateService {
         addressDto.setWard(wardDto);
         addressDto.setStreet(streetDto);
         realEstateDto.setAddressDetail(addressDto);
-
+        // Thêm thông tin khách hàng vào RealEstateDto
         CustomerDto customerDto = new CustomerDto();
         if (realEstate.getCustomer() != null) {
             customerDto.setId(realEstate.getCustomer().getId());

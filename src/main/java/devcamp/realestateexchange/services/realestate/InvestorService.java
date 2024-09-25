@@ -19,18 +19,22 @@ public class InvestorService {
     private IInvestorRepository investorRepository;
     @Autowired
     private ModelMapper modelMapper;
+    // Get investor by id
     public InvestorDto getInvestorById(Integer id) {
         InvestorProjection investorProjection = investorRepository.getInvestorById(id);
         return convertProjectionToDto(investorProjection);
     }
+    // Get all investors
     public Page<InvestorDto> getInvestors(Pageable pageable) {
         Page<InvestorProjection> investorProjections = investorRepository.findAllProjections(pageable);
         return investorProjections.map(investorProjection -> convertProjectionToDto(investorProjection));
     }
+    // Get investor by project id
     public List<InvestorDto> getInvestorsByProjectId(Integer projectId) {
         List<InvestorProjection> investorProjections = investorRepository.findInvestorByProjectId(projectId);
         return investorProjections.stream().map(designUnitProjection -> convertProjectionToDto(designUnitProjection)).toList();
     }
+    // Convert Projection to Dto
     public InvestorDto convertProjectionToDto(InvestorProjection investorProjection) {
         InvestorDto investorDto = new InvestorDto();
         investorDto.setId(investorProjection.getId());
@@ -45,16 +49,20 @@ public class InvestorService {
         investorDto.setNote(investorProjection.getNote());
         return investorDto;
     }
+    // Save investor
     public Investor saveInvestor(InvestorDto investorDto) {
         Investor investor = modelMapper.map(investorDto, Investor.class);
         return investorRepository.save(investor);
     }
+    // Convert to DTO
     public InvestorDto convertToDto(Investor investor) {
         return modelMapper.map(investor, InvestorDto.class);
     }
+    // Convert to Entity
     public Investor convertToEntity(InvestorDto investorDto) {
         return modelMapper.map(investorDto, Investor.class);
     }
+    // Delete investor
     public void deleteInvestor(Integer id) {
         investorRepository.deleteById(id);
     }
