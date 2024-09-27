@@ -29,7 +29,7 @@ import devcamp.realestateexchange.services.realestate.RealEstateService;
 public class RealEstateController {
     @Autowired
     private RealEstateService realEstateService;
-
+    // REST API for getting real estate list
     @GetMapping("/realestate")
     public ResponseEntity<Object> getRealEstateList(Pageable pageable) {
         try {
@@ -39,25 +39,36 @@ public class RealEstateController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-
+    // REST API for getting real estate table
     @GetMapping("/realestate/table")
     public ResponseEntity<Object> getRealEstateTable(
             @RequestParam Map<String, String> allRequestParams) {
         try {
+            // Get request parameters
+            // draw counter. This is used by DataTables to ensure that the Ajax returns from server-side processing requests are drawn in sequence by DataTables
             Integer draw = Integer.parseInt(allRequestParams.get("draw") != null ? allRequestParams.get("draw") : "0");
+            // Paging first record indicator. This is the start point in the current data set (0 index based - i.e. 0 is the first record).
             Integer start = Integer
                     .parseInt(allRequestParams.get("start") != null ? allRequestParams.get("start") : "0");
+            // Number of records that the table can display in the current draw. It is expected that the number of records returned will be equal to this number, unless the server has fewer records to return.
             Integer length = Integer
                     .parseInt(allRequestParams.get("length") != null ? allRequestParams.get("length") : "10");
+            //
             String orderColumnStr = allRequestParams.get("order[0][column]");
+            // Column to which ordering should be applied. This is an index reference to the columns array of information that is also submitted to the server.
             Integer orderColumn = orderColumnStr != null ? Integer.parseInt(allRequestParams.get("order[0][column]"))
                     : null;
+            // Ordering direction for this column. It will be asc or desc to indicate ascending ordering or descending ordering, respectively.
             String orderDir = allRequestParams.get("order[0][dir]");
+            // Global search value
             String searchTerm = allRequestParams.get("search[value]");
+            // Search regex
             Boolean searchRegex = Boolean.parseBoolean(allRequestParams.get("search[regex]") != null
                     ? allRequestParams.get("search[regex]")
                     : "false");
+            // Check if what column is orderable
             String orderableKey = "columns[" + orderColumn + "][orderable]";
+            // Check if the column is orderable
             String orderable = allRequestParams.get(orderableKey);
 
             // Define sort column
@@ -93,7 +104,7 @@ public class RealEstateController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-
+    // REST API for searching real estates
     @GetMapping("/realestate/search")
     public ResponseEntity<Object> searchRealEstates(
             @RequestBody RealEstateSearchParameters realEstateSearchParameters) {
@@ -104,7 +115,7 @@ public class RealEstateController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-
+    // REST API for getting real estate by id
     @GetMapping("/realestate/{id}")
     public ResponseEntity<Object> getRealEstateById(@RequestParam Integer id) {
         try {
@@ -114,7 +125,7 @@ public class RealEstateController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-
+    // REST API for creating real estate
     @PostMapping("/realestate")
     public ResponseEntity<Object> createRealEstate(@RequestBody RealEstateDto realEstateDto) {
         try {
@@ -124,7 +135,7 @@ public class RealEstateController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-
+    // REST API for updating real estate
     @PutMapping("/realestate")
     public ResponseEntity<Object> updateRealEstate(@RequestBody RealEstateDto realEstateDto) {
         try {
@@ -134,7 +145,7 @@ public class RealEstateController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-
+    // REST API for deleting real estate
     @DeleteMapping("/realestate")
     public ResponseEntity<Object> deleteRealEstate(@RequestParam Integer id) {
         try {
@@ -144,7 +155,7 @@ public class RealEstateController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-
+    // REST API for indexing all real estates
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/realestate/indexall")
     public ResponseEntity<Object> indexAllRealEstates() {
