@@ -15,7 +15,6 @@ public class HomeController {
     }
 
     @GetMapping("/admin")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String adminIndex() {
         return "admin-index";
     }
@@ -26,12 +25,10 @@ public class HomeController {
     }
     
     @GetMapping("/admin/realestate-table")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String realestateTable() {
         return "realestate-table";
     }
     @GetMapping("/admin/realestate-detail")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String realestateDetail() {
         return "realestate-detail";
     }
