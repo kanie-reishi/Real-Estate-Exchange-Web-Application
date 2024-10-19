@@ -1,26 +1,28 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>Chi tiết BĐS</title>
 	<script
 		type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 	<!-- bootstrap-css -->
-	<link rel="stylesheet" href="css/bootstrap.css">
+	<link rel="stylesheet" th:href="@{/css/bootstrap.css}">
 	<!-- //bootstrap-css -->
 	<!-- Custom CSS -->
-	<link href="css/style.css" rel='stylesheet' type='text/css' />
+	<link th:href="@{/css/style.css}" rel='stylesheet' type='text/css' />
 	<!-- font CSS -->
 	<link
-		href='https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic'
+		th:href='@{https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic}'
 		rel='stylesheet' type='text/css'>
 	<!-- Font Awesome-->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+	<link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css}"
 		integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
 		crossorigin="anonymous" referrerpolicy="no-referrer" />
 	<!-- font-awesome icons -->
-	<link rel="stylesheet" href="css/font.css" type="text/css" />
-	<link href="css/font-awesome.css" rel="stylesheet">
+	<link th:href="@{/css/font.css}" type="text/css" rel="stylesheet" />
+	<link th:href="@{/css/font-awesome.css}" rel="stylesheet">
 </head>
 
 <body class="dashboard-page">
@@ -263,7 +265,7 @@
 										</a></li>
 									<li>
 										<div class="notification_bottom">
-										<a href="#">See all notifications</a>
+											<a href="#">See all notifications</a>
 										</div>
 									</li>
 								</ul>
@@ -295,7 +297,719 @@
 		</section>
 		<div class="main-grid">
 			<div class="agile-grids">
+				<div class="content-header">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-sm-6">
+								<h1 class="m-0 text-dark">Thông tin BĐS <small class="text-muted">View</small></h1>
+							</div><!-- /.col -->
+							<div class="col-sm-6">
+								<ol class="breadcrumb float-sm-end ew-breadcrumbs">
+									<li class="breadcrumb-item" id="ew-breadcrumb1"><a href="/devcamp1/index"
+											title="Home" class="ew-home"><i data-phrase="HomePage"
+												class="fas fa-home ew-icon"><span
+													class="visually-hidden">Home</span></i></a></li>
+									<li class="breadcrumb-item" id="ew-breadcrumb2"><a
+											href="/devcamp1/realestatelist"><span id="ew-page-caption">Thông tin
+												BĐS</span></a></li>
+									<li class="breadcrumb-item active" id="ew-breadcrumb3">View</li>
+								</ol>
+							</div><!-- /.col -->
+						</div><!-- /.row -->
+					</div><!-- /.container-fluid -->
+				</div>
+				<section class="content">
+					<div class="container-fluid">
+						<div class="btn-toolbar-group ew-toolbar">
+							<div class="ew-action-option d-inline-block text-nowrap" data-name="button">
+								<div class="btn-group btn-group-sm ew-btn-group"><a
+										class="btn-toolbar ew-action ew-add" title="" data-caption="Add"
+										href="/devcamp1/realestateadd" data-bs-original-title="Add"><i
+											data-phrase="ViewPageAddLink" class="fas fa-plus ew-icon"><span
+												class="visually-hidden">Add</span></i></a><a
+										class="btn-toolbar ew-action ew-edit" title="" data-caption="Edit"
+										href="/devcamp1/realestateedit/1380" data-bs-original-title="Edit"><i
+											data-phrase="ViewPageEditLink" class="icon-edit ew-icon"><span
+												class="visually-hidden">Edit</span></i></a><a
+										class="btn-toolbar ew-action ew-copy" title="" data-caption="Copy"
+										href="/devcamp1/realestateadd/1380" data-bs-original-title="Copy"><i
+											data-phrase="ViewPageCopyLink" class="icon-copy ew-icon"><span
+												class="visually-hidden">Copy</span></i></a><a
+										class="btn-toolbar ew-action ew-delete" title="" data-caption="Delete"
+										href="/admin/realestate/${id}/delete" data-bs-original-title="Delete"><i
+											data-phrase="ViewPageDeleteLink" class="fa-solid fa-trash"><span
+												class="visually-hidden">Delete</span></i></a></div>
+							</div>
+						</div>
+						<div class="ew-message-dialog d-none"></div>
+						<form name="frealestateview" id="frealestateview" class="ew-form ew-view-form"
+							action="/devcamp1/realestateview" method="post">
+							<input type="hidden" name="t" value="realestate">
+							<input type="hidden" name="modal" value="0">
+							<span id="el_realestate_photo" data-page="0">
+								<span>
+									<div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
+										<div class="carousel-inner">
+										</div>
+										<button class="carousel-control-prev" type="button"
+											data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+											<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+											<span class="visually-hidden">Previous</span>
+										</button>
+										<button class="carousel-control-next" type="button"
+											data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+											<span class="carousel-control-next-icon" aria-hidden="true"></span>
+											<span class="visually-hidden">Next</span>
+										</button>
+									</div>
+								</span>
+							</span>
+							<table class="table table-striped table-bordered table-hover table-sm ew-view-table">
+								<tbody>
+									<tr id="r_id">
+										<td class="w-col-2"><span id="elh_realestate_id">ID</span></td>
+										<td data-name="id">
+											<span id="el_realestate_id" data-page="0">
+												<span>
+												</span>
+											</span>
+										</td>
+									</tr>
+									<tr id="r_codeName">
+										<td class="w-col-2"><span id="elh_realestate_codeName">Mã BĐS</span></td>
+										<td data-name="codeName">
+											<span id="el_realestate_codeName" data-page="0">
+												<span>
+												</span>
+											</span>
+										</td>
+									</tr>
+									<tr id="r_address">
+										<td class="w-col-2"><span id="elh_realestate_address">Địa chỉ</span></td>
+										<td data-name="address">
+											<span id="el_realestate_address" data-page="0">
+												<span>
+												</span>
+											</span>
+										</td>
+									</tr>
+									<tr id="r_photo">
+										<!-- <td class="w-col-2"><span id="elh_realestate_photo">Ảnh/video</span></td> -->
+										<!-- <td data-name="photo" > -->
 
+										<!-- </td> -->
+									</tr>
+								</tbody>
+							</table>
+							<div class="ew-multi-page">
+								<!-- multi-page -->
+								<div class="ew-nav" id="pages_RealestateView">
+									<!-- multi-page tabs -->
+									<ul class="nav nav-tabs" role="tablist">
+										<li class="nav-item"><button class="nav-link active"
+												data-bs-target="#tab_realestate1" data-bs-toggle="tab" type="button"
+												role="tab" aria-controls="tab_realestate1" aria-selected="true">Địa chỉ
+												bđs</button></li>
+										<li class="nav-item"><button class="nav-link" data-bs-target="#tab_realestate2"
+												data-bs-toggle="tab" type="button" role="tab"
+												aria-controls="tab_realestate2" aria-selected="false">Thông số kỹ thật
+												1</button></li>
+										<li class="nav-item"><button class="nav-link" data-bs-target="#tab_realestate3"
+												data-bs-toggle="tab" type="button" role="tab"
+												aria-controls="tab_realestate3" aria-selected="false">Thông số kỹ thật
+												2</button></li>
+										<li class="nav-item"><button class="nav-link" data-bs-target="#tab_realestate4"
+												data-bs-toggle="tab" type="button" role="tab"
+												aria-controls="tab_realestate4" aria-selected="false">Thông số kỹ thật
+												3</button></li>
+										<li class="nav-item"><button class="nav-link" data-bs-target="#tab_realestate5"
+												data-bs-toggle="tab" type="button" role="tab"
+												aria-controls="tab_realestate5" aria-selected="false">Thông số kỹ thật
+												4</button></li>
+									</ul>
+									<div class="tab-content">
+										<div class="tab-pane fade active show" id="tab_realestate1" role="tabpanel">
+											<!-- multi-page .tab-pane -->
+											<table
+												class="table table-striped table-bordered table-hover table-sm ew-view-table">
+												<tbody>
+													<tr id="r_province_id">
+														<td class="w-col-2"><span id="elh_realestate_province_id">Tỉnh
+																thành phố</span></td>
+														<td data-name="province_id">
+															<span id="el_realestate_province" data-page="1">
+																<span>
+																</span>
+															</span>
+														</td>
+													</tr>
+													<tr id="r_district_id">
+														<td class="w-col-2"><span id="elh_realestate_district_id">Quận
+																huyện</span></td>
+														<td data-name="district_id">
+															<span id="el_realestate_district" data-page="1">
+																<span>
+																</span>
+															</span>
+														</td>
+													</tr>
+													<tr id="r_wards_id">
+														<td class="w-col-2"><span id="elh_realestate_wards_id">Phường
+																xã</span></td>
+														<td data-name="wards_id">
+															<span id="el_realestate_wards" data-page="1">
+																<span>
+																</span>
+															</span>
+														</td>
+													</tr>
+													<tr id="r_street_id">
+														<td class="w-col-2"><span id="elh_realestate_street_id">Đường
+																phố</span></td>
+														<td data-name="street_id">
+															<span id="el_realestate_street" data-page="1">
+																<span>
+																</span>
+															</span>
+														</td>
+													</tr>
+													<tr id="r_project_id">
+														<td class="w-col-2"><span id="elh_realestate_project_id">Dự án
+																xd</span></td>
+														<td data-name="project_id">
+															<span id="el_realestate_project" data-page="1">
+																<span>
+																</span>
+															</span>
+														</td>
+													</tr>
+													<tr id="r__title">
+														<td class="w-col-2"><span id="elh_realestate__title">Tiêu đề
+																tin</span></td>
+														<td data-name="_title">
+															<span id="el_realestate__title" data-page="1">
+																<span>
+																</span>
+															</span>
+														</td>
+													</tr>
+													<tr id="r_type">
+														<td class="w-col-2"><span id="elh_realestate_type">Loại
+																tin</span></td>
+														<td data-name="type">
+															<span id="el_realestate_type" data-page="1">
+																<span>
+																</span>
+															</span>
+														</td>
+													</tr>
+													<tr id="r___request">
+														<td class="w-col-2"><span id="elh_realestate___request">Nhu
+																cầu</span></td>
+														<td data-name="__request">
+															<span id="el_realestate___request" data-page="1">
+																<span>
+																	Cần bán </span>
+															</span>
+														</td>
+													</tr>
+													<tr id="r_customer_id">
+														<td class="w-col-2"><span id="elh_realestate_customer_id">Khách
+																hàng</span></td>
+														<td data-name="customer_id">
+															<span id="el_realestate_customer_id" data-page="1">
+																<span>
+																	BÙI VĂN HÒA, 0908245494 </span>
+															</span>
+														</td>
+													</tr>
+													<tr id="r_price">
+														<td class="w-col-2"><span id="elh_realestate_price">Giá
+																đăng</span></td>
+														<td data-name="price">
+															<span id="el_realestate_price" data-page="1">
+																<span>
+																	0 </span>
+															</span>
+														</td>
+													</tr>
+													<tr id="r_price_min">
+														<td class="w-col-2"><span id="elh_realestate_price_min">Giá tối
+																thiểu</span></td>
+														<td data-name="price_min">
+															<span id="el_realestate_price_min" data-page="1">
+																<span>
+																	0 </span>
+															</span>
+														</td>
+													</tr>
+													<tr id="r_price_time">
+														<td class="w-col-2"><span id="elh_realestate_price_time">Bán
+																trong bao lâu</span></td>
+														<td data-name="price_time">
+															<span id="el_realestate_price_time" data-page="1">
+																<span>
+																</span>
+															</span>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div><!-- /multi-page .tab-pane -->
+										<div class="tab-pane fade" id="tab_realestate2" role="tabpanel">
+											<!-- multi-page .tab-pane -->
+											<table
+												class="table table-striped table-bordered table-hover table-sm ew-view-table">
+												<tbody>
+													<tr id="r_apart_code">
+														<td class="w-col-2"><span id="elh_realestate_apart_code">Mã căn
+																hộ</span></td>
+														<td data-name="apart_code">
+															<span id="el_realestate_apart_code" data-page="2">
+																<span>
+																</span>
+															</span>
+														</td>
+													</tr>
+													<tr id="r_wall_area">
+														<td class="w-col-2"><span id="elh_realestate_wall_area">Diện
+																tích tim tường</span></td>
+														<td data-name="wall_area">
+															<span id="el_realestate_wall_area" data-page="2">
+																<span>
+																	0 </span>
+															</span>
+														</td>
+													</tr>
+													<tr id="r_bedroom">
+														<td class="w-col-2"><span id="elh_realestate_bedroom">Số phòng
+																ngủ</span></td>
+														<td data-name="bedroom">
+															<span id="el_realestate_bedroom" data-page="2">
+																<span>
+																	0 </span>
+															</span>
+														</td>
+													</tr>
+													<tr id="r_balcony">
+														<td class="w-col-2"><span id="elh_realestate_balcony">Ban
+																công</span></td>
+														<td data-name="balcony">
+															<span id="el_realestate_balcony" data-page="2">
+																<span>
+																</span>
+															</span>
+														</td>
+													</tr>
+													<tr id="r_landscape_view">
+														<td class="w-col-2"><span
+																id="elh_realestate_landscape_view">Hướng cảnh
+																quan</span></td>
+														<td data-name="landscape_view">
+															<span id="el_realestate_landscape_view" data-page="2">
+																<span>
+																</span>
+															</span>
+														</td>
+													</tr>
+													<tr id="r_apart_loca">
+														<td class="w-col-2"><span id="elh_realestate_apart_loca">Vị trí
+																căn hộ</span></td>
+														<td data-name="apart_loca">
+															<span id="el_realestate_apart_loca" data-page="2">
+																<span>
+																</span>
+															</span>
+														</td>
+													</tr>
+													<tr id="r_apart_type">
+														<td class="w-col-2"><span id="elh_realestate_apart_type">Loại
+																căn hộ</span></td>
+														<td data-name="apart_type">
+															<span id="el_realestate_apart_type" data-page="2">
+																<span>
+																</span>
+															</span>
+														</td>
+													</tr>
+													<tr id="r_furniture_type">
+														<td class="w-col-2"><span
+																id="elh_realestate_furniture_type">Loại nội thất</span>
+														</td>
+														<td data-name="furniture_type">
+															<span id="el_realestate_furniture_type" data-page="2">
+																<span>
+																</span>
+															</span>
+														</td>
+													</tr>
+													<tr id="r_price_rent">
+														<td class="w-col-2"><span id="elh_realestate_price_rent">Giá cho
+																thuê</span></td>
+														<td data-name="price_rent">
+															<span id="el_realestate_price_rent" data-page="2">
+																<span>
+																	$0.00 </span>
+															</span>
+														</td>
+													</tr>
+													<tr id="r_return_rate">
+														<td class="w-col-2"><span id="elh_realestate_return_rate">Tỷ
+																suất sinh lời</span></td>
+														<td data-name="return_rate">
+															<span id="el_realestate_return_rate" data-page="2">
+																<span>
+																	0% </span>
+															</span>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div><!-- /multi-page .tab-pane -->
+										<div class="tab-pane fade" id="tab_realestate3" role="tabpanel">
+											<!-- multi-page .tab-pane -->
+											<table
+												class="table table-striped table-bordered table-hover table-sm ew-view-table">
+												<tbody>
+													<tr id="r_date_create">
+														<td class="w-col-2"><span id="elh_realestate_date_create">Ngày
+																đăng</span></td>
+														<td data-name="date_create">
+															<span id="el_realestate_date_create" data-page="3">
+																<span>
+																	8/6/24 10:03 PM </span>
+															</span>
+														</td>
+													</tr>
+													<tr id="r_acreage">
+														<td class="w-col-2"><span id="elh_realestate_acreage">Diện tích
+																bđs</span></td>
+														<td data-name="acreage">
+															<span id="el_realestate_acreage" data-page="3">
+																<span>
+																	0 </span>
+															</span>
+														</td>
+													</tr>
+													<tr id="r_direction">
+														<td class="w-col-2"><span id="elh_realestate_direction">Hướng
+																nhà</span></td>
+														<td data-name="direction">
+															<span id="el_realestate_direction" data-page="3">
+																<span>
+																	0 </span>
+															</span>
+														</td>
+													</tr>
+													<tr id="r_total_floors">
+														<td class="w-col-2"><span id="elh_realestate_total_floors">Tống
+																số tầng</span></td>
+														<td data-name="total_floors">
+															<span id="el_realestate_total_floors" data-page="3">
+																<span>
+																	0 </span>
+															</span>
+														</td>
+													</tr>
+													<tr id="r_number_floors">
+														<td class="w-col-2"><span id="elh_realestate_number_floors">Tầng
+																số</span></td>
+														<td data-name="number_floors">
+															<span id="el_realestate_number_floors" data-page="3">
+																<span>
+																	0 </span>
+															</span>
+														</td>
+													</tr>
+													<tr id="r_bath">
+														<td class="w-col-2"><span id="elh_realestate_bath">Số nhà
+																vs</span></td>
+														<td data-name="bath">
+															<span id="el_realestate_bath" data-page="3">
+																<span>
+																	0 </span>
+															</span>
+														</td>
+													</tr>
+													<tr id="r_legal_doc">
+														<td class="w-col-2"><span id="elh_realestate_legal_doc">Giấy tờ
+																pháp lý</span></td>
+														<td data-name="legal_doc">
+															<span id="el_realestate_legal_doc" data-page="3">
+																<span>
+																	0 </span>
+															</span>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div><!-- /multi-page .tab-pane -->
+										<div class="tab-pane fade" id="tab_realestate4" role="tabpanel">
+											<!-- multi-page .tab-pane -->
+											<table
+												class="table table-striped table-bordered table-hover table-sm ew-view-table">
+												<tbody>
+													<tr id="r_description">
+														<td class="w-col-2"><span id="elh_realestate_description">Mô tả
+																thêm bđs</span></td>
+														<td data-name="description">
+															<span id="el_realestate_description" data-page="4">
+																<span>
+																</span>
+															</span>
+														</td>
+													</tr>
+													<tr id="r_width_y">
+														<td class="w-col-2"><span id="elh_realestate_width_y">Chiều
+																rộng</span></td>
+														<td data-name="width_y">
+															<span id="el_realestate_width_y" data-page="4">
+																<span>
+																	0 </span>
+															</span>
+														</td>
+													</tr>
+													<tr id="r_long_x">
+														<td class="w-col-2"><span id="elh_realestate_long_x">Chiều
+																dài</span></td>
+														<td data-name="long_x">
+															<span id="el_realestate_long_x" data-page="4">
+																<span>
+																	0 </span>
+															</span>
+														</td>
+													</tr>
+													<tr id="r_street_house">
+														<td class="w-col-2"><span id="elh_realestate_street_house">Nhà
+																có mặt đường?</span></td>
+														<td data-name="street_house">
+															<span id="el_realestate_street_house" data-page="4">
+																<span>
+																	<div class="form-check d-inline-block">
+																		<input type="checkbox" id="x_street_house_0"
+																			class="form-check-input" value="Không"
+																			disabled="">
+																		<label class="form-check-label"
+																			for="x_street_house_0"></label>
+																	</div>
+																</span>
+															</span>
+														</td>
+													</tr>
+													<tr id="r_FSBO">
+														<td class="w-col-2"><span id="elh_realestate_FSBO">Là chủ sở hữu
+																đăng</span></td>
+														<td data-name="FSBO">
+															<span id="el_realestate_FSBO" data-page="4">
+																<span>
+																	<div class="form-check d-inline-block">
+																		<input type="checkbox" id="x_FSBO_0"
+																			class="form-check-input" value="Không"
+																			disabled="">
+																		<label class="form-check-label"
+																			for="x_FSBO_0"></label>
+																	</div>
+																</span>
+															</span>
+														</td>
+													</tr>
+													<tr id="r_view_num">
+														<td class="w-col-2"><span id="elh_realestate_view_num">Lượt
+																xem</span></td>
+														<td data-name="view_num">
+															<span id="el_realestate_view_num" data-page="4">
+																<span>
+																	0 </span>
+															</span>
+														</td>
+													</tr>
+													<tr id="r_create_by">
+														<td class="w-col-2"><span id="elh_realestate_create_by">Tạo
+																bởi</span></td>
+														<td data-name="create_by">
+															<span id="el_realestate_create_by" data-page="4">
+																<span>
+																	59 </span>
+															</span>
+														</td>
+													</tr>
+													<tr id="r_update_by">
+														<td class="w-col-2"><span id="elh_realestate_update_by">Sửa
+																bởi</span></td>
+														<td data-name="update_by">
+															<span id="el_realestate_update_by" data-page="4">
+																<span>
+																	59 </span>
+															</span>
+														</td>
+													</tr>
+													<tr id="r_shape">
+														<td class="w-col-2"><span id="elh_realestate_shape">Hình dáng
+																nhà</span></td>
+														<td data-name="shape">
+															<span id="el_realestate_shape" data-page="4">
+																<span>
+																</span>
+															</span>
+														</td>
+													</tr>
+													<tr id="r_distance2facade">
+														<td class="w-col-2"><span
+																id="elh_realestate_distance2facade">Khoảng cách ra mặt
+																tiền đường (m)</span></td>
+														<td data-name="distance2facade">
+															<span id="el_realestate_distance2facade" data-page="4">
+																<span>
+																	0 </span>
+															</span>
+														</td>
+													</tr>
+													<tr id="r_adjacent_facade_num">
+														<td class="w-col-2"><span
+																id="elh_realestate_adjacent_facade_num">Số mặt tiền tiếp
+																giáp</span></td>
+														<td data-name="adjacent_facade_num">
+															<span id="el_realestate_adjacent_facade_num" data-page="4">
+																<span>
+																	0 </span>
+															</span>
+														</td>
+													</tr>
+													<tr id="r_adjacent_road">
+														<td class="w-col-2"><span
+																id="elh_realestate_adjacent_road">Đường tiếp giáp</span>
+														</td>
+														<td data-name="adjacent_road">
+															<span id="el_realestate_adjacent_road" data-page="4">
+																<span>
+																</span>
+															</span>
+														</td>
+													</tr>
+													<tr id="r_CTXD_price">
+														<td class="w-col-2"><span id="elh_realestate_CTXD_price">Đơn giá
+																CTXD</span></td>
+														<td data-name="CTXD_price">
+															<span id="el_realestate_CTXD_price" data-page="4">
+																<span>
+																	0 </span>
+															</span>
+														</td>
+													</tr>
+													<tr id="r_CTXD_value">
+														<td class="w-col-2"><span id="elh_realestate_CTXD_value">Giá trị
+																CTXD đống</span></td>
+														<td data-name="CTXD_value">
+															<span id="el_realestate_CTXD_value" data-page="4">
+																<span>
+																	0 </span>
+															</span>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div><!-- /multi-page .tab-pane -->
+										<div class="tab-pane fade" id="tab_realestate5" role="tabpanel">
+											<!-- multi-page .tab-pane -->
+											<table
+												class="table table-striped table-bordered table-hover table-sm ew-view-table">
+												<tbody>
+													<tr id="r_alley_min_width">
+														<td class="w-col-2"><span id="elh_realestate_alley_min_width">Độ
+																rộng đường hẻm nhỏ nhất (m)</span></td>
+														<td data-name="alley_min_width">
+															<span id="el_realestate_alley_min_width" data-page="5">
+																<span>
+																	0 </span>
+															</span>
+														</td>
+													</tr>
+													<tr id="r_adjacent_alley_min_width">
+														<td class="w-col-2"><span
+																id="elh_realestate_adjacent_alley_min_width">Độ rộng
+																đường hẻm tiếp giáp (m)</span></td>
+														<td data-name="adjacent_alley_min_width">
+															<span id="el_realestate_adjacent_alley_min_width"
+																data-page="5">
+																<span>
+																	0 </span>
+															</span>
+														</td>
+													</tr>
+													<tr id="r_factor">
+														<td class="w-col-2"><span id="elh_realestate_factor">Yếu tố
+																khác</span></td>
+														<td data-name="factor">
+															<span id="el_realestate_factor" data-page="5">
+																<span>
+																	0 </span>
+															</span>
+														</td>
+													</tr>
+													<tr id="r_structure">
+														<td class="w-col-2"><span id="elh_realestate_structure">Kết
+																cấu</span></td>
+														<td data-name="structure">
+															<span id="el_realestate_structure" data-page="5">
+																<span>
+																</span>
+															</span>
+														</td>
+													</tr>
+													<tr id="r_DTSXD">
+														<td class="w-col-2"><span id="elh_realestate_DTSXD">DTSXD
+																(m2)</span></td>
+														<td data-name="DTSXD">
+															<span id="el_realestate_DTSXD" data-page="5">
+																<span>
+																	0 </span>
+															</span>
+														</td>
+													</tr>
+													<tr id="r_CLCL">
+														<td class="w-col-2"><span
+																id="elh_realestate_CLCL">CLCL(%)</span></td>
+														<td data-name="CLCL">
+															<span id="el_realestate_CLCL" data-page="5">
+																<span>
+																	0 </span>
+															</span>
+														</td>
+													</tr>
+													<tr id="r__lat">
+														<td class="w-col-2"><span id="elh_realestate__lat"> lat</span>
+														</td>
+														<td data-name="_lat">
+															<span id="el_realestate__lat" data-page="5">
+																<span>
+																	0 </span>
+															</span>
+														</td>
+													</tr>
+													<tr id="r__lng">
+														<td class="w-col-2"><span id="elh_realestate__lng"> lng</span>
+														</td>
+														<td data-name="_lng">
+															<span id="el_realestate__lng" data-page="5">
+																<span>
+																	0 </span>
+															</span>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div><!-- /multi-page .tab-pane -->
+									</div>
+								</div>
+							</div>
+						</form>
+						<script>
+							loadjs.ready("load", function () {
+								// Write your table-specific startup script here, no need to add script tags.
+							});
+						</script>
+					</div><!-- /.container-fluid -->
+				</section>
 			</div>
 		</div>
 		<!-- footer -->
@@ -305,10 +1019,11 @@
 		<!-- //footer -->
 	</section>
 	<!-- //font-awesome icons -->
-	<script src="js/jquery2.0.3.min.js"></script>
-	<script src="js/modernizr.js"></script>
-	<script src="js/jquery.cookie.js"></script>
-	<script src="js/screenfull.js"></script>
+	<script th:src="@{https://code.jquery.com/jquery-3.7.1.min.js}"
+		integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+	<script th:src="@{/js/modernizr.js}"></script>
+	<script th:src="@{/js/jquery.cookie.js}"></script>
+	<script th:src="@{/js/screenfull.js}"></script>
 	<script>
 		$(function () {
 			$('#supported').text('Supported/allowed: ' + !!screenfull.enabled);
@@ -322,7 +1037,7 @@
 		});
 	</script>
 	<!--skycons-icons-->
-	<script src="js/skycons.js"></script>
+	<script th:src="@{/js/skycons.js}"></script>
 	<!--//skycons-icons-->
 	<script>
 		var theme = $.cookie('protonTheme') || 'default';
@@ -331,8 +1046,8 @@
 		});
 		if (theme !== 'default') $('body').addClass(theme);
 	</script>
-	<script src="js/bootstrap.js"></script>
-	<script src="js/proton.js"></script>
+	<script th:src="@{/js/bootstrap.js}"></script>
+	<script th:src="@{/js/proton.js}"></script>
 </body>
 
 </html>

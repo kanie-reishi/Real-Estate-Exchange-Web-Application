@@ -1,10 +1,10 @@
 package devcamp.realestateexchange.controller;
 
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @CrossOrigin
 @Controller
@@ -28,8 +28,15 @@ public class HomeController {
     public String realestateTable() {
         return "realestate-table";
     }
-    @GetMapping("/admin/realestate-detail")
-    public String realestateDetail() {
+
+    @GetMapping("/admin/realestate/{id}/detail")
+    public String realestateDetail(@PathVariable("id") Long id, Model model) {
+        // Add the ID to the model to use it in the view
+        model.addAttribute("id", id);
         return "realestate-detail";
+    } 
+    @GetMapping("/admin/project-table")
+    public String projectTable() {
+        return "project-table";
     }
 }

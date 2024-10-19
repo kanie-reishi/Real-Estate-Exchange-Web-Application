@@ -7,10 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -116,8 +116,8 @@ public class RealEstateController {
         }
     }
     // REST API for getting real estate by id
-    @GetMapping("/realestate/{id}")
-    public ResponseEntity<Object> getRealEstateById(@RequestParam Integer id) {
+    @GetMapping("/realestate/{id}/detail")
+    public ResponseEntity<Object> getRealEstateById(@PathVariable Integer id) {
         try {
             RealEstate realEstate = realEstateService.getRealEstateById(id);
             return ResponseEntity.ok(realEstate);
@@ -156,7 +156,7 @@ public class RealEstateController {
         }
     }
     // REST API for indexing all real estates
-    @PreAuthorize("hasRole('ADMIN')")
+    // @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/realestate/indexall")
     public ResponseEntity<Object> indexAllRealEstates() {
         try {
@@ -167,7 +167,7 @@ public class RealEstateController {
         }
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    // @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/realestate/indextest")
     public ResponseEntity<Object> indexTestRealEstate() {
         try {

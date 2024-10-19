@@ -20,13 +20,13 @@ $(document).ready(function () {
         "columns": [
             { "data": null, // Chức năng
                 "render": (data, type, row) => {
-                    return `<a href="/realestate/' + row.id + '" data-toggle="tooltip" data-placement="top" title="Xem">
+                    return `<a href="/admin/realestate/${row.id}/detail" data-toggle="tooltip" data-placement="top" title="Xem">
                                 <i class="fa-solid fa-magnifying-glass" ></i>
                             </a>
-                            <a href="/realestate/' + row.id + '/edit" data-toggle="tooltip" data-placement="top" title="Sửa">
+                            <a href="/admin/realestate/${row.id}/update" data-toggle="tooltip" data-placement="top" title="Sửa">
                                 <i class="fa-solid fa-pen"></i>
                             </a>
-                            <a href="/realestate/' + row.id + '/delete" data-toggle="tooltip" data-placement="top" title="Xóa">
+                            <a href="/admin/realestate/${row.id}/delete" data-toggle="tooltip" data-placement="top" title="Xóa">
                                 <i class="fa-solid fa-trash"></i>
                             </a>
                     `;

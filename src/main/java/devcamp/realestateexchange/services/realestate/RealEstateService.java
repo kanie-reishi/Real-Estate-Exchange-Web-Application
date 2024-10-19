@@ -306,8 +306,12 @@ public class RealEstateService {
                 // Set the query and the analyzers
                 multiMatchNode.put("query", text);
                 multiMatchNode.put("analyzer", "vietnamese_analyzer");// Use the custom analyzer
-                // Add the fields to search in
-                multiMatchNode.putArray("fields").add("title").add("description").add("address").add("keywords");
+                // Add the fields to search in, and their weights. Formula is field^weight
+                multiMatchNode.putArray("fields")
+                            .add("title^1.0")
+                            .add("description^0.5")
+                            .add("address^2.0")
+                            .add("keywords^1.0");
                 // Set the type of the multi_match query
                 multiMatchNode.put("type", "best_fields");
                 multiMatchNode.put("fuzziness", "AUTO"); // Apply fuzzy search, You can set this to a specific value like "1", "2", etc.
