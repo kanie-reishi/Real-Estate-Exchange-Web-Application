@@ -119,7 +119,7 @@ public class RealEstateController {
     @GetMapping("/realestate/{id}/detail")
     public ResponseEntity<Object> getRealEstateById(@PathVariable Integer id) {
         try {
-            RealEstate realEstate = realEstateService.getRealEstateById(id);
+            RealEstateDto realEstate = realEstateService.getRealEstateById(id);
             return ResponseEntity.ok(realEstate);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());

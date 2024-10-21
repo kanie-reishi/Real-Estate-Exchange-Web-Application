@@ -3,8 +3,10 @@ package devcamp.realestateexchange.services.realestate;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.apache.http.util.EntityUtils;
 import org.elasticsearch.client.Request;
@@ -31,7 +33,11 @@ import devcamp.realestateexchange.dto.location.DistrictDto;
 import devcamp.realestateexchange.dto.location.ProvinceDto;
 import devcamp.realestateexchange.dto.location.StreetDto;
 import devcamp.realestateexchange.dto.location.WardDto;
+import devcamp.realestateexchange.dto.realestate.ProjectDto;
 import devcamp.realestateexchange.dto.realestate.RealEstateDto;
+import devcamp.realestateexchange.dto.realestate.RealEstateDto.ApartDetailDto;
+import devcamp.realestateexchange.dto.realestate.RealEstateDto.RealEstateDetailDto;
+import devcamp.realestateexchange.dto.social.ArticleDto;
 import devcamp.realestateexchange.dto.user.CustomerDto;
 import devcamp.realestateexchange.entity.location.District;
 import devcamp.realestateexchange.entity.location.Province;
@@ -39,18 +45,22 @@ import devcamp.realestateexchange.entity.location.Street;
 import devcamp.realestateexchange.entity.location.Ward;
 import devcamp.realestateexchange.entity.media.Photo;
 import devcamp.realestateexchange.entity.realestate.ApartDetail;
+import devcamp.realestateexchange.entity.realestate.Project;
 import devcamp.realestateexchange.entity.realestate.RealEstate;
+import devcamp.realestateexchange.entity.realestate.RealEstateDetail;
 import devcamp.realestateexchange.entity.user.Customer;
 import devcamp.realestateexchange.event.RealEstateChangedEvent;
 import devcamp.realestateexchange.event.RealEstateChangedEventHandler;
 import devcamp.realestateexchange.models.RealEstateSearchParameters;
-import devcamp.realestateexchange.projections.RealEstateBasicProjection;
+import devcamp.realestateexchange.projections.RealEstateProjection;
+import devcamp.realestateexchange.projections.RealEstateExtendProjection;
 import devcamp.realestateexchange.repositories.location.IDistrictRepository;
 import devcamp.realestateexchange.repositories.location.IProvinceRepository;
 import devcamp.realestateexchange.repositories.location.IStreetRepository;
 import devcamp.realestateexchange.repositories.location.IWardRepository;
 import devcamp.realestateexchange.repositories.realestate.IRealEstateRepository;
 import devcamp.realestateexchange.repositories.user.ICustomerRepository;
+import devcamp.realestateexchange.services.media.ArticleService;
 import devcamp.realestateexchange.services.media.PhotoService;
 
 @Service
@@ -68,7 +78,9 @@ public class RealEstateService {
     @Autowired
     private ICustomerRepository customerRepository;
     @Autowired
-    PhotoService photoService;
+    private PhotoService photoService;
+    @Autowired
+    private ArticleService articleService;
     @Autowired
     private ApplicationEventPublisher eventPublisher;
     @Autowired
@@ -79,13 +91,17 @@ public class RealEstateService {
 
     // Phương thức lấy tất cả RealEstateDto
     public Page<RealEstateDto> getAllRealEstateDtos(Pageable pageable) {
-        Page<RealEstateBasicProjection> projections = realEstateRepository.findAllBasicProjections(pageable);
-        return projections.map(this::convertBasicProjectionToDto);
+        Page<RealEstateProjection> projections = realEstateRepository.findAllBasicProjections(pageable);
+        return projections.map(this::convertProjectionToDto);
     }
 
     // Phương thức lấy RealEstateDto theo id
-    public RealEstate getRealEstateById(Integer id) {
-        return realEstateRepository.findById(id).orElse(null);
+    public RealEstateDto getRealEstateById(Integer id) {
+        RealEstateExtendProjection projection = realEstateRepository.findRealEstateById(id);
+        if (projection != null) {
+            return convertExtendProjectionToDto(projection);
+        }
+        return null;
     }
 
     // Phương thức lấy RealEstateDto theo id
@@ -104,9 +120,9 @@ public class RealEstateService {
         return realEstate;
     }
 
-    // Phương thức chuyển đổi RealEstateBasicProjection thành RealEstateDto
-    public RealEstateDto convertBasicProjectionToDto(RealEstateBasicProjection projection) {
-        // Chuyển đổi RealEstateBasicProjection thành RealEstateDto
+    // Phương thức chuyển đổi RealEstateProjection thành RealEstateDto
+    public RealEstateDto convertProjectionToDto(RealEstateProjection projection) {
+        // Chuyển đổi RealEstateProjection thành RealEstateDto
         RealEstateDto dto = new RealEstateDto();
         dto.setId(projection.getId());
         dto.setTitle(projection.getTitle());
@@ -115,10 +131,15 @@ public class RealEstateService {
         dto.setRealEstateCode(projection.getRealEstateCode());
         dto.setPrice(projection.getPrice());
         dto.setPriceUnit(projection.getPriceUnit());
+        dto.setPriceTime(projection.getPriceTime());
         dto.setAcreage(projection.getAcreage());
         dto.setAcreageUnit(projection.getAcreageUnit());
         dto.setBedroom(projection.getBedroom());
         dto.setVerify(projection.getVerify());
+        dto.setDirection(projection.getDirection());
+        dto.setTotalFloors(projection.getTotalFloors());
+        dto.setBath(projection.getBath());
+        dto.setDescription(projection.getDescription());
         // Chuyển đổi createdAt thành định dạng ISO 8601
         if (projection.getCreatedAt() != null) {
             String createdAtIso = isoFormat.format(projection.getCreatedAt());
@@ -134,6 +155,13 @@ public class RealEstateService {
             customerDto.setPhone(projection.getCustomer().getPhone());
         }
         dto.setCustomer(customerDto);
+        // Thêm thông tin dự án vào RealEstateDto
+        ProjectDto projectDto = new ProjectDto();
+        if(projection.getProject() != null) { // Check null
+            projectDto.setId(projection.getProject().getId());
+            projectDto.setName(projection.getProject().getName());
+        }
+        dto.setProject(projectDto);
         // Thêm thông tin địa chỉ vào RealEstateDto
         AddressDto addressDto = new AddressDto();
         ProvinceDto provinceDto = new ProvinceDto();
@@ -157,6 +185,7 @@ public class RealEstateService {
             WardDto wardDto = new WardDto();
             wardDto.setId(projection.getWard().getId());
             wardDto.setName(projection.getWard().getName());
+            wardDto.setPrefix(projection.getWard().getPrefix());
             addressDto.setWard(wardDto);
         }
 
@@ -164,6 +193,7 @@ public class RealEstateService {
             StreetDto streetDto = new StreetDto();
             streetDto.setId(projection.getStreet().getId());
             streetDto.setName(projection.getStreet().getName());
+            streetDto.setPrefix(projection.getStreet().getPrefix());
             addressDto.setStreet(streetDto);
         }
 
@@ -177,6 +207,55 @@ public class RealEstateService {
         return dto;
     }
 
+    // Phương thức chuyển đổi RealEstateExtendProjection thành RealEstateDto
+    public RealEstateDto convertExtendProjectionToDto(RealEstateExtendProjection projection){
+        RealEstateDto dto = convertProjectionToDto(projection);
+        ArticleDto articleDto = new ArticleDto();
+        if(projection.getArticle() != null){
+            articleDto.setViewNum(projection.getArticle().getViewNum());
+            articleDto.setLikeNum(projection.getArticle().getLikeNum());
+            articleDto.setReplies(projection.getArticle().getReplies().stream().map(articleService::convertReplyProjectionToDto).collect(
+                    Collectors.toSet()));
+        }
+        dto.setArticle(articleDto);
+        RealEstateDetailDto detailDto = new RealEstateDetailDto();
+        if (projection.getDetail() != null) {
+        detailDto.setBalcony(projection.getDetail().getBalcony());
+        detailDto.setPriceMin(projection.getDetail().getPriceMin());
+        detailDto.setWallArea(projection.getDetail().getWallArea());
+        detailDto.setLandscapeView(projection.getDetail().getLandscapeView());
+        detailDto.setFurnitureType(projection.getDetail().getFurnitureType());
+        detailDto.setFurnitureStatus(projection.getDetail().getFurnitureStatus());
+        detailDto.setPriceRent(projection.getDetail().getPriceRent());
+        detailDto.setReturnRate(projection.getDetail().getReturnRate());
+        detailDto.setLegalDoc(projection.getDetail().getLegalDoc());
+        detailDto.setWidthY(projection.getDetail().getWidthY());
+        detailDto.setLongX(projection.getDetail().getLongX());
+        detailDto.setStreetHouse(projection.getDetail().getStreetHouse());
+        detailDto.setFSBO(projection.getDetail().getFSBO());
+        detailDto.setShape(projection.getDetail().getShape());
+        detailDto.setDistance2Facade(projection.getDetail().getDistance2Facade());
+        detailDto.setAdjacentFacadeNum(projection.getDetail().getAdjacentFacadeNum());
+        detailDto.setAdjacentRoad(projection.getDetail().getAdjacentRoad());
+        detailDto.setAlleyMinWidth(projection.getDetail().getAlleyMinWidth());
+        detailDto.setAdjacentAlleyMinWidth(projection.getDetail().getAdjacentAlleyMinWidth());
+        detailDto.setStructure(projection.getDetail().getStructure());
+        detailDto.setDTSXD(projection.getDetail().getDTSXD());
+        detailDto.setCtxdPrice(projection.getDetail().getCtxdPrice());
+        detailDto.setCtxdValue(projection.getDetail().getCtxdValue());
+    }
+        dto.setDetail(detailDto);
+
+        ApartDetailDto apartDetailDto = new ApartDetailDto();
+        if (projection.getApartDetail() != null) {
+            apartDetailDto.setApartCode(projection.getApartDetail().getApartCode());
+            apartDetailDto.setApartLoca(projection.getApartDetail().getApartLoca());
+            apartDetailDto.setApartType(projection.getApartDetail().getApartType());
+            apartDetailDto.setNumberFloors(projection.getApartDetail().getNumberFloors());
+        }
+        dto.setApartDetail(apartDetailDto);
+        return dto;
+    }
     // Phương thức lưu RealEstate
     public RealEstateDto saveRealEstate(RealEstateDto realEstateDto) {
         RealEstate realEstate = new RealEstate();

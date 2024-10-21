@@ -7,7 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import devcamp.realestateexchange.entity.user.Customer;
-import devcamp.realestateexchange.projections.RealEstateBasicProjection;
+import devcamp.realestateexchange.projections.RealEstateProjection;
 
 public interface ICustomerRepository extends JpaRepository<Customer, Integer>{
     // Get all customer

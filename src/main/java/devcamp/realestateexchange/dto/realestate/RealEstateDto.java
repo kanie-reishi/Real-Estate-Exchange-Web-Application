@@ -52,7 +52,7 @@ public class RealEstateDto {
     // Đơn vị giá: 0.Triệu, 1.Tỷ, 2.Triệu/m2, 3.Tỷ/m2
     private Integer priceUnit;
     // Thời gian bán
-    private String priceTime;
+    private Integer priceTime;
     // diện tích bđs, diện tích thông thủy
     private Double acreage;
     // Đơn vị diện tích: 0.m2, 1.ha
@@ -79,6 +79,8 @@ public class RealEstateDto {
     private AddressDto addressDetail;
     // Article
     private ArticleDto article;
+    // Project
+    private ProjectDto project;
     // Chi tiết bđs
     private RealEstateDetailDto detail;
     // Chi tiết chung cư
@@ -93,7 +95,6 @@ public class RealEstateDto {
     @AllArgsConstructor
     public static class RealEstateDetailDto {
         private BigDecimal priceMin;
-        private String priceTime;
         private Double wallArea;
         private String landscapeView;
         private Integer balcony;
@@ -208,7 +209,7 @@ public class RealEstateDto {
     }
 
     public RealEstateDto(Integer id, String title, Integer type, Integer request, String realEstateCode,
-            BigDecimal price, Integer priceUnit, String priceTime, Double acreage, Integer acreageUnit, Integer bedroom,
+            BigDecimal price, Integer priceUnit, Integer priceTime, Double acreage, Integer acreageUnit, Integer bedroom,
             Integer verify, String createdAt, Integer customerId) {
         this.id = id;
         this.title = title;

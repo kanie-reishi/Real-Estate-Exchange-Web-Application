@@ -50,7 +50,7 @@ import devcamp.realestateexchange.projections.ProjectContractorProjection;
 import devcamp.realestateexchange.projections.ProjectDesignUnitProjection;
 import devcamp.realestateexchange.projections.ProjectInvestorProjection;
 import devcamp.realestateexchange.projections.ProjectProjection;
-import devcamp.realestateexchange.projections.RealEstateBasicProjection;
+import devcamp.realestateexchange.projections.RealEstateProjection;
 import devcamp.realestateexchange.projections.RegionLinkProjection;
 import devcamp.realestateexchange.projections.UtilitiesProjection;
 import devcamp.realestateexchange.repositories.location.IDistrictRepository;

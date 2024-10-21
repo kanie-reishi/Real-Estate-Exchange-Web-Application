@@ -111,4 +111,5 @@ public class RealEstateDetail {
     // Giá bán tối thiểu
     @Column(name = "price_min")
     private BigDecimal priceMin;
+
 }

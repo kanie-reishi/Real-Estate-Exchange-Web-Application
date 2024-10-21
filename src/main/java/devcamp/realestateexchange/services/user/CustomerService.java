@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import devcamp.realestateexchange.dto.realestate.RealEstateDto;
 import devcamp.realestateexchange.dto.user.CustomerDto;
 import devcamp.realestateexchange.entity.user.Customer;
-import devcamp.realestateexchange.projections.RealEstateBasicProjection;
+import devcamp.realestateexchange.projections.RealEstateProjection;
 import devcamp.realestateexchange.repositories.realestate.IRealEstateRepository;
 import devcamp.realestateexchange.repositories.user.ICustomerRepository;
 import devcamp.realestateexchange.services.realestate.RealEstateService;
@@ -85,10 +85,10 @@ public class CustomerService {
     }
     // Get real estate by customer id method @param pageable, customerId
     public Page<RealEstateDto> getRealEstateByCustomerId(Pageable pageable, Integer customerId) {
-        List<RealEstateBasicProjection> realEstateProjections = realEstateRepository.findRealEstateByCustomerId(customerId, pageable).getContent();
+        List<RealEstateProjection> realEstateProjections = realEstateRepository.findRealEstateByCustomerId(customerId, pageable).getContent();
         List<RealEstateDto> realEstateDtos = new ArrayList<>();
-        for(RealEstateBasicProjection realEstateProjection : realEstateProjections) {
-            RealEstateDto realEstateDto = realEstateService.convertBasicProjectionToDto(realEstateProjection);
+        for(RealEstateProjection realEstateProjection : realEstateProjections) {
+            RealEstateDto realEstateDto = realEstateService.convertProjectionToDto(realEstateProjection);
             realEstateDtos.add(realEstateDto);
         }
         Page<RealEstateDto> page = new PageImpl<>(realEstateDtos, pageable, realEstateDtos.size());

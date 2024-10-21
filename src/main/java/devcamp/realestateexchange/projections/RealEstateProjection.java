@@ -1,25 +1,32 @@
 package devcamp.realestateexchange.projections;
+
+import java.math.BigDecimal;
 import java.util.Date;
+
 public interface RealEstateProjection {
     Integer getId();
     String getTitle();
     Integer getType();
     Integer getRequest();
-    Double getPrice();
-    String getPriceUnit();
+    BigDecimal getPrice();
+    Integer getPriceTime();
+    Integer getPriceUnit();
     Double getAcreage();
-    String getAcreageUnit();
+    Integer getAcreageUnit();
     Integer getBedroom();
     Integer getVerify();
     String getRealEstateCode();
     Date getCreatedAt();
+    String getAddress();
+    Integer getDirection();
+    Integer getTotalFloors();
+    Integer getBath();
+    String getDescription();
 
     CustomerProjection getCustomer();
     ProvinceProjection getProvince();
     DistrictProjection getDistrict();
     WardProjection getWard();
     StreetProjection getStreet();
-    ArticleProjection getArticle();
-    RealEstateDetailProjection getRealEstateDetail();
+    ProjectProjection getProject();
 }
-

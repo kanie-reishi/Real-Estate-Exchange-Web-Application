@@ -959,7 +959,7 @@ body {
   }
 
   .wrapper {
-    position: absolute;
+    position: absolute !important;
     display: block;
     vertical-align: top;
     top: 0;
@@ -1652,13 +1652,15 @@ nav.user-menu .panel .list-group-item .time-ago {
   float: left;
   width: 15%;
 }
-
+.logo h1 {
+  display: flex;
+}
 .logo h1 a img {
   margin-right: .5em;
 }
 
 .logo h1 a {
-  font-size: .9em;
+  font-size: .75em;
   color: #000;
   font-weight: 600;
   text-transform: uppercase;
@@ -6747,16 +6749,20 @@ div#vmap {
   position: relative;
   flex: 1 1 auto;
 }
-.btn-group-sm>.btn-toolbar, .btn-sm {
-    padding: .25rem .5rem;
-    font-size: .765625rem;
-    border-radius: .2rem;
+
+.btn-group-sm>.btn-toolbar,
+.btn-sm {
+  padding: .25rem .5rem;
+  font-size: .765625rem;
+  border-radius: .2rem;
 }
+
 .ew-icon {
-    font-size: max(.875rem, 1rem);
-    width: max(.875rem, 1rem);
-    text-align: center;
+  font-size: max(.875rem, 1rem);
+  width: max(.875rem, 1rem);
+  text-align: center;
 }
+
 .btn-toolbar-group {
   display: flex;
   flex-wrap: wrap;
@@ -6767,4 +6773,13 @@ div#vmap {
   display: inline-block !important;
 }
 
+.pad-5 {
+  padding: 5em !important;
+}
+
 /*-- //responsive --*/
+@media (max-width: 600px) {
+  .pad-sm-0 {
+    padding: 0 !important;
+  }
+}

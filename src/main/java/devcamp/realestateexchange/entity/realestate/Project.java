@@ -37,7 +37,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Project extends UserReferenceEntity{
     // Tên dự án
-    @Column(name = "name")
+    @Column(name = "_name")
     private String name;
 
     // Quan hệ n-1 với Province

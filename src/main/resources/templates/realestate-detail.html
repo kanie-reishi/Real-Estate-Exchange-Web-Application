@@ -8,7 +8,7 @@
 	<script
 		type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 	<!-- bootstrap-css -->
-	<link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+	<!-- <link rel="stylesheet" th:href="@{/css/bootstrap.css}"> -->
 	<!-- //bootstrap-css -->
 	<!-- Custom CSS -->
 	<link th:href="@{/css/style.css}" rel='stylesheet' type='text/css' />
@@ -23,6 +23,10 @@
 	<!-- font-awesome icons -->
 	<link th:href="@{/css/font.css}" type="text/css" rel="stylesheet" />
 	<link th:href="@{/css/font-awesome.css}" rel="stylesheet">
+
+	<link th:href="@{/css/adminlte.min.css}" rel="stylesheet">
+	<link th:href="@{/css/all.min.css}" rel="stylesheet">
+	<link th:href="@{/css/home24h.min.css}" rel="stylesheet">
 </head>
 
 <body class="dashboard-page">
@@ -172,13 +176,8 @@
 			<div class="logo">
 				<h1><a href="index.html"><img src="images/logo.png" alt="" />RealEstate.com</a></h1>
 			</div>
-			<div class="full-screen">
-				<section class="full-top">
-					<button id="toggle"><i class="fa fa-arrows-alt" aria-hidden="true"></i></button>
-				</section>
-			</div>
 			<div class="w3l_search">
-				<form action="#" method="post">
+				<form class="d-flex" action="#" method="post">
 					<input type="text" name="search" value="Search" onfocus="this.value = '';"
 						onblur="if (this.value == '') {this.value = 'Search';}" required="">
 					<button class="btn btn-default" type="submit"><i class="fa fa-search"
@@ -192,7 +191,7 @@
 						<ul class="nofitications-dropdown">
 							<li class="dropdown head-dpdn">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i
-										class="fa fa-envelope"></i><span class="badge">3</span></a>
+										class="fa fa-envelope"></i></a>
 								<ul class="dropdown-menu anti-dropdown-menu w3l-msg">
 									<li>
 										<div class="notification_header">
@@ -232,7 +231,7 @@
 							</li>
 							<li class="dropdown head-dpdn">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i
-										class="fa fa-bell"></i><span class="badge blue">3</span></a>
+										class="fa fa-bell"></i></a>
 								<ul class="dropdown-menu anti-dropdown-menu agile-notification">
 									<li>
 										<div class="notification_header">
@@ -295,7 +294,7 @@
 			</div>
 			<div class="clearfix"> </div>
 		</section>
-		<div class="main-grid">
+		<div class="main-grid pad-5 pad-sm-0">
 			<div class="agile-grids">
 				<div class="content-header">
 					<div class="container-fluid">
@@ -337,13 +336,13 @@
 												class="visually-hidden">Copy</span></i></a><a
 										class="btn-toolbar ew-action ew-delete" title="" data-caption="Delete"
 										href="/admin/realestate/${id}/delete" data-bs-original-title="Delete"><i
-											data-phrase="ViewPageDeleteLink" class="fa-solid fa-trash"><span
+											data-phrase="ViewPageDeleteLink" class="fa-solid fa-trash ew-icon"><span
 												class="visually-hidden">Delete</span></i></a></div>
 							</div>
 						</div>
 						<div class="ew-message-dialog d-none"></div>
 						<form name="frealestateview" id="frealestateview" class="ew-form ew-view-form"
-							action="/devcamp1/realestateview" method="post">
+							action="#" method="post">
 							<input type="hidden" name="t" value="realestate">
 							<input type="hidden" name="modal" value="0">
 							<span id="el_realestate_photo" data-page="0">
@@ -509,7 +508,7 @@
 														<td data-name="__request">
 															<span id="el_realestate___request" data-page="1">
 																<span>
-																	Cần bán </span>
+																	 </span>
 															</span>
 														</td>
 													</tr>
@@ -519,7 +518,7 @@
 														<td data-name="customer_id">
 															<span id="el_realestate_customer_id" data-page="1">
 																<span>
-																	BÙI VĂN HÒA, 0908245494 </span>
+																	 </span>
 															</span>
 														</td>
 													</tr>
@@ -1003,11 +1002,6 @@
 								</div>
 							</div>
 						</form>
-						<script>
-							loadjs.ready("load", function () {
-								// Write your table-specific startup script here, no need to add script tags.
-							});
-						</script>
 					</div><!-- /.container-fluid -->
 				</section>
 			</div>
@@ -1018,6 +1012,7 @@
 		</div>
 		<!-- //footer -->
 	</section>
+	<!-- Script -->
 	<!-- //font-awesome icons -->
 	<script th:src="@{https://code.jquery.com/jquery-3.7.1.min.js}"
 		integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
@@ -1048,6 +1043,8 @@
 	</script>
 	<script th:src="@{/js/bootstrap.js}"></script>
 	<script th:src="@{/js/proton.js}"></script>
+
+	<script th:src="@{/js/realestate-detail.js}"></script>
 </body>
 
 </html>

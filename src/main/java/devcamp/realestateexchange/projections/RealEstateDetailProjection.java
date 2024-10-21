@@ -1,21 +1,12 @@
 package devcamp.realestateexchange.projections;
 import java.math.BigDecimal;
 public interface RealEstateDetailProjection {
-    String getDescription();
 
     BigDecimal getPriceMin();
-
-    String getPriceTime();
-
-    Integer getTotalFloors();
-
-    Integer getBath();
 
     Double getWallArea();
 
     String getLandscapeView();
-
-    Integer getDirection();
 
     Integer getBalcony();   
 
@@ -56,5 +47,4 @@ public interface RealEstateDetailProjection {
     Integer getCtxdPrice();
 
     Integer getCtxdValue();
-
 }

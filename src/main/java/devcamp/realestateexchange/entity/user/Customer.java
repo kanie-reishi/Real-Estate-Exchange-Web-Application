@@ -41,7 +41,7 @@ public class Customer extends UserReferenceEntity {
     private String address;
 
     // Số điện thoại
-    @Column(name = "phone")
+    @Column(name = "mobile")
     private String phone;
 
     // Email
