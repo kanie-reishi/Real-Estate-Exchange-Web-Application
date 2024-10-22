@@ -4,24 +4,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>RealEstate.com</title>
     <!-- Font Awesome-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css}"
         integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Bootstrap CSS-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    <link th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css}" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <!--PhotoSwipe CSS-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/5.4.4/photoswipe.min.css"
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/photoswipe/5.4.4/photoswipe.min.css}"
         integrity="sha512-LFWtdAXHQuwUGH9cImO9blA3a3GfQNkpF2uRlhaOpSbDevNyK1rmAjs13mtpjvWyi+flP7zYWboqY+8Mkd42xA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        <link rel="stylesheet" th:href="@{https://unpkg.com/leaflet@1.9.4/dist/leaflet.css}"
         integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
         crossorigin=""/>
     <!-- Custom CSS-->
-    <link rel="stylesheet" href="output.css">
+    <link rel="stylesheet" th:href="@{/css/output.css}">
 </head>
 
 <body
@@ -306,46 +307,20 @@
                                                 <div class="grid grid-cols-2 lg:grid-cols-3 gap-x-4">
                                                     <div class="py-3 flex">
                                                         <div class="h-5 w-10 flex items-center justify-center relative">
-                                                            <span
-                                                                style="box-sizing: border-box; display: block; overflow: hidden; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: absolute; inset: 0px;">
-                                                                <img alt="Điều hòa"
-                                                                    src="https://s3.amazonaws.com/v4.meeyland/icon/dieu_hoa.svg"
-                                                                    decoding="async" data-nimg="fill"
-                                                                    class="mr-2 flex-shrink-0"
-                                                                    style="position: absolute; inset: 0px; box-sizing: border-box; padding: 0px; border: none; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%;"
-                                                                    sizes="100vw"
-                                                                    srcset="https://s3.amazonaws.com/v4.meeyland/icon/dieu_hoa.svg 640w, https://s3.amazonaws.com/v4.meeyland/icon/dieu_hoa.svg 750w, https://s3.amazonaws.com/v4.meeyland/icon/dieu_hoa.svg 828w, https://s3.amazonaws.com/v4.meeyland/icon/dieu_hoa.svg 1080w, https://s3.amazonaws.com/v4.meeyland/icon/dieu_hoa.svg 1200w, https://s3.amazonaws.com/v4.meeyland/icon/dieu_hoa.svg 1920w, https://s3.amazonaws.com/v4.meeyland/icon/dieu_hoa.svg 2048w, https://s3.amazonaws.com/v4.meeyland/icon/dieu_hoa.svg 3840w">
-                                                            </span>
+
                                                         </div>
                                                         <p class="text-base flex-grow">Điều hòa</p>
                                                     </div>
                                                     <div class="py-3 flex">
                                                         <div class="h-5 w-10 flex items-center justify-center relative">
-                                                            <span
-                                                                style="box-sizing: border-box; display: block; overflow: hidden; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: absolute; inset: 0px;">
-                                                                <img alt="Tủ lạnh"
-                                                                    src="https://s3.amazonaws.com/v4.meeyland/icon/tu_lanh.svg"
-                                                                    decoding="async" data-nimg="fill"
-                                                                    class="mr-2 flex-shrink-0"
-                                                                    style="position: absolute; inset: 0px; box-sizing: border-box; padding: 0px; border: none; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%;"
-                                                                    sizes="100vw"
-                                                                    srcset="https://s3.amazonaws.com/v4.meeyland/icon/tu_lanh.svg 640w, https://s3.amazonaws.com/v4.meeyland/icon/tu_lanh.svg 750w, https://s3.amazonaws.com/v4.meeyland/icon/tu_lanh.svg 828w, https://s3.amazonaws.com/v4.meeyland/icon/tu_lanh.svg 1080w, https://s3.amazonaws.com/v4.meeyland/icon/tu_lanh.svg 1200w, https://s3.amazonaws.com/v4.meeyland/icon/tu_lanh.svg 1920w, https://s3.amazonaws.com/v4.meeyland/icon/tu_lanh.svg 2048w, https://s3.amazonaws.com/v4.meeyland/icon/tu_lanh.svg 3840w">
-                                                            </span>
+
                                                         </div>
                                                         <p class="text-base flex-grow">Tủ lạnh</p>
                                                     </div>
                                                     <div class="py-3 flex">
                                                         <div class="h-5 w-10 flex items-center justify-center relative">
-                                                            <span
-                                                                style="box-sizing: border-box; display: block; overflow: hidden; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: absolute; inset: 0px;">
-                                                                <img alt="Máy giặt"
-                                                                    src="https://s3.amazonaws.com/v4.meeyland/icon/may_giat.svg"
-                                                                    decoding="async" data-nimg="fill"
-                                                                    class="mr-2 flex-shrink-0"
-                                                                    style="position: absolute; inset: 0px; box-sizing: border-box; padding: 0px; border: none; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%;"
-                                                                    sizes="100vw"
-                                                                    srcset="https://s3.amazonaws.com/v4.meeyland/icon/may_giat.svg 640w, https://s3.amazonaws.com/v4.meeyland/icon/may_giat.svg 750w, https://s3.amazonaws.com/v4.meeyland/icon/may_giat.svg 828w, https://s3.amazonaws.com/v4.meeyland/icon/may_giat.svg 1080w, https://s3.amazonaws.com/v4.meeyland/icon/may_giat.svg 1200w, https://s3.amazonaws.com/v4.meeyland/icon/may_giat.svg 1920w, https://s3.amazonaws.com/v4.meeyland/icon/may_giat.svg 2048w, https://s3.amazonaws.com/v4.meeyland/icon/may_giat.svg 3840w">
-                                                            </span>
+                                                      
+
                                                         </div>
                                                         <p class="text-base flex-grow">Máy giặt</p>
                                                     </div>
@@ -676,7 +651,7 @@
                 integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
                 crossorigin=""></script>
             <!-- Custom JS-->
-            <script src="js/login.js"> </script>
+            <script th:src="@{js/login.js}"> </script>
             <script type="module">
                 /*** REGION 1 - Global variables - Vùng khai báo biến, hằng số, tham số TOÀN CỤC */
 
@@ -690,7 +665,7 @@
                 function loadRealEstateDetail() {
                     const realEstateId = getQueryParam('article-id');
                     $.ajax({
-                        url: "http://localhost:8080/realestate/" + realEstateId
+                        url: "http://localhost:8080/realestate/" + realEstateId + "/detail",
                     }).then(function (data) {
                         console.log(data);
                         // Load province and district data with AJAX promise

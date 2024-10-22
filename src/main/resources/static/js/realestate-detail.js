@@ -20,11 +20,16 @@ $(document).ready(function () {
         }
     });
     initializeTabs();
+    initializeTooltips();
 });
 /*** REGION 3 - Event handlers - Vùng khai báo các hàm xử lý sự kiện */
 
 /*** REGION 4 - Common funtions - Vùng khai báo hàm dùng chung trong toàn bộ chương trình*/
 
+// Hàm khởi tạo tooltip
+function initializeTooltips() {
+    $('[data-bs-toggle="tooltip"]').tooltip();
+}
 // Hàm thiết lập dữ liệu cho các phần tử <span>
 function setDataToElements(data) {
     $('#el_realestate_id').html(`<span>${data.id || ''}</span>`);
@@ -38,7 +43,7 @@ function setDataToElements(data) {
     $('#el_realestate__title').html(`<span>${data.title || ''}</span>`);
     $('#el_realestate_type').html(`<span>${convertRealEstateType(data.type) || ''}</span>`);
     $('#el_realestate__request').html(`<span>${convertRequestType(data.request) || ''}</span>`);
-    $('#el_realestate_customer_id').html(`<span>${data.customer ? (data.customer?.fullName || '') +  " " + (data.customer?.phone || '') : ''}</span>`);
+    $('#el_realestate_customer_id').html(`<span>${data.customer ? (data.customer?.fullName || '') + " " + (data.customer?.phone || '') : ''}</span>`);
     $('#el_realestate_price').html(`<span>${(data.price || '') + " " + (convertPriceUnit(data.priceUnit) || '')}</span>`);
     $('#el_realestate_price_min').html(`<span>${data.detail?.priceMin || ''}</span>`);
     $('#el_realestate_price_time').html(`<span>${convertPriceTime(data.priceTime) || ''}</span>`);
@@ -228,7 +233,7 @@ function convertDirection(direction) {
 }
 
 // Hàm chuyển đổi loại căn hộ từ số sang chuỗi
-function convertApartType(apartType){
+function convertApartType(apartType) {
     switch (apartType) {
         case 0:
             return "Cao cấp";
@@ -242,7 +247,7 @@ function convertApartType(apartType){
 }
 
 // Hàm chuyển vị trí căn hộ từ số sang chuỗi
-function convertApartLoca(apartLoca){
+function convertApartLoca(apartLoca) {
     switch (apartLoca) {
         case 0:
             return "Trung tâm";

@@ -25,7 +25,6 @@
 	<link th:href="@{/css/font-awesome.css}" rel="stylesheet">
 
 	<link th:href="@{/css/adminlte.min.css}" rel="stylesheet">
-	<link th:href="@{/css/all.min.css}" rel="stylesheet">
 	<link th:href="@{/css/home24h.min.css}" rel="stylesheet">
 </head>
 
@@ -174,7 +173,11 @@
 		</nav>
 		<section class="title-bar">
 			<div class="logo">
-				<h1><a href="index.html"><img src="images/logo.png" alt="" />RealEstate.com</a></h1>
+				<h1><a href="index.html">
+						<img src="" alt="" style="display: none;" />
+						RealEstate.com
+					</a>
+				</h1>
 			</div>
 			<div class="w3l_search">
 				<form class="d-flex" action="#" method="post">
@@ -199,7 +202,7 @@
 										</div>
 									</li>
 									<li><a href="#">
-											<div class="user_img"><img src="images/1.png" alt=""></div>
+											<div class="user_img"><img src="" alt=""></div>
 											<div class="notification_desc">
 												<p>Lorem ipsum dolor amet</p>
 												<p><span>1 hour ago</span></p>
@@ -207,7 +210,7 @@
 											<div class="clearfix"></div>
 										</a></li>
 									<li class="odd"><a href="#">
-											<div class="user_img"><img src="images/2.png" alt=""></div>
+											<div class="user_img"><img src="" alt=""></div>
 											<div class="notification_desc">
 												<p>Lorem ipsum dolor amet </p>
 												<p><span>1 hour ago</span></p>
@@ -215,7 +218,7 @@
 											<div class="clearfix"></div>
 										</a></li>
 									<li><a href="#">
-											<div class="user_img"><img src="images/3.png" alt=""></div>
+											<div class="user_img"><img src="" alt=""></div>
 											<div class="notification_desc">
 												<p>Lorem ipsum dolor amet </p>
 												<p><span>1 hour ago</span></p>
@@ -239,7 +242,7 @@
 										</div>
 									</li>
 									<li><a href="#">
-											<div class="user_img"><img src="images/2.png" alt=""></div>
+											<div class="user_img"><img src="" alt=""></div>
 											<div class="notification_desc">
 												<p>Lorem ipsum dolor amet</p>
 												<p><span>1 hour ago</span></p>
@@ -247,7 +250,7 @@
 											<div class="clearfix"></div>
 										</a></li>
 									<li class="odd"><a href="#">
-											<div class="user_img"><img src="images/1.png" alt=""></div>
+											<div class="user_img"><img src="" alt=""></div>
 											<div class="notification_desc">
 												<p>Lorem ipsum dolor amet </p>
 												<p><span>1 hour ago</span></p>
@@ -255,7 +258,7 @@
 											<div class="clearfix"></div>
 										</a></li>
 									<li><a href="#">
-											<div class="user_img"><img src="images/3.png" alt=""></div>
+											<div class="user_img"><img src="" alt=""></div>
 											<div class="notification_desc">
 												<p>Lorem ipsum dolor amet </p>
 												<p><span>1 hour ago</span></p>
@@ -321,28 +324,32 @@
 					<div class="container-fluid">
 						<div class="btn-toolbar-group ew-toolbar">
 							<div class="ew-action-option d-inline-block text-nowrap" data-name="button">
-								<div class="btn-group btn-group-sm ew-btn-group"><a
-										class="btn-toolbar ew-action ew-add" title="" data-caption="Add"
-										href="/devcamp1/realestateadd" data-bs-original-title="Add"><i
-											data-phrase="ViewPageAddLink" class="fas fa-plus ew-icon"><span
+								<div class="btn-group btn-group-sm ew-btn-group"><a class="btn-toolbar ew-action ew-add"
+										title="Add" data-caption="Add" href="/devcamp1/realestateadd"
+										data-bs-original-title="Add" data-bs-toggle="tooltip"
+										data-bs-placement="bottom"><i data-phrase="ViewPageAddLink"
+											class="fas fa-plus ew-icon"><span
 												class="visually-hidden">Add</span></i></a><a
-										class="btn-toolbar ew-action ew-edit" title="" data-caption="Edit"
-										href="/devcamp1/realestateedit/1380" data-bs-original-title="Edit"><i
+										class="btn-toolbar ew-action ew-edit" title="Edit" data-caption="Edit"
+										href="/devcamp1/realestateedit/1380" data-bs-original-title="Edit"
+										data-bs-toggle="tooltip" data-bs-placement="bottom"><i
 											data-phrase="ViewPageEditLink" class="icon-edit ew-icon"><span
 												class="visually-hidden">Edit</span></i></a><a
-										class="btn-toolbar ew-action ew-copy" title="" data-caption="Copy"
-										href="/devcamp1/realestateadd/1380" data-bs-original-title="Copy"><i
+										class="btn-toolbar ew-action ew-copy" title="Copy" data-caption="Copy"
+										href="/devcamp1/realestateadd/1380" data-bs-original-title="Copy"
+										data-bs-toggle="tooltip" data-bs-placement="bottom"><i
 											data-phrase="ViewPageCopyLink" class="icon-copy ew-icon"><span
 												class="visually-hidden">Copy</span></i></a><a
-										class="btn-toolbar ew-action ew-delete" title="" data-caption="Delete"
-										href="/admin/realestate/${id}/delete" data-bs-original-title="Delete"><i
+										class="btn-toolbar ew-action ew-delete" title="Delete" data-caption="Delete"
+										href="/admin/realestate/${id}/delete" data-bs-original-title="Delete"
+										data-bs-toggle="tooltip" data-bs-placement="bottom"><i
 											data-phrase="ViewPageDeleteLink" class="fa-solid fa-trash ew-icon"><span
 												class="visually-hidden">Delete</span></i></a></div>
 							</div>
 						</div>
 						<div class="ew-message-dialog d-none"></div>
-						<form name="frealestateview" id="frealestateview" class="ew-form ew-view-form"
-							action="#" method="post">
+						<form name="frealestateview" id="frealestateview" class="ew-form ew-view-form" action="#"
+							method="post">
 							<input type="hidden" name="t" value="realestate">
 							<input type="hidden" name="modal" value="0">
 							<span id="el_realestate_photo" data-page="0">
@@ -508,7 +515,7 @@
 														<td data-name="__request">
 															<span id="el_realestate___request" data-page="1">
 																<span>
-																	 </span>
+																</span>
 															</span>
 														</td>
 													</tr>
@@ -518,7 +525,7 @@
 														<td data-name="customer_id">
 															<span id="el_realestate_customer_id" data-page="1">
 																<span>
-																	 </span>
+																</span>
 															</span>
 														</td>
 													</tr>
