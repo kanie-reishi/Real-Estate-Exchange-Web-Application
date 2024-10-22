@@ -703,22 +703,26 @@ public class RealEstateService {
         if (realEstate.getProvince() != null) {
             provinceDto.setId(realEstate.getProvince().getId());
             provinceDto.setName(realEstate.getProvince().getName());
+            realEstateDto.getKeywords().add(realEstate.getProvince().getName());
             addressDto.setProvince(provinceDto);
         }
         if (realEstate.getDistrict() != null) {
             districtDto.setId(realEstate.getDistrict().getId());
             districtDto.setName(realEstate.getDistrict().getName());
             districtDto.setPrefix(realEstate.getDistrict().getPrefix());
+            realEstateDto.getKeywords().add(realEstate.getDistrict().getName());
             addressDto.setDistrict(districtDto);
         }
         if (realEstate.getWard() != null) {
             wardDto.setId(realEstate.getWard().getId());
             wardDto.setName(realEstate.getWard().getName());
+            wardDto.setPrefix(realEstate.getWard().getPrefix());
             addressDto.setWard(wardDto);
         }
         if (realEstate.getStreet() != null) {
             streetDto.setId(realEstate.getStreet().getId());
             streetDto.setName(realEstate.getStreet().getName());
+            realEstateDto.getKeywords().add(realEstate.getStreet().getName());
             addressDto.setStreet(streetDto);
         }
         addressDto.setProvince(provinceDto);
