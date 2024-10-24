@@ -23,6 +23,7 @@
     <link th:href="@{/css/font-awesome.css}" rel="stylesheet">
     <!-- DataTables CSS-->
     <link th:href="@{https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.min.css}" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" th:href="@{https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css}">
 </head>
 
 <body class="dashboard-page">
@@ -300,7 +301,7 @@
 						<div class="btn">
 							<a th:href="@{/admin/realestate/form}" class="btn btn-primary">Thêm BĐS</a>
 						</div>
-						<table id="realestate-table">
+						<table id="realestate-table" class="display responsive nowrap" style="width:100%">
 							<thead>
 								<tr>
 									<th>Chức năng</th>

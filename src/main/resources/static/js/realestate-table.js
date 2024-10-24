@@ -7,6 +7,7 @@ $(document).ready(function () {
         "processing": true,
         "serverSide": true,
         "scrollX": true,
+        "responsive" : true,
         "ajax": {
             "url": "http://localhost:8080/realestate/table",
             "type": "GET",

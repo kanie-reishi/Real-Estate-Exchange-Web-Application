@@ -6,6 +6,7 @@ $(document).ready(function () {
     loadProvinceData();
     // Load real estate data
     loadBatDongSanPhuHop();
+ 
     // Handle search button click event
     $("#btn-search").click(function () {
         var provinceId = $("#province").val();
@@ -69,7 +70,7 @@ function loadBatDongSanPhuHop() {
                 }
                 var realEstateCard = `
                         <div class="bg-white cursor-pointer slider-hover relative rounded-lg border border-gray-v1">
-                        <a href="article-detail.html?article-id=${realEstate.id}">
+                        <a href="/realestate/${realEstate.id}">
                             <div class="rounded-lg transition-shadow duration-300 text-black-v8 bg-white w-full w-full">
                                 <div class="relative overflow-hidden rounded-lg">
                                     <div>

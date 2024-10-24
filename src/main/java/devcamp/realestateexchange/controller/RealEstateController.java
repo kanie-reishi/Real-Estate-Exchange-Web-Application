@@ -41,14 +41,14 @@ public class RealEstateController {
     public ResponseEntity<Object> getRealEstateList(Pageable pageable) {
         try {
             // Check user, only admin can see unapproved real estates
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            /* Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             boolean isAdmin = authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
             if (isAdmin) {
                 Integer verify = 0;
                 Page<RealEstateDto> realEstatePage = realEstateService.getAllRealEstateDtos(pageable, verify);
                 return ResponseEntity.ok(realEstatePage);
-            }
-            Integer verify = 1;
+            } */
+            Integer verify = 0; 
             Page<RealEstateDto> realEstatePage = realEstateService.getAllRealEstateDtos(pageable, verify);
             return ResponseEntity.ok(realEstatePage);
         } catch (Exception e) {
@@ -140,15 +140,15 @@ public class RealEstateController {
             boolean isAdmin = authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
 
             RealEstateDto realEstate = realEstateService.getRealEstateById(id);
-            if (isAdmin) {
+            /* if (isAdmin) {
                 return ResponseEntity.ok(realEstate);
-            }
+            } */
             if(realEstate == null) {
                 return ResponseEntity.badRequest().body("Real estate not found");
             }
-            if(realEstate.getVerify() == null || realEstate.getVerify() == 0) {
+            /* if(realEstate.getVerify() == null || realEstate.getVerify() == 0) {
                 return ResponseEntity.badRequest().body("Real estate is not approved");
-            }
+            } */
             return ResponseEntity.ok(realEstate);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
