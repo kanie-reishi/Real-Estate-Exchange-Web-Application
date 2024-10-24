@@ -90,8 +90,12 @@ public class RealEstateService {
     private static final SimpleDateFormat isoFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
     // Phương thức lấy tất cả RealEstateDto
-    public Page<RealEstateDto> getAllRealEstateDtos(Pageable pageable) {
-        Page<RealEstateProjection> projections = realEstateRepository.findAllBasicProjections(pageable);
+    public Page<RealEstateDto> getAllRealEstateDtos(Pageable pageable, Integer verify) {
+        if(verify == 0){
+            Page<RealEstateProjection> projections = realEstateRepository.findAllBasicProjections(pageable);
+            return projections.map(this::convertProjectionToDto);
+        }
+        Page<RealEstateProjection> projections = realEstateRepository.findVerifiedRealEstates(pageable);
         return projections.map(this::convertProjectionToDto);
     }
 

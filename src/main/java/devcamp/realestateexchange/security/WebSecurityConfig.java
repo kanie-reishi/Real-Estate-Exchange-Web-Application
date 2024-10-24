@@ -64,17 +64,19 @@ public class WebSecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
+    // Security filter chain configuration
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.exceptionHandling(exceptionHandling -> exceptionHandling.authenticationEntryPoint(unauthorizedHandler))
-                .authorizeRequests(auth -> auth
-                        .antMatchers("/**").permitAll()
-                        .antMatchers("/admin/**").hasAnyRole("ADMIN", "EMPlOYEE")
-                        .antMatchers("/user/**").hasRole("USER")
-                        .anyRequest().authenticated())
-                .csrf(csrf -> csrf.disable())
-                .authenticationProvider(authenticationProvider())
-                .addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+       http.cors().and().csrf().disable()
+            .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
+            .authorizeRequests().antMatchers("/", "/login", "/signup", "/login/admin", "/auth/login/admin", "/realestate/**", "/css/**", "/js/**", "/images/**").permitAll()
+            .antMatchers("/api/test/**").permitAll()
+            .antMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
+            .antMatchers("/realestate/table").hasAuthority("ROLE_ADMIN")
+            .antMatchers("/user/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
+            .anyRequest().authenticated();
+
+        http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 }

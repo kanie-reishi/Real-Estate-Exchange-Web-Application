@@ -39,16 +39,6 @@ public class AuthTokenFilter extends OncePerRequestFilter {
       String jwt = parseJwtFromCookie(request);
       // Validate JWT token
       if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
-        // Check if token is in Redis
-        if(!redisTemplate.hasKey(jwt)){
-          response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token not found in Redis");
-          return;
-        }
-        // Check if token is expired
-        if(jwtUtils.isTokenExpired(jwt)){
-          response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token expired");
-          return;
-        }
         // Get username from JWT token
         String username = jwtUtils.getUserNameFromJwtToken(jwt);
         // Load user details
@@ -73,19 +63,24 @@ public class AuthTokenFilter extends OncePerRequestFilter {
   }
 
   public String parseJwtFromCookie(HttpServletRequest request) {
-    // Get JWT token from cookie
-    Cookie[] cookies = request.getCookies();
-    // Check if cookies are not null
-    if (cookies != null) {
-      // Iterate through cookies
-        for (Cookie cookie : cookies) {
-          // Check if cookie name is "token"
-            if ("token".equals(cookie.getName())) {
-                return cookie.getValue();
+        String headerAuth = request.getHeader("Authorization");
+
+        if (headerAuth != null && headerAuth.startsWith("Bearer ")) {
+            return headerAuth.substring(7);
+        }
+
+        // Check for JWT in cookies
+        if (headerAuth == null) {
+            Cookie[] cookies = request.getCookies();
+            if (cookies != null) {
+                for (Cookie cookie : cookies) {
+                    if (cookie.getName().equals("jwt")) {
+                        return cookie.getValue();
+                    }
+                }
             }
         }
-    }
-    // Return null if no token is found
-    return null;
+
+        return null;
   }
 }

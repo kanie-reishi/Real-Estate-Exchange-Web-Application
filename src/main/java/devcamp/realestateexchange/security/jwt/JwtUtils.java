@@ -2,12 +2,15 @@ package devcamp.realestateexchange.security.jwt;
 
 import java.security.SignatureException;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import devcamp.realestateexchange.security.services.UserDetailsImpl;
@@ -33,30 +36,36 @@ public class JwtUtils {
 
     @Autowired
     private StringRedisTemplate redisTemplate;
+
     // Generate JWT token
     public String generateJwtToken(Authentication authentication) {
 
         UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
-
+        List<String> roles = userPrincipal.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.toList());
         return Jwts.builder()
                 .setSubject((userPrincipal.getUsername()))
+                .claim("scopes", roles)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact();
     }
+
     // Storing the token in Redis
     public void storeTokenInRedis(String token, String username) {
         redisTemplate.opsForValue().set(username, token);
         redisTemplate.expire(username, jwtExpirationMs, java.util.concurrent.TimeUnit.MILLISECONDS);
     }
+
     // Get username from JWT token
     public String getUserNameFromJwtToken(String token) {
         return Jwts.parser()
-            .setSigningKey(jwtSecret)
-            .parseClaimsJws(token)
-            .getBody()
-            .getSubject();
+                .setSigningKey(jwtSecret)
+                .parseClaimsJws(token)
+                .getBody()
+                .getSubject();
     }
 
     // Validate JWT token
@@ -102,7 +111,8 @@ public class JwtUtils {
         if (expiration == null || expirationRedis == null) {
             return false;
         }
-         // Check if the token is expired and mismatched with the expiration date in Redis or not
+        // Check if the token is expired and mismatched with the expiration date in
+        // Redis or not
         return expiration.before(new Date()) || !expiration.equals(expirationRedis);
     }
 
@@ -126,6 +136,7 @@ public class JwtUtils {
         // If no cookie with the name "token" is found, return null
         return null;
     }
+
     public void removeTokenFromRedis(String token) {
         redisTemplate.delete(getUserNameFromJwtToken(token));
     }

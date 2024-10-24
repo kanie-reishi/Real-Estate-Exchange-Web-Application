@@ -27,4 +27,8 @@ public interface IRealEstateRepository
         // Get real estates by real estate id
         @Query("SELECT r FROM RealEstate r WHERE r.id = :realEstateId")
         RealEstateExtendProjection findRealEstateById(Integer realEstateId);
+
+        // Get real estate that verified by admin
+        @Query("SELECT r FROM RealEstate r WHERE r.verify = 1")
+        Page<RealEstateProjection> findVerifiedRealEstates(Pageable pageable);
 }

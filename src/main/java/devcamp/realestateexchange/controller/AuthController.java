@@ -33,10 +33,12 @@ import devcamp.realestateexchange.security.jwt.JwtUtils;
 import devcamp.realestateexchange.security.services.UserDetailsImpl;
 import devcamp.realestateexchange.security.services.UserDetailsServiceImpl;
 import devcamp.realestateexchange.services.user.CustomerService;
+import lombok.extern.slf4j.Slf4j;
 import devcamp.realestateexchange.security.services.LoginAttemptService;
 
 @CrossOrigin
 @RestController
+@Slf4j
 public class AuthController {
 
         @Autowired
@@ -102,6 +104,7 @@ public class AuthController {
                                 .message("Login successful!")
                                 .data(JwtResponse.builder()
                                                 .id(userDetails.getId())
+                                                .token(jwt)
                                                 .username(userDetails.getUsername())
                                                 .roles(roles)
                                                 .build())
@@ -112,7 +115,64 @@ public class AuthController {
                 jwtUtils.storeTokenInRedis(jwt, loginRequest.getUsername());
                 return new ResponseEntity<>(apiResponse, HttpStatus.OK);
         }
-
+        @PostMapping("auth/login/admin")
+        public ResponseEntity<?> authenticateAdmin(@Valid @RequestBody LoginRequest loginRequest,
+                        HttpServletResponse response) {
+                // Check if the user is already logged in
+                if (loginAttemptService.isLogin(loginRequest.getUsername())) {
+                        return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS)
+                                        .body("User is already logged in.");
+                }
+                // Check if the user has reached the maximum number of login attempts 
+                if (loginAttemptService.incrementLoginAttemptsAndCheck(loginRequest.getUsername())) {
+                        return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS)
+                                        .body("Too many login attempts. Please try again later.");
+                }
+                // Authenticate user
+                Authentication authentication = authenticationManager.authenticate(
+                                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),
+                                                loginRequest.getPassword()));
+                UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+                // Check if the user is an admin
+                log.info("User roles: {}", userDetails.getAuthorities());
+                if (!userDetails.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+                        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized access, user is not an admin.");
+                }
+                // Set the authentication object to the SecurityContext
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+                // Login successful, reset the login attempt
+                loginAttemptService.resetLoginAttempts(loginRequest.getUsername());
+                // Generate JWT token
+                String jwt = jwtUtils.generateJwtToken(authentication);
+                // Create a new cookie
+                Cookie jwtCookie = new Cookie("token", jwt);
+                // Set the cookie to HTTP-only for security
+                jwtCookie.setHttpOnly(true);
+                // Optionally, set the cookie to secure if you're using HTTPS
+                // jwtCookie.setSecure(true);
+                // Add the cookie to the response
+                response.addCookie(jwtCookie);
+                // Get the UserDetailsImpl object from the authentication object
+                // Get the roles from the UserDetailsImpl object
+                List<String> roles = userDetails.getAuthorities().stream()
+                                .map(GrantedAuthority::getAuthority)
+                                .collect(Collectors.toList());
+                // Create a response object
+                APIResponse apiResponse = APIResponse.builder()
+                                .message("Login successful!")
+                                .data(JwtResponse.builder()
+                                                .id(userDetails.getId())
+                                                .token(jwt)
+                                                .username(userDetails.getUsername())
+                                                .roles(roles)
+                                                .build())
+                                .isSuccessful(true)
+                                .statusCode(200)
+                                .build();
+                // Store the token in Redis
+                jwtUtils.storeTokenInRedis(jwt, loginRequest.getUsername());
+                return new ResponseEntity<>(apiResponse, HttpStatus.OK);
+        }
         @PostMapping("/signup")
         public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
                 // Check if the username or email is already taken

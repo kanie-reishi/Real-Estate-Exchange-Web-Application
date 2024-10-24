@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>RealEstate.com</title>
     <!-- Font Awesome-->
     <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css}"
@@ -18,9 +18,8 @@
         integrity="sha512-LFWtdAXHQuwUGH9cImO9blA3a3GfQNkpF2uRlhaOpSbDevNyK1rmAjs13mtpjvWyi+flP7zYWboqY+8Mkd42xA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-        <link rel="stylesheet" th:href="@{https://unpkg.com/leaflet@1.9.4/dist/leaflet.css}"
-        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-        crossorigin=""/>
+    <link rel="stylesheet" th:href="@{https://unpkg.com/leaflet@1.9.4/dist/leaflet.css}"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
     <!-- Custom CSS-->
     <link rel="stylesheet" th:href="@{/css/output.css}">
 </head>
@@ -135,9 +134,9 @@
                                             <div
                                                 class="flex items-start space-x-[0.875rem] mb-[1.875rem] text-black-v8 px-4 lg:px-0">
                                                 <div class="w-full">
-                                                    <h1
-                                                        class="text-lg font-semibold line-clamp-2 mb-[0.625rem] text-[#2b2b2b]" id="title">
-                                                        </h1>
+                                                    <h1 class="text-lg font-semibold line-clamp-2 mb-[0.625rem] text-[#2b2b2b]"
+                                                        id="title">
+                                                    </h1>
                                                     <div
                                                         class="h-[1.375rem] flex items-start justify-between text-base space-x-4">
                                                         <p class="line-clamp-2" id="address"></p>
@@ -151,18 +150,21 @@
                                                 <div class="flex justify-between py-5 border-t border-b border-gray-v1">
                                                     <div class="text-black-v6 h-[4.5rem] basis-auto flex-grow">
                                                         <p class="text-base mb-[2px]">Giá bán</p>
-                                                        <h3 class="text-lg font-semibold text-black-v8" id="h3-price"></h3>
+                                                        <h3 class="text-lg font-semibold text-black-v8" id="h3-price">
+                                                        </h3>
                                                         <span class="text-xs" id="price"></span>
                                                     </div>
                                                     <div
                                                         class="text-black-v6 h-[4.5rem] basis-auto flex-grow pl-4 border-l border-gray-v1">
                                                         <p class="text-base mb-[2px]">Diện tích</p>
-                                                        <h3 class="text-lg font-semibold text-black-v8" id="h3-acreage"></h3>
+                                                        <h3 class="text-lg font-semibold text-black-v8" id="h3-acreage">
+                                                        </h3>
                                                     </div>
                                                     <div
                                                         class="text-black-v6 h-[4.5rem] basis-auto flex-grow pl-4 border-l border-gray-v1">
                                                         <p class="text-base mb-[2px]">Phòng ngủ</p>
-                                                        <h3 class="text-lg font-semibold text-black-v8" id="h3-bedroom"></h3>
+                                                        <h3 class="text-lg font-semibold text-black-v8" id="h3-bedroom">
+                                                        </h3>
                                                     </div>
                                                 </div>
                                             </div>
@@ -319,7 +321,7 @@
                                                     </div>
                                                     <div class="py-3 flex">
                                                         <div class="h-5 w-10 flex items-center justify-center relative">
-                                                      
+
 
                                                         </div>
                                                         <p class="text-base flex-grow">Máy giặt</p>
@@ -648,8 +650,7 @@
                 integrity="sha512-S9RkWnGja84tXKFxTN7iLVP3pUCsnfqnF+0ZK2CSOhmCqa6lxoutHUoizBVnqCIsH8HW7e/3u9HEOOwlR01TLA=="
                 crossorigin="anonymous" referrerpolicy="no-referrer"></script>
             <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-                integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-                crossorigin=""></script>
+                integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
             <!-- Custom JS-->
             <script th:src="@{js/login.js}"> </script>
             <script type="module">
@@ -727,7 +728,7 @@
             </script>
             <script>
                 var map = L.map('mapid').setView([10.773611, 106.667222], 13);
-            
+
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                     maxZoom: 19,
                 }).addTo(map);

@@ -1,12 +1,17 @@
 package devcamp.realestateexchange.controller;
 
+import java.security.Security;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.persistence.criteria.CriteriaBuilder.In;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,8 +24,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import devcamp.realestateexchange.dto.realestate.RealEstateDto;
+import devcamp.realestateexchange.entity.authentication.User;
 import devcamp.realestateexchange.entity.realestate.RealEstate;
 import devcamp.realestateexchange.models.RealEstateSearchParameters;
+import devcamp.realestateexchange.security.services.UserDetailsImpl;
 import devcamp.realestateexchange.services.realestate.RealEstateService;
 
 @RestController
@@ -33,7 +40,16 @@ public class RealEstateController {
     @GetMapping("/realestate")
     public ResponseEntity<Object> getRealEstateList(Pageable pageable) {
         try {
-            Page<RealEstateDto> realEstatePage = realEstateService.getAllRealEstateDtos(pageable);
+            // Check user, only admin can see unapproved real estates
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            boolean isAdmin = authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
+            if (isAdmin) {
+                Integer verify = 0;
+                Page<RealEstateDto> realEstatePage = realEstateService.getAllRealEstateDtos(pageable, verify);
+                return ResponseEntity.ok(realEstatePage);
+            }
+            Integer verify = 1;
+            Page<RealEstateDto> realEstatePage = realEstateService.getAllRealEstateDtos(pageable, verify);
             return ResponseEntity.ok(realEstatePage);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -119,14 +135,27 @@ public class RealEstateController {
     @GetMapping("/realestate/{id}/detail")
     public ResponseEntity<Object> getRealEstateById(@PathVariable Integer id) {
         try {
+            // Check user, only admin can see unapproved real estates
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            boolean isAdmin = authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
+
             RealEstateDto realEstate = realEstateService.getRealEstateById(id);
+            if (isAdmin) {
+                return ResponseEntity.ok(realEstate);
+            }
+            if(realEstate == null) {
+                return ResponseEntity.badRequest().body("Real estate not found");
+            }
+            if(realEstate.getVerify() == 0) {
+                return ResponseEntity.badRequest().body("Real estate is not approved");
+            }
             return ResponseEntity.ok(realEstate);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
     // REST API for creating real estate
-    @PostMapping("/realestate")
+    @PostMapping("/user/realestate")
     public ResponseEntity<Object> createRealEstate(@RequestBody RealEstateDto realEstateDto) {
         try {
             realEstateService.saveRealEstate(realEstateDto);
@@ -136,7 +165,7 @@ public class RealEstateController {
         }
     }
     // REST API for updating real estate
-    @PutMapping("/realestate")
+    @PutMapping("/admin/realestate/update")
     public ResponseEntity<Object> updateRealEstate(@RequestBody RealEstateDto realEstateDto) {
         try {
             realEstateService.saveRealEstate(realEstateDto);
@@ -146,7 +175,7 @@ public class RealEstateController {
         }
     }
     // REST API for deleting real estate
-    @DeleteMapping("/realestate")
+    @DeleteMapping("/admin/realestate/delete")
     public ResponseEntity<Object> deleteRealEstate(@RequestParam Integer id) {
         try {
             realEstateService.deleteRealEstateById(id);
