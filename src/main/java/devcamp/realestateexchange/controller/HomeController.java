@@ -21,6 +21,11 @@ public class HomeController {
         model.addAttribute("id", id);
         return "article-detail";
     }
+
+    @GetMapping("/realestate/list")
+    public String getArticles() {
+        return "article-list";
+    }
     @GetMapping("/realestate/create")
     public String createArticle() {
         return "article-create";

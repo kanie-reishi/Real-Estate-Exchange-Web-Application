@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RealEstate.com</title>
+    <!-- Font Awesome-->
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css}"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Bootstrap CSS-->
+    <link th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css}" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- Custom CSS-->
+    <link rel="stylesheet" th:href="@{/css/output.css}">
+</head>
+
+<body>
+    <!-- Navbar-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">RealEstate.com</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Mua bán</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Cho thuê</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Sang nhượng</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Dự án</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Tin tức</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Liên hệ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Về chúng tôi</a>
+                    </li>
+                </ul>
+                <button class="btn" data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-dismiss="modal">
+                    <i class="fa-regular fa-user"></i>
+                    Đăng ký/ Đăng nhập
+                </button>
+                <button class="btn btn-outline-info">Đăng tin</button>
+            </div>
+            <button class="btn"><i class="fa-regular fa-heart"></i></button>
+        </div>
+    </nav>
+    <!-- Search Box -->
+    <div class="fresnel-container fresnel-greaterThanOrEqual-lg">
+        <div class="relative text-white z-5 bg-gray-v1 font-normal">
+            <div class="relative text-white z-5 bg-gray-v1 font-normal">
+                <div class="overflow-hidden w-full home_home-banner__fK8Tn">
+                    <div class="w-full mx-auto h-full bg-[#D8D4C9]">
+                        <div class="flex justify-center w-full h-full">
+                            <span class="md:h-500"
+                                style="box-sizing: border-box; display: inline-block; overflow: hidden; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px;position: relative; max-width: 100%;">
+                                <span
+                                    style="box-sizing: border-box; display: block; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; max-width: 100%;">
+                                    <img alt="" aria-hidden="true"
+                                        src="data:image/svg+xml,%3csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20version=%271.1%27%20width=%271911%27%20height=%27640%27/%3e"
+                                        style="display: block; max-width: 100%; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px;">
+                                </span>
+                                <img alt="Banner Img" th:src="@{/images/pexels-binyaminmellish-106399 (1).jpg}"
+                                    class="object-cover w-full h-full"
+                                    style="position: absolute; inset: 0px; box-sizing: border-box; padding: 0px; border: none; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%;">
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="absolute inset-0 top-[39px] 2xl:top-24 md:w-[700px] mx-auto md:mt-100">
+                    <div class="relative my-2">
+                        <div class="flex items-start justify-center flex-col">
+                            <div class="flex mb-2">
+                                <div class="tab">
+                                    <div class="tab-item py-3 mr-6 text-white tab-item-home active"><button
+                                            class="text-base" type="button">Mua bán</button>
+                                    </div>
+                                </div>
+                                <div class="tab">
+                                    <div class="tab-item py-3 mr-6 text-white tab-item-home"><button
+                                            class="text-base undefined" type="button">Cho thuê</button>
+                                    </div>
+                                </div>
+                                <div class="tab">
+                                    <div class="tab-item py-3 mr-6 text-white tab-item-home"><button
+                                            class="text-base undefined" type="button">Sang nhượng</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="relative w-full bg-white rounded-2xl search-input_search-input-wrapper__R8nkU">
+                            <div class="flex justify-between items-center p-2">
+                                <div class="w-full flex items-center"><input
+                                        class="w-full text-base px-[20px] text-black-v8 search-input_search-input__IqSQH"
+                                        type="text" placeholder="Nhập địa chỉ hoặc dự án" maxlength="100" value="">
+                                </div><button
+                                    class="flex justify-center items-center w-[137px] h-[48px] button-primary rounded-[12px] shrink-0"
+                                    type="button"><i class="ml ml-search text-white text-[1.5rem] mr-1"></i>Tìm
+                                    kiếm</button>
+                            </div>
+                        </div>
+                        <div
+                            class="relative inline-flex px-3 py-2 rounded-b-xl w-[633px] search-input_filter-desktop__yE7Y8 sm:p-0 sm:h-150 sm:search-input-flex sm:w-100">
+                            <!-- Loại nhà đất -->
+                            <div class="relative select pl-2.5 w-[148px] mr-2 sm:h-30">
+                                <div class="cursor-pointer flex items-center justify-between text-base pl-2 py-1 hover:bg-[rgba(221,221,221,0.3)] hover:rounded-lg"
+                                    id="property-type-dropdown">
+                                    <div class="truncate flex"><span class="overflow-hidden overflow-ellipsis">Loại nhà
+                                            đất</span>
+                                    </div>
+                                    <i class="ml ml-expand_more text-white text-[1.5rem] flex-shrink-0"></i>
+                                </div>
+                                <div class="absolute bg-white shadow-lg rounded-lg mt-1 hidden"
+                                    id="property-type-options">
+                                    <label class="block px-4 py-2 text-black-v8"><input type="checkbox" value="0"
+                                            class="property-type-checkbox"> Đất</label>
+                                    <label class="block px-4 py-2 text-black-v8"><input type="checkbox" value="1"
+                                            class="property-type-checkbox"> Nhà ở</label>
+                                    <label class="block px-4 py-2 text-black-v8"><input type="checkbox" value="2"
+                                            class="property-type-checkbox"> Căn hộ/Chung
+                                        cư</label>
+                                    <label class="block px-4 py-2 text-black-v8"><input type="checkbox" value="3"
+                                            class="property-type-checkbox"> Văn phòng, Mặt
+                                        bằng</label>
+                                    <label class="block px-4 py-2 text-black-v8"><input type="checkbox" value="4"
+                                            class="property-type-checkbox"> Kinh doanh</label>
+                                    <label class="block px-4 py-2 text-black-v8"><input type="checkbox" value="5"
+                                            class="property-type-checkbox"> Phòng trọ</label>
+                                    <label class="block px-4 py-2 text-black-v8"><input type="checkbox" value="6"
+                                            class="property-type-checkbox"> Khác</label>
+                                </div>
+                            </div>
+                            <!-- Khu vực -->
+                            <div class="relative select pl-1.5 mr-2 w-[120px] sm:h-30">
+                                <div class="cursor-pointer flex items-center justify-between text-base pl-2 py-1 hover:bg-[rgba(221,221,221,0.3)] hover:rounded-lg"
+                                    id="location-dropdown">
+                                    <div class="truncate flex"><span class="overflow-hidden overflow-ellipsis">Khu vực
+                                        </span>
+                                    </div>
+                                    <i class="ml ml-expand_more text-white text-[1.5rem] flex-shrink-0"></i>
+                                </div>
+                                <div class="absolute bg-white shadow-lg rounded-lg mt-1 hidden" id="location-options">
+                                    <label class="block px-4 py-2 text-black-v8"><input type="checkbox" value="hanoi"
+                                            class="location-checkbox text-black-v8"> Hà
+                                        Nội</label>
+                                    <label class="block px-4 py-2 text-black-v8"><input type="checkbox" value="hcm"
+                                            class="location-checkbox text-black-v8"> TP. Hồ Chí
+                                        Minh</label>
+                                    <label class="block px-4 py-2 text-black-v8"><input type="checkbox" value="danang"
+                                            class="location-checkbox"> Đà Nẵng</label>
+                                    <!-- Add more locations as needed -->
+                                </div>
+                            </div>
+                            <div class="relative select pl-1.5 mr-2 w-[116px] sm:h-30">
+                                <div class="cursor-pointer flex items-center justify-between text-base pl-2 py-1 hover:bg-[rgba(221,221,221,0.3)] hover:rounded-lg"
+                                    id="price-range-dropdown">
+                                    <div class="truncate flex"><span class="overflow-hidden overflow-ellipsis">Mức
+                                            giá</span></div><i
+                                        class="ml ml-expand_more text-white text-[1.5rem] flex-shrink-0"></i>
+                                </div>
+                                <div class="absolute bg-white shadow-lg rounded-lg mt-1 hidden"
+                                    id="price-range-options">
+                                    <label class="block px-4 py-2 text-black-v8"><input type="checkbox" value="0-1"
+                                            class="price-range-checkbox"> Dưới 1 tỷ</label>
+                                    <label class="block px-4 py-2 text-black-v8"><input type="checkbox" value="1-3"
+                                            class="price-range-checkbox"> 1 - 3 tỷ</label>
+                                    <label class="block px-4 py-2 text-black-v8"><input type="checkbox" value="3-5"
+                                            class="price-range-checkbox"> 3 - 5 tỷ</label>
+                                    <label class="block px-4 py-2 text-black-v8"><input type="checkbox" value="5-10"
+                                            class="price-range-checkbox"> 5 - 10 tỷ</label>
+                                    <label class="block px-4 py-2 text-black-v8"><input type="checkbox" value="10+"
+                                            class="price-range-checkbox"> Trên 10 tỷ</label>
+                                </div>
+                            </div>
+                            <div class="relative select pl-1.5 mr-2 w-[126px] sm:h-30">
+                                <div class="cursor-pointer flex items-center justify-between text-base pl-2 py-1 hover:bg-[rgba(221,221,221,0.3)] hover:rounded-lg"
+                                    id="area-range-dropdown">
+                                    <div class="truncate flex"><span class="overflow-hidden overflow-ellipsis">Diện
+                                            tích</span></div><i
+                                        class="ml ml-expand_more text-white text-[1.5rem] flex-shrink-0"></i>
+                                    <div class="absolute bg-white shadow-lg rounded-lg mt-1 hidden"
+                                        id="area-range-options">
+                                        <label class="block px-4 py-2 text-black-v8"><input type="checkbox" value="0-50"
+                                                class="area-range-checkbox"> Dưới 50 m²</label>
+                                        <label class="block px-4 py-2 text-black-v8"><input type="checkbox"
+                                                value="50-100" class="area-range-checkbox"> 50 - 100
+                                            m²</label>
+                                        <label class="block px-4 py-2 text-black-v8"><input type="checkbox"
+                                                value="100-200" class="area-range-checkbox"> 100 - 200
+                                            m²</label>
+                                        <label class="block px-4 py-2 text-black-v8"><input type="checkbox" value="200+"
+                                                class="area-range-checkbox"> Trên 200
+                                            m²</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="relative select w-[116px] pl-1.5 sm:h-30">
+                                <div class="cursor-pointer flex items-center justify-between text-base pl-2 py-1 hover:bg-[rgba(221,221,221,0.3)] hover:rounded-lg"
+                                    id="project-dropdown">
+                                    <div class="truncate flex"><span class="overflow-hidden overflow-ellipsis">Dự
+                                            án</span></div><i
+                                        class="ml ml-expand_more text-white text-[1.5rem] flex-shrink-0"></i>
+                                    <div class="absolute bg-white shadow-lg rounded-lg mt-1 hidden"
+                                        id="project-options">
+                                        <label class="block px-4 py-2 text-black-v8"><input type="checkbox"
+                                                value="project1" class="project-checkbox"> Dự án 1</label>
+                                        <label class="block px-4 py-2 text-black-v8"><input type="checkbox"
+                                                value="project2" class="project-checkbox"> Dự án 2</label>
+                                        <!-- Add more projects as needed -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- List-->
+    <div class="container" id="real-estate-list">
+        <!-- Load List Item-->
+    </div>
+    <!--Footer-->
+    <footer class="relative lg:top-[76px] top-[104px]">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <h3>RealEstate.com</h3>
+                    <p>RealEstate.com là trang web mua bán, cho thuê, sang nhượng bất động sản hàng đầu Việt Nam</p>
+                </div>
+                <div class="col-md-3">
+                    <h3>Liên hệ</h3>
+                    <p>Địa chỉ: 123 Đường ABC, Quận XYZ, TP. HCM</p>
+                    <p>Email:</p>
+                    <p>Điện thoại: 0123456789</p>
+                </div>
+                <div class="col-md-3">
+                    <h3>Liên kết</h3>
+                    <ul>
+                        <a href="#" class="nav-link">
+                            <i class="fa-brands fa-facebook"></i>
+                        </a>
+                        <a href="#" class="nav-link">
+                            <i class="fa-brands fa-youtube"></i>
+                        </a>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Modal Login -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginModalLabel">Đăng nhập</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="#">
+                        <div class="mb-3">
+                            <label for="text" class="form-label" style="font-size: 13px;">Số điện thoại/ Email</label>
+                            <input type="text" class="form-control" id="text" aria-describedby="emailHelp"
+                                placeholder="Nhập số điện thoại/ Email">
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label" style="font-size: 13px;">Mật khẩu</label>
+                            <input type="password" class="form-control" id="password" placeholder="Nhập mật khẩu">
+                        </div>
+                        <div style="margin-bottom:1.5rem" class="d-grid">
+                            <button style="text-align: right;font-size: 15px;" class="btn">Quên mật khẩu?</button>
+                        </div>
+                        <div style="margin-bottom:1.5rem" class="d-grid">
+                            <button class="btn btn-primary">Đăng nhập</button>
+                        </div>
+                    </form>
+                    <div class="text-center" style="margin-bottom:1.5rem">
+                        <span>
+                            Bạn chưa có tài khoản?
+                            <button class="btn btn-link" data-bs-toggle="modal" data-bs-target="#registerModal"
+                                data-bs-dismiss="modal">Đăng ký
+                            </button>
+                        </span>
+                    </div>
+                    <div class="text-center">
+                        <span>Hoặc đăng nhập bằng</span>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-primary btn-">Facebook</button>
+                        <button class="btn btn-danger">Google</button>
+                    </div>
+                    <div class="text-center" style="margin-bottom:1.5rem">
+                        <p style="font-size: 13px;">
+                            Bằng cách đăng nhập, bạn đồng ý với Điều khoản dịch vụ và Chính sách bảo mật của chúng tôi
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Register -->
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="registerModalLabel">Đăng ký</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="#">
+                        <div class="mb-3">
+                            <label for="text" class="form-label" style="font-size: 13px;">Số điện thoại/ Email</label>
+                            <input type="text" class="form-control" id="email" aria-describedby="emailHelp"
+                                placeholder="Nhập số điện thoại/ Email">
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label" style="font-size: 13px;">Mật khẩu</label>
+                            <input type="password" class="form-control" id="password" placeholder="Nhập mật khẩu">
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label" style="font-size: 13px;">Nhập lại mật khẩu</label>
+                            <input type="password" class="form-control" id="password" placeholder="Nhập lại mật khẩu">
+                        </div>
+                        <div class="d-grid">
+                            <button class="btn btn-primary">Đăng ký</button>
+                        </div>
+                    </form>
+                    <div class="text-center" style="margin-bottom:1.5rem">
+                        <span>
+                            Bạn đã có tài khoản?
+                            <button class="btn btn-link" data-bs-toggle="modal" data-bs-target="#loginModal"
+                                data-bs-dismiss="modal">Đăng nhập
+                            </button>
+                        </span>
+                    </div>
+                    <div class="text-center" style="margin-bottom:1.5rem">
+                        <span>Hoặc đăng ký bằng</span>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-primary">Facebook</button>
+                        <button class="btn btn-danger">Google</button>
+                    </div>
+                    <div class="text-center" style="margin-bottom:1.5rem">
+                        <p style="font-size: 13px;">
+                            Bằng cách đăng ký, bạn đồng ý với Điều khoản dịch vụ và Chính sách bảo mật của chúng tôi
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Bootstrap JS-->
+    <script th:src="@{https://code.jquery.com/jquery-3.6.0.min.js}"></script>
+    <script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js}"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <!-- Custom JS-->
+    <script>
+        $(document).ready(function () {
+            // Toggle dropdown visibility
+            $('#property-type-dropdown').on('click', function () {
+                $('#property-type-options').toggleClass('hidden');
+            });
+            $('#location-dropdown').on('click', function () {
+                $('#location-options').toggleClass('hidden');
+            });
+            $('#price-range-dropdown').on('click', function () {
+                $('#price-range-options').toggleClass('hidden');
+            });
+            $('#area-range-dropdown').on('click', function () {
+                $('#area-range-options').toggleClass('hidden');
+            });
+            $('#project-dropdown').on('click', function () {
+                $('#project-options').toggleClass('hidden');
+            });
+
+            $('#search-button').on('click', function () {
+                const query = $('#search-input').val();
+                const types = [];
+                const requests = [];
+                const minPrices = [];
+                const maxPrices = [];
+                const minAcreages = [];
+                const maxAcreages = [];
+                const projects = [];
+
+                $('.type-checkbox:checked').each(function () {
+                    types.push($(this).val());
+                });
+                $('.request-checkbox:checked').each(function () {
+                    requests.push($(this).val());
+                });
+                $('.price-range-checkbox:checked').each(function () {
+                    const range = $(this).val().split('-');
+                    if (range.length === 2) {
+                        minPrices.push(range[0]);
+                        maxPrices.push(range[1]);
+                    } else if (range[0].endsWith('+')) {
+                        minPrices.push(range[0].slice(0, -1));
+                    }
+                });
+                $('.area-range-checkbox:checked').each(function () {
+                    const range = $(this).val().split('-');
+                    if (range.length === 2) {
+                        minAcreages.push(range[0]);
+                        maxAcreages.push(range[1]);
+                    } else if (range[0].endsWith('+')) {
+                        minAcreages.push(range[0].slice(0, -1));
+                    }
+                });
+                $('.project-checkbox:checked').each(function () {
+                    projects.push($(this).val());
+                });
+
+                const searchParams = {
+                    searchText: query,
+                    types: types.join(','),
+                    requests: requests.join(','),
+                    minPrice: Math.min(...minPrices),
+                    maxPrice: Math.max(...maxPrices),
+                    minAcreage: Math.min(...minAcreages),
+                    maxAcreage: Math.max(...maxAcreages),
+                    projects: projects.join(',')
+                };
+
+                // Send search request to the server
+                $.ajax({
+                    url: '/realestate/search',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(searchParams),
+                    success: function (data) {
+                        renderRealEstateList(data);
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            });
+
+            // Load real estate list
+            function loadRealEstateList() {
+                const urlParams = new URLSearchParams(window.location.search);
+                const query = urlParams.get('query');
+                const types = urlParams.get('types');
+                const requests = urlParams.get('requests');
+                const minPrice = urlParams.get('minPrice');
+                const maxPrice = urlParams.get('maxPrice');
+                const minAcreage = urlParams.get('minAcreage');
+                const maxAcreage = urlParams.get('maxAcreage');
+                const projects = urlParams.get('projects');
+
+                const searchParams = {
+                    searchText: query,
+                    types: types,
+                    requests: requests,
+                    minPrice: minPrice,
+                    maxPrice: maxPrice,
+                    minAcreage: minAcreage,
+                    maxAcreage: maxAcreage,
+                    projects: projects
+                };
+
+                $.ajax({
+                    url: '/realestate/search',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(searchParams),
+                    success: function (data) {
+                        renderRealEstateList(data.content);
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            }
+
+            // Render real estate list
+            function renderRealEstateList(realEstates) {
+                const realEstateList = $('#real-estate-list');
+                realEstateList.empty();
+                realEstates.forEach(function (realEstate) {
+                    realEstateList.append(`
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">${realEstate.title}</h5>
+                            <p class="card-text">${realEstate.description}</p>
+                            <p class="card-text"><strong>Giá:</strong> ${realEstate.price}</p>
+                            <p class="card-text"><strong>Địa chỉ:</strong> ${realEstate.address}</p>
+                        </div>
+                    </div>
+                `);
+                });
+            }
+
+            // Load real estate list on page load
+            loadRealEstateList();
+        });
+    </script>
+</body>

@@ -121,7 +121,7 @@ public class RealEstateController {
         }
     }
     // REST API for searching real estates
-    @GetMapping("/realestate/search")
+    @PostMapping("/realestate/search")
     public ResponseEntity<Object> searchRealEstates(
             @RequestBody RealEstateSearchParameters realEstateSearchParameters) {
         try {
@@ -146,7 +146,7 @@ public class RealEstateController {
             if(realEstate == null) {
                 return ResponseEntity.badRequest().body("Real estate not found");
             }
-            if(realEstate.getVerify() == 0) {
+            if(realEstate.getVerify() == null || realEstate.getVerify() == 0) {
                 return ResponseEntity.badRequest().body("Real estate is not approved");
             }
             return ResponseEntity.ok(realEstate);

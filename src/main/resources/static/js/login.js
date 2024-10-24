@@ -128,9 +128,9 @@ function validiateUser(user){
         alert("Vui lòng nhập mật khẩu");
     }
     // kiểm tra độ dài mật khẩu
-    if(user.password.length < 6){
+    if(user.password.length < 5){
         isValid = false;
-        alert("Mật khẩu phải chứa ít nhất 6 ký tự");
+        alert("Mật khẩu phải chứa ít nhất 5 ký tự");
     }
     if(user.password.length > 40){
         isValid = false;
