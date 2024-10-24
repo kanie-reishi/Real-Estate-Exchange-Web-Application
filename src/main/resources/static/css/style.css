@@ -6812,4 +6812,11 @@ div#vmap {
 
 .d-flex {
     display: flex !important;
+  }
+
+  .text-red-v6{
+    color: #ff0000;
+  }
+.dropdown-toggle::after {
+  display: none !important;
 }

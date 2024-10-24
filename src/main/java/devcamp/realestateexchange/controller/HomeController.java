@@ -21,7 +21,10 @@ public class HomeController {
         model.addAttribute("id", id);
         return "article-detail";
     }
-    
+    @GetMapping("/realestate/create")
+    public String createArticle() {
+        return "article-create";
+    } 
     @GetMapping("/admin")
     public String adminIndex() {
         return "admin-index";
@@ -30,6 +33,17 @@ public class HomeController {
     @GetMapping("/admin/login")
     public String adminLogin() {
         return "admin-login";
+    }
+
+    @GetMapping("/admin/realestate/form")
+    public String realestateForm() {
+        return "admin-realestate-form";
+    }
+    @GetMapping("/admin/realestate/form/{id}")
+    public String realestateForm(@PathVariable("id") Long id, Model model) {
+        // Add the ID to the model to use it in the view
+        model.addAttribute("id", id);
+        return "admin-realestate-form";
     }
     
     @GetMapping("/admin/realestate-table")

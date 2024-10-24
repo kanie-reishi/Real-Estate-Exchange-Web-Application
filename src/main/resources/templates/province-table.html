@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
 	<title>Table</title>
 	<script
@@ -26,7 +27,7 @@
 	<nav class="main-menu">
 		<ul>
 			<li>
-				<a href="index.html">
+				<a th:href="@{/admin}">
 					<i class="fa fa-home nav_icon"></i>
 					<span class="nav-text">
 						Dashboard
@@ -34,7 +35,7 @@
 				</a>
 			</li>
 			<li>
-				<a href="javascript:;">
+				<a th:href="@{/admin/realestate-table}">
 					<i class="fa-solid fa-city nav-icon"></i>
 					<span class="nav-text">
 						Thông tin BĐS
@@ -262,7 +263,7 @@
 										</a></li>
 									<li>
 										<div class="notification_bottom">
-										<a href="#">See all notifications</a>
+											<a href="#">See all notifications</a>
 										</div>
 									</li>
 								</ul>
@@ -295,7 +296,7 @@
 		<div class="main-grid">
 			<div class="agile-grids">
 				<!-- tables -->
-				
+
 				<!-- //tables -->
 			</div>
 		</div>
