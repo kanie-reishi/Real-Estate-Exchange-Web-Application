@@ -40,6 +40,7 @@ public class FileUploadController {
    public FileUploadController(IFileService fileUploadService) {
        this.fileService = fileUploadService;
    }
+   // Upload file API
    @PostMapping("/upload")
    public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile multipartFile) throws FileEmptyException, FileUploadException, IOException {
        if (multipartFile.isEmpty()){
@@ -65,7 +66,7 @@ public class FileUploadController {
            return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
        }
    }
-
+    // Delete file API
    @DeleteMapping("/delete")
    public ResponseEntity<?> delete(@RequestParam("fileName") @NotBlank @NotNull String fileName){
        boolean isDeleted = fileService.delete(fileName);
@@ -79,7 +80,7 @@ public class FileUploadController {
            return new ResponseEntity<>("file does not exist", HttpStatus.NOT_FOUND);
        }
    }
-
+    // Check if file is valid  
    private boolean isValidFile(MultipartFile multipartFile){
        log.info("Empty Status ==> {}", multipartFile.isEmpty());
        if (Objects.isNull(multipartFile.getOriginalFilename())){

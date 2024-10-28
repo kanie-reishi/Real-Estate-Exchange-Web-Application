@@ -24,7 +24,9 @@ import devcamp.realestateexchange.services.realestate.ProjectService;
 public class ProvinceController {
     @Autowired
     private ProvinceService provinceService;
+    // private final ProjectService projectService;
 
+    // get Province by id
     @GetMapping("/provinces/{id}")
     public ResponseEntity<Object> getProvinceById(@PathVariable Integer id) {
         try {
@@ -34,7 +36,7 @@ public class ProvinceController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-
+    // get all provinces
     @GetMapping("/provinces")
     public ResponseEntity<Object> getProvinceList() {
         try {
