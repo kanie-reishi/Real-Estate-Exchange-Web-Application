@@ -10,16 +10,18 @@ import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactor
 import org.springframework.data.redis.core.RedisTemplate;
 @Configuration
 public class RedisConfig {
-
+    // Redis Host ("example: redis-12345.c1.ap-southeast-1-1.ec2.cloud.redislabs.com")
     @Value("${spring.redis.host}")
     private String redisHost;
-
+    // Redis Port
     @Value("${spring.redis.port}")
     private int redisPort;
-
+    // Redis Password
     @Value("${spring.redis.password}")
     private String redisPassword;
 
+
+    // Tạo một Bean LettuceConnectionFactory
    @Bean
     public LettuceConnectionFactory redisConnectionFactory() {
         RedisStandaloneConfiguration redisConfig = new RedisStandaloneConfiguration(redisHost, redisPort);
@@ -28,6 +30,7 @@ public class RedisConfig {
         return new LettuceConnectionFactory(redisConfig);
     }
 
+    // Tạo một Bean RedisTemplate
     @Bean
     @Primary
     public RedisTemplate<Object, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
