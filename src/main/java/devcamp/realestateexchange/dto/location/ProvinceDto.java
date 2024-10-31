@@ -1,25 +1,26 @@
 package devcamp.realestateexchange.dto.location;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class ProvinceDto {
+    // Id tỉnh/thành phố
     private Integer id;
+    // Tên tỉnh/thành phố
     private String name;
-    public ProvinceDto() {
-    }
+
+    // Mã tỉnh/thành phố
+    private String code;
+
     public ProvinceDto(Integer id, String name) {
         this.id = id;
         this.name = name;
     }
-    public Integer getId() {
-        return id;
-    }
-    public void setId(Integer id) {
-        this.id = id;
-    }
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-    
+
 }

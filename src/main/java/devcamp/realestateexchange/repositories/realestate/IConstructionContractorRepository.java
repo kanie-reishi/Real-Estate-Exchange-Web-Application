@@ -14,6 +14,7 @@ import devcamp.realestateexchange.projections.ContractorProjection;
 import devcamp.realestateexchange.projections.UnitProjection;
 @Repository
 public interface IConstructionContractorRepository extends JpaRepository<ConstructionContractor, Integer>, JpaSpecificationExecutor<ConstructionContractor> {
+    // Get all construction contractors
     @Query("SELECT cc FROM ConstructionContractor cc")
     Page<ContractorProjection> findAllBasicProjections(Pageable pageable);
 

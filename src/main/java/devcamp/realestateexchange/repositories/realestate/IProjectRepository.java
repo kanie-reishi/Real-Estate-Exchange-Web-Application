@@ -10,8 +10,11 @@ import devcamp.realestateexchange.entity.realestate.Project;
 import devcamp.realestateexchange.projections.ProjectProjection;
 
 public interface IProjectRepository extends JpaRepository<Project, Integer>, JpaSpecificationExecutor<Project>{
+    // Get all projects
     @Query("SELECT p FROM Project p")
     Page<ProjectProjection> findAllProjections(Pageable pageable);
+
+    // Get project by id
     @Query("SELECT p FROM Project p WHERE p.id = :id")
     ProjectProjection getProjectById(Integer id);
 }

@@ -10,9 +10,14 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UtilitiesDto {
+    // id tiện ích
     private Integer id;
+    // Tên tiện ích
     private String name;
+    // Mô tả tiện ích
     private String description;
+    // Danh sách ảnh tiện ích
     private List<String> photos;
+    // Danh sách dự án tiện ích
     private List<ProjectDto> projects;
 }

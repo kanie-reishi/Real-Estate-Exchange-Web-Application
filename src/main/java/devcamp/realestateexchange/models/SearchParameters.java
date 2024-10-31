@@ -7,6 +7,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+// SearchParameters model class. This class is used to store the search parameters.
 public class SearchParameters {
     String searchText;
     Integer size;

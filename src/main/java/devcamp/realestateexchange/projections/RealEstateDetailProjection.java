@@ -1,5 +1,7 @@
 package devcamp.realestateexchange.projections;
 import java.math.BigDecimal;
+
+// Projection for RealEstateDetail. This projection is used to get the real estate detail from the database.
 public interface RealEstateDetailProjection {
 
     BigDecimal getPriceMin();

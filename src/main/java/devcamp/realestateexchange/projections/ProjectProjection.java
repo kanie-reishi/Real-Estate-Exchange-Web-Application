@@ -3,6 +3,7 @@ package devcamp.realestateexchange.projections;
 import java.util.Date;
 import java.util.List;
 
+// Projection for Project. This projection is used to get the project with its master layouts, utilities, project construction contractors, project design units, project investors, and region links from the database.
 public interface ProjectProjection {
     Integer getId();
     String getName();

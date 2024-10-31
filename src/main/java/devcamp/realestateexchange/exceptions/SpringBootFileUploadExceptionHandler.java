@@ -14,6 +14,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 @ControllerAdvice
 @Slf4j
+// Handle exceptions that occur when the call was transmitted successfully, but Amazon S3 couldn't process
 public class SpringBootFileUploadExceptionHandler extends ResponseEntityExceptionHandler {
 
    @ExceptionHandler(value

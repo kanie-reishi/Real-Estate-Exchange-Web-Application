@@ -6,7 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import devcamp.realestateexchange.security.jwt.JwtUtils;
-
+// Exception for JWT signature
 public class JwtSignatureException extends SignatureException {
     private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
     public JwtSignatureException(String message) {

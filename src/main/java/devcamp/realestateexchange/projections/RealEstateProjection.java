@@ -3,6 +3,7 @@ package devcamp.realestateexchange.projections;
 import java.math.BigDecimal;
 import java.util.Date;
 
+// Projection for RealEstate. This projection is used to get the real estate with its customer, province, district, ward, street, and project from the database.
 public interface RealEstateProjection {
     Integer getId();
     String getTitle();

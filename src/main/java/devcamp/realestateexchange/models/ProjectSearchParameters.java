@@ -7,6 +7,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+// ProjectSearchParameters model class. This class is used to store the project search parameters.
 public class ProjectSearchParameters extends SearchParameters {
     private String name;
     private Integer provinceId;
