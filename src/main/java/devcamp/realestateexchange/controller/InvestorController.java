@@ -1,4 +1,5 @@
 package devcamp.realestateexchange.controller;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,12 +17,15 @@ import org.springframework.web.bind.annotation.RestController;
 import devcamp.realestateexchange.dto.realestate.InvestorDto;
 import devcamp.realestateexchange.entity.realestate.Investor;
 import devcamp.realestateexchange.services.realestate.InvestorService;
+
 @RestController
 @CrossOrigin
 @RequestMapping
 public class InvestorController {
     @Autowired
     private InvestorService investorService;
+
+    // Get all investors
     @GetMapping("/investors")
     public ResponseEntity<Object> getInvestors(Pageable pageable) {
         try {
@@ -31,6 +35,8 @@ public class InvestorController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    // Get investor by id
     @GetMapping("/investors/{id}")
     public ResponseEntity<Object> getInvestorById(@PathVariable Integer id) {
         try {
@@ -40,6 +46,8 @@ public class InvestorController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    // Create new investor
     @PostMapping("/investors")
     public ResponseEntity<Object> saveInvestor(@RequestBody InvestorDto investorDto) {
         try {
@@ -49,6 +57,8 @@ public class InvestorController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    // Get investor by project id
     @GetMapping("/projects/{projectId}/investors")
     public ResponseEntity<Object> getInvestorsByProjectId(@PathVariable Integer projectId) {
         try {
@@ -57,6 +67,8 @@ public class InvestorController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    // Update investor
     @PutMapping("/investors")
     public ResponseEntity<Object> updateInvestor(@RequestBody InvestorDto investorDto) {
         try {
@@ -66,6 +78,8 @@ public class InvestorController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    // Delete investor
     @DeleteMapping("/investors/{id}")
     public ResponseEntity<Object> deleteInvestor(@PathVariable Integer id) {
         try {

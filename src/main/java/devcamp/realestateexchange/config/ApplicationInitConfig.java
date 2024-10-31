@@ -33,7 +33,10 @@ public class ApplicationInitConfig {
 
     @NonFinal
     static final String ADMIN_PASSWORD = "admin";
-
+    // Tạo một Bean ApplicationRunner
+    // ApplicationRunner giúp chúng ta chạy một số logic khi ứng dụng được khởi động
+    // Ở đây, chúng ta sẽ tạo một user admin mặc định nếu chưa có
+    // Với username là admin và password là admin
     @Bean
     ApplicationRunner applicationRunner(IUserRepository userRepository, IRoleRepository roleRepository) {
         log.info("Initializing application.....");
@@ -59,6 +62,7 @@ public class ApplicationInitConfig {
                         .build();
 
                 userRepository.save(user);
+                // Hãy nhớ thay đổi mật khẩu mặc định sau khi đăng nhập
                 log.warn("admin user has been created with default password: admin, please change it");
             }
             log.info("Application initialization completed .....");

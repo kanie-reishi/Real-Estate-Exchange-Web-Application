@@ -4,6 +4,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+// Tạo một Bean ModelMapper
+// ModelMapper giúp chúng ta chuyển đổi dữ liệu từ một đối tượng sang đối tượng khác
 @Configuration
 public class ModelMapperConfig {
     @Bean

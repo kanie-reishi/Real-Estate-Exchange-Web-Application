@@ -27,7 +27,7 @@ import devcamp.realestateexchange.services.realestate.ConstructionContractorServ
 public class ConstructionContractorController {
     @Autowired
     private ConstructionContractorService constructionContractorService;
-
+    // Get construction contractor by id
     @GetMapping("/constructionContractors/{id}")
     public ResponseEntity<Object> getConstructionContractorById(@PathVariable Integer id){
         try {
@@ -37,7 +37,7 @@ public class ConstructionContractorController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-
+    // Get all construction contractors
     @GetMapping("/constructionContractors")
     public ResponseEntity<Object> getAllConstructionContractors(Pageable pageable){
         try {
@@ -47,6 +47,7 @@ public class ConstructionContractorController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+    // Get construction contractor by project id
     @GetMapping("/projects/{projectId}/constructionContractors")
     public ResponseEntity<Object> getConstructionContractorListByProjectId(Pageable pageable, @PathVariable Integer projectId){
         try {
@@ -56,7 +57,7 @@ public class ConstructionContractorController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-
+    // Create new construction contractor
     @PostMapping("/constructionContractors")
     public ResponseEntity<Object> saveConstructionContractor(@RequestBody ContractorDto contractorDto){
         try {
@@ -66,6 +67,7 @@ public class ConstructionContractorController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+    // Update construction contractor
     @PutMapping("/constructionContractors")
     public ResponseEntity<Object> updateConstructionContractor(@RequestBody ContractorDto contractorDto){
         try {
@@ -75,6 +77,7 @@ public class ConstructionContractorController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+    // Delete construction contractor
     @DeleteMapping("/constructionContractors/{id}")
     public ResponseEntity<Object> deleteConstructionContractor(@PathVariable Integer id){
         try {

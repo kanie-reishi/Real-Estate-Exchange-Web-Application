@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import devcamp.realestateexchange.entity.realestate.Project;
 import devcamp.realestateexchange.projections.ProjectProjection;
 
-public interface IProjectRepository extends JpaRepository<Project, Integer>, JpaSpecificationExecutor<Project> {
+public interface IProjectRepository extends JpaRepository<Project, Integer>, JpaSpecificationExecutor<Project>{
     @Query("SELECT p FROM Project p")
     Page<ProjectProjection> findAllProjections(Pageable pageable);
     @Query("SELECT p FROM Project p WHERE p.id = :id")

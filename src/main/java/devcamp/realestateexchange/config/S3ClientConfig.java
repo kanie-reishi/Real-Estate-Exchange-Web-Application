@@ -11,15 +11,17 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class S3ClientConfig {
-
+   // AWS Access Key
    @Value("${aws.accessKey}")
    private String accessKey;
-
+   // AWS Secret Key
    @Value("${aws.secretKey}")
    private String secretKey;
 
    @Bean
    public AmazonS3 initS3Client(){
+      // Tạo một Bean AmazonS3
+      // Sử dụng AWS Access Key và AWS Secret Key để xác thực
        AWSCredentials credentials = new BasicAWSCredentials(this.accessKey, this.secretKey);
        return AmazonS3ClientBuilder.standard()
                .withRegion(Regions.AP_SOUTHEAST_1)

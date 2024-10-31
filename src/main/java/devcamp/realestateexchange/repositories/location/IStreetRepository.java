@@ -8,9 +8,11 @@ import org.springframework.data.jpa.repository.Query;
 import devcamp.realestateexchange.dto.location.StreetDto;
 import devcamp.realestateexchange.entity.location.Street;
 public interface IStreetRepository extends JpaRepository<Street, Integer> {
-
+    // Get street by id
     @Query("SELECT new devcamp.realestateexchange.dto.location.StreetDto(s.id, s.name) FROM Street s WHERE s.id = :id")
     StreetDto getStreetDtoById(Integer id);
+
+    // Get all streets by district id
     @Query("SELECT new devcamp.realestateexchange.dto.location.StreetDto(s.id, s.name) FROM Street s WHERE s.district.id = :districtId")
     Page<StreetDto> findAllDtoByDistrictId(Pageable pageable, Integer districtId);
 }

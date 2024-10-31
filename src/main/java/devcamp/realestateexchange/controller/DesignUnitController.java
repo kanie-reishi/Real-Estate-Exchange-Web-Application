@@ -26,7 +26,7 @@ import devcamp.realestateexchange.services.realestate.DesignUnitService;
 public class DesignUnitController {
     @Autowired
     private DesignUnitService designUnitService;
-
+    // Get design unit by id
     @GetMapping("/designUnits/{id}")
     public ResponseEntity<Object> getDesignUnitById(@PathVariable Integer id){
         try {
@@ -36,6 +36,7 @@ public class DesignUnitController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+    // Get all design units
     @GetMapping("/designUnits")
     public ResponseEntity<Object> getDesignUnits(Pageable pageable){
         try {
@@ -45,6 +46,7 @@ public class DesignUnitController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+    // Create new design unit
     @PostMapping("/designUnits")
     public ResponseEntity<Object> saveDesignUnit(@RequestBody DesignUnitDto designUnitDto){
         try {
@@ -54,6 +56,7 @@ public class DesignUnitController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+    // Get design unit by project id
     @GetMapping("/projects/{projectId}/designUnits")
     public ResponseEntity<Object> getDesignUnitListByProjectId(Pageable pageable, @PathVariable Integer projectId){
         try {
@@ -63,6 +66,7 @@ public class DesignUnitController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+    // Update design unit
     @PutMapping("/designUnits")
     public ResponseEntity<Object> updateDesignUnit(@RequestBody DesignUnitDto designUnitDto){
         try {
@@ -72,6 +76,7 @@ public class DesignUnitController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+    // Delete design unit
     @DeleteMapping("/designUnits/{id}")
     public ResponseEntity<Object> deleteDesignUnit(@PathVariable Integer id){
         try {

@@ -59,6 +59,10 @@ public class RealEstate extends UserReferenceEntity {
     @Column(name = "description")
     private String description;
 
+    // Trạng thái xóa
+    @Column(name = "deleted")
+    private Boolean deleted;
+    
     // Tỉnh thành phố
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "province_id")

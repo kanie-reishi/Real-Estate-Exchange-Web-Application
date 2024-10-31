@@ -10,7 +10,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.Authentication;
 import devcamp.realestateexchange.entity.authentication.User;
 import org.slf4j.*;
-
+// Tạo một Bean AuditorAware
+// AuditorAware giúp chúng ta lấy thông tin về người tạo và người cập nhật một bản ghi
 @Configuration
 @EnableJpaAuditing(auditorAwareRef = "auditorProvider")
 public class JpaConfig {

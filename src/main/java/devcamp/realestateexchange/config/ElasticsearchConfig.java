@@ -33,7 +33,8 @@ public class ElasticsearchConfig {
 
     @Value("${elasticsearch.apikey}")
     private String apiKey;
-
+    // Tạo một Bean RestClient
+    // RestClient giúp chúng ta thao tác với Elasticsearch
    @Bean
     public RestClient client() {
         final BasicCredentialsProvider credentialsProvider = new BasicCredentialsProvider();

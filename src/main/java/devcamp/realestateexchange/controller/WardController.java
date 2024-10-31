@@ -1,4 +1,5 @@
 package devcamp.realestateexchange.controller;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,14 +12,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 import devcamp.realestateexchange.dto.location.WardDto;
 import devcamp.realestateexchange.services.location.WardService;
+
 @RestController
 @CrossOrigin
 @RequestMapping
 public class WardController {
     @Autowired
     private WardService wardService;
+
+    // get Ward by id
     @GetMapping("/wards/{id}")
-    public ResponseEntity<Object> getWardById(@PathVariable Integer id){
+    public ResponseEntity<Object> getWardById(@PathVariable Integer id) {
         try {
             WardDto ward = wardService.getWardById(id);
             return ResponseEntity.ok(ward);
@@ -26,8 +30,21 @@ public class WardController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    // Get all wards
+    @GetMapping("/wards")
+    public ResponseEntity<Object> getWardList(Pageable pageable) {
+        try {
+            Page<WardDto> wardPage = wardService.getWardList(pageable);
+            return ResponseEntity.ok(wardPage);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    // Get all wards by district id
     @GetMapping("/districts/{districtId}/wards")
-    public ResponseEntity<Object> getWardListByDistrictId(Pageable pageable, @PathVariable Integer districtId){
+    public ResponseEntity<Object> getWardListByDistrictId(Pageable pageable, @PathVariable Integer districtId) {
         try {
             Page<WardDto> wardPage = wardService.getWardListByDistrictId(pageable, districtId);
             return ResponseEntity.ok(wardPage);

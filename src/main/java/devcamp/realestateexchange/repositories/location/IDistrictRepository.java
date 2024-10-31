@@ -7,9 +7,15 @@ import org.springframework.data.jpa.repository.Query;
 import devcamp.realestateexchange.dto.location.DistrictDto;
 import devcamp.realestateexchange.entity.location.District;
 public interface IDistrictRepository extends JpaRepository<District, Integer>{
-
-    @Query("SELECT new devcamp.realestateexchange.dto.location.DistrictDto(d.id, d.name) FROM District d WHERE d.id = :id")
+    // Get district by id
+    @Query("SELECT new devcamp.realestateexchange.dto.location.DistrictDto(d.id, d.name, d.prefix) FROM District d WHERE d.id = :id")
     DistrictDto getDistrictDtoById(Integer id);
-    @Query("SELECT new devcamp.realestateexchange.dto.location.DistrictDto(d.id, d.name) FROM District d WHERE d.province.id = :provinceId")
+
+    // Get all districts by province id
+    @Query("SELECT new devcamp.realestateexchange.dto.location.DistrictDto(d.id, d.name, d.prefix) FROM District d WHERE d.province.id = :provinceId")
     Page<DistrictDto> findAllDtoByProvinceId(Pageable pageable, Integer provinceId);
+
+    // Get all districts
+    @Query("SELECT new devcamp.realestateexchange.dto.location.DistrictDto(d.id, d.name, d.prefix) FROM District d")
+    Page<DistrictDto> findAllDto(Pageable pageable);
 }

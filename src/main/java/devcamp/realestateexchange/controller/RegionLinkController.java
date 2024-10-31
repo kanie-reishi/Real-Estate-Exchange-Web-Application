@@ -1,4 +1,5 @@
 package devcamp.realestateexchange.controller;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -13,12 +14,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import devcamp.realestateexchange.dto.realestate.RegionLinkDto;
 import devcamp.realestateexchange.services.realestate.RegionLinkService;
+
 @RestController
 @CrossOrigin
 @RequestMapping
 public class RegionLinkController {
     @Autowired
     private RegionLinkService regionLinkService;
+
+    // Get all region links
     @GetMapping("/regionLinks")
     public ResponseEntity<Object> getRegionLinks(Pageable pageable) {
         try {
@@ -27,6 +31,8 @@ public class RegionLinkController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    // Get region link by id
     @GetMapping("/regionLinks/{id}")
     public ResponseEntity<Object> getRegionLinkById(Integer id) {
         try {
@@ -35,6 +41,8 @@ public class RegionLinkController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    // Create new region link
     @PostMapping("/regionLinks")
     public ResponseEntity<Object> saveRegionLink(RegionLinkDto regionLinkDto) {
         try {
@@ -43,6 +51,8 @@ public class RegionLinkController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    // Delete region link
     @DeleteMapping("/regionLinks/{id}")
     public ResponseEntity<Object> deleteRegionLink(Integer id) {
         try {
@@ -52,6 +62,8 @@ public class RegionLinkController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    // Get region links by project id
     @GetMapping("/projects/{projectId}/regionLinks")
     public ResponseEntity<Object> getRegionLinksByProjectId(@PathVariable Integer projectId) {
         try {
@@ -60,6 +72,8 @@ public class RegionLinkController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    // Update region link
     @PutMapping("/regionLinks")
     public ResponseEntity<Object> updateRegionLink(RegionLinkDto regionLinkDto) {
         try {

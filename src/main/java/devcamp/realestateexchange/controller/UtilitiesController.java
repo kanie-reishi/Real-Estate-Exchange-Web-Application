@@ -1,4 +1,5 @@
 package devcamp.realestateexchange.controller;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -12,12 +13,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import devcamp.realestateexchange.dto.realestate.UtilitiesDto;
 import devcamp.realestateexchange.services.realestate.UtilitiesService;
+
 @RestController
 @CrossOrigin
 @RequestMapping
 public class UtilitiesController {
     @Autowired
     private UtilitiesService utilitiesService;
+
+    // Get all utilities
     @GetMapping("/utilities")
     public ResponseEntity<Object> getUtilities(Pageable pageable) {
         try {
@@ -26,6 +30,8 @@ public class UtilitiesController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    // Get utility by id
     @GetMapping("/utilities/{id}")
     public ResponseEntity<Object> getUtilityById(Integer id) {
         try {
@@ -34,6 +40,8 @@ public class UtilitiesController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    // Create new utility
     @PostMapping("/utilities")
     public ResponseEntity<Object> saveUtility(UtilitiesDto utilityDto) {
         try {
@@ -42,6 +50,8 @@ public class UtilitiesController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    // Delete utility
     @DeleteMapping("/utilities/{id}")
     public ResponseEntity<Object> deleteUtility(Integer id) {
         try {
@@ -51,14 +61,20 @@ public class UtilitiesController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-    /*@GetMapping("/projects/{projectId}/utilities")
-    public ResponseEntity<Object> getUtilitiesByProjectId(@PathVariable Integer projectId) {
-        try {
-            return ResponseEntity.ok(utilitiesService.getUtilitiesByProjectId(projectId));
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
-    } */
+
+    /*
+     * @GetMapping("/projects/{projectId}/utilities")
+     * public ResponseEntity<Object> getUtilitiesByProjectId(@PathVariable Integer
+     * projectId) {
+     * try {
+     * return
+     * ResponseEntity.ok(utilitiesService.getUtilitiesByProjectId(projectId));
+     * } catch (Exception e) {
+     * return ResponseEntity.badRequest().body(e.getMessage());
+     * }
+     * }
+     */
+    // Update utility
     @PutMapping("/utilities")
     public ResponseEntity<Object> updateUtility(UtilitiesDto utilityDto) {
         try {
