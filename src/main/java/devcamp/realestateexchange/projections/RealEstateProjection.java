@@ -28,6 +28,5 @@ public interface RealEstateProjection {
     ProvinceProjection getProvince();
     DistrictProjection getDistrict();
     WardProjection getWard();
-    StreetProjection getStreet();
-    ProjectProjection getProject();
+    StreetProjection getStreet(); 
 }

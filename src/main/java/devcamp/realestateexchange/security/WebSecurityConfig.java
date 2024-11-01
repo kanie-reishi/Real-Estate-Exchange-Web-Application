@@ -79,7 +79,9 @@ public class WebSecurityConfig {
             "/images/**", 
             "/provinces/**", 
             "/districts/**", 
-            "/ward/**", 
+            "/ward/**",
+            "/street/**",
+            "/projects/**", 
             "/photo/**").permitAll()
             .antMatchers("/api/test/**").permitAll()
             .antMatchers("/admin/**").hasAuthority("ROLE_ADMIN")

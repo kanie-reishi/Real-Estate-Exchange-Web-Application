@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedAttributeNode;
+import javax.persistence.NamedEntityGraph;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -30,12 +32,20 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
+@NamedEntityGraph(name = "Project.detail", attributeNodes = {
+        @NamedAttributeNode("masterLayouts"),
+        @NamedAttributeNode("utilities"),
+        @NamedAttributeNode("projectConstructionContractors"),
+        @NamedAttributeNode("projectDesignUnits"),
+        @NamedAttributeNode("projectInvestors"),
+        @NamedAttributeNode("regionLinks")
+})
 @Table(name = "project")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Project extends UserReferenceEntity{
+public class Project extends UserReferenceEntity {
     // Tên dự án
     @Column(name = "_name")
     private String name;
@@ -105,56 +115,44 @@ public class Project extends UserReferenceEntity{
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "project_id")
     private Set<Video> videos;
-    
+
     // Quan hệ 1-1 với AddressMap
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "addressMap_id", referencedColumnName = "id")
     private AddressMap addressMap;
 
     // Quan hệ n-n với Ultilities
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
-    @JoinTable(
-        name = "project_utilities", 
-        joinColumns = @JoinColumn(name = "project_id"), 
-        inverseJoinColumns = @JoinColumn(name = "utilities_id")
-    )
+    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY)
+    @JoinTable(name = "project_utilities", joinColumns = @JoinColumn(name = "project_id"), inverseJoinColumns = @JoinColumn(name = "utilities_id"))
     private Set<Utilities> utilities;
 
     // Quan hệ n-n với RegionLink
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
-    @JoinTable(
-        name = "project_region_link", 
-        joinColumns = @JoinColumn(name = "project_id"), 
-        inverseJoinColumns = @JoinColumn(name = "region_link_id")
-    )
+    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY)
+    @JoinTable(name = "project_region_link", joinColumns = @JoinColumn(name = "project_id"), inverseJoinColumns = @JoinColumn(name = "region_link_id"))
     private Set<RegionLink> regionLinks;
-    
+
     // Quan hệ n-n với MasterLayout
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
-    @JoinTable(
-        name = "project_master_layout", 
-        joinColumns = @JoinColumn(name = "project_id"), 
-        inverseJoinColumns = @JoinColumn(name = "master_layout_id")
-    )
+    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY)
+    @JoinTable(name = "project_master_layout", joinColumns = @JoinColumn(name = "project_id"), inverseJoinColumns = @JoinColumn(name = "master_layout_id"))
     private Set<MasterLayout> masterLayouts;
 
     // Quan hệ 1-n với RealEstate
-    @OneToMany(mappedBy = "project", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "project", cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY)
     @JsonManagedReference
     private Set<RealEstate> realEstates;
 
     // Quan hệ 1-n với ProjectConstructionContractor
-    @OneToMany(mappedBy = "project", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "project", cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY)
     @JsonManagedReference
     private Set<ProjectConstructionContractor> projectConstructionContractors;
 
     // Quan hệ 1-n với ProjectInvestor
-    @OneToMany(mappedBy = "project", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "project", cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY)
     @JsonManagedReference
     private Set<ProjectInvestor> projectInvestors;
 
     // Quan hệ 1-n với ProjectDesignUnit
-    @OneToMany(mappedBy = "project", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "project", cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY)
     @JsonManagedReference
     private Set<ProjectDesignUnit> projectDesignUnits;
 }

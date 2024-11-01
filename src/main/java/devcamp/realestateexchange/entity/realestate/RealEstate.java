@@ -39,7 +39,10 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@NamedEntityGraph(name = "RealEstate.photos", attributeNodes = @NamedAttributeNode("photos"))
+@NamedEntityGraph(name = "RealEstate.photos", attributeNodes = {
+    @NamedAttributeNode("photos"),
+    @NamedAttributeNode("project"),
+})
 public class RealEstate extends UserReferenceEntity {
     // Tiêu đề tin
     @Column(name = "title")

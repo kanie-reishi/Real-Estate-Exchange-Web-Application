@@ -23,6 +23,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -90,12 +91,19 @@ public class RealEstateService {
     private static final SimpleDateFormat isoFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
     // Phương thức lấy tất cả RealEstateDto
+    @Transactional(readOnly = true)
     public Page<RealEstateDto> getAllRealEstateDtos(Pageable pageable, Integer verify) {
         if(verify == 0){
             Page<RealEstateProjection> projections = realEstateRepository.findAllBasicProjections(pageable);
+            if(projections == null){
+                return new PageImpl<>(Collections.emptyList());
+            }
             return projections.map(this::convertProjectionToDto);
         }
         Page<RealEstateProjection> projections = realEstateRepository.findVerifiedRealEstates(pageable);
+        if(projections == null){
+            return new PageImpl<>(Collections.emptyList());
+        }
         return projections.map(this::convertProjectionToDto);
     }
 
@@ -161,10 +169,7 @@ public class RealEstateService {
         dto.setCustomer(customerDto);
         // Thêm thông tin dự án vào RealEstateDto
         ProjectDto projectDto = new ProjectDto();
-        if(projection.getProject() != null) { // Check null
-            projectDto.setId(projection.getProject().getId());
-            projectDto.setName(projection.getProject().getName());
-        }
+
         dto.setProject(projectDto);
         // Thêm thông tin địa chỉ vào RealEstateDto
         AddressDto addressDto = new AddressDto();
