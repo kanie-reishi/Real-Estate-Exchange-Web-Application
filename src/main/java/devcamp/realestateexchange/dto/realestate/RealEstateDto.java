@@ -89,6 +89,7 @@ public class RealEstateDto {
     private Integer customerId;
 
     private static final SimpleDateFormat isoFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+
     @Getter
     @Setter
     @NoArgsConstructor
@@ -191,7 +192,8 @@ public class RealEstateDto {
     }
 
     public RealEstateDto(Integer id, String title, Integer type, Integer request, BigDecimal price, Integer priceUnit,
-            Double acreage, Integer acreageUnit, Integer bedroom, Integer verify, String createdAt, CustomerDto customer,
+            Double acreage, Integer acreageUnit, Integer bedroom, Integer verify, String createdAt,
+            CustomerDto customer,
             String address) {
         this.id = id;
         this.title = title;
@@ -209,7 +211,8 @@ public class RealEstateDto {
     }
 
     public RealEstateDto(Integer id, String title, Integer type, Integer request, String realEstateCode,
-            BigDecimal price, Integer priceUnit, Integer priceTime, Double acreage, Integer acreageUnit, Integer bedroom,
+            BigDecimal price, Integer priceUnit, Integer priceTime, Double acreage, Integer acreageUnit,
+            Integer bedroom,
             Integer verify, String createdAt, Integer customerId) {
         this.id = id;
         this.title = title;
@@ -244,51 +247,57 @@ public class RealEstateDto {
         this.direction = realEstate.getDirection();
         this.totalFloors = realEstate.getTotalFloors();
         this.bath = realEstate.getBath();
-        this.photoUrls = realEstate.getPhotos().stream().map(photo -> photo.getUrl())
-                .collect(java.util.stream.Collectors.toList());
+        if (realEstate.getPhotos() != null) {
+            this.photoIds = realEstate.getPhotos().stream().map(photo -> photo.getId())
+                    .collect(java.util.stream.Collectors.toList());
+        }
 
-        this.customer = new CustomerDto(realEstate.getCustomer().getId(), realEstate.getCustomer().getFullName(),
-                realEstate.getCustomer().getPhoto().getUrl());
+        if (realEstate.getCustomer() != null) {
+            this.customer = new CustomerDto(realEstate.getCustomer().getId(), realEstate.getCustomer().getFullName(),
+                    realEstate.getCustomer().getPhoto() != null ? realEstate.getCustomer().getPhoto().getUrl() : null);
+        }
+        if (realEstate.getAddressMap() != null) {
+            this.addressDetail = new AddressDto(realEstate.getAddress(),
+                    new ProvinceDto(realEstate.getProvince().getId(), realEstate.getProvince().getName()),
+                    new DistrictDto(realEstate.getDistrict().getId(), realEstate.getDistrict().getName(),
+                            realEstate.getDistrict().getPrefix()),
+                    new WardDto(realEstate.getWard().getId(), realEstate.getWard().getName(),
+                            realEstate.getWard().getPrefix()),
+                    new StreetDto(realEstate.getStreet().getId(), realEstate.getStreet().getName(),
+                            realEstate.getStreet().getPrefix()),
+                    realEstate.getAddressMap().getLatitude(),
+                    realEstate.getAddressMap().getLongitude());
+        }
 
-        this.addressDetail = new AddressDto(realEstate.getAddress(),
-                new ProvinceDto(realEstate.getProvince().getId(), realEstate.getProvince().getName()),
-                new DistrictDto(realEstate.getDistrict().getId(), realEstate.getDistrict().getName(),
-                        realEstate.getDistrict().getPrefix()),
-                new WardDto(realEstate.getWard().getId(), realEstate.getWard().getName(),
-                        realEstate.getWard().getPrefix()),
-                new StreetDto(realEstate.getStreet().getId(), realEstate.getStreet().getName(),
-                        realEstate.getStreet().getPrefix()),
-                realEstate.getAddressMap().getLatitude(),
-                realEstate.getAddressMap().getLongitude());
-
-        
-        this.article = new ArticleDto(realEstate.getArticle());
-
+        if (realEstate.getArticle() != null) {
+            this.article = new ArticleDto(realEstate.getArticle());
+        }
         this.detail = new RealEstateDetailDto();
-        this.detail.setPriceMin(realEstate.getDetail().getPriceMin());
-        this.detail.setWallArea(realEstate.getDetail().getWallArea());
-        this.detail.setLandscapeView(realEstate.getDetail().getLandscapeView());
-        this.detail.setBalcony(realEstate.getDetail().getBalcony());
-        this.detail.setFurnitureType(realEstate.getDetail().getFurnitureType());
-        this.detail.setFurnitureStatus(realEstate.getDetail().getFurnitureStatus());
-        this.detail.setPriceRent(realEstate.getDetail().getPriceRent());
-        this.detail.setReturnRate(realEstate.getDetail().getReturnRate());
-        this.detail.setLegalDoc(realEstate.getDetail().getLegalDoc());
-        this.detail.setWidthY(realEstate.getDetail().getWidthY());
-        this.detail.setLongX(realEstate.getDetail().getLongX());
-        this.detail.setStreetHouse(realEstate.getDetail().getStreetHouse());
-        this.detail.setFSBO(realEstate.getDetail().getFSBO());
-        this.detail.setShape(realEstate.getDetail().getShape());
-        this.detail.setDistance2Facade(realEstate.getDetail().getDistance2Facade());
-        this.detail.setAdjacentFacadeNum(realEstate.getDetail().getAdjacentFacadeNum());
-        this.detail.setAdjacentRoad(realEstate.getDetail().getAdjacentRoad());
-        this.detail.setAlleyMinWidth(realEstate.getDetail().getAlleyMinWidth());
-        this.detail.setAdjacentAlleyMinWidth(realEstate.getDetail().getAdjacentAlleyMinWidth());
-        this.detail.setStructure(realEstate.getDetail().getStructure());
-        this.detail.setDTSXD(realEstate.getDetail().getDTSXD());
-        this.detail.setCtxdPrice(realEstate.getDetail().getCtxdPrice());
-        this.detail.setCtxdValue(realEstate.getDetail().getCtxdValue());
-
+        if (realEstate.getDetail() != null) {
+            this.detail.setPriceMin(realEstate.getDetail().getPriceMin());
+            this.detail.setWallArea(realEstate.getDetail().getWallArea());
+            this.detail.setLandscapeView(realEstate.getDetail().getLandscapeView());
+            this.detail.setBalcony(realEstate.getDetail().getBalcony());
+            this.detail.setFurnitureType(realEstate.getDetail().getFurnitureType());
+            this.detail.setFurnitureStatus(realEstate.getDetail().getFurnitureStatus());
+            this.detail.setPriceRent(realEstate.getDetail().getPriceRent());
+            this.detail.setReturnRate(realEstate.getDetail().getReturnRate());
+            this.detail.setLegalDoc(realEstate.getDetail().getLegalDoc());
+            this.detail.setWidthY(realEstate.getDetail().getWidthY());
+            this.detail.setLongX(realEstate.getDetail().getLongX());
+            this.detail.setStreetHouse(realEstate.getDetail().getStreetHouse());
+            this.detail.setFSBO(realEstate.getDetail().getFSBO());
+            this.detail.setShape(realEstate.getDetail().getShape());
+            this.detail.setDistance2Facade(realEstate.getDetail().getDistance2Facade());
+            this.detail.setAdjacentFacadeNum(realEstate.getDetail().getAdjacentFacadeNum());
+            this.detail.setAdjacentRoad(realEstate.getDetail().getAdjacentRoad());
+            this.detail.setAlleyMinWidth(realEstate.getDetail().getAlleyMinWidth());
+            this.detail.setAdjacentAlleyMinWidth(realEstate.getDetail().getAdjacentAlleyMinWidth());
+            this.detail.setStructure(realEstate.getDetail().getStructure());
+            this.detail.setDTSXD(realEstate.getDetail().getDTSXD());
+            this.detail.setCtxdPrice(realEstate.getDetail().getCtxdPrice());
+            this.detail.setCtxdValue(realEstate.getDetail().getCtxdValue());
+        }
         if (this.type == 2) {
             this.apartDetail = new ApartDetailDto();
             this.apartDetail.setApartCode(realEstate.getApartDetail().getApartCode());
@@ -297,5 +306,5 @@ public class RealEstateDto {
             this.apartDetail.setNumberFloors(realEstate.getApartDetail().getNumberFloors());
         }
     }
-    
+
 }

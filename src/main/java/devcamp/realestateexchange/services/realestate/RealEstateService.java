@@ -93,15 +93,15 @@ public class RealEstateService {
     // Phương thức lấy tất cả RealEstateDto
     @Transactional(readOnly = true)
     public Page<RealEstateDto> getAllRealEstateDtos(Pageable pageable, Integer verify) {
-        if(verify == 0){
+        if (verify == 0) {
             Page<RealEstateProjection> projections = realEstateRepository.findAllBasicProjections(pageable);
-            if(projections == null){
+            if (projections == null) {
                 return new PageImpl<>(Collections.emptyList());
             }
             return projections.map(this::convertProjectionToDto);
         }
         Page<RealEstateProjection> projections = realEstateRepository.findVerifiedRealEstates(pageable);
-        if(projections == null){
+        if (projections == null) {
             return new PageImpl<>(Collections.emptyList());
         }
         return projections.map(this::convertProjectionToDto);
@@ -217,42 +217,43 @@ public class RealEstateService {
     }
 
     // Phương thức chuyển đổi RealEstateExtendProjection thành RealEstateDto
-    public RealEstateDto convertExtendProjectionToDto(RealEstateExtendProjection projection){
+    public RealEstateDto convertExtendProjectionToDto(RealEstateExtendProjection projection) {
         RealEstateDto dto = convertProjectionToDto(projection);
         ArticleDto articleDto = new ArticleDto();
-        if(projection.getArticle() != null){
+        if (projection.getArticle() != null) {
             articleDto.setViewNum(projection.getArticle().getViewNum());
             articleDto.setLikeNum(projection.getArticle().getLikeNum());
-            articleDto.setReplies(projection.getArticle().getReplies().stream().map(articleService::convertReplyProjectionToDto).collect(
-                    Collectors.toSet()));
+            articleDto.setReplies(projection.getArticle().getReplies().stream()
+                    .map(articleService::convertReplyProjectionToDto).collect(
+                            Collectors.toSet()));
         }
         dto.setArticle(articleDto);
         RealEstateDetailDto detailDto = new RealEstateDetailDto();
         if (projection.getDetail() != null) {
-        detailDto.setBalcony(projection.getDetail().getBalcony());
-        detailDto.setPriceMin(projection.getDetail().getPriceMin());
-        detailDto.setWallArea(projection.getDetail().getWallArea());
-        detailDto.setLandscapeView(projection.getDetail().getLandscapeView());
-        detailDto.setFurnitureType(projection.getDetail().getFurnitureType());
-        detailDto.setFurnitureStatus(projection.getDetail().getFurnitureStatus());
-        detailDto.setPriceRent(projection.getDetail().getPriceRent());
-        detailDto.setReturnRate(projection.getDetail().getReturnRate());
-        detailDto.setLegalDoc(projection.getDetail().getLegalDoc());
-        detailDto.setWidthY(projection.getDetail().getWidthY());
-        detailDto.setLongX(projection.getDetail().getLongX());
-        detailDto.setStreetHouse(projection.getDetail().getStreetHouse());
-        detailDto.setFSBO(projection.getDetail().getFSBO());
-        detailDto.setShape(projection.getDetail().getShape());
-        detailDto.setDistance2Facade(projection.getDetail().getDistance2Facade());
-        detailDto.setAdjacentFacadeNum(projection.getDetail().getAdjacentFacadeNum());
-        detailDto.setAdjacentRoad(projection.getDetail().getAdjacentRoad());
-        detailDto.setAlleyMinWidth(projection.getDetail().getAlleyMinWidth());
-        detailDto.setAdjacentAlleyMinWidth(projection.getDetail().getAdjacentAlleyMinWidth());
-        detailDto.setStructure(projection.getDetail().getStructure());
-        detailDto.setDTSXD(projection.getDetail().getDTSXD());
-        detailDto.setCtxdPrice(projection.getDetail().getCtxdPrice());
-        detailDto.setCtxdValue(projection.getDetail().getCtxdValue());
-    }
+            detailDto.setBalcony(projection.getDetail().getBalcony());
+            detailDto.setPriceMin(projection.getDetail().getPriceMin());
+            detailDto.setWallArea(projection.getDetail().getWallArea());
+            detailDto.setLandscapeView(projection.getDetail().getLandscapeView());
+            detailDto.setFurnitureType(projection.getDetail().getFurnitureType());
+            detailDto.setFurnitureStatus(projection.getDetail().getFurnitureStatus());
+            detailDto.setPriceRent(projection.getDetail().getPriceRent());
+            detailDto.setReturnRate(projection.getDetail().getReturnRate());
+            detailDto.setLegalDoc(projection.getDetail().getLegalDoc());
+            detailDto.setWidthY(projection.getDetail().getWidthY());
+            detailDto.setLongX(projection.getDetail().getLongX());
+            detailDto.setStreetHouse(projection.getDetail().getStreetHouse());
+            detailDto.setFSBO(projection.getDetail().getFSBO());
+            detailDto.setShape(projection.getDetail().getShape());
+            detailDto.setDistance2Facade(projection.getDetail().getDistance2Facade());
+            detailDto.setAdjacentFacadeNum(projection.getDetail().getAdjacentFacadeNum());
+            detailDto.setAdjacentRoad(projection.getDetail().getAdjacentRoad());
+            detailDto.setAlleyMinWidth(projection.getDetail().getAlleyMinWidth());
+            detailDto.setAdjacentAlleyMinWidth(projection.getDetail().getAdjacentAlleyMinWidth());
+            detailDto.setStructure(projection.getDetail().getStructure());
+            detailDto.setDTSXD(projection.getDetail().getDTSXD());
+            detailDto.setCtxdPrice(projection.getDetail().getCtxdPrice());
+            detailDto.setCtxdValue(projection.getDetail().getCtxdValue());
+        }
         dto.setDetail(detailDto);
 
         ApartDetailDto apartDetailDto = new ApartDetailDto();
@@ -265,6 +266,7 @@ public class RealEstateService {
         dto.setApartDetail(apartDetailDto);
         return dto;
     }
+
     // Phương thức lưu RealEstate
     public RealEstateDto saveRealEstate(RealEstateDto realEstateDto) {
         RealEstate realEstate = new RealEstate();
@@ -281,7 +283,9 @@ public class RealEstateService {
         Date createdAt = null;
         // Parse createdAt from ISO 8601 format
         try {
-            createdAt = isoFormat.parse(realEstateDto.getCreatedAt());
+            if(realEstateDto.getCreatedAt() != null) {
+                createdAt = isoFormat.parse(realEstateDto.getCreatedAt());
+            }
         } catch (ParseException e) {
             e.printStackTrace();
             throw new RuntimeException("Invalid date format for createdAt");
@@ -292,16 +296,20 @@ public class RealEstateService {
             realEstate.setDetail(realEstateDto.getDetail().toEntity());
         }
         realEstate.setAddress(realEstateDto.getAddress());
-        Customer customer = customerRepository.findById(realEstateDto.getCustomer().getId())
-                .orElseThrow(() -> new RuntimeException("Customer not found"));
-        if (customer != null) {
-            realEstate.setCustomer(customer);
-        } else {
-            throw new RuntimeException("Customer not found");
+        if (realEstateDto.getCustomer() != null) {
+            Customer customer = customerRepository.findById(realEstateDto.getCustomer().getId())
+                    .orElseThrow(() -> new RuntimeException("Customer not found"));
+            if (customer != null) {
+                realEstate.setCustomer(customer);
+            } else {
+                throw new RuntimeException("Customer not found");
+            }
         }
         // Link sented photo of real estate
-        List<Photo> photos = photoService.findByIds(realEstateDto.getPhotoIds());
-        realEstate.setPhotos(photos);
+        if(realEstateDto.getPhotoIds() != null) {
+            List<Photo> photos = photoService.findByIds(realEstateDto.getPhotoIds());
+            realEstate.setPhotos(photos);
+        }
         Province province = provinceReposotory.findById(realEstateDto.getAddressDetail().getProvince().getId())
                 .orElseThrow(() -> new RuntimeException("Province not found"));
         if (province != null) {
@@ -396,13 +404,14 @@ public class RealEstateService {
                 multiMatchNode.put("analyzer", "vietnamese_analyzer");// Use the custom analyzer
                 // Add the fields to search in, and their weights. Formula is field^weight
                 multiMatchNode.putArray("fields")
-                            .add("title^1.0")
-                            .add("description^0.5")
-                            .add("address^2.0")
-                            .add("keywords^1.0");
+                        .add("title^1.0")
+                        .add("description^0.5")
+                        .add("address^2.0")
+                        .add("keywords^1.0");
                 // Set the type of the multi_match query
                 multiMatchNode.put("type", "best_fields");
-                multiMatchNode.put("fuzziness", "AUTO"); // Apply fuzzy search, You can set this to a specific value like "1", "2", etc.
+                multiMatchNode.put("fuzziness", "AUTO"); // Apply fuzzy search, You can set this to a specific value
+                                                         // like "1", "2", etc.
             }
             // Add the filters to the bool query
             if (realEstateSearchParameters.getType() != null) {
@@ -703,7 +712,8 @@ public class RealEstateService {
                     break;
             }
         }
-        // Khai báo các đối tượng AddressDto, ProvinceDto, DistrictDto, WardDto, StreetDto
+        // Khai báo các đối tượng AddressDto, ProvinceDto, DistrictDto, WardDto,
+        // StreetDto
         AddressDto addressDto = new AddressDto();
         ProvinceDto provinceDto = new ProvinceDto();
         DistrictDto districtDto = new DistrictDto();

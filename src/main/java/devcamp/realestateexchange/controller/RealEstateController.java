@@ -155,13 +155,13 @@ public class RealEstateController {
         }
     }
     // REST API for creating real estate
-    @PostMapping("/user/realestate")
-    public ResponseEntity<Object> createRealEstate(@RequestBody RealEstateDto realEstateDto) {
+    @PostMapping(value = "/realestate", consumes = "application/json")
+    public ResponseEntity<Object> createRealEstate(@RequestBody(required = false) RealEstateDto realEstateDto) {
         try {
             realEstateService.saveRealEstate(realEstateDto);
             return ResponseEntity.ok("Real estate created successfully");
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return ResponseEntity.badRequest().body(e);
         }
     }
     // REST API for updating real estate

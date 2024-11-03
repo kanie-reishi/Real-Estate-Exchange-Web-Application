@@ -1,6 +1,7 @@
 package devcamp.realestateexchange.test.services;
 
 import devcamp.realestateexchange.dto.realestate.RealEstateDto;
+import devcamp.realestateexchange.projections.RealEstateProjection;
 import devcamp.realestateexchange.repositories.realestate.IRealEstateRepository;
 import devcamp.realestateexchange.services.realestate.RealEstateService;
 import org.elasticsearch.client.RestClient;
@@ -12,6 +13,9 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -23,7 +27,6 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-
 public class RealEstateServiceTest {
     private static final Logger logger = LoggerFactory.getLogger(RealEstateServiceTest.class);
     @Mock
@@ -50,10 +53,11 @@ public class RealEstateServiceTest {
         List<RealEstateDto> realEstateDtoList = Collections.singletonList(realEstateDto);
         Page<RealEstateDto> realEstateDtoPage = new PageImpl<>(realEstateDtoList, pageable, realEstateDtoList.size());
 
-        // when(realEstateRepository.findAll(pageable)).thenReturn(realEstateDtoPage);
-
+        Page<RealEstateProjection> realEstateProjectionPage = new PageImpl<>(Collections.emptyList(), pageable, 0);
+        when(realEstateRepository.findAllBasicProjections(any(Pageable.class))).thenReturn(realEstateProjectionPage);
         Page<RealEstateDto> result = realEstateService.getAllRealEstateDtos(pageable, 0);
-        logger.debug("Result: " + result);
+        logger.debug("pageable: " + pageable);
+        logger.debug("Result: " + result.getContent());
         assertEquals(0, result.getTotalElements());
     }
 

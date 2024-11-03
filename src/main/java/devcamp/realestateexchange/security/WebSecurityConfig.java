@@ -86,8 +86,15 @@ public class WebSecurityConfig {
             .antMatchers("/api/test/**").permitAll()
             .antMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
             .antMatchers("/realestate/table").hasAuthority("ROLE_ADMIN")
-            .antMatchers("/user/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
-            .anyRequest().authenticated();
+            .antMatchers("/user/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN");
+        http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");
+
+        http.authorizeRequests().and().formLogin()
+
+                .loginPage("/login/admin")
+                .loginProcessingUrl("/auth/login/admin")
+                .defaultSuccessUrl("/admin/dashboard", true)
+                .and().logout().logoutUrl("/admin/logout").logoutSuccessUrl("/login").deleteCookies("JSESSIONID");
 
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();
