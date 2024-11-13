@@ -295,7 +295,32 @@
 		<div class="main-grid">
 			<div class="agile-grids">
 				<!-- tables -->
-				
+				<div class="table-responsive"></div>
+					<table class="table table-bordered" id="employeeTable">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>Name</th>
+								<th>Position</th>
+								<th>Office</th>
+								<th>Age</th>
+								<th>Start date</th>
+								<th>Salary</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="employee : ${employees}">
+								<td th:text="${employee.id}"></td>
+								<td th:text="${employee.name}"></td>
+								<td th:text="${employee.position}"></td>
+								<td th:text="${employee.office}"></td>
+								<td th:text="${employee.age}"></td>
+								<td th:text="${employee.startDate}"></td>
+								<td th:text="${employee.salary}"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 				<!-- //tables -->
 			</div>
 		</div>
