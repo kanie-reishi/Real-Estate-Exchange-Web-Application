@@ -295,7 +295,27 @@
 		<div class="main-grid">
 			<div class="agile-grids">
 				<!-- tables -->
-				
+				<div class="table-responsive">
+					<table class="table table-bordered table-striped">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>Tên phường</th>
+								<th>Quận huyện</th>
+								<th>Tỉnh thành</th>
+								<th>Hành động</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="ward : ${wards}">
+								<td th:text="${ward.id}"></td>
+								<td th:text="${ward.name}"></td>
+								<td th:text="${ward.district}"></td>
+								<td th:text="${ward.province}"></td>
+								<td>
+									<a th:href="@{'/wards/edit/' + ${ward.id}}" class="btn btn-primary">Sửa</a>
+									<a th:href="@{'/wards/delete/' + ${ward.id}}" class="btn btn-danger">Xóa</a>
+								</td>
 				<!-- //tables -->
 			</div>
 		</div>
