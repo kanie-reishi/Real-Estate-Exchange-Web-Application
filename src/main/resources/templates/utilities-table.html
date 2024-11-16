@@ -295,7 +295,33 @@
 		<div class="main-grid">
 			<div class="agile-grids">
 				<!-- tables -->
-				
+				<div class="table-responsive">
+					<table class="table table-bordered table-striped">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>Tên</th>
+								<th>Địa chỉ</th>
+								<th>Số điện thoại</th>
+								<th>Email</th>
+								<th>Hành động</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="item : ${items}">
+								<td th:text="${item.id}"></td>
+								<td th:text="${item.name}"></td>
+								<td th:text="${item.address}"></td>
+								<td th:text="${item.phone}"></td>
+								<td th:text="${item.email}"></td>
+								<td>
+									<a th:href="@{'/edit/' + ${item.id}}" class="btn btn-primary">Sửa</a>
+									<a th:href="@{'/delete/' + ${item.id}}" class="btn btn-danger">Xóa</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 				<!-- //tables -->
 			</div>
 		</div>
