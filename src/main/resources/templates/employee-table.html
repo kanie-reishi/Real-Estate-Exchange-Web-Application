@@ -5,21 +5,21 @@
 	<script
 		type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 	<!-- bootstrap-css -->
-	<link rel="stylesheet" th:href="@{css/bootstrap.css}">
+	<link rel="stylesheet" href="css/bootstrap.css">
 	<!-- //bootstrap-css -->
 	<!-- Custom CSS -->
-	<link th:href="@{css/style.css}" rel='stylesheet' type='text/css' />
+	<link href="css/style.css" rel='stylesheet' type='text/css' />
 	<!-- font CSS -->
 	<link
-		th:href='@{https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic}'
+		href='https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic}'
 		rel='stylesheet' type='text/css'>
 	<!-- Font Awesome-->
-	<link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css}"
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 		integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
 		crossorigin="anonymous" referrerpolicy="no-referrer" />
 	<!-- font-awesome icons -->
-	<link rel="stylesheet" th:href="@{css/font.css}" type="text/css" />
-	<link th:href="@{css/font-awesome.css}" rel="stylesheet">
+	<link rel="stylesheet" href="css/font.css" type="text/css" />
+	<link href="css/font-awesome.css" rel="stylesheet">
 </head>
 
 <body class="dashboard-page">
@@ -308,17 +308,6 @@
 								<th>Salary</th>
 							</tr>
 						</thead>
-						<tbody>
-							<tr th:each="employee : ${employees}">
-								<td th:text="${employee.id}"></td>
-								<td th:text="${employee.name}"></td>
-								<td th:text="${employee.position}"></td>
-								<td th:text="${employee.office}"></td>
-								<td th:text="${employee.age}"></td>
-								<td th:text="${employee.startDate}"></td>
-								<td th:text="${employee.salary}"></td>
-							</tr>
-						</tbody>
 					</table>
 				</div>
 				<!-- //tables -->
@@ -331,10 +320,10 @@
 		<!-- //footer -->
 	</section>
 	<!-- //font-awesome icons -->
-	<script th:src="@{js/jquery2.0.3.min.js}"></script>
-	<script th:src="@{js/modernizr.js}"></script>
-	<script th:src="@{js/jquery.cookie.js}"></script>
-	<script th:src="@{js/screenfull.js}"></script>
+	<script src="js/jquery2.0.3.min.js"></script>
+	<script src="js/modernizr.js"></script>
+	<script src="js/jquery.cookie.js"></script>
+	<script src="js/screenfull.js"></script>
 	<script>
 		$(function () {
 			$('#supported').text('Supported/allowed: ' + !!screenfull.enabled);
@@ -348,7 +337,7 @@
 		});
 	</script>
 	<!--skycons-icons-->
-	<script th:src="@{js/skycons.js}"></script>
+	<script src="js/skycons.js"></script>
 	<!--//skycons-icons-->
 	<script>
 		var theme = $.cookie('protonTheme') || 'default';
@@ -357,8 +346,8 @@
 		});
 		if (theme !== 'default') $('body').addClass(theme);
 	</script>
-	<script th:src="@{js/bootstrap.js}"></script>
-	<script th:src="@{js/proton.js}"></script>
+	<script src="js/bootstrap.js"></script>
+	<script src="js/proton.js"></script>
 </body>
 
 </html>

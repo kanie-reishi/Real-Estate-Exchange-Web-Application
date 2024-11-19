@@ -7,30 +7,30 @@
 	<script
 		type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
     <!-- bootstrap-css -->
-    <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+    <link rel="stylesheet" href="/css/bootstrap.css">
     <!-- //bootstrap-css -->
     <!-- Custom CSS -->
-    <link th:href="@{/css/style.css}" rel='stylesheet' type='text/css'/>
+    <link href="/css/style.css" rel='stylesheet' type='text/css'/>
     <!-- font CSS -->
-    <link th:href='@{https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic}'
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic'
           rel='stylesheet' type='text/css'>
     <!-- Font Awesome-->
-	<link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css}"
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 	integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- font-awesome icons -->
-    <link th:href="@{/css/font.css}" type="text/css" rel="stylesheet"/>
-    <link th:href="@{/css/font-awesome.css}" rel="stylesheet">
+    <link href="/css/font.css" type="text/css" rel="stylesheet"/>
+    <link href="/css/font-awesome.css" rel="stylesheet">
     <!-- DataTables CSS-->
-    <link th:href="@{https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.min.css}" rel="stylesheet">
-	<link rel="stylesheet" type="text/css" th:href="@{https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css}">
+    <link href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.min.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css">
 </head>
 
 <body class="dashboard-page">
 	<nav class="main-menu">
 		<ul>
 			<li>
-				<a th:href="@{/admin}">
+				<a href="/admin">
 					<i class="fa fa-home nav_icon"></i>
 					<span class="nav-text">
 						Dashboard
@@ -38,7 +38,7 @@
 				</a>
 			</li>
 			<li>
-				<a th:href="@{/admin/realestate-table}">
+				<a href="/admin/realestate-table">
 					<i class="fa-solid fa-city nav-icon"></i>
 					<span class="nav-text">
 						Thông tin BĐS
@@ -299,7 +299,7 @@
 						<h2>Thông tin BĐS</h2>
 						<!-- Add Button -->
 						<div class="btn">
-							<a th:href="@{/admin/realestate/form}" class="btn btn-primary">Thêm BĐS</a>
+							<a href="/admin/realestate/form}" class="btn btn-primary">Thêm BĐS</a>
 						</div>
 						<table id="realestate-table" class="display responsive nowrap" style="width:100%">
 							<thead>
@@ -338,10 +338,10 @@
 		<!-- //footer -->
 	</section>
 	<!-- //font-awesome icons -->
-	<script th:src="@{https://code.jquery.com/jquery-3.7.1.min.js}" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-	<script th:src="@{/js/modernizr.js}"></script>
-	<script th:src="@{/js/jquery.cookie.js}"></script>
-	<script th:src="@{/js/screenfull.js}"></script>
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+	<script src="/js/modernizr.js"></script>
+	<script src="/js/jquery.cookie.js"></script>
+	<script src="/js/screenfull.js"></script>
 	<script>
 		$(function () {
 			$('#supported').text('Supported/allowed: ' + !!screenfull.enabled);
@@ -355,7 +355,7 @@
 		});
 	</script>
 	<!--skycons-icons-->
-	<script th:src="@{/js/skycons.js}"></script>
+	<script src="/js/skycons.js"></script>
 	<!--//skycons-icons-->
 	<script>
 		var theme = $.cookie('protonTheme') || 'default';
@@ -364,12 +364,12 @@
 		});
 		if (theme !== 'default') $('body').addClass(theme);
 	</script>
-	<script th:src="@{/js/bootstrap.js}"></script>
-	<script th:src="@{/js/proton.js}"></script>
+	<script src="/js/bootstrap.js"></script>
+	<script src="/js/proton.js"></script>
 	<!-- DataTables JS-->
-	<script th:src="@{https://cdn.datatables.net/2.0.8/js/dataTables.min.js}"></script>
+	<script src="https://cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
 	<!-- Custom JS-->
-	<script th:src="@{/js/realestate-table.js}"></script>
+	<script src="/js/realestate-table.js"></script>
 </body>
 
 </html>

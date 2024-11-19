@@ -34,7 +34,6 @@ import devcamp.realestateexchange.security.services.UserDetailsImpl;
 import devcamp.realestateexchange.security.services.UserDetailsServiceImpl;
 import devcamp.realestateexchange.services.user.CustomerService;
 import lombok.extern.slf4j.Slf4j;
-import devcamp.realestateexchange.security.services.LoginAttemptService;
 
 @CrossOrigin
 @RestController
@@ -55,23 +54,9 @@ public class AuthController {
 
         @Autowired
         CustomerService customerService;
-
-        @Autowired
-        private LoginAttemptService loginAttemptService;
-
         @PostMapping("/login")
         public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest,
                         HttpServletResponse response) {
-                // Check if the user is already logged in
-                if (loginAttemptService.isLogin(loginRequest.getUsername())) {
-                        return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS)
-                                        .body("User is already logged in.");
-                }
-                // Check if the user has reached the maximum number of login attempts 
-                if (loginAttemptService.incrementLoginAttemptsAndCheck(loginRequest.getUsername())) {
-                        return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS)
-                                        .body("Too many login attempts. Please try again later.");
-                }
                 // Authenticate user
                 Authentication authentication = authenticationManager.authenticate(
                                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),
@@ -80,8 +65,6 @@ public class AuthController {
 
                 // Set the authentication object to the SecurityContext
                 SecurityContextHolder.getContext().setAuthentication(authentication);
-                // Login successful, reset the login attempt
-                loginAttemptService.resetLoginAttempts(loginRequest.getUsername());
                 // Generate JWT token
                 String jwt = jwtUtils.generateJwtToken(authentication);
                 // Create a new cookie
@@ -111,23 +94,11 @@ public class AuthController {
                                 .isSuccessful(true)
                                 .statusCode(200)
                                 .build();
-                // Store the token in Redis
-                jwtUtils.storeTokenInRedis(jwt, loginRequest.getUsername());
                 return new ResponseEntity<>(apiResponse, HttpStatus.OK);
         }
         @PostMapping("auth/login/admin")
         public ResponseEntity<?> authenticateAdmin(@Valid @RequestBody LoginRequest loginRequest,
                         HttpServletResponse response) {
-                // Check if the user is already logged in
-                if (loginAttemptService.isLogin(loginRequest.getUsername())) {
-                        return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS)
-                                        .body("User is already logged in.");
-                }
-                // Check if the user has reached the maximum number of login attempts 
-                if (loginAttemptService.incrementLoginAttemptsAndCheck(loginRequest.getUsername())) {
-                        return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS)
-                                        .body("Too many login attempts. Please try again later.");
-                }
                 // Authenticate user
                 Authentication authentication = authenticationManager.authenticate(
                                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),
@@ -140,8 +111,6 @@ public class AuthController {
                 }
                 // Set the authentication object to the SecurityContext
                 SecurityContextHolder.getContext().setAuthentication(authentication);
-                // Login successful, reset the login attempt
-                loginAttemptService.resetLoginAttempts(loginRequest.getUsername());
                 // Generate JWT token
                 String jwt = jwtUtils.generateJwtToken(authentication);
                 // Create a new cookie
@@ -169,8 +138,6 @@ public class AuthController {
                                 .isSuccessful(true)
                                 .statusCode(200)
                                 .build();
-                // Store the token in Redis
-                jwtUtils.storeTokenInRedis(jwt, loginRequest.getUsername());
                 return new ResponseEntity<>(apiResponse, HttpStatus.OK);
         }
         @PostMapping("/signup")
@@ -230,8 +197,6 @@ public class AuthController {
         public ResponseEntity<?> logout(HttpServletRequest request, HttpServletResponse response) {
                 // Get the token from the request
                 String jwt = jwtUtils.getJwtFromCookie(request);
-                // Remove the token from Redis
-                jwtUtils.removeTokenFromRedis(jwt);
 
                 // Create a new cookie
                 Cookie jwtCookie = new Cookie("token", "");
@@ -244,8 +209,6 @@ public class AuthController {
                 // Add the cookie to the response
                 response.addCookie(jwtCookie);
 
-                // Logout successful, reset the login attempt
-                loginAttemptService.resetLoginAttempts(SecurityContextHolder.getContext().getAuthentication().getName());
                 // Clear the SecurityContext
                 SecurityContextHolder.clearContext();
                 // Create a response object

@@ -26,7 +26,7 @@
 	<nav class="main-menu">
 		<ul>
             <li>
-                <a th:href="@{/admin}">
+                <a th:href="/admin">
                     <i class="fa fa-home nav_icon"></i>
                     <span class="nav-text">
                         Dashboard
@@ -34,7 +34,7 @@
                 </a>
             </li>
             <li>
-                <a th:href="@{/admin/realestate-table}">
+                <a th:href="/admin/realestate-table">
                     <i class="fa-solid fa-city nav-icon"></i>
                     <span class="nav-text">
                         Thông tin BĐS
@@ -333,10 +333,10 @@
 		<!-- //footer -->
 	</section>
 	<!-- //font-awesome icons -->
-	<script th:src="@{js/jquery2.0.3.min.js}"></script>
-	<script th:src="@{js/modernizr.js}"></script>
-	<script th:src="@{js/jquery.cookie.js}"></script>
-	<script th:src="@{js/screenfull.js}"></script>
+	<script src="js/jquery2.0.3.min.js"></script>
+	<script src="js/modernizr.js"></script>
+	<script src="js/jquery.cookie.js"></script>
+	<script src="js/screenfull.js"></script>
 	<script>
 		$(function () {
 			$('#supported').text('Supported/allowed: ' + !!screenfull.enabled);
@@ -350,7 +350,7 @@
 		});
 	</script>
 	<!--skycons-icons-->
-	<script th:src="@{js/skycons.js}"></script>
+	<script src="js/skycons.js"></script>
 	<!--//skycons-icons-->
 	<script>
 		var theme = $.cookie('protonTheme') || 'default';
@@ -359,8 +359,8 @@
 		});
 		if (theme !== 'default') $('body').addClass(theme);
 	</script>
-	<script th:src="@{js/bootstrap.js}"></script>
-	<script th:src="@{js/proton.js}"></script>
+	<script src="js/bootstrap.js"></script>
+	<script src="js/proton.js"></script>
 </body>
 
 </html>

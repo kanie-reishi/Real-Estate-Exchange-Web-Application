@@ -16,7 +16,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.OncePerRequestFilter;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import devcamp.realestateexchange.security.services.UserDetailsServiceImpl;
 
 public class AuthTokenFilter extends OncePerRequestFilter {
@@ -26,8 +25,6 @@ public class AuthTokenFilter extends OncePerRequestFilter {
   @Autowired
   private UserDetailsServiceImpl userDetailsService;
 
-  @Autowired
-  private StringRedisTemplate redisTemplate;
   // Logger
   private static final Logger logger = LoggerFactory.getLogger(AuthTokenFilter.class);
 
