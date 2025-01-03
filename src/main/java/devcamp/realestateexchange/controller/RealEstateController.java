@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -120,6 +121,13 @@ public class RealEstateController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+    // REST API for getting real estate detail
+    @GetMapping("/realestate/{id}")
+    public String getArticle(@PathVariable("id") Long id, Model model) {
+        // Add the ID to the model to use it in the view
+        model.addAttribute("id", id);
+        return "article-detail";
+    }
     // REST API for searching real estates
     @PostMapping("/realestate/search")
     public ResponseEntity<Object> searchRealEstates(
@@ -138,24 +146,32 @@ public class RealEstateController {
             // Check user, only admin can see unapproved real estates
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             boolean isAdmin = authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
-
+            // Get real estate by id
             RealEstateDto realEstate = realEstateService.getRealEstateById(id);
-            /* if (isAdmin) {
-                return ResponseEntity.ok(realEstate);
-            } */
+            // Check if real estate is not found
             if(realEstate == null) {
                 return ResponseEntity.badRequest().body("Real estate not found");
             }
-            /* if(realEstate.getVerify() == null || realEstate.getVerify() == 0) {
+            // Check if user is admin, if true return real estate
+             if (isAdmin == true) {
+                return ResponseEntity.ok(realEstate);
+            } 
+            // Check if real estate is not approved
+            if(realEstate.getVerify() == null || realEstate.getVerify() == 0) {
                 return ResponseEntity.badRequest().body("Real estate is not approved");
-            } */
+            } 
             return ResponseEntity.ok(realEstate);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+    // REST API for returning real estate add form
+    @GetMapping("/admin/realestate/add")
+    public String getRealEstateAddForm() {
+        return "admin-realestate-form";
+    }
     // REST API for creating real estate
-    @PostMapping(value = "/realestate", consumes = "application/json")
+    @PostMapping("/realestate")
     public ResponseEntity<Object> createRealEstate(@RequestBody(required = false) RealEstateDto realEstateDto) {
         try {
             realEstateService.saveRealEstate(realEstateDto);

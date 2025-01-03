@@ -10,16 +10,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 @CrossOrigin
 @Controller
 public class HomeController {
+    // This is the main page
     @GetMapping("/")
     public String index() {
         return "index";
-    }
-
-    @GetMapping("/realestate/{id}")
-    public String getArticle(@PathVariable("id") Long id, Model model) {
-        // Add the ID to the model to use it in the view
-        model.addAttribute("id", id);
-        return "article-detail";
     }
 
     @GetMapping("/realestate/list")
@@ -37,7 +31,7 @@ public class HomeController {
         return "admin-index";
     }
 
-    @GetMapping("/login/admin")
+    @GetMapping("/admin/login")
     public String adminLogin() {
         return "admin-login";
     }

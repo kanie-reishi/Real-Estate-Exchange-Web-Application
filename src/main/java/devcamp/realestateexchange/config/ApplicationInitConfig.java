@@ -29,10 +29,10 @@ public class ApplicationInitConfig {
     PasswordEncoder passwordEncoder;
 
     @NonFinal
-    static final String ADMIN_USER_NAME = "admin";
+    static final String ADMIN_USER_NAME = "adminlogin";
 
     @NonFinal
-    static final String ADMIN_PASSWORD = "admin";
+    static final String ADMIN_PASSWORD = "adminlogin";
     // Tạo một Bean ApplicationRunner
     // ApplicationRunner giúp chúng ta chạy một số logic khi ứng dụng được khởi động
     // Ở đây, chúng ta sẽ tạo một user admin mặc định nếu chưa có

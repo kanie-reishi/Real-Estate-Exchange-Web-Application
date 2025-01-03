@@ -54,6 +54,7 @@ public class AuthController {
 
         @Autowired
         CustomerService customerService;
+        // PostMapping for login user
         @PostMapping("/login")
         public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest,
                         HttpServletResponse response) {
@@ -96,7 +97,8 @@ public class AuthController {
                                 .build();
                 return new ResponseEntity<>(apiResponse, HttpStatus.OK);
         }
-        @PostMapping("auth/login/admin")
+        // PostMapping for login admin
+        @PostMapping("auth/admin")
         public ResponseEntity<?> authenticateAdmin(@Valid @RequestBody LoginRequest loginRequest,
                         HttpServletResponse response) {
                 // Authenticate user
@@ -140,9 +142,10 @@ public class AuthController {
                                 .build();
                 return new ResponseEntity<>(apiResponse, HttpStatus.OK);
         }
+        // PostMapping for signup user
         @PostMapping("/signup")
         public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
-                // Check if the username or email is already taken
+                // Check if the username is already taken
                 if (userDetailsServiceImpl.existsByUsername(signUpRequest.getUsername())) {
                         APIResponse apiResponse = APIResponse.builder()
                                         .message("Error: Username is already taken!")
