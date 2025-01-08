@@ -495,6 +495,18 @@ fieldset[disabled] .btn {
   box-shadow: none
 }
 
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
 .input-group-btn .btn {
   background-color: #f4f4f4;
   border-color: #e3e3e3
@@ -1652,9 +1664,11 @@ nav.user-menu .panel .list-group-item .time-ago {
   float: left;
   width: 15%;
 }
+
 .logo h1 {
   display: flex;
 }
+
 .logo h1 a img {
   margin-right: .5em;
 }
@@ -6777,11 +6791,13 @@ div#vmap {
 .pad-5 {
   padding: 5em !important;
 }
+
 /* Tooltip container */
 .tooltip {
   position: relative;
   display: inline-block;
-  border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+  border-bottom: 1px dotted black;
+  /* If you want dots under the hoverable text */
 }
 
 /* Tooltip text */
@@ -6793,7 +6809,7 @@ div#vmap {
   text-align: center;
   padding: 5px 0;
   border-radius: 6px;
- 
+
   /* Position the tooltip text - see examples below! */
   position: absolute;
   z-index: 1;
@@ -6803,6 +6819,7 @@ div#vmap {
 .tooltip:hover .tooltiptext {
   visibility: visible;
 }
+
 /*-- //responsive --*/
 @media (max-width: 600px) {
   .pad-sm-0 {
@@ -6811,12 +6828,13 @@ div#vmap {
 }
 
 .d-flex {
-    display: flex !important;
-  }
+  display: flex !important;
+}
 
-  .text-red-v6{
-    color: #ff0000;
-  }
+.text-red-v6 {
+  color: #ff0000;
+}
+
 .dropdown-toggle::after {
   display: none !important;
 }

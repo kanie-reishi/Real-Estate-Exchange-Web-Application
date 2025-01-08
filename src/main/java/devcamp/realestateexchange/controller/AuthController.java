@@ -55,7 +55,7 @@ public class AuthController {
         @Autowired
         CustomerService customerService;
         // PostMapping for login user
-        @PostMapping("/login")
+        @PostMapping("/auth/user")
         public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest,
                         HttpServletResponse response) {
                 // Authenticate user
@@ -98,7 +98,7 @@ public class AuthController {
                 return new ResponseEntity<>(apiResponse, HttpStatus.OK);
         }
         // PostMapping for login admin
-        @PostMapping("auth/admin")
+        @PostMapping("/auth/admin")
         public ResponseEntity<?> authenticateAdmin(@Valid @RequestBody LoginRequest loginRequest,
                         HttpServletResponse response) {
                 // Authenticate user

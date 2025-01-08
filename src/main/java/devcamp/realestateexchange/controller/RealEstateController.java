@@ -190,7 +190,7 @@ public class RealEstateController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-    // REST API for deleting real estate
+    // REST API for deleting real estate (hard delete)
     @DeleteMapping("/admin/realestate/delete")
     public ResponseEntity<Object> deleteRealEstate(@RequestParam Integer id) {
         try {

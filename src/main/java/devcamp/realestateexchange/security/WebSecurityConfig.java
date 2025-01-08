@@ -69,32 +69,56 @@ public class WebSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
        http.cors().and().csrf().disable()
             .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
-            .authorizeRequests().antMatchers("/", 
-            "/login", 
-            "/signup", 
-            "/admin/login", 
-            "/auth/admin", 
-            "/realestate/**", 
-            "/css/**", "/js/**", 
-            "/images/**", 
-            "/provinces/**", 
-            "/districts/**", 
-            "/ward/**",
-            "/street/**",
-            "/projects/**", 
-            "/photo/**").permitAll()
+            .authorizeRequests()
+            .antMatchers(
+                "/", 
+                "/login", 
+                "/signup", 
+                "/auth/**", 
+                "/css/**", 
+                "/js/**", 
+                "/images/**",
+                "/provinces/**",
+                "/districts/**",
+                "/wards/**",
+                "/streets/**",
+                "/projects/**",
+                "/photos/**"
+            ).permitAll()
             .antMatchers("/api/test/**").permitAll()
-            .antMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
-            .antMatchers("/realestate/table").hasAuthority("ROLE_ADMIN")
+            .antMatchers("/admin/**", "/realestate/table").hasAuthority("ROLE_ADMIN")
             .antMatchers("/user/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN");
         http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");
 
-        http.authorizeRequests().and().formLogin()
+        // Các URL khác cần xác thực
+        http.authorizeRequests()
+        .anyRequest().authenticated()
+        .and()
 
-                .loginPage("/login/admin")
-                .loginProcessingUrl("/auth/login/admin")
-                .defaultSuccessUrl("/admin/dashboard", true)
-                .and().logout().logoutUrl("/admin/logout").logoutSuccessUrl("/login").deleteCookies("JSESSIONID");
+        // Đăng nhập cho admin  
+        .formLogin()
+            .loginPage("/login/admin")
+            .loginProcessingUrl("/auth/admin")
+            .defaultSuccessUrl("/admin/dashboard", true)
+            .failureUrl("/login/admin?error=true")
+            .permitAll()
+            .and()
+
+        // Đăng nhập cho user
+        .formLogin()
+            .loginPage("/login/user")
+            .loginProcessingUrl("/auth/user")
+            .defaultSuccessUrl("/", true)
+            .failureUrl("/login/user?error=true")
+            .permitAll()
+            .and()
+
+        // Đăng xuất
+        .logout()
+            .logoutUrl("/logout")
+            .logoutSuccessUrl("/")
+            .deleteCookies("JSESSIONID")
+            .permitAll();
 
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();

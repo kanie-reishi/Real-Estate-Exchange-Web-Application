@@ -29,7 +29,7 @@ function onBtnLoginClick(){
     if(validiateUser(userCreditiant)){
         // Gửi dữ liệu đăng nhập lên server
         $.ajax({
-            url: "http://localhost:8080/login",
+            url: "http://localhost:8080/auth/user",
             type: "POST",
             contentType: "application/json",
             data: JSON.stringify(userCreditiant),

@@ -297,6 +297,7 @@
                     <div class="w3l-table-info">
                         <h2>Tạo/Chỉnh Sửa Bất Động Sản</h2>
                         <form id="realestateForm">
+                            <input type="hidden" name="id" value="${property.id}"> <!-- Hidden field để biết đây là chỉnh sửa -->
                             <div class="row mb-3">
                                 <div class="col-md-6">
                                     <label for="title" class="form-label">Tiêu đề<span class="text-red-v6">
@@ -338,7 +339,7 @@
                             <div class="row mb-3">
                                 <div class="col-md-6">
                                     <label for="price" class="form-label">Giá<span class="text-red-v6"> *</span></label>
-                                    <input type="number" class="form-control" id="price" name="price" required>
+                                    <input type="number" class="form-control" id="price" name="price" required min="0">
                                 </div>
                                 <div class="col-md-6">
                                     <label for="priceUnit" class="form-label">Đơn vị giá</label>
