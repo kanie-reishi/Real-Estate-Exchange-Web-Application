@@ -190,12 +190,42 @@ public class RealEstateController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+    // REST API for approving real estate
+    @PutMapping("/admin/realestate/verify/{id}")
+    public ResponseEntity<Object> verifyRealEstate(@PathVariable Integer id) {
+        try {
+            realEstateService.verifyRealEstateById(id);
+            return ResponseEntity.ok("Real estate approved successfully");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+    // REST API for restore real estate
+    @PutMapping("/admin/realestate/restore/{id}")
+    public ResponseEntity<Object> restoreRealEstate(@PathVariable Integer id) {
+        try {
+            realEstateService.restoreRealEstateById(id);
+            return ResponseEntity.ok("Real estate restored successfully");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
     // REST API for deleting real estate (hard delete)
-    @DeleteMapping("/admin/realestate/delete")
-    public ResponseEntity<Object> deleteRealEstate(@RequestParam Integer id) {
+    @DeleteMapping("/admin/realestate/hard-delete/{id}")
+    public ResponseEntity<Object> deleteRealEstate(@PathVariable Integer id) {
         try {
             realEstateService.deleteRealEstateById(id);
             return ResponseEntity.ok("Real estate deleted successfully");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+    // REST API for deleting real estate (soft delete)
+    @DeleteMapping("/admin/realestate/{id}")
+    public ResponseEntity<Object> softDeleteRealEstate(@PathVariable Integer id) {
+        try {
+            realEstateService.softDeleteRealEstateById(id);
+            return ResponseEntity.ok("Real estate soft deleted successfully");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }

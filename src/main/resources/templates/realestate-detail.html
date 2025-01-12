@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -323,27 +323,48 @@
 					<div class="container-fluid">
 						<div class="btn-toolbar-group ew-toolbar">
 							<div class="ew-action-option d-inline-block text-nowrap" data-name="button">
-								<div class="btn-group btn-group-sm ew-btn-group"><a class="btn-toolbar ew-action ew-add"
-										title="Add" data-caption="Add" href="/devcamp1/realestateadd"
-										data-bs-original-title="Add" data-bs-toggle="tooltip"
-										data-bs-placement="bottom"><i data-phrase="ViewPageAddLink"
-											class="fas fa-plus ew-icon"><span
-												class="visually-hidden">Add</span></i></a><a
-										class="btn-toolbar ew-action ew-edit" title="Edit" data-caption="Edit"
-										href="/devcamp1/realestateedit/1380" data-bs-original-title="Edit"
-										data-bs-toggle="tooltip" data-bs-placement="bottom"><i
-											data-phrase="ViewPageEditLink" class="icon-edit ew-icon"><span
-												class="visually-hidden">Edit</span></i></a><a
-										class="btn-toolbar ew-action ew-copy" title="Copy" data-caption="Copy"
-										href="/devcamp1/realestateadd/1380" data-bs-original-title="Copy"
-										data-bs-toggle="tooltip" data-bs-placement="bottom"><i
-											data-phrase="ViewPageCopyLink" class="icon-copy ew-icon"><span
-												class="visually-hidden">Copy</span></i></a><a
-										class="btn-toolbar ew-action ew-delete" title="Delete" data-caption="Delete"
-										href="/admin/realestate/${id}/delete" data-bs-original-title="Delete"
-										data-bs-toggle="tooltip" data-bs-placement="bottom"><i
-											data-phrase="ViewPageDeleteLink" class="fa-solid fa-trash ew-icon"><span
-												class="visually-hidden">Delete</span></i></a></div>
+								<div class="btn-group btn-group-sm ew-btn-group">
+									<a class="btn-toolbar ew-action ew-add" title="Add" data-caption="Add"
+										href="/admin/realestate/form" data-bs-original-title="Add"
+										data-bs-toggle="tooltip" data-bs-placement="bottom" title="Thêm">
+										<i data-phrase="ViewPageAddLink" class="fas fa-plus ew-icon">
+											<span class="visually-hidden">Add</span>
+										</i>
+									</a>
+									<a class="btn-toolbar ew-action ew-edit" title="Edit" data-caption="Edit" href="#"
+										data-bs-original-title="Edit" data-bs-toggle="tooltip"
+										data-bs-placement="bottom" title="Sửa" id="a-edit">
+										<i data-phrase="ViewPageEditLink" class="icon-edit ew-icon">
+											<span class="visually-hidden">Edit</span>
+										</i>
+									</a>
+									<a class="btn-toolbar ew-action ew-delete" title="Delete" data-caption="Delete"
+										href="#" data-bs-original-title="Delete" data-bs-toggle="tooltip"
+										data-bs-placement="bottom" title="Xóa mềm" id="a-solf-delete">
+										<i data-phrase="ViewPageDeleteLink" class="fa-solid fa-trash ew-icon">
+											<span class="visually-hidden">Soft Delete</span>
+										</i>
+									</a>
+									<a class="btn-toolbar ew-action ew-delete" title="Delete" data-caption="Delete"
+										href="#" data-bs-original-title="Delete" data-bs-toggle="tooltip"
+										data-bs-placement="bottom" title="Xóa vĩnh viễn" id="a-hard-delete">
+										<i data-phrase="ViewPageDeleteLink" class="fa-solid fa-trash-alt ew-icon">
+											<span class="visually-hidden">Hard Delete</span>
+										</i>
+									</a>
+									<a class="btn-toolbar ew-action ew-restore" title="Restore" data-caption="Restore" href="#"
+										data-bs-original-title="Restore" data-bs-toggle="tooltip"
+										data-bs-placement="bottom" title="Khôi phục" id="a-restore">
+										<i data-phrase="ViewPageCloneLink" class="fa-solid fa-restore ew-icon">
+											<span class="visually-hidden">Restore</span>
+										</i>
+									</a>
+									<a class="btn-toolbar ew-action ew-verify" title="Verify" data-caption="Verify" href="#" data-bs-original-title="Verify" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Xác minh" id="a-verify">
+										<i data-phrase="ViewPageVerifyLink" class="fa-solid fa-check ew-icon">
+											<span class="visually-hidden">Verify</span>
+										</i>
+									</a>
+								</div>
 							</div>
 						</div>
 						<div class="ew-message-dialog d-none"></div>
@@ -1018,6 +1039,85 @@
 		</div>
 		<!-- //footer -->
 	</section>
+	<!-- Modal Soft Delete-->
+	<div class="modal fade" id="modal-soft-delete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form action="#" method="post">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Xác nhận xóa mềm</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<p>Bạn có chắc chắn muốn xóa mềm bất động sản này không?</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+						<button type="submit" class="btn btn-primary" id="btn-solf-delete">Xóa mềm</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- Modal Hard Delete-->
+	<div class="modal fade" id="modal-hard-delete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form action="#" method="post">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Xác nhận xóa vĩnh viễn</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<p>Bạn có chắc chắn muốn xóa vĩnh viễn bất động sản này không?</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+						<button type="submit" class="btn btn-primary" id="btn-hard-delete">Xóa vĩnh viễn</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- Modal Restore-->
+	<div class="modal fade" id="modal-restore" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form action="#" method="post">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Xác nhận khôi phục</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<p>Bạn có chắc chắn muốn khôi phục bất động sản này không?</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+						<button type="submit" class="btn btn-primary" id="btn-restore">Khôi phục</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- Modal Verify-->
+	<div class="modal fade" id="modal-verify" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form action="#" method="post">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Xác nhận duyệt</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<p>Bạn có chắc chắn muốn duyệt bất động sản này không?</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+						<button type="submit" class="btn btn-primary" id="btn-verify">Duyệt</button>
+					</div>
+				</form>
+			</div>
+		</div>
 	<!-- Script -->
 	<!-- //font-awesome icons -->
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js"

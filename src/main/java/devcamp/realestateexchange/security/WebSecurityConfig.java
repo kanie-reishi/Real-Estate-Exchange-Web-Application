@@ -72,7 +72,7 @@ public class WebSecurityConfig {
             .authorizeRequests()
             .antMatchers(
                 "/", 
-                "/login", 
+                "/login/**", 
                 "/signup", 
                 "/auth/**", 
                 "/css/**", 

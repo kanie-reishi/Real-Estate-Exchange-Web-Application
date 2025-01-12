@@ -24,10 +24,10 @@ $(document).ready(function () {
                     return `<a href="/admin/realestate/${row.id}/detail" data-toggle="tooltip" data-placement="top" title="Xem">
                                 <i class="fa-solid fa-magnifying-glass" ></i>
                             </a>
-                            <a href="/admin/realestate/${row.id}/update" data-toggle="tooltip" data-placement="top" title="Sửa">
+                            <a href="/admin/realestate/form/${row.id}" data-toggle="tooltip" data-placement="top" title="Sửa">
                                 <i class="fa-solid fa-pen"></i>
                             </a>
-                            <a href="/admin/realestate/${row.id}/delete" data-toggle="tooltip" data-placement="top" title="Xóa">
+                            <a href="#" data-toggle="tooltip" data-placement="top" title="Xóa" onclick="deleteRealEstate(${row.id})">
                                 <i class="fa-solid fa-trash"></i>
                             </a>
                     `;
@@ -207,7 +207,25 @@ $(document).ready(function () {
     $('[data-toggle="tooltip"]').tooltip();
 });
 /*** REGION 3 - Event handlers - Vùng khai báo các hàm xử lý sự kiện */
-
+function deleteRealEstate(realEstateId) {
+    // Trigger Modal
+    $('#confirmDeleteModal').modal('show');
+    // Handle Confirm Button
+    $('#confirmDeleteButton').on('click', function () {
+        $.ajax({
+            type: "DELETE",
+            url: `http://localhost:8080/admin/realestate/${realEstateId}`,
+            success: function (response) {
+                $('#confirmDeleteModal').modal('hide');
+                $('#realestate-table').DataTable().ajax.reload();
+            },
+            error: function (error) {
+                alert('Error when deleting Real Estate');
+                //console.log(error);
+            }
+        });
+    });
+}
 /*** REGION 4 - Common funtions - Vùng khai báo hàm dùng chung trong toàn bộ chương trình*/
 function loadProvinceName(provinceId) {
     let provinceName = '';

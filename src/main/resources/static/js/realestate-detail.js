@@ -16,16 +16,106 @@ $(document).ready(function () {
             setDataToElements(data);
         },
         error: function (e) {
-            console.log(e);
+            alert('Error when loading realestate detail');
+            // console.log(e);
         }
     });
     initializeTabs();
     initializeTooltips();
+    setActionOnClick(realestateId);
 });
 /*** REGION 3 - Event handlers - Vùng khai báo các hàm xử lý sự kiện */
-
+// Hàm xử lý khi click vào nút xác nhận xóa mềm
+function onBtnSoftDeleteClick(realEstateId) {
+    $.ajax({
+        url: `http://localhost:8080/admin/realestate/${realEstateId}`,
+        type: 'DELETE',
+        success: function (data) {
+            alert('Soft delete realestate successfully');
+            window.location.href = '/admin/realestate-table';
+        },
+        error: function (e) {
+            alert('Error when soft delete realestate');
+            //console.log(e);
+        }
+    });
+}
+// Hàm xử lý khi click vào nút xác nhận khôi phục
+function onBtnRestoreClick(realEstateId) {
+    $.ajax({
+        url: `http://localhost:8080/admin/realestate/restore/${realEstateId}`,
+        type: 'PUT',
+        success: function (data) {
+            alert('Restore realestate successfully');
+            window.location.href = '/admin/realestate-table';
+        },
+        error: function (e) {
+            alert('Error when restore realestate');
+            //console.log(e);
+        }
+    });
+}
+// Hàm xử lý khi click vào nút xác nhận xóa vĩnh viễn
+function onBtnHardDeleteClick(realEstateId) {
+    $.ajax({
+        url: `http://localhost:8080/admin/realestate/hard-delete/${realEstateId}`,
+        type: 'DELETE',
+        success: function (data) {
+            alert('Hard delete realestate successfully');
+            window.location.href = '/admin/realestate-table';
+        },
+        error: function (e) {
+            alert('Error when hard delete realestate');
+            //console.log(e);
+        }
+    });
+}
+// Hàm xử lý khi click vào nút xác nhận xác thực
+function onBtnVerifyClick(realEstateId) {
+    $.ajax({
+        url: `http://localhost:8080/admin/realestate/verify/${realEstateId}`,
+        type: 'PUT',
+        success: function (data) {
+            alert('Verify realestate successfully');
+            window.location.href = '/admin/realestate-table';
+        },
+        error: function (e) {
+            alert('Error when verify realestate');
+            //console.log(e);
+        }
+    });
+}
 /*** REGION 4 - Common funtions - Vùng khai báo hàm dùng chung trong toàn bộ chương trình*/
-
+// Hàm gắn onclick cho các action
+function setActionOnClick(realEstateId) {
+    $('#a-edit').on('click', function () {
+        window.location.href = `/admin/realestate/form/${realEstateId}`;
+    });
+    $('#a-soft-delete').on('click', function () {
+        $('#modal-soft-delete').modal('show');
+    });
+    $('#a-restore').on('click', function () {
+        $('#modal-restore').modal('show');
+    });
+    $('#a-hard-delete').on('click', function () {
+        $('#modal-hard-delete').modal('show');
+    });
+    $('#a-verify').on('click', function () {
+        $('#modal-verify').modal('show');
+    });
+    $('#btn-soft-delete').on('click', function () {
+        onBtnSoftDeleteClick(realEstateId);
+    });
+    $('#btn-restore').on('click', function () {
+        onBtnRestoreClick(realEstateId);
+    });
+    $('#btn-hard-delete').on('click', function () {
+        onBtnHardDeleteClick(realEstateId);
+    });
+    $('#btn-verify').on('click', function () {
+        onBtnVerifyClick(realEstateId);
+    });
+}
 // Hàm khởi tạo tooltip
 function initializeTooltips() {
     $('[data-bs-toggle="tooltip"]').tooltip();

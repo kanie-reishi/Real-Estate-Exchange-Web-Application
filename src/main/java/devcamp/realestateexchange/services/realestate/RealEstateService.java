@@ -116,7 +116,7 @@ public class RealEstateService {
         return null;
     }
 
-    // Phương thức lấy RealEstateDto theo id
+    // Phương thức xóa cứng RealEstateDto theo id
     public RealEstate deleteRealEstateById(Integer id) {
         RealEstate realEstate = realEstateRepository.findById(id).orElse(null);
         if (realEstate != null) {
@@ -131,7 +131,33 @@ public class RealEstateService {
         }
         return realEstate;
     }
-
+    // Phương thức xóa mềm RealEstateDto theo id
+    public RealEstate softDeleteRealEstateById(Integer id) {
+        RealEstate realEstate = realEstateRepository.findById(id).orElse(null);
+        if (realEstate != null) {
+            realEstate.setDeleted(true);
+            realEstateRepository.save(realEstate);
+        }
+        return realEstate;
+    }
+    // Phương thức xác thực RealEstateDto theo id
+    public RealEstate verifyRealEstateById(Integer id) {
+        RealEstate realEstate = realEstateRepository.findById(id).orElse(null);
+        if (realEstate != null) {
+            realEstate.setVerify(1);
+            realEstateRepository.save(realEstate);
+        }
+        return realEstate;
+    }
+    // Phương thức khôi phục RealEstateDto theo id
+    public RealEstate restoreRealEstateById(Integer id) {
+        RealEstate realEstate = realEstateRepository.findById(id).orElse(null);
+        if (realEstate != null) {
+            realEstate.setDeleted(false);
+            realEstateRepository.save(realEstate);
+        }
+        return realEstate;
+    }
     // Phương thức chuyển đổi RealEstateProjection thành RealEstateDto
     public RealEstateDto convertProjectionToDto(RealEstateProjection projection) {
         // Chuyển đổi RealEstateProjection thành RealEstateDto
