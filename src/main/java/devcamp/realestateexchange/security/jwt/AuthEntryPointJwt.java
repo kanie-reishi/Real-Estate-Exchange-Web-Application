@@ -25,19 +25,23 @@ public class AuthEntryPointJwt implements AuthenticationEntryPoint {
   @Override
   public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException)
       throws IOException, ServletException {
+    // Ghi log lỗi
     logger.error("Unauthorized error: {}", authException.getMessage());
 
-    response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+    // Kiểm tra đường dẫn truy cập để xác định loại trang login
+    String path = request.getServletPath();
+    String redirectUrl;
 
-    final Map<String, Object> body = new HashMap<>();
-    body.put("status", HttpServletResponse.SC_UNAUTHORIZED);
-    body.put("error", "Unauthorized");
-    body.put("message", authException.getMessage());
-    body.put("path", request.getServletPath());
+    if (path.startsWith("/admin")) {
+      // Tài nguyên liên quan đến admin
+      redirectUrl = request.getContextPath() + "/login/admin?error=true";
+    } else {
+      // Tài nguyên liên quan đến người dùng thông thường
+      redirectUrl = request.getContextPath() + "/login/user?error=true";
+    }
 
-    final ObjectMapper mapper = new ObjectMapper();
-    mapper.writeValue(response.getOutputStream(), body);
+    // Điều hướng đến trang login tương ứng
+    response.sendRedirect(redirectUrl);
   }
 
 }

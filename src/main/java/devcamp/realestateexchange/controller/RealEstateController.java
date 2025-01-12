@@ -199,6 +199,7 @@ public class RealEstateController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
+        
     }
     // REST API for restore real estate
     @PutMapping("/admin/realestate/restore/{id}")

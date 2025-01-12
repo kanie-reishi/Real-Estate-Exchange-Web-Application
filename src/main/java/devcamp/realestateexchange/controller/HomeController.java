@@ -31,14 +31,35 @@ public class HomeController {
         return "admin-index";
     }
 
+    // Trang login cho admin
     @GetMapping("/login/admin")
-    public String adminLogin() {
-        return "admin-login";
+    public String adminLogin(Model model, @RequestParam(value = "error", required = false) String error) {
+        if (error != null) {
+            model.addAttribute("errorMessage", "Bạn cần đăng nhập với tài khoản admin để truy cập.");
+        }
+        return "admin-login"; // Tên file HTML cho trang login admin
+    }
+
+    // Trang login cho user
+    @GetMapping("/login/user")
+    public String userLogin(Model model, @RequestParam(value = "error", required = false) String error) {
+        if (error != null) {
+            model.addAttribute("errorMessage", "Bạn cần đăng nhập với tài khoản người dùng để truy cập.");
+        }
+        return "user-login"; // Tên file HTML cho trang login user
     }
 
     @GetMapping("/admin/realestate/form")
     public String realestateForm() {
         return "admin-realestate-form";
+    }
+
+    @GetMapping("/admin/realestate/preview/{id}")
+    public String realestatePreview(@PathVariable("id") Long id, Model model) {
+        // Add the ID to the model to use it in the view
+        model.addAttribute("id", id);
+        model.addAttribute("mode", "preview");
+        return "article-detail";
     }
 
     @GetMapping("/admin/realestate/form/{id}")
