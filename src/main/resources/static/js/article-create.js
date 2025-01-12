@@ -68,11 +68,10 @@ uppy.on('file-added', (file) => {
 // Listen on upload success event
 uppy.on('upload-success', (file, response) => {
      // Get the file URL from the response
-     console.log(response);
-     var fileUrl = response.body.data;
+     var fileId = response.body.data.id;
 
      // Store the file URL in the array
-     imageUrls.push(fileUrl);
+     imageIds.push(fileId);
 });
 // Add quill editor
 var quill = new Quill('#editor', {
@@ -82,7 +81,7 @@ var quill = new Quill('#editor', {
 // Khai báo biến toàn cục
 var selectedChipValue = 1;
 var selectedChipNeedValue = 1;
-var imageUrls = [];
+var imageIds = [];
 /*** REGION 2 - Vùng gán / thực thi hàm xử lý sự kiện cho các elements */
 document.querySelectorAll('.chip-action').forEach(function (chip) {
     chip.addEventListener('click', function () {
@@ -243,16 +242,24 @@ function loadProvinceData() {
 // Thu thập dữ liệu từ form
 function collectDataFromForm() {
     let realestateObj = {};
+    realestateObj.type = selectedChipValue;
     realestateObj.title = $('#input-title').val();
     realestateObj.price = $('#input-price').val() + $('#select-price').val();
     realestateObj.acreage = $('#input-acreage').val();
     realestateObj.address = $('#input-address').val();
     realestateObj.description = quill.root.innerHTML;
-    realestateObj.provinceId = $('#select-province').val();
-    realestateObj.districtId = $('#select-district').val();
-    realestateObj.wardId = $('#select-ward').val();
+    realestateObj.addressDetail = {};
+    realestateObj.addressDetail.street = {};
+    realestateObj.addressDetail.ward = {};
+    realestateObj.addressDetail.district = {};
+    realestateObj.addressDetail.province = {};
+    realestateObj.addressDetail.province.id = $('#select-province').val();
+    realestateObj.addressDetail.district.id = $('#select-district').val();
+    realestateObj.addressDetail.ward.id = $('#select-ward').val();
+    realestateObj.addressDetail.street.id = $('#select-street').val();
     realestateObj.request = selectedChipNeedValue;
-    realestateObj.photoUrls = imageUrls;
+    realestateObj.photoIds = imageIds;
+    console.log(realestateObj);
     return realestateObj;
 }
 // Validate Real Estate Data

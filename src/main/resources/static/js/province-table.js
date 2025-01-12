@@ -1,3 +1,6 @@
+/*** REGION 1 - Global variables - Vùng khai báo biến, hằng số, tham số TOÀN CỤC */
+
+/*** REGION 2 - Vùng gán / thực thi hàm xử lý sự kiện cho các elements */
 $(document).ready(function () {
     $('#provinceTable').DataTable({
         "processing": true,
@@ -5,7 +8,7 @@ $(document).ready(function () {
         "scrollX": true,
         "responsive": true,
         "ajax": {
-            "url": "http://localhost:8080/provinces/table",
+            "url": "http://localhost:8080/provinces",
             "type": "GET",
             "dataSrc": "data",
         },
@@ -23,3 +26,6 @@ $(document).ready(function () {
 
     $('[data-toggle="tooltip"]').tooltip();
 });
+/*** REGION 3 - Event handlers - Vùng khai báo các hàm xử lý sự kiện */
+
+/*** REGION 4 - Common funtions - Vùng khai báo hàm dùng chung trong toàn bộ chương trình*/

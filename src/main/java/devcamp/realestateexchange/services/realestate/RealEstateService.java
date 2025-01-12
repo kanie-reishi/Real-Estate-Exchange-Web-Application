@@ -283,7 +283,7 @@ public class RealEstateService {
         Date createdAt = null;
         // Parse createdAt from ISO 8601 format
         try {
-            if(realEstateDto.getCreatedAt() != null) {
+            if (realEstateDto.getCreatedAt() != null) {
                 createdAt = isoFormat.parse(realEstateDto.getCreatedAt());
             }
         } catch (ParseException e) {
@@ -306,7 +306,7 @@ public class RealEstateService {
             }
         }
         // Link sented photo of real estate
-        if(realEstateDto.getPhotoIds() != null) {
+        if (realEstateDto.getPhotoIds() != null) {
             List<Photo> photos = photoService.findByIds(realEstateDto.getPhotoIds());
             realEstate.setPhotos(photos);
         }
@@ -341,11 +341,12 @@ public class RealEstateService {
         } else {
             throw new RuntimeException("Street not found");
         }
-
-        if (realEstateDto.getType() == 2) {
-            realEstate.setApartDetail(new ApartDetail(realEstateDto.getApartDetail().getApartCode(),
-                    realEstateDto.getApartDetail().getApartLoca(), realEstateDto.getApartDetail().getApartType(),
-                    realEstateDto.getApartDetail().getNumberFloors()));
+        if (realEstateDto.getType() != null) {
+            if (realEstateDto.getType() == 2) {
+                realEstate.setApartDetail(new ApartDetail(realEstateDto.getApartDetail().getApartCode(),
+                        realEstateDto.getApartDetail().getApartLoca(), realEstateDto.getApartDetail().getApartType(),
+                        realEstateDto.getApartDetail().getNumberFloors()));
+            }
         }
         realEstate = realEstateRepository.save(realEstate);
         eventPublisher.publishEvent(new RealEstateChangedEvent(realEstateDto));

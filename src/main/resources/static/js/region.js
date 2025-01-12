@@ -18,7 +18,8 @@ function onProvinceSelectChange(paramProvinceId) {
             });
         },
         error: function (error) {
-            console.log(error);
+            alert('Error when loading District Data');
+            //console.log(error);
         }
     });
 }
@@ -37,7 +38,8 @@ function onDistrictSelectChange(paramDistrictId) {
             });
         },
         error: function (error) {
-            console.log(error);
+            alert('Error when loading Ward Data');
+            //console.log(error);
         }
     });
     // Call API to get Street Data
@@ -54,7 +56,8 @@ function onDistrictSelectChange(paramDistrictId) {
             });
         },
         error: function (error) {
-            console.log(error);
+            alert('Error when loading Street Data');
+            //console.log(error);
         }
     });
 }
@@ -78,7 +81,8 @@ function loadProvinceData() {
             });
         },
         error: function (error) {
-            console.log(error);
+            alert('Error when loading Province Data');
+            //console.log(error);
         }
     });
 }

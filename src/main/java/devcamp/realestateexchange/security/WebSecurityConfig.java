@@ -83,7 +83,9 @@ public class WebSecurityConfig {
                 "/wards/**",
                 "/streets/**",
                 "/projects/**",
-                "/photos/**"
+                "/photo/**",
+                "/realestate/**",
+                "/favicon.ico"
             ).permitAll()
             .antMatchers("/api/test/**").permitAll()
             .antMatchers("/admin/**", "/realestate/table").hasAuthority("ROLE_ADMIN")

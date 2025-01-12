@@ -64,7 +64,7 @@ public class RealEstate extends UserReferenceEntity {
 
     // Trạng thái xóa
     @Column(name = "deleted")
-    private Boolean deleted;
+    private Boolean deleted = false;
     
     // Tỉnh thành phố
     @ManyToOne(fetch = FetchType.LAZY)
@@ -157,7 +157,7 @@ public class RealEstate extends UserReferenceEntity {
 
     // Đã xác minh hay chưa: 0.Chưa xác minh, 1.Đã xác minh
     @Column(name = "verify")
-    private Integer verify;
+    private Integer verify = 0;
     // Hướng nhà, căn hộ Đông: 1, Tây: 2, Bắc: 3, Nam: 4
     // Đông Bắc: 5, Tây Bắc: 6, Đông Nam: 7, Tây Nam: 8
     // Không rõ: 9
