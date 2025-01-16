@@ -93,7 +93,7 @@ public class Employee extends UserReferenceEntity {
 
     // Mức độ quản lý
     @Column(name = "user_level")
-    private int userLevel;
+    private Integer userLevel;
     
     // Quan hệ 1-n với bảng article
     @OneToMany(mappedBy = "createdBy", fetch = FetchType.LAZY)

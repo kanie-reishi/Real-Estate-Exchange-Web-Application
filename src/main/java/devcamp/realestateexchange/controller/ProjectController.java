@@ -113,4 +113,14 @@ public class ProjectController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+    @GetMapping("/admin/projects/index/all")
+    public ResponseEntity<Object> indexAllProjects() {
+        try{
+            projectService.indexAllProject();
+            return ResponseEntity.ok("Indexing all projects");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+    
 }

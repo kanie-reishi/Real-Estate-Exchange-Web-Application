@@ -110,61 +110,62 @@ public class ProjectService {
             projectDto.setUpdatedAt(isoFormat.format(projectProjection.getUpdatedAt()));
         }
         // Convert contractors to DTOs
-        for(ProjectContractorProjection projectContractorProjection : projectProjection.getProjectConstructionContractors()) {
+        for (ProjectContractorProjection projectContractorProjection : projectProjection
+                .getProjectConstructionContractors()) {
             ContractorDto contractorDto = new ContractorDto();
             contractorDto.setId(projectContractorProjection.getContractor().getId());
             contractorDto.setName(projectContractorProjection.getContractor().getName());
-            if(projectDto.getContractors() == null) {
+            if (projectDto.getContractors() == null) {
                 projectDto.setContractors(new ArrayList<>());
             }
             projectDto.getContractors().add(contractorDto);
         }
         // Convert investors to DTOs
-        for(ProjectInvestorProjection projectInvestorProjection : projectProjection.getProjectInvestors()) {
+        for (ProjectInvestorProjection projectInvestorProjection : projectProjection.getProjectInvestors()) {
             InvestorDto investorDto = new InvestorDto();
             investorDto.setId(projectInvestorProjection.getInvestor().getId());
             investorDto.setName(projectInvestorProjection.getInvestor().getName());
-            if(projectDto.getInvestors() == null) {
+            if (projectDto.getInvestors() == null) {
                 projectDto.setInvestors(new ArrayList<>());
             }
             projectDto.getInvestors().add(investorDto);
         }
         // Convert design units to DTOs
-        for(ProjectDesignUnitProjection projectDesignUnitProjection : projectProjection.getProjectDesignUnits()) {
+        for (ProjectDesignUnitProjection projectDesignUnitProjection : projectProjection.getProjectDesignUnits()) {
             DesignUnitDto designUnitDto = new DesignUnitDto();
             designUnitDto.setId(projectDesignUnitProjection.getDesignUnit().getId());
             designUnitDto.setName(projectDesignUnitProjection.getDesignUnit().getName());
-            if(projectDto.getDesignUnits() == null) {
+            if (projectDto.getDesignUnits() == null) {
                 projectDto.setDesignUnits(new ArrayList<>());
             }
             projectDto.getDesignUnits().add(designUnitDto);
         }
         // Convert utilities to DTOs
-        for(UtilitiesProjection utilities : projectProjection.getUtilities()) {
+        for (UtilitiesProjection utilities : projectProjection.getUtilities()) {
             UtilitiesDto utilitiesDto = new UtilitiesDto();
             utilitiesDto.setId(utilities.getId());
             utilitiesDto.setName(utilities.getName());
-            if(projectDto.getUtilities() == null) {
+            if (projectDto.getUtilities() == null) {
                 projectDto.setUtilities(new ArrayList<>());
             }
             projectDto.getUtilities().add(utilitiesDto);
         }
         // Convert region links to DTOs
-        for(RegionLinkProjection regionLink : projectProjection.getRegionLinks()) {
+        for (RegionLinkProjection regionLink : projectProjection.getRegionLinks()) {
             RegionLinkDto regionLinkDto = new RegionLinkDto();
             regionLinkDto.setId(regionLink.getId());
             regionLinkDto.setName(regionLink.getName());
-            if(projectDto.getRegionLinks() == null) {
+            if (projectDto.getRegionLinks() == null) {
                 projectDto.setRegionLinks(new ArrayList<>());
             }
             projectDto.getRegionLinks().add(regionLinkDto);
         }
         // Convert master layouts to DTOs
-        for(MasterLayoutProjection masterLayout : projectProjection.getMasterLayouts()) {
+        for (MasterLayoutProjection masterLayout : projectProjection.getMasterLayouts()) {
             MasterLayoutDto masterLayoutDto = new MasterLayoutDto();
             masterLayoutDto.setId(masterLayout.getId());
             masterLayoutDto.setName(masterLayout.getName());
-            if(projectDto.getMasterLayouts() == null) {
+            if (projectDto.getMasterLayouts() == null) {
                 projectDto.setMasterLayouts(new ArrayList<>());
             }
             projectDto.getMasterLayouts().add(masterLayoutDto);
@@ -186,23 +187,25 @@ public class ProjectService {
             eventPublisher.publishEvent(new ProjectChangedEvent(projectDto));
         }
     }
+
     // Index test project method
     public void indexTestProject() {
         Project project = projectRepository.findById(1).get();
         ProjectDto projectDto = convertEntityToSearchDto(project);
         eventPublisher.publishEvent(new ProjectChangedEvent(projectDto));
     }
+
     // Search project method
-    public Page<ProjectDto> search(ProjectSearchParameters searchParameters){
+    public Page<ProjectDto> search(ProjectSearchParameters searchParameters) {
         List<ProjectDto> projectDtos = new ArrayList<>();
         try {
             Request request = new Request("POST", "/project_index/_search");
             ObjectMapper objectMapper = new ObjectMapper();
             ObjectNode rootNode = objectMapper.createObjectNode();
-            if(searchParameters.getSize() != null) {
+            if (searchParameters.getSize() != null) {
                 rootNode.put("size", searchParameters.getSize());
             }
-            if(searchParameters.getFrom() != null) {
+            if (searchParameters.getFrom() != null) {
                 rootNode.put("from", searchParameters.getFrom());
             }
             // Add the query to the root node
@@ -211,7 +214,7 @@ public class ProjectService {
             // Add the must clause to the bool node
             ObjectNode mustNode = boolNode.putObject("must");
             // Add the multi_match query to the must node
-            if(searchParameters.getSearchText() != null) {
+            if (searchParameters.getSearchText() != null) {
                 // Add the multi_match query to the must node
                 ObjectNode multiMatchNode = mustNode.putObject("multi_match");
                 String text = searchParameters.getSearchText();
@@ -221,15 +224,15 @@ public class ProjectService {
                 multiMatchNode.put("analyzer", "vietnamese_analyzer");
                 // Add fields
                 multiMatchNode.putArray("fields")
-                .add("name")
-                .add("description")
-                .add("investor.name")
-                .add("contractor.name")
-                .add("masterLayout.name")
-                .add("realEstates.title")
-                .add("utilities.name")
-                .add("regionLinks.name")
-                .add("designUnits.name");
+                        .add("name")
+                        .add("description")
+                        .add("investor.name")
+                        .add("contractor.name")
+                        .add("masterLayout.name")
+                        .add("realEstates.title")
+                        .add("utilities.name")
+                        .add("regionLinks.name")
+                        .add("designUnits.name");
                 // Add search type
                 multiMatchNode.put("type", "cross_fields");
                 // Add fuzziness
@@ -238,7 +241,7 @@ public class ProjectService {
             // Add the filter clause to the bool node
 
             // Add sort to the root node
-            if(searchParameters.getSort() != null) {
+            if (searchParameters.getSort() != null) {
                 ObjectNode sortNode = rootNode.putObject("sort");
                 ObjectNode sortFieldNode = sortNode.putObject(searchParameters.getSort());
                 sortFieldNode.put("order", searchParameters.getOrder());
@@ -260,7 +263,7 @@ public class ProjectService {
             // Get the total number of hits
             int total = responseJson.getJSONObject("hits").getJSONObject("total").getInt("value");
             // Convert the hits to project DTOs
-            for(int i = 0; i < hits.length(); i++) {
+            for (int i = 0; i < hits.length(); i++) {
                 JSONObject hit = hits.getJSONObject(i);
                 JSONObject source = hit.getJSONObject("_source");
                 ProjectDto projectDto = objectMapper.readValue(source.toString(), ProjectDto.class);
@@ -269,7 +272,7 @@ public class ProjectService {
             // Create a Page object from the result list
             int start = searchParameters.getFrom() != null ? searchParameters.getFrom() : 0;
             int size = searchParameters.getSize() != null ? searchParameters.getSize() : 10;
-            if(size == 0) {
+            if (size == 0) {
                 return new PageImpl<>(projectDtos);
             }
 
@@ -284,6 +287,7 @@ public class ProjectService {
             return new PageImpl<>(projectDtos);
         }
     }
+
     // Convert entity to search DTO method
     public ProjectDto convertEntityToSearchDto(Project project) {
         ProjectDto projectDto = new ProjectDto();
@@ -304,57 +308,71 @@ public class ProjectService {
             projectDto.setUpdatedAt(isoFormat.format(project.getUpdatedAt()));
         }
         // Convert contractors to DTOs
-        for(ProjectConstructionContractor pcc : project.getProjectConstructionContractors()) {
+        List<ContractorDto> contractors = new ArrayList<>();
+        for (ProjectConstructionContractor pcc : project.getProjectConstructionContractors()) {
             ConstructionContractor contractor = pcc.getConstructionContractor();
             ContractorDto contractorDto = new ContractorDto();
             contractorDto.setId(contractor.getId());
             contractorDto.setName(contractor.getName());
-            projectDto.getContractors().add(contractorDto);
+            contractors.add(contractorDto);
         }
+        projectDto.setContractors(contractors);
         // Convert investors to DTOs
-        for(ProjectInvestor pi : project.getProjectInvestors()) {
+        List<InvestorDto> investors = new ArrayList<>();
+        for (ProjectInvestor pi : project.getProjectInvestors()) {
             Investor investor = pi.getInvestor();
             InvestorDto investorDto = new InvestorDto();
             investorDto.setId(investor.getId());
             investorDto.setName(investor.getName());
-            projectDto.getInvestors().add(investorDto);
+            investors.add(investorDto);
         }
+        projectDto.setInvestors(investors); 
         // Convert design units to DTOs
-        for(ProjectDesignUnit pdu : project.getProjectDesignUnits()) {
+        List<DesignUnitDto> designUnits = new ArrayList<>();
+        for (ProjectDesignUnit pdu : project.getProjectDesignUnits()) {
             DesignUnit designUnit = pdu.getDesignUnit();
             DesignUnitDto designUnitDto = new DesignUnitDto();
             designUnitDto.setId(designUnit.getId());
-            designUnitDto.setName(designUnit.getName());
-            projectDto.getDesignUnits().add(designUnitDto);
+            designUnitDto.setName(designUnit.getName());    
+            designUnits.add(designUnitDto);    
         }
+        projectDto.setDesignUnits(designUnits);
         // Convert real estates to DTOs
-        for(RealEstate realEstate : project.getRealEstates()) {
+        List<RealEstateDto> realEstates = new ArrayList<>();
+        for (RealEstate realEstate : project.getRealEstates()) {
             RealEstateDto realEstateDto = new RealEstateDto();
             realEstateDto.setId(realEstate.getId());
             realEstateDto.setTitle(realEstate.getTitle());
-            projectDto.getRealEstates().add(realEstateDto);
+            realEstates.add(realEstateDto); 
         }
+        projectDto.setRealEstates(realEstates);
         // Convert utilities to DTOs
-        for(Utilities utilities : project.getUtilities()) {
+        List<UtilitiesDto> utilitiesList = new ArrayList<>();
+        for (Utilities utilities : project.getUtilities()) {
             UtilitiesDto utilitiesDto = new UtilitiesDto();
             utilitiesDto.setId(utilities.getId());
             utilitiesDto.setName(utilities.getName());
-            projectDto.getUtilities().add(utilitiesDto);
+            utilitiesList.add(utilitiesDto);
         }
+        projectDto.setUtilities(utilitiesList);
         // Convert region links to DTOs
-        for(RegionLink regionLink : project.getRegionLinks()) {
+        List<RegionLinkDto> regionLinks = new ArrayList<>();
+        for (RegionLink regionLink : project.getRegionLinks()) {
             RegionLinkDto regionLinkDto = new RegionLinkDto();
             regionLinkDto.setId(regionLink.getId());
             regionLinkDto.setName(regionLink.getName());
-            projectDto.getRegionLinks().add(regionLinkDto);
+            regionLinks.add(regionLinkDto);
         }
+        projectDto.setRegionLinks(regionLinks);
         // Convert master layouts to DTOs
-        for(MasterLayout masterLayout : project.getMasterLayouts()) {
+        List<MasterLayoutDto> masterLayouts = new ArrayList<>();
+        for (MasterLayout masterLayout : project.getMasterLayouts()) {
             MasterLayoutDto masterLayoutDto = new MasterLayoutDto();
             masterLayoutDto.setId(masterLayout.getId());
             masterLayoutDto.setName(masterLayout.getName());
-            projectDto.getMasterLayouts().add(masterLayoutDto);
+            masterLayouts.add(masterLayoutDto);
         }
+        projectDto.setMasterLayouts(masterLayouts);
         return projectDto;
     }
 }
