@@ -113,6 +113,7 @@ public class ProjectController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+    // Index all projects @return ResponseEntity<Object>
     @GetMapping("/admin/projects/index/all")
     public ResponseEntity<Object> indexAllProjects() {
         try{

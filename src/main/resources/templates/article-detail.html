@@ -631,13 +631,13 @@
                     $('#customer-phone').text(realEstate.customer.phone);
 
                     // Render real estate location
-                    var map = L.map('mapid').setView([10.773611, 106.667222], 13);
+                    var map = L.map('mapid').setView([realEstate.addressDetail.latitude, realEstate.addressDetail.longitude], 13);
 
                     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                         maxZoom: 19,
                     }).addTo(map);
                     // Add a marker to the map
-                    var marker = L.marker([realEstate.latitude, realEstate.longitude]).addTo(map);
+                    var marker = L.marker([realEstate.addressDetail.latitude, realEstate.addressDetail.longitude]).addTo(map);
                 }
                 // Hàm đổi date
                 function convertDate(paramDate) {
@@ -658,7 +658,7 @@
                 lightbox.init();
             </script>
             <script>
-                var map = L.map('mapid').setView([10.773611, 106.667222], 13);
+                var map = L.map('mapid').setView([realEstate.addressDetail.latitude, realEstate.addressDetail.longitude], 13);
 
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                     maxZoom: 19,

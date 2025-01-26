@@ -19,7 +19,8 @@ public class ProjectChangedEventHandler {
     private RestClient client;
 
     private static final Logger logger = LoggerFactory.getLogger(RealEstateChangedEventHandler.class);
-
+    
+    // handle project changed event, index data into Elasticsearch
     @EventListener
     public void handleProjectChangedEvent(ProjectChangedEvent event) {
         ProjectDto project = event.getDto();

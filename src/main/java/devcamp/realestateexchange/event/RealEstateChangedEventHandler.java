@@ -17,6 +17,7 @@ public class RealEstateChangedEventHandler {
     private RestClient client;
 
     private static final Logger logger = LoggerFactory.getLogger(RealEstateChangedEventHandler.class);
+    // handle real estate changed event, index data into Elasticsearch
     @EventListener
     public void handleRealEstateChangedEvent(RealEstateChangedEvent event) {
         RealEstateDto realestate = event.getDto();

@@ -57,7 +57,7 @@ public class RealEstateController {
         }
     }
     // REST API for getting real estate table
-    @GetMapping("/realestate/table")
+    @GetMapping("/table/realestate")
     public ResponseEntity<Object> getRealEstateTable(
             @RequestParam Map<String, String> allRequestParams) {
         try {

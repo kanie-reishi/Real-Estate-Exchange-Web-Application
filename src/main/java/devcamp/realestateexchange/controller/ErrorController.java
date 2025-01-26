@@ -7,8 +7,9 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin
 @RestController
 public class ErrorController {
-    @RequestMapping("/403")
+    // 403
+    @RequestMapping("/accessDenied")
     public String accessDenied() {
-        return "403"; // Tệp HTML tùy chỉnh
+        return "403";
     }
 }
