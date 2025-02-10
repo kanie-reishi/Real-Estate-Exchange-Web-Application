@@ -234,7 +234,7 @@ public class ProjectService {
                         .add("regionLinks.name")
                         .add("designUnits.name");
                 // Add search type
-                multiMatchNode.put("type", "cross_fields");
+                multiMatchNode.put("type", "best_fields");
                 // Add fuzziness
                 multiMatchNode.put("fuzziness", "AUTO");
             }

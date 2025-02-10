@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -104,7 +105,7 @@ public class ProjectController {
         }
     }
     // Search project @return Page<ProjectDto>
-    @GetMapping("/projects/search")
+    @PostMapping("/projects/search")
     public ResponseEntity<Object> searchProject(@RequestBody ProjectSearchParameters searchParameters){
         try{
             Page<ProjectDto> projectPage = projectService.search(searchParameters);
