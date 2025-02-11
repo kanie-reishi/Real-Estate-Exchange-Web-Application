@@ -26,7 +26,15 @@ public class StreetController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-
+    @GetMapping("/streets")
+    public ResponseEntity<Object> getStreetList(Pageable pageable) {
+        try {
+            Page<StreetDto> streetList = streetService.getStreetList(pageable);
+            return ResponseEntity.ok(streetList);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
     // Get all streets by district id
     @GetMapping("/districts/{districtId}/streets")
     public ResponseEntity<Object> getStreetListByWardId(Pageable pageable, @PathVariable Integer districtId) {

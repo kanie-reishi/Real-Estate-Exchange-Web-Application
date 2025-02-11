@@ -20,8 +20,7 @@ $(document).ready(function () {
             { "data": "id" },
             { "data": "prefix" + "name" },
             { "data": "provinceName" },
-            { "data": "districtName" },
-            { "data": "realEstateCount" }
+            { "data": "districtName" }
         ]
     });
 

@@ -22,7 +22,6 @@ $(document).ready(function () {
             { "data": "provinceName" },
             { "data": "districtName" },
             { "data": "wardName" },
-            { "data": "realEstateCount" }
         ]
     });
 

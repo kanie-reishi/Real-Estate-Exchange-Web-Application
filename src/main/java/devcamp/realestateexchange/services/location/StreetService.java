@@ -12,6 +12,10 @@ public class StreetService {
     @Autowired
     private IStreetRepository streetRepository;
 
+    // Get all streets
+    public Page<StreetDto> getStreetList(Pageable pageable){
+        return streetRepository.getStreetDtos(pageable);
+    }
     // Get street by id
     public StreetDto getStreetById(Integer id){
         return streetRepository.getStreetDtoById(id);

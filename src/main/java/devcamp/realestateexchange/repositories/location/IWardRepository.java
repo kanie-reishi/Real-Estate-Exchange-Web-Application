@@ -10,14 +10,14 @@ import devcamp.realestateexchange.entity.location.Ward;
 
 public interface IWardRepository extends JpaRepository<Ward, Integer> {
     // Get ward by id
-    @Query("SELECT new devcamp.realestateexchange.dto.location.WardDto(w.id, w.name, w.prefix) FROM Ward w WHERE w.id = :id")
+    @Query("SELECT new devcamp.realestateexchange.dto.location.WardDto(w.id, w.name, w.prefix, w.province.id, w.district.id, w.province.name, w.district.name) FROM Ward w WHERE w.id = :id")
     WardDto getWardDtoById(Integer id);
 
     // Get all wards by district id
-    @Query("SELECT new devcamp.realestateexchange.dto.location.WardDto(w.id, w.name, w.prefix) FROM Ward w WHERE w.district.id = :districtId")
+    @Query("SELECT new devcamp.realestateexchange.dto.location.WardDto(w.id, w.name, w.prefix, w.province.id, w.district.id, w.province.name, w.district.name) FROM Ward w WHERE w.district.id = :districtId")
     Page<WardDto> findAllDtoByDistrictId(Pageable pageable, Integer districtId);
 
     // Get all wards
-    @Query("SELECT new devcamp.realestateexchange.dto.location.WardDto(w.id, w.name, w.prefix) FROM Ward w")
+    @Query("SELECT new devcamp.realestateexchange.dto.location.WardDto(w.id, w.name, w.prefix, w.province.id, w.district.id, w.province.name, w.district.name) FROM Ward w")
     Page<WardDto> findAllDto(Pageable pageable);
 }

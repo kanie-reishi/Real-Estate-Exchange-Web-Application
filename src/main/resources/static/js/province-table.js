@@ -20,7 +20,6 @@ $(document).ready(function () {
             { "data": "id" },
             { "data": "name" },
             { "data": "code" },
-            { "data": "realEstateCount" }
         ]
     });
 
