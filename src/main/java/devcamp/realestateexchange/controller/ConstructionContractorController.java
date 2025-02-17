@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import devcamp.realestateexchange.dto.realestate.ContractorDto;
 import devcamp.realestateexchange.entity.realestate.ConstructionContractor;
@@ -28,7 +29,7 @@ public class ConstructionContractorController {
     @Autowired
     private ConstructionContractorService constructionContractorService;
     // Get construction contractor by id
-    @GetMapping("/constructionContractors/{id}")
+    @GetMapping("/construction-contractors/{id}")
     public ResponseEntity<Object> getConstructionContractorById(@PathVariable Integer id){
         try {
             ConstructionContractor constructionContractor = constructionContractorService.getConstructionContractorById(id);
@@ -38,7 +39,7 @@ public class ConstructionContractorController {
         }
     }
     // Get all construction contractors
-    @GetMapping("/constructionContractors")
+    @GetMapping("/construction-contractors")
     public ResponseEntity<Object> getAllConstructionContractors(Pageable pageable){
         try {
             Page<ConstructionContractor> constructionContractorList = constructionContractorService.getConstructionContractorsAll(pageable);
@@ -48,7 +49,7 @@ public class ConstructionContractorController {
         }
     }
     // Get construction contractor by project id
-    @GetMapping("/projects/{projectId}/constructionContractors")
+    @GetMapping("/projects/{projectId}/construction-contractors")
     public ResponseEntity<Object> getConstructionContractorListByProjectId(Pageable pageable, @PathVariable Integer projectId){
         try {
             List<ContractorDto> constructionContractorPage = constructionContractorService.getConstructionContractorsByProjectId(projectId);
@@ -58,7 +59,7 @@ public class ConstructionContractorController {
         }
     }
     // Create new construction contractor
-    @PostMapping("/constructionContractors")
+    @PostMapping("/construction-contractors")
     public ResponseEntity<Object> saveConstructionContractor(@RequestBody ContractorDto contractorDto){
         try {
             ConstructionContractor constructionContractor = constructionContractorService.saveConstructionContractor(contractorDto);
@@ -68,7 +69,7 @@ public class ConstructionContractorController {
         }
     }
     // Update construction contractor
-    @PutMapping("/constructionContractors")
+    @PutMapping("/construction-contractors")
     public ResponseEntity<Object> updateConstructionContractor(@RequestBody ContractorDto contractorDto){
         try {
             ConstructionContractor constructionContractor = constructionContractorService.saveConstructionContractor(contractorDto);
@@ -78,7 +79,7 @@ public class ConstructionContractorController {
         }
     }
     // Delete construction contractor
-    @DeleteMapping("/constructionContractors/{id}")
+    @DeleteMapping("/construction-contractors/{id}")
     public ResponseEntity<Object> deleteConstructionContractor(@PathVariable Integer id){
         try {
             constructionContractorService.deleteConstructionContractor(id);
@@ -86,5 +87,12 @@ public class ConstructionContractorController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
+    }
+
+    // Get construction contractor table page
+    @GetMapping("/admin/construction-contractors")
+    public ModelAndView getConstructionContractorAdminPage(){
+        ModelAndView modelAndView = new ModelAndView("construction-contractors-table");
+        return modelAndView;
     }
 }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import devcamp.realestateexchange.dto.realestate.UtilitiesDto;
 import devcamp.realestateexchange.services.realestate.UtilitiesService;
@@ -82,5 +83,10 @@ public class UtilitiesController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
+    }
+    // Get utilities table page
+    @GetMapping("/admin/utilities")
+    public ModelAndView getUtilityAdminPage() {
+        return new ModelAndView("utilities-table");
     }
 }

@@ -23,6 +23,10 @@
                     <div class="card-header text-center">
                         <h4>User Login</h4>
                     </div>
+                    <!-- Thông báo lỗi -->
+                    <div th:if="${errorMessage}" style="color: red;">
+                        <p th:text="${errorMessage}"></p>
+                    </div>
                     <div class="card-body">
                         <form>
                             <div class="mb-3">
@@ -71,10 +75,6 @@
                 </div>
             </div>
         </div>
-    </div>
-    <!-- Thông báo lỗi -->
-    <div th:if="${errorMessage}" style="color: red;">
-        <p th:text="${errorMessage}"></p>
     </div>
     <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

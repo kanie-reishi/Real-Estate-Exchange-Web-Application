@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import devcamp.realestateexchange.dto.realestate.RealEstateDto;
 import devcamp.realestateexchange.dto.user.CustomerDto;
@@ -64,5 +65,12 @@ public class CustomerController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
+    }
+    // Get customer table page @return ModelAndView
+    @GetMapping("/admin/customers")
+    public ModelAndView getCustomerAdminPage(){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("customers-table");
+        return modelAndView;
     }
 }

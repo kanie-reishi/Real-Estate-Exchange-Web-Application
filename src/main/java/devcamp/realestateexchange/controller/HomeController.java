@@ -48,41 +48,4 @@ public class HomeController {
         }
         return "user-login"; // Tên file HTML cho trang login user
     }
-
-    @GetMapping("/admin/realestate/form")
-    public String realestateForm() {
-        return "admin-realestate-form";
-    }
-
-    @GetMapping("/admin/realestate/preview/{id}")
-    public String realestatePreview(@PathVariable("id") Long id, Model model) {
-        // Add the ID to the model to use it in the view
-        model.addAttribute("id", id);
-        model.addAttribute("mode", "preview");
-        return "article-detail";
-    }
-
-    @GetMapping("/admin/realestate/form/{id}")
-    public String realestateForm(@PathVariable("id") Long id, Model model) {
-        // Add the ID to the model to use it in the view
-        model.addAttribute("id", id);
-        return "admin-realestate-form";
-    }
-
-    @GetMapping("/admin/realestate-table")
-    public String realestateTable() {
-        return "realestate-table";
-    }
-
-    @GetMapping("/admin/realestate/{id}/detail")
-    public String realestateDetail(@PathVariable("id") Long id, Model model) {
-        // Add the ID to the model to use it in the view
-        model.addAttribute("id", id);
-        return "realestate-detail";
-    }
-
-    @GetMapping("/admin/project-table")
-    public String projectTable() {
-        return "project-table";
-    }
 }

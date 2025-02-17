@@ -9,7 +9,7 @@ $(document).ready(function () {
         "scrollX": true,
         "responsive" : true,
         "ajax": {
-            "url": "http://localhost:8080/realestate/table",
+            "url": "http://localhost:8080/admin/realestate/table",
             "type": "GET",
             "dataSrc": "data",
         },

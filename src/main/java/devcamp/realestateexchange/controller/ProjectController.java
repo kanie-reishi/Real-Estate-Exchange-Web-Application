@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import devcamp.realestateexchange.dto.realestate.ProjectDto;
 import devcamp.realestateexchange.models.ProjectSearchParameters;
@@ -124,5 +125,9 @@ public class ProjectController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-    
+    // Get project table page @return ModelAndView
+    @GetMapping("/admin/projects")
+    public ModelAndView getProjectAdminPage() {
+        return new ModelAndView("project-table");
+    }
 }

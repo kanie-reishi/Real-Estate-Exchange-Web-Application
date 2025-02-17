@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import devcamp.realestateexchange.dto.location.DistrictDto;
 import devcamp.realestateexchange.entity.location.District;
@@ -93,5 +94,11 @@ public class DistrictController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
+    }
+
+    // Get district table page
+    @GetMapping("/admin/districts")
+    public ModelAndView getDistrictTable() {
+        return new ModelAndView("district-table");
     }
 }

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import devcamp.realestateexchange.dto.realestate.DesignUnitDto;
 import devcamp.realestateexchange.entity.realestate.DesignUnit;
@@ -27,7 +28,7 @@ public class DesignUnitController {
     @Autowired
     private DesignUnitService designUnitService;
     // Get design unit by id
-    @GetMapping("/designUnits/{id}")
+    @GetMapping("/design-units/{id}")
     public ResponseEntity<Object> getDesignUnitById(@PathVariable Integer id){
         try {
             DesignUnitDto designUnit = designUnitService.getDesignUnitById(id);
@@ -37,7 +38,7 @@ public class DesignUnitController {
         }
     }
     // Get all design units
-    @GetMapping("/designUnits")
+    @GetMapping("/design-units")
     public ResponseEntity<Object> getDesignUnits(Pageable pageable){
         try {
             Page<DesignUnitDto> designUnitPage = designUnitService.getAllDesignUnit(pageable);
@@ -47,7 +48,7 @@ public class DesignUnitController {
         }
     }
     // Create new design unit
-    @PostMapping("/designUnits")
+    @PostMapping("/design-units")
     public ResponseEntity<Object> saveDesignUnit(@RequestBody DesignUnitDto designUnitDto){
         try {
             DesignUnit designUnit = designUnitService.saveDesignUnit(designUnitDto);
@@ -57,7 +58,7 @@ public class DesignUnitController {
         }
     }
     // Get design unit by project id
-    @GetMapping("/projects/{projectId}/designUnits")
+    @GetMapping("/projects/{projectId}/design-units")
     public ResponseEntity<Object> getDesignUnitListByProjectId(Pageable pageable, @PathVariable Integer projectId){
         try {
             List<DesignUnitDto> designUnitPage = designUnitService.getDesignUnitByProjectId(projectId);
@@ -67,7 +68,7 @@ public class DesignUnitController {
         }
     }
     // Update design unit
-    @PutMapping("/designUnits")
+    @PutMapping("/design-units")
     public ResponseEntity<Object> updateDesignUnit(@RequestBody DesignUnitDto designUnitDto){
         try {
             DesignUnit designUnit = designUnitService.saveDesignUnit(designUnitDto);
@@ -77,7 +78,7 @@ public class DesignUnitController {
         }
     }
     // Delete design unit
-    @DeleteMapping("/designUnits/{id}")
+    @DeleteMapping("/design-units/{id}")
     public ResponseEntity<Object> deleteDesignUnit(@PathVariable Integer id){
         try {
             designUnitService.deleteDesignUnit(id);
@@ -85,5 +86,12 @@ public class DesignUnitController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
+    }
+    // Get design unit table page
+    @GetMapping("/admin/design-units")
+    public ModelAndView getDesignUnitAdminPage() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("design-unit-table");
+        return modelAndView;
     }
 }

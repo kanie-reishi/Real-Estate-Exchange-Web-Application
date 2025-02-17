@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 
 import devcamp.realestateexchange.dto.realestate.InvestorDto;
 import devcamp.realestateexchange.entity.realestate.Investor;
@@ -88,5 +91,12 @@ public class InvestorController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
+    }
+    // Get investor table page
+    @GetMapping("/admin/investors")
+    public ModelAndView getInvestorTable() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("investor-table");
+        return modelAndView;
     }
 }

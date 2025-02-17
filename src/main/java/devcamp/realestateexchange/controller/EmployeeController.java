@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import devcamp.realestateexchange.dto.user.EmployeeDto;
 import devcamp.realestateexchange.entity.user.Employee;
@@ -68,5 +69,12 @@ public class EmployeeController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
+    }
+    // get employee table page 
+    @GetMapping("/admin/employees")
+    public ModelAndView getEmployeeAdminPage() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("employees-table");
+        return modelAndView;
     }
 }

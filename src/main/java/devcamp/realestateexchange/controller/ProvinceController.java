@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import devcamp.realestateexchange.dto.location.ProvinceDto;
 import devcamp.realestateexchange.dto.realestate.ProjectDto;
@@ -87,5 +88,11 @@ public class ProvinceController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
+    }
+
+    // Get province table page
+    @GetMapping("/admin/provinces")
+    public ModelAndView getProvinceAdminPage() {
+        return new ModelAndView("province-table");
     }
 }

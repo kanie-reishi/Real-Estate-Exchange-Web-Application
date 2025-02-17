@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import devcamp.realestateexchange.dto.location.WardDto;
 import devcamp.realestateexchange.services.location.WardService;
@@ -41,7 +42,11 @@ public class WardController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-
+    // Get ward table
+    @GetMapping("/admin/wards/table")
+    public String getWardTable() {
+        return "ward-table";
+    }
     // Get all wards by district id
     @GetMapping("/districts/{districtId}/wards")
     public ResponseEntity<Object> getWardListByDistrictId(Pageable pageable, @PathVariable Integer districtId) {
@@ -52,4 +57,9 @@ public class WardController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-}
+    // get ward table page
+    @GetMapping("/admin/wards")
+    public ModelAndView getWardAdminPage() {
+        return new ModelAndView("ward-table");
+    }
+}   

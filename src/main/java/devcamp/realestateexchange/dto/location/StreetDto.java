@@ -24,16 +24,9 @@ public class StreetDto {
     private String province_name;
     // Tên quận huyện
     private String district_name;
-    // Số lượng bất động sản
-    private Long real_estate_count;
     public StreetDto(Integer id, String name) {
         this.id = id;
         this.name = name;
-    }
-    public StreetDto(Integer id, String name, Long real_estate_count) {
-        this.id = id;
-        this.name = name;
-        this.real_estate_count = real_estate_count;
     }
     public StreetDto(Integer id, String name, String prefix) {
         this.id = id;

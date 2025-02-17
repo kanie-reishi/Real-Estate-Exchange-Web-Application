@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.data.domain.Page;
 
 @RestController
@@ -34,6 +35,11 @@ public class StreetController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
+    }
+    // Get street table page
+    @GetMapping("/admin/streets")
+    public ModelAndView getStreetAdminPage() {
+        return new ModelAndView("street-table");
     }
     // Get all streets by district id
     @GetMapping("/districts/{districtId}/streets")
