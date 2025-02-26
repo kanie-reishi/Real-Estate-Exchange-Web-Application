@@ -85,9 +85,9 @@ public class WebSecurityConfig {
                 "/projects/**",
                 "/photo/**",
                 "/realestate/**",
-                "/favicon.ico"
+                "/favicon.ico",
+                "/upload/**"
             ).permitAll()
-            .antMatchers("/api/test/**").permitAll()
             .antMatchers("/admin/**", "/table/**", "/employee/**").hasAuthority("ROLE_ADMIN")
             .antMatchers("/user/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN");
         http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");

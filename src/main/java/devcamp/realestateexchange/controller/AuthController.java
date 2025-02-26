@@ -1,5 +1,6 @@
 package devcamp.realestateexchange.controller;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,6 +35,8 @@ import devcamp.realestateexchange.security.services.UserDetailsImpl;
 import devcamp.realestateexchange.security.services.UserDetailsServiceImpl;
 import devcamp.realestateexchange.services.user.CustomerService;
 import lombok.extern.slf4j.Slf4j;
+import java.util.HashSet;
+import java.util.Set;
 
 @CrossOrigin
 @RestController
@@ -54,6 +57,9 @@ public class AuthController {
 
         @Autowired
         CustomerService customerService;
+
+        private static final Set<String> blacklistedTokens = new HashSet<>();
+
         // PostMapping for login user
         @PostMapping("/auth/user")
         public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest,
@@ -62,7 +68,6 @@ public class AuthController {
                 Authentication authentication = authenticationManager.authenticate(
                                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),
                                                 loginRequest.getPassword()));
-
 
                 // Set the authentication object to the SecurityContext
                 SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -97,6 +102,7 @@ public class AuthController {
                                 .build();
                 return new ResponseEntity<>(apiResponse, HttpStatus.OK);
         }
+
         // PostMapping for login admin
         @PostMapping("/auth/admin")
         public ResponseEntity<?> authenticateAdmin(@Valid @RequestBody LoginRequest loginRequest,
@@ -109,7 +115,8 @@ public class AuthController {
                 // Check if the user is an admin
                 log.info("User roles: {}", userDetails.getAuthorities());
                 if (!userDetails.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
-                        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized access, user is not an admin.");
+                        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                                        .body("Unauthorized access, user is not an admin.");
                 }
                 // Set the authentication object to the SecurityContext
                 SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -142,6 +149,7 @@ public class AuthController {
                                 .build();
                 return new ResponseEntity<>(apiResponse, HttpStatus.OK);
         }
+
         // PostMapping for signup user
         @PostMapping("/signup")
         public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
@@ -196,11 +204,15 @@ public class AuthController {
                                 .build();
                 return new ResponseEntity<>(apiResponse, HttpStatus.OK);
         }
+
         @PostMapping("/logout")
         public ResponseEntity<?> logout(HttpServletRequest request, HttpServletResponse response) {
                 // Get the token from the request
                 String jwt = jwtUtils.getJwtFromCookie(request);
 
+                if (jwt != null) {
+                        blacklistedTokens.add(jwt); // Add token to blacklist
+                }
                 // Create a new cookie
                 Cookie jwtCookie = new Cookie("token", "");
                 // Set the cookie to HTTP-only for security
@@ -221,5 +233,9 @@ public class AuthController {
                                 .statusCode(200)
                                 .build();
                 return new ResponseEntity<>(apiResponse, HttpStatus.OK);
+        }
+
+        public static boolean isTokenBlacklisted(String token) {
+                return blacklistedTokens.contains(token);
         }
 }

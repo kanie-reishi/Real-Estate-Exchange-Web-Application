@@ -5,6 +5,7 @@ $(document).ready(function () {
     if (sessionStorage.getItem("isLoggedIn")) {
         var user = JSON.parse(sessionStorage.getItem("user"));
         $('#btn-navbar-login').text('Hello, ' + user.username);
+        $('#btn-navbar-login').removeAttr('data-bs-toggle data-bs-target'); // Disable login modal when logged in
     }
     // Xử lý sự kiện khi click vào nút hiển thị / ẩn mật khẩu
     $(".password-visibility").click(function () {
@@ -14,11 +15,36 @@ $(document).ready(function () {
     $("#btn-login").click(function () {
         onBtnLoginClick();
     })
+    // Xử lý sự kiện khi click vào nút đăng xuất
     $("#btn-logout").click(function() {
-        // Clear user information
-        sessionStorage.removeItem("user");
-        // Clear login status
-        sessionStorage.removeItem("isLoggedIn");
+        if (confirm("Bạn có chắc chắn muốn đăng xuất?")) {
+            let token = sessionStorage.getItem("jwtToken");
+
+            if (token) {
+                $.ajax({
+                    url: "http://localhost:8080/auth/logout", // Change this to your backend logout endpoint
+                    type: "POST",
+                    headers: { "Authorization": "Bearer " + token },
+                    success: function (response) {
+                        console.log(response.message);
+                    },
+                    error: function (xhr, status, error) {
+                        console.log("Logout request failed:", error);
+                    },
+                    complete: function () {
+                        sessionStorage.removeItem("jwtToken"); // Remove JWT
+                        sessionStorage.removeItem("user"); // Remove user info
+                        sessionStorage.removeItem("isLoggedIn"); // Remove login state
+                        alert("Bạn đã đăng xuất thành công!");
+                        location.reload(); // Refresh to update UI
+                    }
+                });
+            } else {
+                sessionStorage.clear();
+                alert("Bạn đã đăng xuất thành công!");
+                location.reload();
+            }
+        }
     })
 });
 /*** REGION 3 - Event handlers - Vùng khai báo các hàm xử lý sự kiện */

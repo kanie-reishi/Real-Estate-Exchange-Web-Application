@@ -29,8 +29,8 @@
     <div>
         <div>
             <!-- Navbar-->
-            <header
-                class="inset-x-0 z-10 duration-300 ease-linear top-0 w-screen absolute ml:fixed ml:shadow-divide header-sticky-enter-done">
+            <header class="fixed top-0 left-0 w-full bg-white shadow-md z-50">
+
                 <div class="fresnel-container fresnel-greaterThanOrEqual-lg">
                     <nav class="relative shadow shadow-[inset_0_-1px_0_#ececec] bg-white">
                         <div class="px-[1.5rem] py-[1.25rem] mx-auto">
@@ -363,36 +363,28 @@
                         </div>
                     </div>
             </main>
-            <footer class="relative lg:top-[76px] top-[104px]">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <h3>RealEstate.com</h3>
-                            <p>RealEstate.com là trang web mua bán, cho thuê, sang nhượng bất động sản hàng đầu Việt Nam
-                            </p>
-                        </div>
-                        <div class="col-md-3">
-                            <h3>Liên hệ</h3>
-                            <p>Địa chỉ: 123 Đường ABC, Quận XYZ, TP. HCM</p>
-                            <p>Email:</p>
-                            <p>Điện thoại: 0123456789</p>
-                        </div>
-                        <div class="col-md-3">
-                            <h3>Liên kết</h3>
-                            <ul>
-                                <a href="#" class="nav-link">
-                                    <i class="fa-brands fa-facebook"></i>
-                                </a>
-                                <a href="#" class="nav-link">
-                                    <i class="fa-brands fa-youtube"></i>
-                                </a>
-                            </ul>
-                        </div>
-                        <div class="col-md-3">
+            <footer class="bg-gray-900 text-white py-10">
+                <div class="container mx-auto flex flex-wrap justify-between">
+                    <div class="w-full md:w-1/4 mb-6">
+                        <h3 class="text-xl font-bold">RealEstate.com</h3>
+                        <p class="text-gray-400 mt-2">Trang web mua bán, cho thuê bất động sản hàng đầu Việt Nam.</p>
+                    </div>
+                    <div class="w-full md:w-1/4 mb-6">
+                        <h3 class="text-xl font-bold">Liên hệ</h3>
+                        <p class="text-gray-400">123 Đường ABC, Quận XYZ, TP. HCM</p>
+                        <p class="text-gray-400">Email: contact@realestate.com</p>
+                        <p class="text-gray-400">Điện thoại: 0123456789</p>
+                    </div>
+                    <div class="w-full md:w-1/4 mb-6">
+                        <h3 class="text-xl font-bold">Kết nối</h3>
+                        <div class="flex space-x-4">
+                            <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook fa-2x"></i></a>
+                            <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-youtube fa-2x"></i></a>
+                            <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter fa-2x"></i></a>
                         </div>
                     </div>
                 </div>
-            </footer>
+            </footer>            
             <!-- Modal Login -->
             <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
                 <div class="modal-dialog">

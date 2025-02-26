@@ -6838,3 +6838,32 @@ div#vmap {
 .dropdown-toggle::after {
   display: none !important;
 }
+.card {
+  border-radius: 10px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.verify-btn {
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.verify-btn:hover {
+  background: #28a745;
+  color: white;
+}
+.btn-success {
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 5px;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-success:hover {
+  background-color: #28a745;
+  transform: translateY(-2px);
+}

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -72,7 +72,15 @@
                                 </div>
                                 <div
                                     class=" inset-x-0 z-20 lg:z-auto w-full px-6 py-4 transition-all duration-300 ease-in-out bg-white lg:mt-0 lg:p-0 lg:top-0 lg:relative lg:bg-transparent lg:w-auto lg:opacity-100 lg:translate-x-0 flex lg:items-center">
-                                    <button class="btn"><i class="fa-regular fa-heart"></i></button>
+                                    <div class="dropdown">
+                                        <button class="btn dropdown-toggle" id="likeButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="fa-regular fa-heart"></i>
+                                        </button>
+                                        <ul class="dropdown-menu" id="likedPropertiesDropdown">
+                                            <li class="dropdown-header">Yêu thích</li>
+                                            <li><span class="dropdown-item text-muted">Chưa có bất động sản yêu thích</span></li>
+                                        </ul>
+                                    </div>
                                     <button
                                         class="whitespace-nowrap px-[0.625rem] text-sm font-medium transition-colors duration-300 transform button-gray-outline rounded-[2.25rem] bg-gray-v2 border-0 text-black-v8 lg:flex items-center ml-4"
                                         data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-dismiss="modal"
@@ -526,48 +534,36 @@
     <script src="js/convert.js"></script>
     <script src="js/user-login.js"> </script>
     <script src="js/main-page.js"></script>
+    <script scr="js/likelist.js"></script>
     <script>
         $(document).ready(function () {
             // Toggle dropdown visibility
-            $('#property-type-dropdown').on('click', function () {
-                $('#property-type-options').toggleClass('hidden');
-            });
-            $('#location-dropdown').on('click', function () {
-                $('#location-options').toggleClass('hidden');
-            });
-            $('#price-range-dropdown').on('click', function () {
-                $('#price-range-options').toggleClass('hidden');
-            });
-            $('#area-range-dropdown').on('click', function () {
-                $('#area-range-options').toggleClass('hidden');
-            });
-            $('#project-dropdown').on('click', function () {
-                $('#project-options').toggleClass('hidden');
+            $('.select').on('click', function () {
+                $(this).find('.absolute').toggleClass('hidden');
             });
 
+            // Close dropdown when clicking outside
+            $(document).on('click', function (e) {
+                if (!$(e.target).closest('.select').length) {
+                    $('.absolute').addClass('hidden');
+                }
+            });
+
+            // Handle selection of checkboxes
+            function getSelectedValues(className) {
+                return $(`.${className}:checked`).map(function () {
+                    return this.value;
+                }).get();
+            }
+
+            // Search and filter functionality
             $('#search-button').on('click', function () {
-                const query = $('#search-input').val();
-                const propertyTypes = [];
-                const locations = [];
-                const priceRanges = [];
-                const areaRanges = [];
-                const projects = [];
-
-                $('.property-type-checkbox:checked').each(function () {
-                    propertyTypes.push($(this).val());
-                });
-                $('.location-checkbox:checked').each(function () {
-                    locations.push($(this).val());
-                });
-                $('.price-range-checkbox:checked').each(function () {
-                    priceRanges.push($(this).val());
-                });
-                $('.area-range-checkbox:checked').each(function () {
-                    areaRanges.push($(this).val());
-                });
-                $('.project-checkbox:checked').each(function () {
-                    projects.push($(this).val());
-                });
+                const query = $('.search-input_search-input__IqSQH').val().trim();
+                const propertyTypes = getSelectedValues('property-type-checkbox');
+                const locations = getSelectedValues('location-checkbox');
+                const priceRanges = getSelectedValues('price-range-checkbox');
+                const areaRanges = getSelectedValues('area-range-checkbox');
+                const projects = getSelectedValues('project-checkbox');
 
                 const searchParams = new URLSearchParams({
                     query: query,
@@ -578,7 +574,7 @@
                     projects: projects.join(',')
                 });
 
-                // Redirect to search results page with query parameters
+                // Redirect to search results page with parameters
                 window.location.href = `/realestate/list?${searchParams.toString()}`;
             });
         });

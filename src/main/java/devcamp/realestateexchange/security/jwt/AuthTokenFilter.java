@@ -16,6 +16,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.OncePerRequestFilter;
+
+import devcamp.realestateexchange.controller.AuthController;
 import devcamp.realestateexchange.security.services.UserDetailsServiceImpl;
 
 public class AuthTokenFilter extends OncePerRequestFilter {
@@ -36,16 +38,20 @@ public class AuthTokenFilter extends OncePerRequestFilter {
       String jwt = parseJwtFromCookie(request);
       // Validate JWT token
       if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
+        // 🔴 Check if token is blacklisted
+        if (AuthController.isTokenBlacklisted(jwt)) {
+          response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token has been revoked.");
+          return;
+        }
         // Get username from JWT token
         String username = jwtUtils.getUserNameFromJwtToken(jwt);
         // Load user details
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         // Create authentication
-        UsernamePasswordAuthenticationToken authentication =
-            new UsernamePasswordAuthenticationToken(
-                userDetails, // the authenticated user's details
-                null, // don't need the password at this point
-                userDetails.getAuthorities()); // the user's roles or permissions
+        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+            userDetails, // the authenticated user's details
+            null, // don't need the password at this point
+            userDetails.getAuthorities()); // the user's roles or permissions
         // Set authentication details
         authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
         // Set authentication in SecurityContext
@@ -60,24 +66,24 @@ public class AuthTokenFilter extends OncePerRequestFilter {
   }
 
   public String parseJwtFromCookie(HttpServletRequest request) {
-        String headerAuth = request.getHeader("Authorization");
+    String headerAuth = request.getHeader("Authorization");
 
-        if (headerAuth != null && headerAuth.startsWith("Bearer ")) {
-            return headerAuth.substring(7);
+    if (headerAuth != null && headerAuth.startsWith("Bearer ")) {
+      return headerAuth.substring(7);
+    }
+
+    // Check for JWT in cookies
+    if (headerAuth == null) {
+      Cookie[] cookies = request.getCookies();
+      if (cookies != null) {
+        for (Cookie cookie : cookies) {
+          if (cookie.getName().equals("jwt")) {
+            return cookie.getValue();
+          }
         }
+      }
+    }
 
-        // Check for JWT in cookies
-        if (headerAuth == null) {
-            Cookie[] cookies = request.getCookies();
-            if (cookies != null) {
-                for (Cookie cookie : cookies) {
-                    if (cookie.getName().equals("jwt")) {
-                        return cookie.getValue();
-                    }
-                }
-            }
-        }
-
-        return null;
+    return null;
   }
 }

@@ -44,20 +44,16 @@ public class RealEstateController {
     public ResponseEntity<Object> getRealEstateList(Pageable pageable) {
         try {
             // Check user, only admin can see unapproved real estates
-            /*
-             * Authentication authentication =
-             * SecurityContextHolder.getContext().getAuthentication();
-             * boolean isAdmin = authentication.getAuthorities().stream().anyMatch(a ->
-             * a.getAuthority().equals("ROLE_ADMIN"));
-             * if (isAdmin) {
-             * Integer verify = 0;
-             * Page<RealEstateDto> realEstatePage =
-             * realEstateService.getAllRealEstateDtos(pageable, verify);
-             * return ResponseEntity.ok(realEstatePage);
-             * }
-             */
-            Integer verify = 0;
-            Page<RealEstateDto> realEstatePage = realEstateService.getAllRealEstateDtos(pageable, verify);
+                Authentication authentication =
+                SecurityContextHolder.getContext().getAuthentication();
+                boolean isAdmin = authentication.getAuthorities().stream().anyMatch(a ->
+                a.getAuthority().equals("ROLE_ADMIN"));
+                if (isAdmin) {
+                Page<RealEstateDto> realEstatePage =
+                     realEstateService.getAllRealEstateDtos(pageable, 1);
+                return ResponseEntity.ok(realEstatePage);
+                }
+            Page<RealEstateDto> realEstatePage = realEstateService.getAllRealEstateDtos(pageable, 0);
             return ResponseEntity.ok(realEstatePage);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -136,14 +132,6 @@ public class RealEstateController {
         }
     }
 
-    // REST API for getting real estate detail
-    @GetMapping("/realestate/{id}")
-    public String getArticle(@PathVariable("id") Long id, Model model) {
-        // Add the ID to the model to use it in the view
-        model.addAttribute("id", id);
-        return "article-detail";
-    }
-
     // REST API for searching real estates
     @PostMapping("/realestate/search")
     public ResponseEntity<Object> searchRealEstates(
@@ -184,12 +172,6 @@ public class RealEstateController {
         }
     }
 
-    // REST API for returning real estate add form
-    @GetMapping("/admin/realestate/add")
-    public String getRealEstateAddForm() {
-        return "admin-realestate-form";
-    }
-
     // REST API for creating real estate
     @PostMapping("/realestate")
     public ResponseEntity<Object> createRealEstate(@RequestBody(required = false) RealEstateDto realEstateDto) {
@@ -221,7 +203,6 @@ public class RealEstateController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
-
     }
 
     // REST API for restore real estate
@@ -269,6 +250,16 @@ public class RealEstateController {
         }
     }
 
+    // REST API for getting real estate detail by id
+    @GetMapping("/realestate/{id}")
+    public ModelAndView getRealEstateDetail(@PathVariable("id") Long id, Model model) {
+        // Add the ID to the model to use it in the view
+        model.addAttribute("id", id);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("article-detail");
+        return modelAndView;
+    }
+    
     // REST API for indexing test real estates
     @GetMapping("/realestate/indextest")
     public ResponseEntity<Object> indexTestRealEstate() {
@@ -318,6 +309,14 @@ public class RealEstateController {
         model.addAttribute("id", id);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("realestate-detail");
+        return modelAndView;
+    }
+
+    // REST API for returning verify real estate page
+    @GetMapping("/admin/realestate/verify")
+    public ModelAndView realestateVerify() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("realestate-verify");
         return modelAndView;
     }
 }

@@ -1737,11 +1737,20 @@ body {
 }
 
 .button-primary {
-  font-weight: 500;
+  font-weight: 600;
   font-size: 16px;
-  line-height: 24px;
-  background: #366feb;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #366feb, #004dd1);
   color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
+}
+
+.button-primary:hover {
+  background: linear-gradient(135deg, #004dd1, #366feb);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
 }
 
 .text-base {
@@ -2921,5 +2930,31 @@ textarea {
   }
   .sm\:w-100 {
     width: 100% !important;
+  }
+}
+.property-card {
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.property-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+@media (max-width: 768px) {
+  .container {
+      padding: 0 1rem;
+  }
+
+  h1 {
+      font-size: 1.5rem;
+  }
+
+  .button-primary {
+      width: 100%;
+      text-align: center;
+  }
+
+  .property-card {
+      width: 100%;
   }
 }

@@ -18,7 +18,7 @@ $(document).ready(function () {
             {"orderable": false,
         "targets": [0, 16]}
         ],
-        "columns": [
+        "columns":  [
             { "data": null, // Chức năng
                 "render": (data, type, row) => {
                     return `<a href="/admin/realestate/${row.id}/detail" data-toggle="tooltip" data-placement="top" title="Xem">
