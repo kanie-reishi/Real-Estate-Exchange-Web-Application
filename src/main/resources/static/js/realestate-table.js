@@ -27,8 +27,11 @@ $(document).ready(function () {
                             <a href="/admin/realestate/form/${row.id}" data-toggle="tooltip" data-placement="top" title="Sửa">
                                 <i class="fa-solid fa-pen"></i>
                             </a>
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Xóa" onclick="deleteRealEstate(${row.id})">
+                            <a href="#" data-toggle="tooltip" data-placement="top" title="Xóa mềm" onclick="softDeleteRealEstate(${row.id})">
                                 <i class="fa-solid fa-trash"></i>
+                            </a>
+                            <a href="#" data-toggle="tooltip" data-placement="top" title="Xóa vĩnh viễn" onclick="hardDeleteRealEstate(${row.id})">
+                                <i class="fa-solid fa-trash-alt"></i>
                             </a>
                     `;
                 }
@@ -207,7 +210,7 @@ $(document).ready(function () {
     $('[data-toggle="tooltip"]').tooltip();
 });
 /*** REGION 3 - Event handlers - Vùng khai báo các hàm xử lý sự kiện */
-function deleteRealEstate(realEstateId) {
+function softDeleteRealEstate(realEstateId) {
     // Trigger Modal
     $('#confirmDeleteModal').modal('show');
     // Handle Confirm Button
@@ -215,6 +218,25 @@ function deleteRealEstate(realEstateId) {
         $.ajax({
             type: "DELETE",
             url: `http://localhost:8080/admin/realestate/${realEstateId}`,
+            success: function (response) {
+                $('#confirmDeleteModal').modal('hide');
+                $('#realestate-table').DataTable().ajax.reload();
+            },
+            error: function (error) {
+                alert('Error when deleting Real Estate');
+                //console.log(error);
+            }
+        });
+    });
+}
+function hardDeleteRealEstate(realEstateId) {
+    // Trigger Modal
+    $('#confirmDeleteModal').modal('show');
+    // Handle Confirm Button
+    $('#confirmDeleteButton').on('click', function () {
+        $.ajax({
+            type: "DELETE",
+            url: `http://localhost:8080/admin/realestate/${realEstateId}/hard-delete`,
             success: function (response) {
                 $('#confirmDeleteModal').modal('hide');
                 $('#realestate-table').DataTable().ajax.reload();

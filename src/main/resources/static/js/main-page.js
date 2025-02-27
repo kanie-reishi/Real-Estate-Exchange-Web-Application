@@ -68,10 +68,16 @@ function loadBatDongSanPhuHop() {
                     realEstate.title = 'Không có tiêu đề';
                 }
                 var realEstateCard = `
-                        <div class="bg-white cursor-pointer slider-hover relative rounded-lg border border-gray-v1">
-                        <a href="/realestate/${realEstate.id}">
+                        <div class="bg-white cursor-pointer slider-hover relative rounded-lg border border-gray-v1 realestate-card">
+                            <button class="like-button"
+                                data-name="${realEstate.title}"
+                                data-link="/realestate/${realEstate.id}">
+                                <i class="fa-regular fa-heart"></i>
+                            </button>
+
+                        <a href="/realestate/${realEstate.id}" class="realestate-link">
                             <div class="rounded-lg transition-shadow duration-300 text-black-v8 bg-white w-full w-full">
-                                <div class="relative overflow-hidden rounded-lg">
+                                <div class="overflow-hidden rounded-lg image-container">
                                     <div>
                                         <div class="swiper-container">
                                             <div class="swiper-wrapper">
@@ -90,16 +96,6 @@ function loadBatDongSanPhuHop() {
                                             <!-- Add Navigation -->
                                             <div class="swiper-button-next"></div>
                                             <div class="swiper-button-prev"></div>
-                                        </div>
-                                        
-                                        <div class="absolute top-2 right-2">
-                                            <div class="fresnel-container fresnel-greaterThanOrEqual-xl ">
-                                                        <button class="like-button flex items-center justify-center relative h-8 w-8 rounded-full z-[1] bg-[rgba(52,52,52,0.25)]"
-                                                        data-name="${realEstate.title}"
-                                                        data-link="/realestate/${realEstate.id}">
-                                                            <i class="fa-regular fa-heart"></i>
-                                                        </button>
-                                            </div>
                                         </div>
                                         <div class="absolute bottom-2 right-2 z-[1] text-white text-xs font-medium flex items-center">
                                             <div class="flex items-center">

@@ -215,7 +215,7 @@ public class RealEstateController {
     }
 
     // REST API for deleting real estate (hard delete)
-    @DeleteMapping("/admin/realestate/hard-delete/{id}")
+    @DeleteMapping("/admin/realestate/{id}/hard-delete")
     public ResponseEntity<Object> deleteRealEstate(@PathVariable Integer id) {
         try {
             realEstateService.deleteRealEstateById(id);

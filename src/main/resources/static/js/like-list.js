@@ -11,6 +11,12 @@ document.addEventListener("DOMContentLoaded", function () {
         addLikedProperty(propertyName, propertyLink); // Thêm vào danh sách yêu thích
         $(this).addClass("liked"); // Thêm hiệu ứng liked
     });
+    // Ngăn chặn click trên thẻ `<a>` nếu nhấn vào nút like
+    $(".realestate-link").on("click", function (event) {
+        if ($(event.target).closest(".like-button").length > 0) {
+            event.preventDefault(); // Ngăn không cho `<a>` bị click nếu nhấn vào `.like-button`
+        }
+    });
     // Load liked properties from localStorage
     function loadLikedProperties() {
         let likedProperties = JSON.parse(localStorage.getItem("likedProperties")) || [];
