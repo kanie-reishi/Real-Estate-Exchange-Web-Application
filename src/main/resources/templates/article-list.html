@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -230,8 +230,17 @@
         </div>
     </div>
     <!-- List-->
-    <div class="container" id="real-estate-list">
-        <!-- Load List Item-->
+    <div class="container mt-4">
+        <div class="row" id="real-estate-list">
+            <!-- Articles will be dynamically loaded here -->
+        </div>
+    </div>
+    <div class="container">
+        <nav>
+            <ul class="pagination justify-content-center" id="pagination">
+                <!-- Pagination buttons will be added dynamically -->
+            </ul>
+        </nav>
     </div>
     <!--Footer-->
     <footer class="relative lg:top-[76px] top-[104px]">
@@ -280,7 +289,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="password" class="form-label" style="font-size: 13px;">Mật khẩu</label>
-                            <input type="password" class="form-control" id="password" placeholder="Nhập mật khẩu">
+                            <input type="password" class="form-control" id="inp-login-password" placeholder="Nhập mật khẩu">
                         </div>
                         <div style="margin-bottom:1.5rem" class="d-grid">
                             <button style="text-align: right;font-size: 15px;" class="btn">Quên mật khẩu?</button>
@@ -317,47 +326,96 @@
     <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="registerModalLabel">Đăng ký</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
                 <div class="modal-body">
+                    <div class="_58cdb">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="text-center">
+                        <h5 class="modal-title _8a2a5" id="registerModalLabel">Đăng ký tài khoản</h5>
+                    </div>
                     <form action="#">
                         <div class="mb-3">
-                            <label for="text" class="form-label" style="font-size: 13px;">Số điện thoại/ Email</label>
-                            <input type="text" class="form-control" id="email" aria-describedby="emailHelp"
-                                placeholder="Nhập số điện thoại/ Email">
+                            <label for="username" class="form-label" style="font-weight: 500;
+                            font-size: 13px;
+                            color: #646464;
+                            line-height: 20px;
+                            margin-bottom: 4px;">Tên người dùng</label>
+                            <div class="_41aa8">
+                                <span class="_21450 _56724">
+                                </span>
+                                <input type="text" class="form-control _0fdc7" id="inp-register-username"
+                                    aria-describedby="emailHelp" placeholder="Họ và tên">
+                            </div>
                         </div>
                         <div class="mb-3">
-                            <label for="password" class="form-label" style="font-size: 13px;">Mật khẩu</label>
-                            <input type="password" class="form-control" id="password" placeholder="Nhập mật khẩu">
+                            <label for="email" class="form-label" style="font-weight: 500;
+                            font-size: 13px;
+                            color: #646464;
+                            line-height: 20px;
+                            margin-bottom: 4px;">
+                                Email</label>
+                            <div class="_41aa8">
+                                <span class="_21450 _56724">
+                                </span>
+                                <input type="email" class="form-control _0fdc7" id="inp-register-email" aria-describedby="emailHelp"
+                                    placeholder="Email">
+                            </div>
                         </div>
                         <div class="mb-3">
-                            <label for="password" class="form-label" style="font-size: 13px;">Nhập lại mật khẩu</label>
-                            <input type="password" class="form-control" id="password" placeholder="Nhập lại mật khẩu">
+                            <label for="password" class="form-label" style="font-weight: 500;
+                            font-size: 13px;
+                            color: #646464;
+                            line-height: 20px;
+                            margin-bottom: 4px;">Mật khẩu</label>
+                            <div class="_41aa8">
+                                <span class="_21450 _15981">
+                                </span>
+                                <input type="password" class="form-control _0fdc7" id="inp-register-password"
+                                    placeholder="Nhập mật khẩu">
+                                <span class="_21450 password-hide _4ba06 password-visibility" style="width:70px">
+                                </span>
+                            </div>
                         </div>
-                        <div class="d-grid">
-                            <button class="btn btn-primary">Đăng ký</button>
+                        <div class="mb-3">
+                            <label for="password" class="form-label" style="font-weight: 500;
+                            font-size: 13px;
+                            color: #646464;
+                            line-height: 20px;
+                            margin-bottom: 4px;">Nhập lại mật khẩu</label>
+                            <div class="_41aa8">
+                                <span class="_21450 _15981">
+                                </span>
+                                <input type="password" class="form-control _0fdc7" id="inp-register-repeat-password"
+                                    placeholder="Nhập lại mật khẩu">
+                                <span class="_21450 password-hide _4ba06 password-visibility" style="width:70px">
+                                </span>
+                            </div>
+                        </div>
+                        <div class="_915e5" style="margin-bottom:1rem">
+                            <button class="_3c7f2 _8272b">Đăng ký</button>
                         </div>
                     </form>
                     <div class="text-center" style="margin-bottom:1.5rem">
                         <span>
                             Bạn đã có tài khoản?
-                            <button class="btn btn-link" data-bs-toggle="modal" data-bs-target="#loginModal"
+                            <button class="btn btn-link _85f51" data-bs-toggle="modal" data-bs-target="#registerModal"
                                 data-bs-dismiss="modal">Đăng nhập
                             </button>
                         </span>
                     </div>
                     <div class="text-center" style="margin-bottom:1.5rem">
-                        <span>Hoặc đăng ký bằng</span>
+                        <span>Hoặc đăng nhập bằng</span>
                     </div>
-                    <div class="d-grid gap-2">
-                        <button class="btn btn-primary">Facebook</button>
-                        <button class="btn btn-danger">Google</button>
+                    <div class="_915e5 b2acb _68c1f">
+                        <button class="_3c7f2 d633f aa3b1 b7a08"><i
+                                class="fa-brands fa-facebook social-icon"></i></button>
+                        <button class="_3c7f2 d633f aa3b1 b7a08"><i
+                                class="fa-brands fa-google social-icon"></i></button>
                     </div>
                     <div class="text-center" style="margin-bottom:1.5rem">
                         <p style="font-size: 13px;">
-                            Bằng cách đăng ký, bạn đồng ý với Điều khoản dịch vụ và Chính sách bảo mật của chúng tôi
+                            Bằng cách đăng ký, bạn xác nhận và đồng ý với Điều khoản dịch vụ và Chính sách bảo mật của
+                            chúng tôi
                         </p>
                     </div>
                 </div>
@@ -377,7 +435,7 @@
             $('#property-type-dropdown').on('click', function () {
                 $('#property-type-options').toggleClass('hidden');
             });
-            $('#location-dropdown').on('click', function () {   
+            $('#location-dropdown').on('click', function () {
                 $('#location-options').toggleClass('hidden');
             });
             $('#price-range-dropdown').on('click', function () {
@@ -477,18 +535,32 @@
                     projects: projects
                 };
 
-                $.ajax({
-                    url: '/realestate/search',
-                    type: 'POST',
-                    contentType: 'application/json',
-                    data: JSON.stringify(searchParams),
-                    success: function (data) {
-                        renderRealEstateList(data.content);
-                    },
-                    error: function (error) {
-                        console.log(error);
-                    }
-                });
+                function loadRealEstateList(page = 1) {
+                    $.ajax({
+                        url: `/realestate/search?page=${page}&size=9`, // Fetch 9 articles per page
+                        type: "GET",
+                        success: function (response) {
+                            renderRealEstateList(response.content);
+                            renderPagination(response.totalPages, page);
+                        },
+                        error: function (error) {
+                            console.log(error);
+                        }
+                    });
+                }
+
+            }
+            function renderPagination(totalPages, currentPage) {
+                const pagination = $("#pagination");
+                pagination.empty();
+
+                for (let i = 1; i <= totalPages; i++) {
+                    pagination.append(`
+            <li class="page-item ${i === currentPage ? 'active' : ''}">
+                <a class="page-link" href="#" onclick="loadRealEstateList(${i})">${i}</a>
+            </li>
+        `);
+                }
             }
 
             // Render real estate list
@@ -497,17 +569,22 @@
                 realEstateList.empty();
                 realEstates.forEach(function (realEstate) {
                     realEstateList.append(`
-                    <div class="card mb-3">
-                        <div class="card-body">
-                            <h5 class="card-title">${realEstate.title}</h5>
-                            <p class="card-text">${realEstate.description}</p>
-                            <p class="card-text"><strong>Giá:</strong> ${realEstate.price}</p>
-                            <p class="card-text"><strong>Địa chỉ:</strong> ${realEstate.address}</p>
-                        </div>
+            <div class="col-md-4">
+                <div class="card shadow-sm mb-4">
+                    <img src="${realEstate.image || '/images/house.webp'}" class="card-img-top" alt="${realEstate.title}">
+                    <div class="card-body">
+                        <h5 class="card-title">${realEstate.title}</h5>
+                        <p class="card-text text-muted">${realEstate.description.substring(0, 100)}...</p>
+                        <p class="card-text"><strong>Giá:</strong> ${realEstate.price}</p>
+                        <p class="card-text"><i class="fa-solid fa-map-marker-alt"></i> ${realEstate.address}</p>
+                        <a href="/article-detail.html?id=${realEstate.id}" class="btn btn-primary">Chi tiết</a>
                     </div>
-                `);
+                </div>
+            </div>
+        `);
                 });
             }
+
 
             // Load real estate list on page load
             loadRealEstateList();

@@ -44,15 +44,13 @@ public class RealEstateController {
     public ResponseEntity<Object> getRealEstateList(Pageable pageable) {
         try {
             // Check user, only admin can see unapproved real estates
-                Authentication authentication =
-                SecurityContextHolder.getContext().getAuthentication();
-                boolean isAdmin = authentication.getAuthorities().stream().anyMatch(a ->
-                a.getAuthority().equals("ROLE_ADMIN"));
-                if (isAdmin) {
-                Page<RealEstateDto> realEstatePage =
-                     realEstateService.getAllRealEstateDtos(pageable, 1);
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            boolean isAdmin = authentication.getAuthorities().stream()
+                    .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
+            if (isAdmin) {
+                Page<RealEstateDto> realEstatePage = realEstateService.getAllRealEstateDtos(pageable, 1);
                 return ResponseEntity.ok(realEstatePage);
-                }
+            }
             Page<RealEstateDto> realEstatePage = realEstateService.getAllRealEstateDtos(pageable, 0);
             return ResponseEntity.ok(realEstatePage);
         } catch (Exception e) {
@@ -259,7 +257,7 @@ public class RealEstateController {
         modelAndView.setViewName("article-detail");
         return modelAndView;
     }
-    
+
     // REST API for indexing test real estates
     @GetMapping("/realestate/indextest")
     public ResponseEntity<Object> indexTestRealEstate() {
@@ -270,6 +268,7 @@ public class RealEstateController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
     // REST API for returning real estate edit form
     @GetMapping("/admin/realestate/form")
     public ModelAndView realestateForm() {
@@ -277,6 +276,7 @@ public class RealEstateController {
         modelAndView.setViewName("admin-realestate-form");
         return modelAndView;
     }
+
     // REST API for returning real estate preview
     @GetMapping("/admin/realestate/preview/{id}")
     public ModelAndView realestatePreview(@PathVariable("id") Long id, Model model) {
@@ -286,6 +286,7 @@ public class RealEstateController {
         modelAndView.setViewName("admin-realestate-preview");
         return modelAndView;
     }
+
     // REST API for returning real estate form
     @GetMapping("/admin/realestate/form/{id}")
     public ModelAndView realestateForm(@PathVariable("id") Long id, Model model) {
@@ -295,6 +296,7 @@ public class RealEstateController {
         modelAndView.setViewName("admin-realestate-form");
         return modelAndView;
     }
+
     // REST API for returning real estate table
     @GetMapping("/admin/realestates")
     public ModelAndView realestateTable() {
@@ -302,6 +304,29 @@ public class RealEstateController {
         modelAndView.setViewName("realestate-table");
         return modelAndView;
     }
+
+    // REST API for returning real estate list
+    @GetMapping("/realestate/list")
+    public ModelAndView realestateList(
+            @RequestParam(required = false) String query,
+            @RequestParam(required = false) Integer propertyTypes,
+            @RequestParam(required = false) Integer locations,
+            @RequestParam(required = false) String priceRanges,
+            @RequestParam(required = false) String areaRanges,
+            @RequestParam(required = false) String projects) {
+
+        ModelAndView modelAndView = new ModelAndView("article-list");
+        RealEstateSearchParameters realEstateSearchParameters = new RealEstateSearchParameters();
+        realEstateSearchParameters.setSearchText(query);
+        realEstateSearchParameters.setType(propertyTypes);
+        realEstateSearchParameters.setProvinceId(locations);
+        
+        Page<RealEstateDto> realEstateDtos = realEstateService.search(realEstateSearchParameters);
+        modelAndView.addObject("realEstates", realEstateDtos); // Gửi dữ liệu đến view
+        // Gọi service để lấy danh sách bất động sản phù hợp với tiêu chí tìm kiếm
+        return modelAndView;
+    }
+
     // REST API for returning real estate detail
     @GetMapping("/admin/realestate/{id}/detail")
     public ModelAndView realestateDetail(@PathVariable("id") Long id, Model model) {

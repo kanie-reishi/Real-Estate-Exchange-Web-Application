@@ -26,10 +26,11 @@ $(document).ready(function () {
                     type: "POST",
                     headers: { "Authorization": "Bearer " + token },
                     success: function (response) {
-                        console.log(response.message);
+                        alert("Bạn đã đăng xuất thành công!");
+                        location.reload(); // Refresh to update UI
                     },
                     error: function (xhr, status, error) {
-                        console.log("Logout request failed:", error);
+                        alert("Đăng xuất thất bại!");
                     },
                     complete: function () {
                         sessionStorage.removeItem("jwtToken"); // Remove JWT
@@ -66,18 +67,15 @@ function onBtnLoginClick(){
                     sessionStorage.setItem("user", JSON.stringify(response.data));
                     // Lưu trạng thái đăng nhập
                     sessionStorage.setItem("isLoggedIn", true);
-                    console.log(response.data);
                     var user = JSON.parse(sessionStorage.getItem("user"));
                     $('#btn-navbar-login').text('Hello, ' + user.username);
                     // Tải lại trang
-                    // location.reload();
+                    location.reload();
                 } else {
-                    console.log(response);
                     alert("Đăng nhập thất bại");
                 }
             },
             error: function (response) {
-                console.log(response);
                 alert("Đăng nhập thất bại");
             }
         });
@@ -111,7 +109,6 @@ function collectLoginData(){
     } else {
         user.username = inputUsername;
     }
-    console.log(user);
     user.password = $("#inp-login-password").val();
     return user;
 }

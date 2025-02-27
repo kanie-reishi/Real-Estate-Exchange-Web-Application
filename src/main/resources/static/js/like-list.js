@@ -1,6 +1,16 @@
 document.addEventListener("DOMContentLoaded", function () {
     const likedPropertiesDropdown = document.getElementById("likedPropertiesDropdown");
+    // Ngăn chặn chuyển trang khi nhấn vào nút like
+    $(".like-button").on("click", function (event) {
+        event.preventDefault(); // Ngăn không cho thẻ `<a>` bị click
+        event.stopPropagation(); // Ngăn không cho thẻ cha bị ảnh hưởng
 
+        const propertyName = $(this).attr("data-name");
+        const propertyLink = $(this).attr("data-link");
+
+        addLikedProperty(propertyName, propertyLink); // Thêm vào danh sách yêu thích
+        $(this).addClass("liked"); // Thêm hiệu ứng liked
+    });
     // Load liked properties from localStorage
     function loadLikedProperties() {
         let likedProperties = JSON.parse(localStorage.getItem("likedProperties")) || [];
@@ -22,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Add property to liked list
     function addLikedProperty(name, link) {
         let likedProperties = JSON.parse(localStorage.getItem("likedProperties")) || [];
-        
+
         // Avoid duplicate entries
         if (!likedProperties.some(property => property.name === name)) {
             likedProperties.push({ name, link });

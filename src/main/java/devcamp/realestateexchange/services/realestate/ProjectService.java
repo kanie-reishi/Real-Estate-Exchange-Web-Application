@@ -21,6 +21,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import devcamp.realestateexchange.dto.realestate.ContractorDto;
@@ -212,11 +213,11 @@ public class ProjectService {
             ObjectNode queryNode = rootNode.putObject("query");
             ObjectNode boolNode = queryNode.putObject("bool");
             // Add the must clause to the bool node
-            ObjectNode mustNode = boolNode.putObject("must");
+            ArrayNode mustNode = boolNode.putArray("must");
             // Add the multi_match query to the must node
             if (searchParameters.getSearchText() != null) {
                 // Add the multi_match query to the must node
-                ObjectNode multiMatchNode = mustNode.putObject("multi_match");
+                ObjectNode multiMatchNode = mustNode.addObject().putObject("multi_match");
                 String text = searchParameters.getSearchText();
                 // Add text to the multi_match node
                 multiMatchNode.put("query", text);

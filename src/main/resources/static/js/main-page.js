@@ -6,7 +6,7 @@ $(document).ready(function () {
     loadProvinceData();
     // Load real estate data
     loadBatDongSanPhuHop();
- 
+
     // Handle search button click event
     $("#btn-search").click(function () {
         var provinceId = $("#province").val();
@@ -48,7 +48,6 @@ function loadBatDongSanPhuHop() {
         url: "http://localhost:8080/realestate?size=6",
         type: "GET",
     }).then(function (data) {
-        console.log(data);
         // Load province and district data with AJAX promise
         var promises = data.content.map(function (realEstate) {
             var provincePromise = $.ajax({
@@ -95,9 +94,11 @@ function loadBatDongSanPhuHop() {
                                         
                                         <div class="absolute top-2 right-2">
                                             <div class="fresnel-container fresnel-greaterThanOrEqual-xl ">
-                                                <button class="flex items-center justify-center relative h-8 w-8 rounded-full z-[1] bg-[rgba(52,52,52,0.25)]" aria-label="button-favorite">
-                                                    <i class="fa-regular fa-heart"></i>
-                                                </button>
+                                                        <button class="like-button flex items-center justify-center relative h-8 w-8 rounded-full z-[1] bg-[rgba(52,52,52,0.25)]"
+                                                        data-name="${realEstate.title}"
+                                                        data-link="/realestate/${realEstate.id}">
+                                                            <i class="fa-regular fa-heart"></i>
+                                                        </button>
                                             </div>
                                         </div>
                                         <div class="absolute bottom-2 right-2 z-[1] text-white text-xs font-medium flex items-center">
@@ -184,4 +185,32 @@ function convertDate(paramDate) {
     var month = date.getMonth() + 1; // Months are zero based
     var year = date.getFullYear();
     return day + '/' + month + '/' + year;
+}
+//  Hàm đổi giá tiền
+function convertPriceUnit(priceUnit) {
+    // Đơn vị giá: 0.Triệu, 1.Tỷ, 2.Triệu/m2, 3.Tỷ/m2
+    switch (priceUnit) {
+        case 0:
+            return 'Triệu';
+        case 1:
+            return 'Tỷ';
+        case 2:
+            return 'Triệu/m2';
+        case 3:
+            return 'Tỷ/m2';
+        default:
+            return '';
+    }
+}
+// Hàm đổi đơn vị diện tích
+function convertAcreageUnit(acreageUnit) {
+    // Đơn vị diện tích: 0.m2, 1.ha
+    switch (acreageUnit) {
+        case 0:
+            return 'm2';
+        case 1:
+            return 'ha';
+        default:
+            return '';
+    }
 }

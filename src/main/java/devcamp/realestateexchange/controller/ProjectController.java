@@ -77,7 +77,8 @@ public class ProjectController {
             // Check if the column is orderable
             String orderable = allRequestParams.get(orderableKey);
             // Define sort column
-            String[] columns = null;
+            String[] columns = { "", "id", "name", "address", "country", "latitude", "longitude",
+                     "created_at", "updated_at" };
             // Define search parameters
             ProjectSearchParameters searchParameters = new ProjectSearchParameters();
             searchParameters.setSearchText(searchTerm);

@@ -16,11 +16,6 @@ public class HomeController {
         return "index";
     }
 
-    @GetMapping("/realestate/list")
-    public String getArticles() {
-        return "article-list";
-    }
-
     @GetMapping("/realestate/create")
     public String createArticle() {
         return "article-create";

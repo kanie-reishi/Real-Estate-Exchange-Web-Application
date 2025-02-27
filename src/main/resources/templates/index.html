@@ -73,12 +73,14 @@
                                 <div
                                     class=" inset-x-0 z-20 lg:z-auto w-full px-6 py-4 transition-all duration-300 ease-in-out bg-white lg:mt-0 lg:p-0 lg:top-0 lg:relative lg:bg-transparent lg:w-auto lg:opacity-100 lg:translate-x-0 flex lg:items-center">
                                     <div class="dropdown">
-                                        <button class="btn dropdown-toggle" id="likeButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <button class="btn dropdown-toggle" id="likeButton" data-bs-toggle="dropdown"
+                                            aria-expanded="false">
                                             <i class="fa-regular fa-heart"></i>
                                         </button>
                                         <ul class="dropdown-menu" id="likedPropertiesDropdown">
                                             <li class="dropdown-header">Yêu thích</li>
-                                            <li><span class="dropdown-item text-muted">Chưa có bất động sản yêu thích</span></li>
+                                            <li><span class="dropdown-item text-muted">Chưa có bất động sản yêu
+                                                    thích</span></li>
                                         </ul>
                                     </div>
                                     <button
@@ -375,13 +377,13 @@
                             font-size: 13px;
                             color: #646464;
                             line-height: 20px;
-                            margin-bottom: 4px;">Số điện thoại/
+                            margin-bottom: 4px;">Username/
                                 Email</label>
                             <div class="_41aa8">
                                 <span class="_21450 _56724">
                                 </span>
                                 <input type="text" class="form-control _0fdc7" id="inp-login-username"
-                                    aria-describedby="emailHelp" placeholder="Nhập số điện thoại/ Email">
+                                    aria-describedby="emailHelp" placeholder="Nhập Username/ Email">
                             </div>
                         </div>
                         <div class="mb-3">
@@ -444,21 +446,34 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="text-center">
-                        <h5 class="modal-title _8a2a5" id="loginModalLabel">Đăng ký tài khoản</h5>
+                        <h5 class="modal-title _8a2a5" id="registerModalLabel">Đăng ký tài khoản</h5>
                     </div>
                     <form action="#">
+                        <div class="mb-3">
+                            <label for="username" class="form-label" style="font-weight: 500;
+                            font-size: 13px;
+                            color: #646464;
+                            line-height: 20px;
+                            margin-bottom: 4px;">Tên người dùng</label>
+                            <div class="_41aa8">
+                                <span class="_21450 _56724">
+                                </span>
+                                <input type="text" class="form-control _0fdc7" id="inp-register-username"
+                                    aria-describedby="emailHelp" placeholder="Họ và tên">
+                            </div>
+                        </div>
                         <div class="mb-3">
                             <label for="email" class="form-label" style="font-weight: 500;
                             font-size: 13px;
                             color: #646464;
                             line-height: 20px;
-                            margin-bottom: 4px;">Số điện thoại/
+                            margin-bottom: 4px;">
                                 Email</label>
                             <div class="_41aa8">
                                 <span class="_21450 _56724">
                                 </span>
-                                <input type="email" class="form-control _0fdc7" id="email" aria-describedby="emailHelp"
-                                    placeholder="Nhập số điện thoại/ Email">
+                                <input type="email" class="form-control _0fdc7" id="inp-register-email" aria-describedby="emailHelp"
+                                    placeholder="Email">
                             </div>
                         </div>
                         <div class="mb-3">
@@ -470,7 +485,7 @@
                             <div class="_41aa8">
                                 <span class="_21450 _15981">
                                 </span>
-                                <input type="password" class="form-control _0fdc7" id="password"
+                                <input type="password" class="form-control _0fdc7" id="inp-register-password"
                                     placeholder="Nhập mật khẩu">
                                 <span class="_21450 password-hide _4ba06 password-visibility" style="width:70px">
                                 </span>
@@ -485,7 +500,7 @@
                             <div class="_41aa8">
                                 <span class="_21450 _15981">
                                 </span>
-                                <input type="password" class="form-control _0fdc7" id="password"
+                                <input type="password" class="form-control _0fdc7" id="inp-register-repeat-password"
                                     placeholder="Nhập lại mật khẩu">
                                 <span class="_21450 password-hide _4ba06 password-visibility" style="width:70px">
                                 </span>
@@ -531,51 +546,81 @@
     <!--Swiper Js-->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <!-- Custom JS-->
-    <script src="js/convert.js"></script>
-    <script src="js/user-login.js"> </script>
-    <script src="js/main-page.js"></script>
-    <script scr="js/likelist.js"></script>
+    <script src="/js/convert.js"></script>  
+    <script src="/js/main-page.js"></script>
+    <script src="/js/user-login.js"> </script>
+    <script src="/js/user-register.js"></script>
+    <script src="/js/like-list.js"></script>
     <script>
         $(document).ready(function () {
-            // Toggle dropdown visibility
-            $('.select').on('click', function () {
-                $(this).find('.absolute').toggleClass('hidden');
-            });
-
-            // Close dropdown when clicking outside
-            $(document).on('click', function (e) {
-                if (!$(e.target).closest('.select').length) {
-                    $('.absolute').addClass('hidden');
-                }
-            });
-
-            // Handle selection of checkboxes
+            const searchInput = $('.search-input_search-input__IqSQH');
+            const searchButton = $('#search-button');
+            let debounceTimer;
+            // Debounce function to limit repeated function calls
+            function debounce(func, delay) {
+                return function () {
+                    clearTimeout(debounceTimer);
+                    debounceTimer = setTimeout(() => func.apply(this, arguments), delay);
+                };
+            }
+            // Function to get selected filter values
             function getSelectedValues(className) {
                 return $(`.${className}:checked`).map(function () {
                     return this.value;
                 }).get();
             }
 
-            // Search and filter functionality
-            $('#search-button').on('click', function () {
-                const query = $('.search-input_search-input__IqSQH').val().trim();
+            // Save search data to localStorage
+            function saveSearchData() {
+                const query = searchInput.val().trim();
                 const propertyTypes = getSelectedValues('property-type-checkbox');
                 const locations = getSelectedValues('location-checkbox');
                 const priceRanges = getSelectedValues('price-range-checkbox');
                 const areaRanges = getSelectedValues('area-range-checkbox');
                 const projects = getSelectedValues('project-checkbox');
 
-                const searchParams = new URLSearchParams({
-                    query: query,
-                    propertyTypes: propertyTypes.join(','),
-                    locations: locations.join(','),
-                    priceRanges: priceRanges.join(','),
-                    areaRanges: areaRanges.join(','),
-                    projects: projects.join(',')
-                });
+                const searchData = {
+                    query,
+                    propertyTypes,
+                    locations,
+                    priceRanges,
+                    areaRanges,
+                    projects
+                };
 
-                // Redirect to search results page with parameters
-                window.location.href = `/realestate/list?${searchParams.toString()}`;
+                localStorage.setItem("searchData", JSON.stringify(searchData));
+            }
+
+            // Load search data from localStorage
+            function loadSearchData() {
+                const savedData = JSON.parse(localStorage.getItem("searchData"));
+                if (savedData) {
+                    searchInput.val(savedData.query);
+
+                    function restoreCheckboxes(className, values) {
+                        values.forEach(value => {
+                            $(`.${className}[value="${value}"]`).prop("checked", true);
+                        });
+                    }
+
+                    restoreCheckboxes("property-type-checkbox", savedData.propertyTypes);
+                    restoreCheckboxes("location-checkbox", savedData.locations);
+                    restoreCheckboxes("price-range-checkbox", savedData.priceRanges);
+                    restoreCheckboxes("area-range-checkbox", savedData.areaRanges);
+                    restoreCheckboxes("project-checkbox", savedData.projects);
+                }
+            }
+
+            // Load saved search data on page load
+            loadSearchData();
+            // Save search data on input
+            searchInput.on("input", debounce(saveSearchData, 500));
+            // Save search data before redirecting
+            searchButton.on("click", function () {
+                saveSearchData();
+                // Redirect to list page with search data
+                window.location.href = "/realestate/list";
+                
             });
         });
     </script>
