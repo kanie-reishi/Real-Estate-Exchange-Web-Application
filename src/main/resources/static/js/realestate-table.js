@@ -243,7 +243,6 @@ function hardDeleteRealEstate(realEstateId) {
             },
             error: function (error) {
                 alert('Error when deleting Real Estate');
-                //console.log(error);
             }
         });
     });

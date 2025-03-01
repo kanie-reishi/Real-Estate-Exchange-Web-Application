@@ -71,7 +71,8 @@ function loadBatDongSanPhuHop() {
                         <div class="bg-white cursor-pointer slider-hover relative rounded-lg border border-gray-v1 realestate-card">
                             <button class="like-button"
                                 data-name="${realEstate.title}"
-                                data-link="/realestate/${realEstate.id}">
+                                data-link="/realestate/${realEstate.id}" 
+                                data-id="${realEstate.id}">
                                 <i class="fa-regular fa-heart"></i>
                             </button>
 

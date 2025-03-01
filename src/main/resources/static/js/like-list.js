@@ -1,15 +1,15 @@
 document.addEventListener("DOMContentLoaded", function () {
     const likedPropertiesDropdown = document.getElementById("likedPropertiesDropdown");
     // Ngăn chặn chuyển trang khi nhấn vào nút like
-    $(".like-button").on("click", function (event) {
-        event.preventDefault(); // Ngăn không cho thẻ `<a>` bị click
-        event.stopPropagation(); // Ngăn không cho thẻ cha bị ảnh hưởng
-
+    $(document).on("click", ".like-button", function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+    
         const propertyName = $(this).attr("data-name");
         const propertyLink = $(this).attr("data-link");
-
-        addLikedProperty(propertyName, propertyLink); // Thêm vào danh sách yêu thích
-        $(this).addClass("liked"); // Thêm hiệu ứng liked
+        const propertyId = $(this).attr("data-id");
+        addLikedProperty(propertyName, propertyLink, propertyId);
+        $(this).addClass("liked");
     });
     // Ngăn chặn click trên thẻ `<a>` nếu nhấn vào nút like
     $(".realestate-link").on("click", function (event) {
@@ -36,12 +36,12 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Add property to liked list
-    function addLikedProperty(name, link) {
+    function addLikedProperty(name, link, id) {
         let likedProperties = JSON.parse(localStorage.getItem("likedProperties")) || [];
 
         // Avoid duplicate entries
-        if (!likedProperties.some(property => property.name === name)) {
-            likedProperties.push({ name, link });
+        if (!likedProperties.some(property => property.id === id)) {
+            likedProperties.push({ name, link, id });
             localStorage.setItem("likedProperties", JSON.stringify(likedProperties));
             loadLikedProperties();
         }
@@ -56,15 +56,6 @@ document.addEventListener("DOMContentLoaded", function () {
             localStorage.setItem("likedProperties", JSON.stringify(likedProperties));
             loadLikedProperties();
         }
-    });
-
-    // Attach like button functionality (Example: Liking a property)
-    document.querySelectorAll(".like-button").forEach(button => {
-        button.addEventListener("click", function () {
-            const propertyName = this.getAttribute("data-name");
-            const propertyLink = this.getAttribute("data-link");
-            addLikedProperty(propertyName, propertyLink);
-        });
     });
 
     // Load liked properties on page load
