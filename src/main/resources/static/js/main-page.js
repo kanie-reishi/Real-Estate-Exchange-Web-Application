@@ -72,7 +72,8 @@ function loadBatDongSanPhuHop() {
                             <button class="like-button"
                                 data-name="${realEstate.title}"
                                 data-link="/realestate/${realEstate.id}" 
-                                data-id="${realEstate.id}">
+                                data-id="${realEstate.id}"
+                                data-image-url="${realEstate.photoUrls[0]}">
                                 <i class="fa-regular fa-heart"></i>
                             </button>
 

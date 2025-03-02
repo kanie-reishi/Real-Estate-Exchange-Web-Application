@@ -8,7 +8,8 @@ document.addEventListener("DOMContentLoaded", function () {
         const propertyName = $(this).attr("data-name");
         const propertyLink = $(this).attr("data-link");
         const propertyId = $(this).attr("data-id");
-        addLikedProperty(propertyName, propertyLink, propertyId);
+        const propertyImageUrl = $(this).attr("data-image-url");
+        addLikedProperty(propertyName, propertyLink, propertyId, propertyImageUrl);
         $(this).addClass("liked");
     });
     // Ngăn chặn click trên thẻ `<a>` nếu nhấn vào nút like
@@ -28,6 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
             likedProperties.forEach((property, index) => {
                 likedPropertiesDropdown.innerHTML += `
                     <li class="d-flex justify-content-between align-items-center px-3">
+                        <image src="${property.imageUrl}" class="rounded" alt="property-image">
                         <a href="${property.link}" class="dropdown-item">${property.name}</a>
                         <button class="btn btn-sm text-danger remove-like" data-index="${index}">&times;</button>
                     </li>`;
@@ -36,12 +38,12 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Add property to liked list
-    function addLikedProperty(name, link, id) {
+    function addLikedProperty(name, link, id, imageUrl) {
         let likedProperties = JSON.parse(localStorage.getItem("likedProperties")) || [];
 
         // Avoid duplicate entries
         if (!likedProperties.some(property => property.id === id)) {
-            likedProperties.push({ name, link, id });
+            likedProperties.push({ name, link, id, imageUrl });
             localStorage.setItem("likedProperties", JSON.stringify(likedProperties));
             loadLikedProperties();
         }
