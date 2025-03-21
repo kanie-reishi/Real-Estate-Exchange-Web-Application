@@ -106,15 +106,6 @@ public class WebSecurityConfig {
             .permitAll()
             .and()
 
-        // Đăng nhập cho user
-        .formLogin()
-            .loginPage("/login/user")
-            .loginProcessingUrl("/auth/user")
-            .defaultSuccessUrl("/", true)
-            .failureUrl("/login/user")
-            .permitAll()
-            .and()
-
         // Đăng xuất
         .logout()
             .logoutUrl("/logout")

@@ -32,10 +32,23 @@
                                 <h1 class="d-flex items-center justify-between">
                                     <a class="text-2xl font-bold text-gray-800 transition-colors duration-300 transform lg:text-2xl hover:text-gray-700"
                                         href="/">RealEstate.com</a>
-                                    <button data-bs-target="#navbarNav" data-bs-toggle="collapse" type="button"
-                                        class="navbar-toggler" aria-controls="navbarNav" aria-expanded="false">
-                                        <span class="navbar-toggler-icon"></span>
-                                    </button>
+                                    <div class="d-lg-none d-flex align-items-center gap-2">
+                                        <div class="dropdown" id="likeDropdownMobile">
+                                            <button class="btn dropdown-toggle likeButton" data-bs-toggle="dropdown"
+                                                data-bs-display="static" aria-expanded="false">
+                                                <i class="fa-regular fa-heart text-[1.25rem]"></i>
+                                            </button>
+                                            <ul class="dropdown-menu dropdown-menu-end" id="likedPropertiesDropdown">
+                                                <li class="dropdown-header">Yêu thích</li>
+                                                <li><span class="dropdown-item text-muted">Chưa có bất động sản yêu
+                                                        thích</span></li>
+                                            </ul>
+                                        </div>
+                                        <button data-bs-target="#navbarNav" data-bs-toggle="collapse" type="button"
+                                            class="navbar-toggler" aria-controls="navbarNav" aria-expanded="false">
+                                            <span class="navbar-toggler-icon"></span>
+                                        </button>
+                                    </div>
                                 </h1>
                             </div>
                             <div class="lg:flex-row lg:items-center mx-1 navbar-collapse collapse lg:justify-between"
@@ -70,12 +83,12 @@
                                             href="#">Về chúng tôi</a>
                                     </div>
                                 </div>
-                                <div
-                                    class=" inset-x-0 z-20 lg:z-auto w-full px-6 py-4 transition-all duration-300 ease-in-out bg-white lg:mt-0 lg:p-0 lg:top-0 lg:relative lg:bg-transparent lg:w-auto lg:opacity-100 lg:translate-x-0 flex lg:items-center">
-                                    <div class="dropdown">
-                                        <button class="btn dropdown-toggle" id="likeButton" data-bs-toggle="dropdown"
-                                            aria-expanded="false">
-                                            <i class="fa-regular fa-heart"></i>
+                                <!-- Phần hiển thị trên Desktop -->
+                                <div class="d-none d-lg-flex align-items-center ms-auto">
+                                    <!-- Nút Like -->
+                                    <div class="dropdown me-3">
+                                        <button class="btn dropdown-toggle likeButton" data-bs-toggle="dropdown">
+                                            <i class="fa-regular fa-heart text-[1.25rem]"></i>
                                         </button>
                                         <ul class="dropdown-menu" id="likedPropertiesDropdown">
                                             <li class="dropdown-header">Yêu thích</li>
@@ -83,17 +96,63 @@
                                                     thích</span></li>
                                         </ul>
                                     </div>
-                                    <button
-                                        class="whitespace-nowrap px-[0.625rem] text-sm font-medium transition-colors duration-300 transform button-gray-outline rounded-[2.25rem] bg-gray-v2 border-0 text-black-v8 lg:flex items-center ml-4"
-                                        data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-dismiss="modal"
-                                        id="btn-navbar-login">
-                                        <i class="fa-regular fa-user"></i>
-                                        Đăng ký/ Đăng nhập
-                                    </button>
+
+                                    <!-- Nút Đăng nhập (hoặc Dropdown User nếu đã đăng nhập) -->
+                                    <div id="desktop-login-group" class="me-3">
+                                        <button id="btn-navbar-login" class="btn px-3 py-2 btn btn-outline-primary nav-link" data-bs-toggle="modal" data-bs-target="#loginModal">
+                                            <i class="fa-regular fa-user"></i> Đăng ký/ Đăng nhập
+                                        </button>
+
+                                        <div class="dropdown" id="userDropdown" style="display: none;">
+                                            <button class="btn dropdown-toggle" id="userMenuButton"
+                                                data-bs-toggle="dropdown">
+                                                <i class="fa-regular fa-user"></i> <span id="username-display"></span>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item" href="/settings">Cài đặt</a></li>
+                                                <li><button class="dropdown-item" id="btn-logout">Đăng xuất</button>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <!-- Nút Đăng tin -->
                                     <a href="/realestate/create"
-                                        class="whitespace-nowrap px-[0.625rem] py-[0.5rem] text-base text-secondary font-medium transition-colors duration-300 transform button-primary-outline rounded-[2.25rem] lg:flex items-center cursor-pointer ml-5"><i
-                                            class="ml ml-add text-[1rem] text-secondary"></i>Đăng
-                                        tin</a>
+                                        class="btn btn-primary ms-3 px-4 py-2 text-white font-semibold rounded-full hover:bg-primary-dark">
+                                        <i class="fa-solid fa-plus me-2"></i>Đăng tin
+                                    </a>
+                                </div>
+
+                                <!-- Phần dành riêng cho Mobile -->
+                                <div class="d-lg-none">
+                                    <ul class="navbar-nav">
+                                        <!-- Nút Đăng nhập -->
+                                        <li id="mobile-login" class="nav-item mb-2">
+                                            <button class="nav-link btn btn-outline-primary w-100"
+                                                data-bs-toggle="modal" data-bs-target="#loginModal">
+                                                <i class="fa-regular fa-user"></i> Đăng ký/ Đăng nhập
+                                            </button>
+                                        </li>
+                                        <!-- Nút Đăng tin -->
+                                        <li class="nav-item mb-2">
+                                            <a href="/realestate/create"
+                                                class="btn btn-primary px-4 py-2 text-white font-semibold rounded-full hover:bg-primary-dark">
+                                                <i class="fa-solid fa-plus me-2"></i>Đăng tin
+                                            </a>
+                                        </li>
+                                        <!-- Dropdown Cài đặt & Đăng xuất -->
+                                        <li id="mobile-user-dropdown" class="nav-item dropdown d-none mb-2">
+                                            <button class="nav-link dropdown-toggle w-100" data-bs-toggle="dropdown">
+                                                <i class="fa-regular fa-user"></i> <span
+                                                    id="mobile-username-display"></span>
+                                            </button>
+                                            <ul class="dropdown-menu w-100">
+                                                <li><a class="dropdown-item" href="/settings">Cài đặt</a></li>
+                                                <li><button class="dropdown-item" id="mobile-btn-logout">Đăng
+                                                        xuất</button></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
@@ -151,17 +210,21 @@
                                                     class="w-full text-base px-[20px] text-black-v8 search-input_search-input__IqSQH"
                                                     type="text" placeholder="Nhập địa chỉ hoặc dự án" maxlength="100"
                                                     value="">
-                                            </div><button
-                                                class="flex justify-center items-center w-[137px] h-[48px] button-primary rounded-[12px] shrink-0"
-                                                type="button" id="search-button"><i
-                                                    class="ml ml-search text-white text-[1.5rem] mr-1"></i>Tìm
-                                                kiếm</button>
+                                            </div>
+                                            <button class="flex items-center justify-center 
+                                                   w-[137px] h-[48px] md:w-[120px] md:h-[40px] 
+                                                   text-[1.5rem] md:text-[1rem]
+                                                   button-primary rounded-[12px] shrink-0" type="button"
+                                                id="search-button">
+                                                <i class="ml ml-search text-white mr-1"></i>
+                                            </button>
+
                                         </div>
                                     </div>
                                     <div
                                         class="relative inline-flex px-3 py-2 rounded-b-xl w-[633px] search-input_filter-desktop__yE7Y8 sm:p-0 sm:h-150 sm:search-input-flex sm:w-100">
                                         <!-- Loại nhà đất -->
-                                        <div class="relative select pl-2.5 w-[148px] mr-2 sm:h-30">
+                                        <div class="relative select pl-1.5 w-[148px] mr-2 sm:h-30">
                                             <div class="cursor-pointer flex items-center justify-between text-base pl-2 py-1 hover:bg-[rgba(221,221,221,0.3)] hover:rounded-lg"
                                                 id="property-type-dropdown">
                                                 <div class="truncate flex"><span
@@ -169,7 +232,9 @@
                                                 </div>
                                                 <i class="ml ml-expand_more text-white text-[1.5rem] flex-shrink-0"></i>
                                             </div>
-                                            <div class="absolute bg-white shadow-lg rounded-lg mt-1 hidden"
+                                            <div class="absolute bg-white shadow-lg rounded-lg mt-1 hidden 
+                                            z-9999 top-full left-0 w-[200px] p-2
+                                            max-h-60 overflow-y-auto"
                                                 id="property-type-options">
                                                 <label class="block px-4 py-2 text-black-v8"><input type="checkbox"
                                                         value="0" class="property-type-checkbox"> Đất</label>
@@ -199,7 +264,7 @@
                                                 </div>
                                                 <i class="ml ml-expand_more text-white text-[1.5rem] flex-shrink-0"></i>
                                             </div>
-                                            <div class="absolute bg-white shadow-lg rounded-lg mt-1 hidden"
+                                            <div class="absolute bg-white shadow-lg rounded-lg mt-1 hidden z-9999"
                                                 id="location-options">
                                                 <label class="block px-4 py-2 text-black-v8"><input type="checkbox"
                                                         value="2" class="location-checkbox text-black-v8"> Hà
@@ -220,7 +285,7 @@
                                                         giá</span></div><i
                                                     class="ml ml-expand_more text-white text-[1.5rem] flex-shrink-0"></i>
                                             </div>
-                                            <div class="absolute bg-white shadow-lg rounded-lg mt-1 hidden"
+                                            <div class="absolute bg-white shadow-lg rounded-lg mt-1 hidden z-9999"
                                                 id="price-range-options">
                                                 <label class="block px-4 py-2 text-black-v8"><input type="checkbox"
                                                         value="0-1" class="price-range-checkbox"> Dưới 1 tỷ</label>
@@ -242,7 +307,7 @@
                                                         tích</span></div><i
                                                     class="ml ml-expand_more text-white text-[1.5rem] flex-shrink-0"></i>
                                             </div>
-                                            <div class="absolute bg-white shadow-lg rounded-lg mt-1 hidden"
+                                            <div class="absolute bg-white shadow-lg rounded-lg mt-1 hidden z-9999"
                                                 id="area-range-options">
                                                 <label class="block px-4 py-2 text-black-v8"><input type="checkbox"
                                                         value="0-50" class="area-range-checkbox"> Dưới 50 m²</label>
@@ -265,7 +330,7 @@
                                                         án</span></div><i
                                                     class="ml ml-expand_more text-white text-[1.5rem] flex-shrink-0"></i>
                                             </div>
-                                            <div class="absolute bg-white shadow-lg rounded-lg mt-1 hidden"
+                                            <div class="absolute bg-white shadow-lg rounded-lg mt-1 hidden z-9999"
                                                 id="project-options">
                                                 <label class="block px-4 py-2 text-black-v8"><input type="checkbox"
                                                         value="3072" class="project-checkbox">KINGDOM 101</label>
@@ -351,9 +416,6 @@
                                     <i class="fa-brands fa-youtube"></i>
                                 </a>
                             </ul>
-                        </div>
-                        <div class="col-md-3">
-                            <button class="btn btn-danger" id="btn-logout">Log Out</button>
                         </div>
                     </div>
                 </div>
@@ -472,8 +534,8 @@
                             <div class="_41aa8">
                                 <span class="_21450 _56724">
                                 </span>
-                                <input type="email" class="form-control _0fdc7" id="inp-register-email" aria-describedby="emailHelp"
-                                    placeholder="Email">
+                                <input type="email" class="form-control _0fdc7" id="inp-register-email"
+                                    aria-describedby="emailHelp" placeholder="Email">
                             </div>
                         </div>
                         <div class="mb-3">
@@ -546,11 +608,14 @@
     <!--Swiper Js-->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <!-- Custom JS-->
-    <script src="/js/convert.js"></script>  
+    <script src="/js/convert.js"></script>
     <script src="/js/main-page.js"></script>
+    <script src="/js/navbar.js"></script>
     <script src="/js/user-login.js"> </script>
     <script src="/js/user-register.js"></script>
     <script src="/js/like-list.js"></script>
+    <script src="/js/filter-dropdown.js"></script>
+    <!-- Search Script -->
     <script>
         $(document).ready(function () {
             const searchInput = $('.search-input_search-input__IqSQH');
@@ -620,7 +685,7 @@
                 saveSearchData();
                 // Redirect to list page with search data
                 window.location.href = "/realestate/list";
-                
+
             });
         });
     </script>

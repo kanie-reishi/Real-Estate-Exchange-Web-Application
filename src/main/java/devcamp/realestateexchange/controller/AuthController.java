@@ -77,7 +77,8 @@ public class AuthController {
                 Cookie jwtCookie = new Cookie("token", jwt);
                 // Set the cookie to HTTP-only for security
                 jwtCookie.setHttpOnly(true);
-
+                jwtCookie.setPath("/");
+                jwtCookie.setMaxAge(3600);
                 // Optionally, set the cookie to secure if you're using HTTPS
                 // jwtCookie.setSecure(true);
                 // Add the cookie to the response
@@ -124,6 +125,9 @@ public class AuthController {
                 String jwt = jwtUtils.generateJwtToken(authentication);
                 // Create a new cookie
                 Cookie jwtCookie = new Cookie("token", jwt);
+                jwtCookie.setHttpOnly(true);
+                jwtCookie.setPath("/");
+                jwtCookie.setMaxAge(3600);
                 // Set the cookie to HTTP-only for security
                 jwtCookie.setHttpOnly(true);
                 // Optionally, set the cookie to secure if you're using HTTPS
@@ -151,7 +155,7 @@ public class AuthController {
         }
 
         // PostMapping for signup user
-        @PostMapping("/signup")
+        @PostMapping("/auth/signup")
         public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
                 // Check if the username is already taken
                 if (userDetailsServiceImpl.existsByUsername(signUpRequest.getUsername())) {
@@ -205,7 +209,7 @@ public class AuthController {
                 return new ResponseEntity<>(apiResponse, HttpStatus.OK);
         }
 
-        @PostMapping("/logout")
+        @PostMapping("/auth/logout")
         public ResponseEntity<?> logout(HttpServletRequest request, HttpServletResponse response) {
                 // Get the token from the request
                 String jwt = jwtUtils.getJwtFromCookie(request);
@@ -220,6 +224,7 @@ public class AuthController {
                 // Optionally, set the cookie to secure if you're using HTTPS
                 // jwtCookie.setSecure(true);
                 // Set the cookie to expire immediately
+                jwtCookie.setPath("/");
                 jwtCookie.setMaxAge(0);
                 // Add the cookie to the response
                 response.addCookie(jwtCookie);

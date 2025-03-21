@@ -2925,7 +2925,9 @@ textarea {
     display: flex !important;
     flex-direction: column !important;
   }
-
+  .search-input_search-input__IqSQH{
+    padding-left: 5px !important;
+  }
   .sm\:h-30 {
     height: 30px !important;
   }
@@ -3057,16 +3059,13 @@ textarea {
   height: auto;
   object-fit: cover; /* Tránh ảnh bị méo */
 }
-#likeButton {
+.likeButton {
   font-size: 1rem;
   padding: 8px 12px;
-  border-radius: 50%;
-  background-color: white;
-  border: 1px solid #ccc;
   transition: all 0.3s ease-in-out;
 }
 
-#likeButton i {
+.likeButton i {
   font-size: 1.2rem;
   color: #ff4d4d;
 }
@@ -3078,7 +3077,7 @@ textarea {
 }
 
 @media (max-width: 768px) {
-  #likeButton {
+  .likeButton {
       font-size: 0.9rem;
       padding: 6px 10px;
   }
@@ -3088,3 +3087,45 @@ textarea {
   }
 }
 
+@media (min-width: 1280px) {
+  #search-button {
+    width: 100px;
+  }
+}
+
+@media (max-width: 768px) {
+  #navbarNav .navbar-nav {
+      width: 100%;
+      text-align: center;
+  }
+
+  #navbarNav .nav-item {
+      width: 100%;
+  }
+
+  #navbarNav .nav-link, 
+  #navbarNav .btn {
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding: 10px;
+  }
+}
+.likeButton.dropdown-toggle::after {
+  display: none !important;
+}
+/* Giả sử file custom.css */
+.dropdown-menu {
+  max-width: 90vw; /* Giới hạn chiều rộng = 90% màn hình */
+  overflow-wrap: break-word;
+  /* Hoặc position: fixed; top: 60px; right: 10px; 
+     ... tùy vào thiết kế mong muốn */
+}
+.max-h-60 {
+  max-height: 15rem; /* 60 * 0.25rem = 15rem = 240px */
+  overflow-y: auto;
+}
+.z-9999 {
+  z-index: 9999;
+  position: relative;
+}

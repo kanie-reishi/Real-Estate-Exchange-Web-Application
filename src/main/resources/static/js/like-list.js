@@ -27,6 +27,9 @@ document.addEventListener("DOMContentLoaded", function () {
             likedPropertiesDropdown.innerHTML += '<li><span class="dropdown-item text-muted">Chưa có bất động sản yêu thích</span></li>';
         } else {
             likedProperties.forEach((property, index) => {
+                if(property.imageUrl === null){
+                    property.imageUrl = "https://via.placeholder.com/150";
+                }
                 likedPropertiesDropdown.innerHTML += `
                     <li class="d-flex justify-content-between align-items-center px-3">
                         <image src="${property.imageUrl}" class="rounded" alt="property-image">

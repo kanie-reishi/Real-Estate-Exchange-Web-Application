@@ -66,24 +66,15 @@ public class AuthTokenFilter extends OncePerRequestFilter {
   }
 
   public String parseJwtFromCookie(HttpServletRequest request) {
-    String headerAuth = request.getHeader("Authorization");
-
-    if (headerAuth != null && headerAuth.startsWith("Bearer ")) {
-      return headerAuth.substring(7);
-    }
-
     // Check for JWT in cookies
-    if (headerAuth == null) {
       Cookie[] cookies = request.getCookies();
       if (cookies != null) {
         for (Cookie cookie : cookies) {
-          if (cookie.getName().equals("jwt")) {
+          if (cookie.getName().equals("token")) {
             return cookie.getValue();
           }
         }
       }
-    }
-
     return null;
   }
 }

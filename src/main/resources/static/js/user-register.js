@@ -11,7 +11,7 @@ function onBtnRegisterClick() {
     if (validateUser(user)) {
         // Gửi dữ liệu đăng ký lên server
         $.ajax({
-            url: "http://localhost:8080/signup",
+            url: "http://localhost:8080/auth/signup",
             type: "POST",
             contentType: "application/json",
             data: JSON.stringify(user),
