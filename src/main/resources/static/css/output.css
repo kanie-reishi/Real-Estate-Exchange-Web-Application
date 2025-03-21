@@ -3129,3 +3129,8 @@ textarea {
   z-index: 9999;
   position: relative;
 }
+
+#map {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}

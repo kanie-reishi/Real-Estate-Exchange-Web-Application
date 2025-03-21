@@ -257,6 +257,8 @@ function collectDataFromForm() {
     realestateObj.addressDetail.district.id = $('#select-district').val();
     realestateObj.addressDetail.ward.id = $('#select-ward').val();
     realestateObj.addressDetail.street.id = $('#select-street').val();
+    realestateObj.addressDetail.latitude = $('#location-coords-lat').val();
+    realestateObj.addressDetail.longitude = $('#location-coords-lng').val();
     realestateObj.request = selectedChipNeedValue;
     realestateObj.photoIds = imageIds;
     console.log(realestateObj);
