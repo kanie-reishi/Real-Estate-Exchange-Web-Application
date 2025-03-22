@@ -18,6 +18,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -71,6 +72,7 @@ public class AuthController {
 
                 // Set the authentication object to the SecurityContext
                 SecurityContextHolder.getContext().setAuthentication(authentication);
+
                 // Generate JWT token
                 String jwt = jwtUtils.generateJwtToken(authentication);
                 // Create a new cookie
@@ -81,8 +83,20 @@ public class AuthController {
                 jwtCookie.setMaxAge(3600);
                 // Optionally, set the cookie to secure if you're using HTTPS
                 // jwtCookie.setSecure(true);
+
+                // Generate refresh token
+                String refreshToken = jwtUtils.generateRefreshToken(authentication);
+                Cookie refreshCookie = new Cookie("refreshToken", refreshToken);
+                refreshCookie.setHttpOnly(true);
+                refreshCookie.setPath("/");
+                refreshCookie.setMaxAge(86400);
+                // Optionally, set the cookie to secure if you're using HTTPS
+                // refreshCookie.setSecure(true);
+
                 // Add the cookie to the response
                 response.addCookie(jwtCookie);
+                response.addCookie(refreshCookie);
+
                 // Get the UserDetailsImpl object from the authentication object
                 UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
                 // Get the roles from the UserDetailsImpl object
@@ -113,6 +127,7 @@ public class AuthController {
                                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),
                                                 loginRequest.getPassword()));
                 UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+
                 // Check if the user is an admin
                 log.info("User roles: {}", userDetails.getAuthorities());
                 if (!userDetails.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
@@ -121,6 +136,7 @@ public class AuthController {
                 }
                 // Set the authentication object to the SecurityContext
                 SecurityContextHolder.getContext().setAuthentication(authentication);
+                
                 // Generate JWT token
                 String jwt = jwtUtils.generateJwtToken(authentication);
                 // Create a new cookie
@@ -132,8 +148,19 @@ public class AuthController {
                 jwtCookie.setHttpOnly(true);
                 // Optionally, set the cookie to secure if you're using HTTPS
                 // jwtCookie.setSecure(true);
+
+                // Generate refresh token
+                String refreshToken = jwtUtils.generateRefreshToken(authentication);
+                Cookie refreshCookie = new Cookie("refreshToken", refreshToken);
+                refreshCookie.setHttpOnly(true);
+                refreshCookie.setPath("/");
+                refreshCookie.setMaxAge(86400);
+                // Optionally, set the cookie to secure if you're using HTTPS
+                // refreshCookie.setSecure(true);
+                
                 // Add the cookie to the response
                 response.addCookie(jwtCookie);
+                response.addCookie(refreshCookie);
                 // Get the UserDetailsImpl object from the authentication object
                 // Get the roles from the UserDetailsImpl object
                 List<String> roles = userDetails.getAuthorities().stream()
@@ -208,7 +235,59 @@ public class AuthController {
                                 .build();
                 return new ResponseEntity<>(apiResponse, HttpStatus.OK);
         }
-
+        @PostMapping("/auth/refreshtoken")
+        public ResponseEntity<?> refreshToken(@CookieValue(name= "refreshToken", required = false) String refreshToken, HttpServletResponse response) {
+                if (refreshToken == null) {
+                        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                                        .body("Unauthorized access, refresh token is missing.");
+                }
+                // Validate refresh token
+                try {
+                if (!jwtUtils.validateRefreshToken(refreshToken)) {
+                        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                                        .body("Unauthorized access, refresh token is invalid.");
+                }
+                } catch (Exception e) {
+                        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                                        .body("Unauthorized access, refresh token is invalid.");
+                }
+                // Get username from refresh token
+                String username = jwtUtils.getUserNameFromJwtToken(refreshToken);
+                // Load user details
+                UserDetailsImpl userDetails = (UserDetailsImpl) userDetailsServiceImpl.loadUserByUsername(username);
+                // Create authentication
+                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+                                userDetails, null, userDetails.getAuthorities());
+                // Set authentication in SecurityContext
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+                // Generate JWT token
+                String jwt = jwtUtils.generateJwtToken(authentication);
+                // Create a new cookie
+                Cookie jwtCookie = new Cookie("token", jwt);
+                // Set the cookie to HTTP-only for security
+                jwtCookie.setHttpOnly(true);
+                // Optionally, set the cookie to secure if you're using HTTPS
+                // jwtCookie.setSecure(true);
+                jwtCookie.setPath("/");
+                jwtCookie.setMaxAge(3600);
+                // Add the cookie to the response
+                response.addCookie(jwtCookie);
+                // Create a response object
+                APIResponse apiResponse = APIResponse.builder()
+                                .message("Token refreshed successfully!")
+                                .data(JwtResponse.builder()
+                                                .id(userDetails.getId())
+                                                .token(jwt)
+                                                .username(userDetails.getUsername())
+                                                .roles(userDetails.getAuthorities().stream()
+                                                                .map(GrantedAuthority::getAuthority)
+                                                                .collect(Collectors.toList()))
+                                                .build())
+                                .isSuccessful(true)
+                                .statusCode(200)
+                                .build();
+                return new ResponseEntity<>(apiResponse, HttpStatus.OK);
+        }
         @PostMapping("/auth/logout")
         public ResponseEntity<?> logout(HttpServletRequest request, HttpServletResponse response) {
                 // Get the token from the request
@@ -217,7 +296,7 @@ public class AuthController {
                 if (jwt != null) {
                         blacklistedTokens.add(jwt); // Add token to blacklist
                 }
-                // Create a new cookie
+                // Create a new JWT cookie
                 Cookie jwtCookie = new Cookie("token", "");
                 // Set the cookie to HTTP-only for security
                 jwtCookie.setHttpOnly(true);
@@ -226,9 +305,18 @@ public class AuthController {
                 // Set the cookie to expire immediately
                 jwtCookie.setPath("/");
                 jwtCookie.setMaxAge(0);
+                // Create a new refresh token cookie
+                Cookie refreshTokenCookie = new Cookie("refreshToken", "");
+                // Set the cookie to HTTP-only for security
+                refreshTokenCookie.setHttpOnly(true);
+                // Optionally, set the cookie to secure if you're using HTTPS
+                // jwtCookie.setSecure(true);
+                // Set the cookie to expire immediately
+                refreshTokenCookie.setPath("/");
+                refreshTokenCookie.setMaxAge(0);
                 // Add the cookie to the response
                 response.addCookie(jwtCookie);
-
+                response.addCookie(refreshTokenCookie);
                 // Clear the SecurityContext
                 SecurityContextHolder.clearContext();
                 // Create a response object

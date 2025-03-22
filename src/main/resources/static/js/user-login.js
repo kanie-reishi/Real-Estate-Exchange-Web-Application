@@ -74,6 +74,8 @@ $(document).ready(function () {
             }
         }
     })
+    // Xử lý hàm refresh token
+    refreshToken();
 });
 /*** REGION 3 - Event handlers - Vùng khai báo các hàm xử lý sự kiện */
 // Hàm xử lý khi click vào nút đăng nhập
@@ -187,4 +189,28 @@ function validiateUser(user) {
         alert("Mật khẩu không được quá 40 ký tự");
     }
     return isValid;
+}
+
+// Hàm refresh token
+function refreshToken() {
+    var refreshInterval = 3500 * 1000; // Điều chỉnh thời gian phù hợp với thời hạn access token
+    setInterval(function () {
+        $.ajax({
+            url: '/auth/refreshtoken',
+            type: 'POST',
+            xhrFields: {
+                withCredentials: true // Nếu cần, khi server và client khác domain
+            },
+            success: function (response) {
+                console.log('Token refreshed successfully');
+                // Nếu cần, cập nhật lại flag đăng nhập hoặc các thông tin khác
+            },
+            error: function (xhr, status, error) {
+                console.error('Error refreshing token:', error);
+                // Chuyển hướng về trang đăng nhập nếu refresh token không hợp lệ
+                localStorage.removeItem("isLoggedIn");
+                window.location.href = '/login';
+            }
+        });
+    }, refreshInterval);
 }

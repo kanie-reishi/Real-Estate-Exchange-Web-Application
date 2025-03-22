@@ -91,6 +91,8 @@ public class WebSecurityConfig {
             .antMatchers("/admin/**", "/table/**", "/employee/**").hasAuthority("ROLE_ADMIN")
             .antMatchers("/user/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN");
         http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");
+        // Cấu hình không sử dụng session
+        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         // Các URL khác cần xác thực
         http.authorizeRequests()
@@ -98,21 +100,12 @@ public class WebSecurityConfig {
         .and()
 
         // Đăng nhập cho admin  
-        .formLogin()
-            .loginPage("/login/admin")
-            .loginProcessingUrl("/auth/admin")
-            .defaultSuccessUrl("/admin/dashboard", true)
-            .failureUrl("/login/admin")
-            .permitAll()
-            .and()
-
         // Đăng xuất
         .logout()
             .logoutUrl("/logout")
             .logoutSuccessUrl("/")
-            .deleteCookies("JSESSIONID")
+            .deleteCookies("token")
             .permitAll();
-
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }

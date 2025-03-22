@@ -33,6 +33,7 @@ public class JwtUtils {
     @Value("${devcamp.app.jwtExpirationMs}")
     private int jwtExpirationMs;
 
+    long refreshExpirationDate = 86400000L;
     // Generate JWT token
     public String generateJwtToken(Authentication authentication) {
 
@@ -49,6 +50,15 @@ public class JwtUtils {
                 .compact();
     }
 
+    // Generate refresh token
+    public String generateRefreshToken(Authentication authentication) {
+        return Jwts.builder()
+                .setSubject((authentication.getName()))
+                .setIssuedAt(new Date())
+                .setExpiration(new Date((new Date()).getTime() + refreshExpirationDate))
+                .signWith(SignatureAlgorithm.HS512, jwtSecret)
+                .compact();
+    }
     // Get username from JWT token
     public String getUserNameFromJwtToken(String token) {
         return Jwts.parser()
@@ -81,7 +91,23 @@ public class JwtUtils {
 
         return false;
     }
+    // Validate refresh token
+    public boolean validateRefreshToken(String refreshToken) throws SignatureException {
+        try {
+            Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(refreshToken);
+            return true;
+        } catch (MalformedJwtException e) {
+            logger.error("Invalid JWT token: {}", e.getMessage());
+        } catch (ExpiredJwtException e) {
+            logger.error("JWT token is expired: {}", e.getMessage());
+        } catch (UnsupportedJwtException e) {
+            logger.error("JWT token is unsupported: {}", e.getMessage());
+        } catch (IllegalArgumentException e) {
+            logger.error("JWT claims string is empty: {}", e.getMessage());
+        }
 
+        return false;
+    }
     public Date getExpirationDateFromToken(String token) {
         // Extract the claims from the token
         Claims claims = Jwts.parser()

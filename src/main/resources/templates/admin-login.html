@@ -51,17 +51,19 @@
             // Handle login form
             $('#adminLoginForm').on('submit', function (e) {
                 e.preventDefault();
-                const username = $('#username').val();
-                const password = $('#password').val();
-
+                let user = {
+                    username: $('#username').val(),
+                    password: $('#password').val()
+                };
+                if (!validateCredentials(user)) {
+                    return;
+                }
                 $.ajax({
                     url: '/auth/admin',
                     type: 'POST',
                     contentType: 'application/json',
-                    data: JSON.stringify({ username, password }),
+                    data: JSON.stringify(user),
                     success: function (response) {
-                        // Lưu JWT vào cookie hoặc localStorage
-                        document.cookie = `jwt=${response.token}; path=/`;
                         // Chuyển hướng đến trang admin
                         window.location.href = '/admin';
                     },
@@ -75,6 +77,14 @@
                 $('#error-message').hide();
             });
         });
+        // Validate username and password
+        function validateCredentials(paramUser) {
+            if (paramUser.username === '' || paramUser.password === '') {
+                $('#error-message').text('Username and password are required').show();
+                return false;
+            }
+            return true;
+        }
     </script>
 </body>
 

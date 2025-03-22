@@ -19,6 +19,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import devcamp.realestateexchange.controller.AuthController;
 import devcamp.realestateexchange.security.services.UserDetailsServiceImpl;
+import io.jsonwebtoken.ExpiredJwtException;
 
 public class AuthTokenFilter extends OncePerRequestFilter {
   @Autowired
@@ -57,9 +58,18 @@ public class AuthTokenFilter extends OncePerRequestFilter {
         // Set authentication in SecurityContext
         SecurityContextHolder.getContext().setAuthentication(authentication);
       }
+    } catch (ExpiredJwtException e) {
+      // Log error
+      logger.error("Expired JWT token: {}", e.getMessage());
+      // Token hết hạn
+      response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token hết hạn. Vui lòng đăng nhập lại.");
+      return;
     } catch (Exception e) {
       // Log error
       logger.error("Cannot set user authentication: {}", e);
+      // Token không hợp lệ
+      response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token không hợp lệ.");
+      return;
     }
     // Continue with the filter chain
     filterChain.doFilter(request, response);
@@ -67,14 +77,14 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 
   public String parseJwtFromCookie(HttpServletRequest request) {
     // Check for JWT in cookies
-      Cookie[] cookies = request.getCookies();
-      if (cookies != null) {
-        for (Cookie cookie : cookies) {
-          if (cookie.getName().equals("token")) {
-            return cookie.getValue();
-          }
+    Cookie[] cookies = request.getCookies();
+    if (cookies != null) {
+      for (Cookie cookie : cookies) {
+        if (cookie.getName().equals("token")) {
+          return cookie.getValue();
         }
       }
+    }
     return null;
   }
 }
