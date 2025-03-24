@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const likedPropertiesDropdown = document.getElementById("likedPropertiesDropdown");
+    const likedPropertiesDropdownDesktop = document.getElementById("likedPropertiesDropdownDesktop");
+    const likedPropertiesDropdownMobile = document.getElementById("likedPropertiesDropdownMobile");
     // Ngăn chặn chuyển trang khi nhấn vào nút like
     $(document).on("click", ".like-button", function (event) {
         event.preventDefault();
@@ -21,16 +22,23 @@ document.addEventListener("DOMContentLoaded", function () {
     // Load liked properties from localStorage
     function loadLikedProperties() {
         let likedProperties = JSON.parse(localStorage.getItem("likedProperties")) || [];
-        likedPropertiesDropdown.innerHTML = '<li class="dropdown-header">Yêu thích</li>';
-
+        likedPropertiesDropdownDesktop.innerHTML = '<li class="dropdown-header">Yêu thích</li>';
+        likedPropertiesDropdownMobile.innerHTML = '<li class="dropdown-header">Yêu thích</li>';
         if (likedProperties.length === 0) {
-            likedPropertiesDropdown.innerHTML += '<li><span class="dropdown-item text-muted">Chưa có bất động sản yêu thích</span></li>';
+            likedPropertiesDropdownDesktop.innerHTML += '<li><span class="dropdown-item text-muted">Chưa có bất động sản yêu thích</span></li>';
+            likedPropertiesDropdownMobile.innerHTML += '<li><span class="dropdown-item text-muted">Chưa có bất động sản yêu thích</span></li>';
         } else {
             likedProperties.forEach((property, index) => {
                 if(property.imageUrl === null){
                     property.imageUrl = "https://via.placeholder.com/150";
                 }
                 likedPropertiesDropdown.innerHTML += `
+                    <li class="d-flex justify-content-between align-items-center px-3">
+                        <image src="${property.imageUrl}" class="rounded" alt="property-image">
+                        <a href="${property.link}" class="dropdown-item">${property.name}</a>
+                        <button class="btn btn-sm text-danger remove-like" data-index="${index}">&times;</button>
+                    </li>`;
+                likedPropertiesDropdownMobile.innerHTML += `
                     <li class="d-flex justify-content-between align-items-center px-3">
                         <image src="${property.imageUrl}" class="rounded" alt="property-image">
                         <a href="${property.link}" class="dropdown-item">${property.name}</a>

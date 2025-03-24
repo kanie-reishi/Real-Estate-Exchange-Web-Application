@@ -31,59 +31,133 @@
             <header
                 class="inset-x-0 z-10 duration-300 ease-linear top-0 w-screen absolute ml:fixed ml:shadow-divide header-sticky-enter-done">
                 <div class="fresnel-container fresnel-greaterThanOrEqual-lg">
-                    <nav class="relative shadow dark:bg-gray-800 shadow-[inset_0_-1px_0_#ececec] bg-white">
-                        <div class="px-[1.5rem] py-[1.25rem] mx-auto">
-                            <div class="lg:flex lg:items-center lg:justify-between">
-                                <div class="flex items-center justify-between">
-                                    <div class="text-xl font-semibold text-gray-700 flex-shrink-0">
-                                        <h1>
-                                            <a class="text-2xl font-bold text-gray-800 transition-colors duration-300 transform dark:text-white lg:text-2xl hover:text-gray-700 dark:hover:text-gray-300"
-                                                href="#">RealEstate.com</a>
-                                        </h1>
+                    <nav class="shadow shadow-[inset_0_-1px_0_#ececec] bg-white navbar navbar-expand-lg navbar-light">
+                        <div class="flex items-center justify-between container-fluid">
+                            <div class="text-xl font-semibold text-gray-700 flex-shrink-0 md:w-100">
+                                <h1 class="d-flex items-center justify-between">
+                                    <a class="text-2xl font-bold text-gray-800 transition-colors duration-300 transform lg:text-2xl hover:text-gray-700"
+                                        href="/">RealEstate.com</a>
+                                    <div class="d-lg-none d-flex align-items-center gap-2">
+                                        <div class="dropdown" id="likeDropdownMobile">
+                                            <button class="btn dropdown-toggle likeButton" data-bs-toggle="dropdown"
+                                                data-bs-display="static" aria-expanded="false">
+                                                <i class="fa-regular fa-heart text-[1.25rem]"></i>
+                                            </button>
+                                            <ul class="dropdown-menu dropdown-menu-end" id="likedPropertiesDropdown">
+                                                <li class="dropdown-header">Yêu thích</li>
+                                                <li><span class="dropdown-item text-muted">Chưa có bất động sản yêu
+                                                        thích</span></li>
+                                            </ul>
+                                        </div>
+                                        <button data-bs-target="#navbarNav" data-bs-toggle="collapse" type="button"
+                                            class="navbar-toggler" aria-controls="navbarNav" aria-expanded="false">
+                                            <span class="navbar-toggler-icon"></span>
+                                        </button>
                                     </div>
-                                    <div class="flex flex-col lg:flex-row lg:items-center mx-1" id="navbarNav">
-                                        <div class="relative nav-item">
-                                            <a class="px-[0.625rem] py-[0.5rem] text-sm font-semibold transition-colors duration-300 transform rounded-[1.25rem] hover:bg-gray-v3 whitespace-nowrap text-black-v8"
-                                                href="#">Mua bán</a>
-                                        </div>
-                                        <div class="relative nav-item">
-                                            <a class="px-[0.625rem] py-[0.5rem] text-sm font-semibold transition-colors duration-300 transform rounded-[1.25rem] hover:bg-gray-v3 whitespace-nowrap text-black-v8"
-                                                href="#">Cho thuê</a>
-                                        </div>
-                                        <div class="relative nav-item">
-                                            <a class="px-[0.625rem] py-[0.5rem] text-sm font-semibold transition-colors duration-300 transform rounded-[1.25rem] hover:bg-gray-v3 whitespace-nowrap text-black-v8"
-                                                href="#">Sang nhượng</a>
-                                        </div>
-                                        <div class="relative nav-item">
-                                            <a class="px-[0.625rem] py-[0.5rem] text-sm font-semibold transition-colors duration-300 transform rounded-[1.25rem] hover:bg-gray-v3 whitespace-nowrap text-black-v8"
-                                                href="#">Dự án</a>
-                                        </div>
-                                        <div class="relative nav-item">
-                                            <a class="px-[0.625rem] py-[0.5rem] text-sm font-semibold transition-colors duration-300 transform rounded-[1.25rem] hover:bg-gray-v3 whitespace-nowrap text-black-v8"
-                                                href="#">Tin tức</a>
-                                        </div>
-                                        <div class="relative nav-item">
-                                            <a class="px-[0.625rem] py-[0.5rem] text-sm font-semibold transition-colors duration-300 transform rounded-[1.25rem] hover:bg-gray-v3 whitespace-nowrap text-black-v8"
-                                                href="#">Liên hệ</a>
-                                        </div>
-                                        <div class="relative nav-item">
-                                            <a class="px-[0.625rem] py-[0.5rem] text-sm font-semibold transition-colors duration-300 transform rounded-[1.25rem] hover:bg-gray-v3 whitespace-nowrap text-black-v8"
-                                                href="#">Về chúng tôi</a>
-                                        </div>
+                                </h1>
+                            </div>
+                            <div class="lg:flex-row lg:items-center mx-1 navbar-collapse collapse lg:justify-between"
+                                id="navbarNav">
+                                <div class="navbar-nav">
+                                    <div class="relative nav-item">
+                                        <a class="nav-link px-[0.625rem] py-[0.5rem] text-sm font-semibold transition-colors duration-300 transform rounded-[1.25rem] hover:bg-gray-v3 whitespace-nowrap text-black-v8"
+                                            href="#">Mua bán</a>
+                                    </div>
+                                    <div class="relative nav-item">
+                                        <a class="nav-link px-[0.625rem] py-[0.5rem] text-sm font-semibold transition-colors duration-300 transform rounded-[1.25rem] hover:bg-gray-v3 whitespace-nowrap text-black-v8"
+                                            href="#">Cho thuê</a>
+                                    </div>
+                                    <div class="relative nav-item">
+                                        <a class="nav-link px-[0.625rem] py-[0.5rem] text-sm font-semibold transition-colors duration-300 transform rounded-[1.25rem] hover:bg-gray-v3 whitespace-nowrap text-black-v8"
+                                            href="#">Sang nhượng</a>
+                                    </div>
+                                    <div class="relative nav-item">
+                                        <a class="nav-link px-[0.625rem] py-[0.5rem] text-sm font-semibold transition-colors duration-300 transform rounded-[1.25rem] hover:bg-gray-v3 whitespace-nowrap text-black-v8"
+                                            href="#">Dự án</a>
+                                    </div>
+                                    <div class="relative nav-item">
+                                        <a class="nav-link px-[0.625rem] py-[0.5rem] text-sm font-semibold transition-colors duration-300 transform rounded-[1.25rem] hover:bg-gray-v3 whitespace-nowrap text-black-v8"
+                                            href="#">Tin tức</a>
+                                    </div>
+                                    <div class="relative nav-item">
+                                        <a class="nav-link px-[0.625rem] py-[0.5rem] text-sm font-semibold transition-colors duration-300 transform rounded-[1.25rem] hover:bg-gray-v3 whitespace-nowrap text-black-v8"
+                                            href="#">Liên hệ</a>
+                                    </div>
+                                    <div class="relative nav-item">
+                                        <a class="nav-link px-[0.625rem] py-[0.5rem] text-sm font-semibold transition-colors duration-300 transform rounded-[1.25rem] hover:bg-gray-v3 whitespace-nowrap text-black-v8"
+                                            href="#">Về chúng tôi</a>
                                     </div>
                                 </div>
-                                <div
-                                    class="absolute inset-x-0 z-20 lg:z-auto w-full px-6 py-4 transition-all duration-300 ease-in-out bg-white dark:bg-gray-800 lg:mt-0 lg:p-0 lg:top-0 lg:relative lg:bg-transparent lg:w-auto lg:opacity-100 lg:translate-x-0 lg:flex lg:items-center">
-                                    <button class="btn"><i class="fa-regular fa-heart"></i></button>
-                                    <button
-                                        class="whitespace-nowrap px-[0.625rem] text-sm font-medium transition-colors duration-300 transform button-gray-outline rounded-[2.25rem] bg-gray-v2 border-0 text-black-v8 flex items-center ml-4"
-                                        data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-dismiss="modal">
-                                        <i class="fa-regular fa-user"></i>
-                                        Đăng ký/ Đăng nhập
-                                    </button>
-                                    <a href="#"
-                                        class="whitespace-nowrap px-[0.625rem] py-[0.5rem] text-base text-secondary font-medium transition-colors duration-300 transform button-primary-outline rounded-[2.25rem] flex items-center cursor-pointer ml-5"><i
-                                            class="ml ml-add text-[1rem] text-secondary mr-[0.5rem]"></i>Đăng tin</a>
+                                <!-- Phần hiển thị trên Desktop -->
+                                <div class="d-none d-lg-flex align-items-center ms-auto">
+                                    <!-- Nút Like -->
+                                    <div class="dropdown me-3">
+                                        <button class="btn dropdown-toggle likeButton" data-bs-toggle="dropdown">
+                                            <i class="fa-regular fa-heart text-[1.25rem]"></i>
+                                        </button>
+                                        <ul class="dropdown-menu" id="likedPropertiesDropdown">
+                                            <li class="dropdown-header">Yêu thích</li>
+                                            <li><span class="dropdown-item text-muted">Chưa có bất động sản yêu
+                                                    thích</span></li>
+                                        </ul>
+                                    </div>
+
+                                    <!-- Nút Đăng nhập (hoặc Dropdown User nếu đã đăng nhập) -->
+                                    <div id="desktop-login-group" class="me-3">
+                                        <button id="btn-navbar-login" class="btn px-3 py-2 btn btn-outline-primary nav-link" data-bs-toggle="modal" data-bs-target="#loginModal">
+                                            <i class="fa-regular fa-user"></i> Đăng ký/ Đăng nhập
+                                        </button>
+
+                                        <div class="dropdown" id="userDropdown" style="display: none;">
+                                            <button class="btn dropdown-toggle" id="userMenuButton"
+                                                data-bs-toggle="dropdown">
+                                                <i class="fa-regular fa-user"></i> <span id="username-display"></span>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item" href="/settings">Cài đặt</a></li>
+                                                <li><button class="dropdown-item" id="btn-logout">Đăng xuất</button>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <!-- Nút Đăng tin -->
+                                    <a href="/realestate/create"
+                                        class="btn btn-primary ms-3 px-4 py-2 text-white font-semibold rounded-full hover:bg-primary-dark">
+                                        <i class="fa-solid fa-plus me-2"></i>Đăng tin
+                                    </a>
+                                </div>
+
+                                <!-- Phần dành riêng cho Mobile -->
+                                <div class="d-lg-none">
+                                    <ul class="navbar-nav">
+                                        <!-- Nút Đăng nhập -->
+                                        <li id="mobile-login" class="nav-item mb-2">
+                                            <button class="nav-link btn btn-outline-primary w-100"
+                                                data-bs-toggle="modal" data-bs-target="#loginModal">
+                                                <i class="fa-regular fa-user"></i> Đăng ký/ Đăng nhập
+                                            </button>
+                                        </li>
+                                        <!-- Nút Đăng tin -->
+                                        <li class="nav-item mb-2">
+                                            <a href="/realestate/create"
+                                                class="btn btn-primary px-4 py-2 text-white font-semibold rounded-full hover:bg-primary-dark">
+                                                <i class="fa-solid fa-plus me-2"></i>Đăng tin
+                                            </a>
+                                        </li>
+                                        <!-- Dropdown Cài đặt & Đăng xuất -->
+                                        <li id="mobile-user-dropdown" class="nav-item dropdown d-none mb-2">
+                                            <button class="nav-link dropdown-toggle w-100" data-bs-toggle="dropdown">
+                                                <i class="fa-regular fa-user"></i> <span
+                                                    id="mobile-username-display"></span>
+                                            </button>
+                                            <ul class="dropdown-menu w-100">
+                                                <li><a class="dropdown-item" href="/settings">Cài đặt</a></li>
+                                                <li><button class="dropdown-item" id="mobile-btn-logout">Đăng
+                                                        xuất</button></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>

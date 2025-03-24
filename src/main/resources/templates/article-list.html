@@ -19,43 +19,133 @@
 <body>
     <!-- Navbar-->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/">RealEstate.com</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Mua bán</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Cho thuê</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Sang nhượng</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Dự án</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Tin tức</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Liên hệ</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Về chúng tôi</a>
-                    </li>
-                </ul>
-                <button class="btn" data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-dismiss="modal">
-                    <i class="fa-regular fa-user"></i>
-                    Đăng ký/ Đăng nhập
-                </button>
-                <button class="btn btn-outline-info">Đăng tin</button>
+        <div class="flex items-center justify-between container-fluid">
+            <div class="text-xl font-semibold text-gray-700 flex-shrink-0 md:w-100">
+                <h1 class="d-flex items-center justify-between">
+                    <a class="text-2xl font-bold text-gray-800 transition-colors duration-300 transform lg:text-2xl hover:text-gray-700"
+                        href="/">RealEstate.com</a>
+                    <div class="d-lg-none d-flex align-items-center gap-2">
+                        <div class="dropdown" id="likeDropdownMobile">
+                            <button class="btn dropdown-toggle likeButton" data-bs-toggle="dropdown"
+                                data-bs-display="static" aria-expanded="false">
+                                <i class="fa-regular fa-heart text-[1.25rem]"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end" id="likedPropertiesDropdown">
+                                <li class="dropdown-header">Yêu thích</li>
+                                <li><span class="dropdown-item text-muted">Chưa có bất động sản yêu
+                                        thích</span></li>
+                            </ul>
+                            </ul>
+                        </div>
+                        <button data-bs-target="#navbarNav" data-bs-toggle="collapse" type="button"
+                            class="navbar-toggler" aria-controls="navbarNav" aria-expanded="false">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                    </div>
+                </h1>
             </div>
-            <button class="btn"><i class="fa-regular fa-heart"></i></button>
+            <div class="lg:flex-row lg:items-center mx-1 navbar-collapse collapse lg:justify-between" id="navbarNav">
+                <div class="navbar-nav">
+                    <div class="relative nav-item">
+                        <a class="nav-link px-[0.625rem] py-[0.5rem] text-sm font-semibold transition-colors duration-300 transform rounded-[1.25rem] hover:bg-gray-v3 whitespace-nowrap text-black-v8"
+                            href="#">Mua bán</a>
+                    </div>
+                    <div class="relative nav-item">
+                        <a class="nav-link px-[0.625rem] py-[0.5rem] text-sm font-semibold transition-colors duration-300 transform rounded-[1.25rem] hover:bg-gray-v3 whitespace-nowrap text-black-v8"
+                            href="#">Cho thuê</a>
+                    </div>
+                    <div class="relative nav-item">
+                        <a class="nav-link px-[0.625rem] py-[0.5rem] text-sm font-semibold transition-colors duration-300 transform rounded-[1.25rem] hover:bg-gray-v3 whitespace-nowrap text-black-v8"
+                            href="#">Sang nhượng</a>
+                    </div>
+                    <div class="relative nav-item">
+                        <a class="nav-link px-[0.625rem] py-[0.5rem] text-sm font-semibold transition-colors duration-300 transform rounded-[1.25rem] hover:bg-gray-v3 whitespace-nowrap text-black-v8"
+                            href="#">Dự án</a>
+                    </div>
+                    <div class="relative nav-item">
+                        <a class="nav-link px-[0.625rem] py-[0.5rem] text-sm font-semibold transition-colors duration-300 transform rounded-[1.25rem] hover:bg-gray-v3 whitespace-nowrap text-black-v8"
+                            href="#">Tin tức</a>
+                    </div>
+                    <div class="relative nav-item">
+                        <a class="nav-link px-[0.625rem] py-[0.5rem] text-sm font-semibold transition-colors duration-300 transform rounded-[1.25rem] hover:bg-gray-v3 whitespace-nowrap text-black-v8"
+                            href="#">Liên hệ</a>
+                    </div>
+                    <div class="relative nav-item">
+                        <a class="nav-link px-[0.625rem] py-[0.5rem] text-sm font-semibold transition-colors duration-300 transform rounded-[1.25rem] hover:bg-gray-v3 whitespace-nowrap text-black-v8"
+                            href="#">Về chúng tôi</a>
+                    </div>
+                </div>
+                <!-- Phần hiển thị trên Desktop -->
+                <div class="d-none d-lg-flex align-items-center ms-auto">
+                    <!-- Nút Like -->
+                    <div class="dropdown me-3">
+                        <button class="btn dropdown-toggle likeButton" data-bs-toggle="dropdown">
+                            <i class="fa-regular fa-heart text-[1.25rem]"></i>
+                        </button>
+                        <ul class="dropdown-menu" id="likedPropertiesDropdown">
+                            <li class="dropdown-header">Yêu thích</li>
+                            <li><span class="dropdown-item text-muted">Chưa có bất động sản yêu
+                                    thích</span></li>
+                        </ul>
+                    </div>
+
+                    <!-- Nút Đăng nhập (hoặc Dropdown User nếu đã đăng nhập) -->
+                    <div id="desktop-login-group" class="me-3">
+                        <button id="btn-navbar-login" class="btn px-3 py-2 btn btn-outline-primary nav-link"
+                            data-bs-toggle="modal" data-bs-target="#loginModal">
+                            <i class="fa-regular fa-user"></i> Đăng ký/ Đăng nhập
+                        </button>
+
+                        <div class="dropdown" id="userDropdown" style="display: none;">
+                            <button class="btn dropdown-toggle" id="userMenuButton" data-bs-toggle="dropdown">
+                                <i class="fa-regular fa-user"></i> <span id="username-display"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="/settings">Cài đặt</a></li>
+                                <li><button class="dropdown-item" id="btn-logout">Đăng xuất</button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Nút Đăng tin -->
+                    <a href="/realestate/create"
+                        class="btn btn-primary ms-3 px-4 py-2 text-white font-semibold rounded-full hover:bg-primary-dark">
+                        <i class="fa-solid fa-plus me-2"></i>Đăng tin
+                    </a>
+                </div>
+
+                <!-- Phần dành riêng cho Mobile -->
+                <div class="d-lg-none">
+                    <ul class="navbar-nav">
+                        <!-- Nút Đăng nhập -->
+                        <li id="mobile-login" class="nav-item mb-2">
+                            <button class="nav-link btn btn-outline-primary w-100" data-bs-toggle="modal"
+                                data-bs-target="#loginModal">
+                                <i class="fa-regular fa-user"></i> Đăng ký/ Đăng nhập
+                            </button>
+                        </li>
+                        <!-- Nút Đăng tin -->
+                        <li class="nav-item mb-2">
+                            <a href="/realestate/create"
+                                class="btn btn-primary px-4 py-2 text-white font-semibold rounded-full hover:bg-primary-dark">
+                                <i class="fa-solid fa-plus me-2"></i>Đăng tin
+                            </a>
+                        </li>
+                        <!-- Dropdown Cài đặt & Đăng xuất -->
+                        <li id="mobile-user-dropdown" class="nav-item dropdown d-none mb-2">
+                            <button class="nav-link dropdown-toggle w-100" data-bs-toggle="dropdown">
+                                <i class="fa-regular fa-user"></i> <span id="mobile-username-display"></span>
+                            </button>
+                            <ul class="dropdown-menu w-100">
+                                <li><a class="dropdown-item" href="/settings">Cài đặt</a></li>
+                                <li><button class="dropdown-item" id="mobile-btn-logout">Đăng
+                                        xuất</button></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </nav>
     <!-- Search Box -->
@@ -106,10 +196,11 @@
                                 <div class="w-full flex items-center"><input
                                         class="w-full text-base px-[20px] text-black-v8 search-input_search-input__IqSQH"
                                         type="text" placeholder="Nhập địa chỉ hoặc dự án" maxlength="100" value="">
-                                </div><button
-                                    class="flex justify-center items-center w-[137px] h-[48px] button-primary rounded-[12px] shrink-0"
-                                    type="button"><i class="ml ml-search text-white text-[1.5rem] mr-1"></i>Tìm
-                                    kiếm</button>
+                                </div><button class="flex items-center justify-center 
+                                w-[137px] h-[48px] md:w-[120px] md:h-[40px] 
+                                text-[1.5rem] md:text-[1rem]
+                                button-primary rounded-[12px] shrink-0" type="button" id="search-button"><i
+                                        class="ml ml-search text-white text-[1.5rem] mr-1"></i></button>
                             </div>
                         </div>
                         <div
@@ -123,7 +214,7 @@
                                     </div>
                                     <i class="ml ml-expand_more text-white text-[1.5rem] flex-shrink-0"></i>
                                 </div>
-                                <div class="absolute bg-white shadow-lg rounded-lg mt-1 hidden"
+                                <div class="absolute bg-white shadow-lg rounded-lg mt-1 hidden z-9999"
                                     id="property-type-options">
                                     <label class="block px-4 py-2 text-black-v8"><input type="checkbox" value="0"
                                             class="property-type-checkbox"> Đất</label>
@@ -152,7 +243,8 @@
                                     </div>
                                     <i class="ml ml-expand_more text-white text-[1.5rem] flex-shrink-0"></i>
                                 </div>
-                                <div class="absolute bg-white shadow-lg rounded-lg mt-1 hidden" id="location-options">
+                                <div class="absolute bg-white shadow-lg rounded-lg mt-1 hidden z-9999"
+                                    id="location-options">
                                     <label class="block px-4 py-2 text-black-v8"><input type="checkbox" value="hanoi"
                                             class="location-checkbox text-black-v8"> Hà
                                         Nội</label>
@@ -171,7 +263,7 @@
                                             giá</span></div><i
                                         class="ml ml-expand_more text-white text-[1.5rem] flex-shrink-0"></i>
                                 </div>
-                                <div class="absolute bg-white shadow-lg rounded-lg mt-1 hidden"
+                                <div class="absolute bg-white shadow-lg rounded-lg mt-1 hidden z-9999"
                                     id="price-range-options">
                                     <label class="block px-4 py-2 text-black-v8"><input type="checkbox" value="0-1"
                                             class="price-range-checkbox"> Dưới 1 tỷ</label>
@@ -191,7 +283,7 @@
                                     <div class="truncate flex"><span class="overflow-hidden overflow-ellipsis">Diện
                                             tích</span></div><i
                                         class="ml ml-expand_more text-white text-[1.5rem] flex-shrink-0"></i>
-                                    <div class="absolute bg-white shadow-lg rounded-lg mt-1 hidden"
+                                    <div class="absolute bg-white shadow-lg rounded-lg mt-1 hidden z-9999"
                                         id="area-range-options">
                                         <label class="block px-4 py-2 text-black-v8"><input type="checkbox" value="0-50"
                                                 class="area-range-checkbox"> Dưới 50 m²</label>
@@ -213,7 +305,7 @@
                                     <div class="truncate flex"><span class="overflow-hidden overflow-ellipsis">Dự
                                             án</span></div><i
                                         class="ml ml-expand_more text-white text-[1.5rem] flex-shrink-0"></i>
-                                    <div class="absolute bg-white shadow-lg rounded-lg mt-1 hidden"
+                                    <div class="absolute bg-white shadow-lg rounded-lg mt-1 hidden z-9999"
                                         id="project-options">
                                         <label class="block px-4 py-2 text-black-v8"><input type="checkbox"
                                                 value="project1" class="project-checkbox"> Dự án 1</label>
@@ -289,7 +381,8 @@
                         </div>
                         <div class="mb-3">
                             <label for="password" class="form-label" style="font-size: 13px;">Mật khẩu</label>
-                            <input type="password" class="form-control" id="inp-login-password" placeholder="Nhập mật khẩu">
+                            <input type="password" class="form-control" id="inp-login-password"
+                                placeholder="Nhập mật khẩu">
                         </div>
                         <div style="margin-bottom:1.5rem" class="d-grid">
                             <button style="text-align: right;font-size: 15px;" class="btn">Quên mật khẩu?</button>
@@ -357,8 +450,8 @@
                             <div class="_41aa8">
                                 <span class="_21450 _56724">
                                 </span>
-                                <input type="email" class="form-control _0fdc7" id="inp-register-email" aria-describedby="emailHelp"
-                                    placeholder="Email">
+                                <input type="email" class="form-control _0fdc7" id="inp-register-email"
+                                    aria-describedby="emailHelp" placeholder="Email">
                             </div>
                         </div>
                         <div class="mb-3">
