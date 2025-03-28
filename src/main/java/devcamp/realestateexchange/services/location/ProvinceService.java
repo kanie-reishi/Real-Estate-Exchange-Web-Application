@@ -33,4 +33,8 @@ public class ProvinceService {
     public Province saveProvince(Province province) {
         return provinceRepository.save(province);
     }
+    // Get all provinces by name
+    public List<ProvinceDto> getProvinceListOrderByName() {
+        return provinceRepository.getProvinceListByName();
+    }
 }

@@ -14,4 +14,8 @@ public interface IProvinceRepository extends JpaRepository<Province, Integer>{
     // Get all provinces
     @Query("SELECT new devcamp.realestateexchange.dto.location.ProvinceDto(p.id, p.name, p.code) FROM Province p")
     List<ProvinceDto> findAllDto();
+
+    // Get all provinces order by name
+    @Query("SELECT new devcamp.realestateexchange.dto.location.ProvinceDto(p.id, p.name, p.code) FROM Province p ORDER BY p.name")
+    List<ProvinceDto> getProvinceListByName();
 }

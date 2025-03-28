@@ -12,6 +12,8 @@
     <!-- Bootstrap CSS-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!--Swiper CSS-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
     <!-- Custom CSS-->
     <link rel="stylesheet" href="/css/output.css">
 </head>
@@ -30,11 +32,10 @@
                                 data-bs-display="static" aria-expanded="false">
                                 <i class="fa-regular fa-heart text-[1.25rem]"></i>
                             </button>
-                            <ul class="dropdown-menu dropdown-menu-end" id="likedPropertiesDropdown">
+                            <ul class="dropdown-menu dropdown-menu-end" id="likedPropertiesDropdownMobile">
                                 <li class="dropdown-header">Yêu thích</li>
                                 <li><span class="dropdown-item text-muted">Chưa có bất động sản yêu
                                         thích</span></li>
-                            </ul>
                             </ul>
                         </div>
                         <button data-bs-target="#navbarNav" data-bs-toggle="collapse" type="button"
@@ -82,7 +83,7 @@
                         <button class="btn dropdown-toggle likeButton" data-bs-toggle="dropdown">
                             <i class="fa-regular fa-heart text-[1.25rem]"></i>
                         </button>
-                        <ul class="dropdown-menu" id="likedPropertiesDropdown">
+                        <ul class="dropdown-menu" id="likedPropertiesDropdownDesktop">
                             <li class="dropdown-header">Yêu thích</li>
                             <li><span class="dropdown-item text-muted">Chưa có bất động sản yêu
                                     thích</span></li>
@@ -149,7 +150,7 @@
         </div>
     </nav>
     <!-- Search Box -->
-    <div class="fresnel-container fresnel-greaterThanOrEqual-lg">
+    <main class="relative w-screen top-0">
         <div class="relative text-white z-5 bg-gray-v1 font-normal">
             <div class="relative text-white z-5 bg-gray-v1 font-normal">
                 <div class="overflow-hidden w-full home_home-banner__fK8Tn">
@@ -196,26 +197,30 @@
                                 <div class="w-full flex items-center"><input
                                         class="w-full text-base px-[20px] text-black-v8 search-input_search-input__IqSQH"
                                         type="text" placeholder="Nhập địa chỉ hoặc dự án" maxlength="100" value="">
-                                </div><button class="flex items-center justify-center 
-                                w-[137px] h-[48px] md:w-[120px] md:h-[40px] 
-                                text-[1.5rem] md:text-[1rem]
-                                button-primary rounded-[12px] shrink-0" type="button" id="search-button"><i
-                                        class="ml ml-search text-white text-[1.5rem] mr-1"></i></button>
+                                </div>
+                                <button class="flex items-center justify-center 
+                                       w-[137px] h-[48px] md:w-[120px] md:h-[40px] 
+                                       text-[1.5rem] md:text-[1rem]
+                                       button-primary rounded-[12px] shrink-0" type="button" id="search-button">
+                                    <i class="ml ml-search text-white mr-1"></i>
+                                </button>
+
                             </div>
                         </div>
                         <div
                             class="relative inline-flex px-3 py-2 rounded-b-xl w-[633px] search-input_filter-desktop__yE7Y8 sm:p-0 sm:h-150 sm:search-input-flex sm:w-100">
                             <!-- Loại nhà đất -->
-                            <div class="relative select pl-2.5 w-[148px] mr-2 sm:h-30">
-                                <div class="cursor-pointer flex items-center justify-between text-base pl-2 py-1 hover:bg-[rgba(221,221,221,0.3)] hover:rounded-lg"
+                            <div class="relative select pl-1.5 mr-2 sm:h-30">
+                                <div class="cursor-pointer flex items-center justify-between text-base pl-2 py-1 hover:bg-[rgba(221,221,221,0.3)] hover:rounded-lg gap-2-lg"
                                     id="property-type-dropdown">
                                     <div class="truncate flex"><span class="overflow-hidden overflow-ellipsis">Loại nhà
                                             đất</span>
                                     </div>
                                     <i class="ml ml-expand_more text-white text-[1.5rem] flex-shrink-0"></i>
                                 </div>
-                                <div class="absolute bg-white shadow-lg rounded-lg mt-1 hidden z-9999"
-                                    id="property-type-options">
+                                <div class="absolute bg-white shadow-lg rounded-lg mt-1 hidden 
+                                z-9999 top-full left-0 w-[200px] p-2
+                                max-h-60 overflow-y-auto dropdown-filter-box" id="property-type-options">
                                     <label class="block px-4 py-2 text-black-v8"><input type="checkbox" value="0"
                                             class="property-type-checkbox"> Đất</label>
                                     <label class="block px-4 py-2 text-black-v8"><input type="checkbox" value="1"
@@ -235,35 +240,68 @@
                                 </div>
                             </div>
                             <!-- Khu vực -->
-                            <div class="relative select pl-1.5 mr-2 w-[120px] sm:h-30">
-                                <div class="cursor-pointer flex items-center justify-between text-base pl-2 py-1 hover:bg-[rgba(221,221,221,0.3)] hover:rounded-lg"
+                            <div class="relative select pl-1.5 mr-2 sm:h-30 z-9999">
+                                <div class="cursor-pointer flex items-center justify-between text-base pl-2 py-1 hover:bg-[rgba(221,221,221,0.3)] hover:rounded-lg gap-2-lg"
                                     id="location-dropdown">
-                                    <div class="truncate flex"><span class="overflow-hidden overflow-ellipsis">Khu vực
-                                        </span>
+                                    <div class="truncate flex">
+                                        <span class="overflow-hidden overflow-ellipsis" id="selected-locations">Khu
+                                            vực</span>
                                     </div>
                                     <i class="ml ml-expand_more text-white text-[1.5rem] flex-shrink-0"></i>
                                 </div>
-                                <div class="absolute bg-white shadow-lg rounded-lg mt-1 hidden z-9999"
+                                <input type="hidden" id="selected-locations-ids">
+                                <!-- Dropdown danh sách tỉnh thành -->
+                                <div class="absolute bg-white shadow-lg rounded-lg mt-1 hidden z-9999 dropdown-filter-box"
                                     id="location-options">
-                                    <label class="block px-4 py-2 text-black-v8"><input type="checkbox" value="hanoi"
-                                            class="location-checkbox text-black-v8"> Hà
-                                        Nội</label>
-                                    <label class="block px-4 py-2 text-black-v8"><input type="checkbox" value="hcm"
-                                            class="location-checkbox text-black-v8"> TP. Hồ Chí
-                                        Minh</label>
-                                    <label class="block px-4 py-2 text-black-v8"><input type="checkbox" value="danang"
-                                            class="location-checkbox"> Đà Nẵng</label>
-                                    <!-- Add more locations as needed -->
+                                    <!-- Các tỉnh thành nổi bật -->
+                                    <div class="p-2">
+                                        <h4 class="font-bold text-sm text-gray-700">Tỉnh thành nổi bật</h4>
+                                        <div class="grid grid-cols-3 gap-2 mt-2">
+                                            <button class="province-item" data-id="2"
+                                                onClick="handleProvinceClick(this)">Hà
+                                                Nội</button>
+                                            <button class="province-item" data-id="1"
+                                                onClick="handleProvinceClick(this)">TP.
+                                                Hồ Chí Minh</button>
+                                            <button class="province-item" data-id="3"
+                                                onClick="handleProvinceClick(this)">Đà
+                                                Nẵng</button>
+                                            <button class="province-item" data-id="4"
+                                                onClick="handleProvinceClick(this)">Bình
+                                                Dương</button>
+                                            <button class="province-item" data-id="5"
+                                                onClick="handleProvinceClick(this)">Đồng
+                                                Nai</button>
+                                            <button class="province-item" data-id="6"
+                                                onClick="handleProvinceClick(this)">Khánh
+                                                Hòa</button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Danh sách đầy đủ -->
+                                    <div class="p-2" id="all-provinces">
+                                        <h4 class="font-bold text-sm text-gray-700">Tất cả tỉnh thành</h4>
+                                        <div class="grid grid-cols-3 gap-2 mt-2" id="all-provinces-list">
+                                            <!-- Thêm các tỉnh khác ở đây -->
+                                        </div>
+                                    </div>
+
+                                    <!-- Nút "Xem thêm / Thu gọn" -->
+                                    <div class="p-2 text-center">
+                                        <button id="toggle-provinces" class="text-blue-500 text-sm">Xem
+                                            thêm</button>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="relative select pl-1.5 mr-2 w-[116px] sm:h-30">
-                                <div class="cursor-pointer flex items-center justify-between text-base pl-2 py-1 hover:bg-[rgba(221,221,221,0.3)] hover:rounded-lg"
+
+                            <div class="relative select pl-1.5 mr-2 sm:h-30">
+                                <div class="cursor-pointer flex items-center justify-between text-base pl-2 py-1 hover:bg-[rgba(221,221,221,0.3)] hover:rounded-lg gap-2-lg"
                                     id="price-range-dropdown">
                                     <div class="truncate flex"><span class="overflow-hidden overflow-ellipsis">Mức
                                             giá</span></div><i
                                         class="ml ml-expand_more text-white text-[1.5rem] flex-shrink-0"></i>
                                 </div>
-                                <div class="absolute bg-white shadow-lg rounded-lg mt-1 hidden z-9999"
+                                <div class="absolute bg-white shadow-lg rounded-lg mt-1 hidden z-9999 dropdown-filter-box"
                                     id="price-range-options">
                                     <label class="block px-4 py-2 text-black-v8"><input type="checkbox" value="0-1"
                                             class="price-range-checkbox"> Dưới 1 tỷ</label>
@@ -277,42 +315,42 @@
                                             class="price-range-checkbox"> Trên 10 tỷ</label>
                                 </div>
                             </div>
-                            <div class="relative select pl-1.5 mr-2 w-[126px] sm:h-30">
-                                <div class="cursor-pointer flex items-center justify-between text-base pl-2 py-1 hover:bg-[rgba(221,221,221,0.3)] hover:rounded-lg"
+                            <div class="relative select pl-1.5 mr-2 sm:h-30">
+                                <div class="cursor-pointer flex items-center justify-between text-base pl-2 py-1 hover:bg-[rgba(221,221,221,0.3)] hover:rounded-lg gap-2-lg"
                                     id="area-range-dropdown">
                                     <div class="truncate flex"><span class="overflow-hidden overflow-ellipsis">Diện
                                             tích</span></div><i
                                         class="ml ml-expand_more text-white text-[1.5rem] flex-shrink-0"></i>
-                                    <div class="absolute bg-white shadow-lg rounded-lg mt-1 hidden z-9999"
-                                        id="area-range-options">
-                                        <label class="block px-4 py-2 text-black-v8"><input type="checkbox" value="0-50"
-                                                class="area-range-checkbox"> Dưới 50 m²</label>
-                                        <label class="block px-4 py-2 text-black-v8"><input type="checkbox"
-                                                value="50-100" class="area-range-checkbox"> 50 - 100
-                                            m²</label>
-                                        <label class="block px-4 py-2 text-black-v8"><input type="checkbox"
-                                                value="100-200" class="area-range-checkbox"> 100 - 200
-                                            m²</label>
-                                        <label class="block px-4 py-2 text-black-v8"><input type="checkbox" value="200+"
-                                                class="area-range-checkbox"> Trên 200
-                                            m²</label>
-                                    </div>
+                                </div>
+                                <div class="absolute bg-white shadow-lg rounded-lg mt-1 hidden z-9999 dropdown-filter-box"
+                                    id="area-range-options">
+                                    <label class="block px-4 py-2 text-black-v8"><input type="checkbox" value="0-50"
+                                            class="area-range-checkbox"> Dưới 50 m²</label>
+                                    <label class="block px-4 py-2 text-black-v8"><input type="checkbox" value="50-100"
+                                            class="area-range-checkbox"> 50 - 100
+                                        m²</label>
+                                    <label class="block px-4 py-2 text-black-v8"><input type="checkbox" value="100-200"
+                                            class="area-range-checkbox"> 100 - 200
+                                        m²</label>
+                                    <label class="block px-4 py-2 text-black-v8"><input type="checkbox" value="200+"
+                                            class="area-range-checkbox"> Trên 200
+                                        m²</label>
                                 </div>
                             </div>
-                            <div class="relative select w-[116px] pl-1.5 sm:h-30">
-                                <div class="cursor-pointer flex items-center justify-between text-base pl-2 py-1 hover:bg-[rgba(221,221,221,0.3)] hover:rounded-lg"
+                            <div class="relative select pl-1.5 mr-2 sm:h-30">
+                                <div class="cursor-pointer flex items-center justify-between text-base pl-2 py-1 hover:bg-[rgba(221,221,221,0.3)] hover:rounded-lg gap-2-lg"
                                     id="project-dropdown">
                                     <div class="truncate flex"><span class="overflow-hidden overflow-ellipsis">Dự
                                             án</span></div><i
                                         class="ml ml-expand_more text-white text-[1.5rem] flex-shrink-0"></i>
-                                    <div class="absolute bg-white shadow-lg rounded-lg mt-1 hidden z-9999"
-                                        id="project-options">
-                                        <label class="block px-4 py-2 text-black-v8"><input type="checkbox"
-                                                value="project1" class="project-checkbox"> Dự án 1</label>
-                                        <label class="block px-4 py-2 text-black-v8"><input type="checkbox"
-                                                value="project2" class="project-checkbox"> Dự án 2</label>
-                                        <!-- Add more projects as needed -->
-                                    </div>
+                                </div>
+                                <div class="absolute bg-white shadow-lg rounded-lg mt-1 hidden z-9999 dropdown-filter-box"
+                                    id="project-options">
+                                    <label class="block px-4 py-2 text-black-v8"><input type="checkbox" value="3072"
+                                            class="project-checkbox"> KINGDOM 101</label>
+                                    <label class="block px-4 py-2 text-black-v8"><input type="checkbox" value="3069"
+                                            class="project-checkbox"> SAIGON ASIANA</label>
+                                    <!-- Add more projects as needed -->
                                 </div>
                             </div>
                         </div>
@@ -320,20 +358,20 @@
                 </div>
             </div>
         </div>
-    </div>
-    <!-- List-->
-    <div class="container mt-4">
-        <div class="row" id="real-estate-list">
-            <!-- Articles will be dynamically loaded here -->
+        <!-- List-->
+        <div class="container mt-4">
+            <div class="row" id="real-estate-list">
+                <!-- Articles will be dynamically loaded here -->
+            </div>
         </div>
-    </div>
-    <div class="container">
-        <nav>
-            <ul class="pagination justify-content-center" id="pagination">
-                <!-- Pagination buttons will be added dynamically -->
-            </ul>
-        </nav>
-    </div>
+        <div class="container">
+            <nav>
+                <ul class="pagination justify-content-center" id="pagination">
+                    <!-- Pagination buttons will be added dynamically -->
+                </ul>
+            </nav>
+        </div>
+    </main>
     <!--Footer-->
     <footer class="relative lg:top-[76px] top-[104px]">
         <div class="container">
@@ -522,8 +560,14 @@
         crossorigin="anonymous"></script>
     <!-- Custom JS-->
     <script src="/js/user-login.js"></script>
+    <script src="/js/like-list.js"></script>
+    <script src="/js/navbar.js"></script>
+    <script src="/js/user-register.js"></script>
+    <script src="/js/filter-dropdown.js"></script>
     <script>
         $(document).ready(function () {
+            // Search data from query string
+            loadDataFromQueryString();
             // Toggle dropdown visibility
             $('#property-type-dropdown').on('click', function () {
                 $('#property-type-options').toggleClass('hidden');
@@ -605,63 +649,52 @@
                 });
             });
 
-            // Load real estate list
-            function loadRealEstateList() {
-                const urlParams = new URLSearchParams(window.location.search);
-                const query = urlParams.get('query');
-                const types = urlParams.get('types');
-                const requests = urlParams.get('requests');
-                const minPrice = urlParams.get('minPrice');
-                const maxPrice = urlParams.get('maxPrice');
-                const minAcreage = urlParams.get('minAcreage');
-                const maxAcreage = urlParams.get('maxAcreage');
-                const projects = urlParams.get('projects');
+            // Load real estate list on page load
+            loadRealEstateList();
+        });
 
-                const searchParams = {
+        // Handle data from query param
+        function loadDataFromQueryString() {
+            const urlParams = new URLSearchParams(window.location.search);
+            // Get data from query string
+            const query = urlParams.get('query');
+            const types = urlParams.get('propertyTypes');
+            const locations = urlParams.get('locations');
+            const minPrice = urlParams.get('minPrice');
+            const maxPrice = urlParams.get('maxPrice');
+            const minArea = urlParams.get('minArea');
+            const maxArea = urlParams.get('maxArea');
+            const projects = urlParams.get('projects');
+            // call api to search data
+            $.ajax({
+                url: '/realestate/search',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
                     searchText: query,
                     types: types,
-                    requests: requests,
+                    locations: locations,
                     minPrice: minPrice,
                     maxPrice: maxPrice,
-                    minAcreage: minAcreage,
-                    maxAcreage: maxAcreage,
+                    minArea: minArea,
+                    maxArea: maxArea,
                     projects: projects
-                };
-
-                function loadRealEstateList(page = 1) {
-                    $.ajax({
-                        url: `/realestate/search?page=${page}&size=9`, // Fetch 9 articles per page
-                        type: "GET",
-                        success: function (response) {
-                            renderRealEstateList(response.content);
-                            renderPagination(response.totalPages, page);
-                        },
-                        error: function (error) {
-                            console.log(error);
-                        }
-                    });
+                }),
+                success: function (data) {
+                    console.log(data);
+                    renderRealEstateList(data.content);
+                },
+                error: function (error) {
+                    console.log(error);
                 }
-
-            }
-            function renderPagination(totalPages, currentPage) {
-                const pagination = $("#pagination");
-                pagination.empty();
-
-                for (let i = 1; i <= totalPages; i++) {
-                    pagination.append(`
-            <li class="page-item ${i === currentPage ? 'active' : ''}">
-                <a class="page-link" href="#" onclick="loadRealEstateList(${i})">${i}</a>
-            </li>
-        `);
-                }
-            }
-
-            // Render real estate list
-            function renderRealEstateList(realEstates) {
-                const realEstateList = $('#real-estate-list');
-                realEstateList.empty();
-                realEstates.forEach(function (realEstate) {
-                    realEstateList.append(`
+            });
+        }
+        // Render real estate list
+        function renderRealEstateList(realEstates) {
+            const realEstateList = $('#real-estate-list');
+            realEstateList.empty();
+            realEstates.forEach(function (realEstate) {
+                realEstateList.append(`
             <div class="col-md-4">
                 <div class="card shadow-sm mb-4">
                     <img src="${realEstate.image || '/images/house.webp'}" class="card-img-top" alt="${realEstate.title}">
@@ -669,18 +702,65 @@
                         <h5 class="card-title">${realEstate.title}</h5>
                         <p class="card-text text-muted">${realEstate.description.substring(0, 100)}...</p>
                         <p class="card-text"><strong>Giá:</strong> ${realEstate.price}</p>
+                        <p class="card-text"><strong>Diện tích:</strong> ${realEstate.acreage} m²</p>
                         <p class="card-text"><i class="fa-solid fa-map-marker-alt"></i> ${realEstate.address}</p>
-                        <a href="/article-detail.html?id=${realEstate.id}" class="btn btn-primary">Chi tiết</a>
+                        <a href="/realestate/{realEstate.id}" class="btn btn-primary">Chi tiết</a>
                     </div>
                 </div>
             </div>
         `);
+            });
+        }
+        // Load real estate list
+        function loadRealEstateList() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const query = urlParams.get('query');
+            const types = urlParams.get('types');
+            const requests = urlParams.get('requests');
+            const minPrice = urlParams.get('minPrice');
+            const maxPrice = urlParams.get('maxPrice');
+            const minAcreage = urlParams.get('minAcreage');
+            const maxAcreage = urlParams.get('maxAcreage');
+            const projects = urlParams.get('projects');
+
+            const searchParams = {
+                searchText: query,
+                types: types,
+                requests: requests,
+                minPrice: minPrice,
+                maxPrice: maxPrice,
+                minAcreage: minAcreage,
+                maxAcreage: maxAcreage,
+                projects: projects
+            };
+
+            function loadRealEstateList(page = 1) {
+                $.ajax({
+                    url: `/realestate/search?page=${page}&size=9`, // Fetch 9 articles per page
+                    type: "GET",
+                    success: function (response) {
+                        renderRealEstateList(response.content);
+                        renderPagination(response.totalPages, page);
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
                 });
             }
 
+        }
+        // Render pagination
+        function renderPagination(totalPages, currentPage) {
+            const pagination = $("#pagination");
+            pagination.empty();
 
-            // Load real estate list on page load
-            loadRealEstateList();
-        });
+            for (let i = 1; i <= totalPages; i++) {
+                pagination.append(`
+            <li class="page-item ${i === currentPage ? 'active' : ''}">
+                <a class="page-link" href="#" onclick="loadRealEstateList(${i})">${i}</a>
+            </li>
+        `);
+            }
+        }
     </script>
 </body>

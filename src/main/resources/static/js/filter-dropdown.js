@@ -1,5 +1,6 @@
 // Xử lý sự kiện các dropdown trong bộ lọc
 $(document).ready(function () {
+    loadProvinceData();
     $('#property-type-dropdown').on('click', function (e) {
         e.stopPropagation();
         // Nếu dropdown đang mở thì đóng lại
@@ -21,7 +22,6 @@ $(document).ready(function () {
             $('#location-options').toggleClass('hidden');
         }
     });
-
     $('#price-range-dropdown').on('click', function (e) {
         e.stopPropagation();
         if (!$('#price-range-options').hasClass('hidden')) {
@@ -69,5 +69,29 @@ function closeAllDropdowns() {
     $('#price-range-options').addClass('hidden');
     $('#area-range-options').addClass('hidden');
     $('#project-options').addClass('hidden');
-  }
-  
+}
+
+function loadProvinceData() {
+    $.ajax({
+        url: "/provinces/name",
+        type: "GET",
+        success: function (data) {
+            var allProvinceList = $('#all-provinces-list');
+            allProvinceList.empty();
+            data.forEach(function (province) {
+                allProvinceList.append('<button class="province-item" data-id="' + province.id + '" onClick="handleProvinceClick(this)">' + province.name + '</button>');
+            });
+        }
+    });
+}
+function handleProvinceClick(provinceItem) {
+    var provinceId = $(provinceItem).data('id');
+    var hiddenInput = $('#selected-locations-ids');
+    // Xóa highlight khỏi các nút khác
+    document.querySelectorAll(".province-item").forEach(btn => btn.classList.remove("selected"));
+
+    // Thêm highlight vào nút hiện tại
+    provinceItem.classList.add("selected");
+
+    hiddenInput.val(provinceId);
+}

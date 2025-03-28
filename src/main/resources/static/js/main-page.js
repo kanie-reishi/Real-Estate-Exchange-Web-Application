@@ -7,15 +7,6 @@ $(document).ready(function () {
     // Load real estate data
     loadBatDongSanPhuHop();
 
-    // Handle search button click event
-    $("#btn-search").click(function () {
-        var provinceId = $("#province").val();
-        var address = $("#inp-address").val();
-        var price = $("input[name='price']:checked").val();
-        var acreage = $("input[name='acreage']:checked").val();
-        // go to list.html
-        window.location.href = "list.html?provinceId=" + provinceId + "&address=" + address + "&price=" + price + "&acreage=" + acreage;
-    });
     // Handle tab click event
     $(".tab").click(function () {
         // remove active class from all tab's children that have class tab-item
@@ -111,7 +102,7 @@ function loadBatDongSanPhuHop() {
                                             <div>
                                                 <div class="mb-[0.375rem] lg:mb-3 text-base font-medium line-clamp-2 text-[#2b2b2b] h-12">
                                                     <h3>
-                                                        <a title="${realEstate.title}" href="/co-dien-tich-chung-la-90m2-ban-nha-vi-tri-thuan-loi-toa-lac-tren-cau-giay-ha-noi-nhin-chung-gom-20-phong-ngu-20-wc-lien-he-chinh-chu-1712081528257">
+                                                        <a title="${realEstate.title}" href="#">
                                                             ${realEstate.title} 
                                                         </a>
                                                     </h3>

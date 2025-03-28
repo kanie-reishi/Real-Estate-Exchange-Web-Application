@@ -32,15 +32,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 if(property.imageUrl === null){
                     property.imageUrl = "https://via.placeholder.com/150";
                 }
-                likedPropertiesDropdown.innerHTML += `
+                likedPropertiesDropdownDesktop.innerHTML += `
                     <li class="d-flex justify-content-between align-items-center px-3">
-                        <image src="${property.imageUrl}" class="rounded" alt="property-image">
+                        <image src="${property.imageUrl}" class="rounded like-list-image" alt="property-image">
                         <a href="${property.link}" class="dropdown-item">${property.name}</a>
                         <button class="btn btn-sm text-danger remove-like" data-index="${index}">&times;</button>
                     </li>`;
                 likedPropertiesDropdownMobile.innerHTML += `
                     <li class="d-flex justify-content-between align-items-center px-3">
-                        <image src="${property.imageUrl}" class="rounded" alt="property-image">
+                        <image src="${property.imageUrl}" class="rounded like-list-image" alt="property-image">
                         <a href="${property.link}" class="dropdown-item">${property.name}</a>
                         <button class="btn btn-sm text-danger remove-like" data-index="${index}">&times;</button>
                     </li>`;
@@ -60,8 +60,8 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // Remove property from liked list
-    likedPropertiesDropdown.addEventListener("click", function (event) {
+    // Remove property from liked list desktop
+    likedPropertiesDropdownDesktop.addEventListener("click", function (event) {
         if (event.target.classList.contains("remove-like")) {
             let index = event.target.getAttribute("data-index");
             let likedProperties = JSON.parse(localStorage.getItem("likedProperties")) || [];
@@ -70,7 +70,16 @@ document.addEventListener("DOMContentLoaded", function () {
             loadLikedProperties();
         }
     });
-
+    // Remove property from liked list mobile
+    likedPropertiesDropdownMobile.addEventListener("click", function (event) {
+        if (event.target.classList.contains("remove-like")) {
+            let index = event.target.getAttribute("data-index");
+            let likedProperties = JSON.parse(localStorage.getItem("likedProperties")) || [];
+            likedProperties.splice(index, 1);
+            localStorage.setItem("likedProperties", JSON.stringify(likedProperties));
+            loadLikedProperties();
+        }
+    });
     // Load liked properties on page load
     loadLikedProperties();
 });

@@ -38,7 +38,8 @@
                                                 data-bs-display="static" aria-expanded="false">
                                                 <i class="fa-regular fa-heart text-[1.25rem]"></i>
                                             </button>
-                                            <ul class="dropdown-menu dropdown-menu-end" id="likedPropertiesDropdownMobile">
+                                            <ul class="dropdown-menu dropdown-menu-end"
+                                                id="likedPropertiesDropdownMobile">
                                                 <li class="dropdown-header">Yêu thích</li>
                                                 <li><span class="dropdown-item text-muted">Chưa có bất động sản yêu
                                                         thích</span></li>
@@ -99,7 +100,9 @@
 
                                     <!-- Nút Đăng nhập (hoặc Dropdown User nếu đã đăng nhập) -->
                                     <div id="desktop-login-group" class="me-3">
-                                        <button id="btn-navbar-login" class="btn px-3 py-2 btn btn-outline-primary nav-link" data-bs-toggle="modal" data-bs-target="#loginModal">
+                                        <button id="btn-navbar-login"
+                                            class="btn px-3 py-2 btn btn-outline-primary nav-link"
+                                            data-bs-toggle="modal" data-bs-target="#loginModal">
                                             <i class="fa-regular fa-user"></i> Đăng ký/ Đăng nhập
                                         </button>
 
@@ -161,183 +164,221 @@
             </header>
             <main class="relative w-screen top-0">
                 <!-- Search Box -->
-                <div class="fresnel-container fresnel-greaterThanOrEqual-lg">
+                <div class="relative text-white z-5 bg-gray-v1 font-normal">
                     <div class="relative text-white z-5 bg-gray-v1 font-normal">
-                        <div class="relative text-white z-5 bg-gray-v1 font-normal">
-                            <div class="overflow-hidden w-full home_home-banner__fK8Tn">
-                                <div class="w-full mx-auto h-full bg-[#D8D4C9]">
-                                    <div class="flex justify-center w-full h-full">
-                                        <span class="md:h-500"
-                                            style="box-sizing: border-box; display: inline-block; overflow: hidden; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px;position: relative; max-width: 100%;">
-                                            <span
-                                                style="box-sizing: border-box; display: block; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; max-width: 100%;">
-                                                <img alt="" aria-hidden="true"
-                                                    src="data:image/svg+xml,%3csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20version=%271.1%27%20width=%271911%27%20height=%27640%27/%3e"
-                                                    style="display: block; max-width: 100%; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px;">
-                                            </span>
-                                            <img alt="Banner Img" src="images/pexels-binyaminmellish-106399 (1).jpg"
-                                                class="object-cover w-full h-full"
-                                                style="position: absolute; inset: 0px; box-sizing: border-box; padding: 0px; border: none; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%;">
+                        <div class="overflow-hidden w-full home_home-banner__fK8Tn">
+                            <div class="w-full mx-auto h-full bg-[#D8D4C9]">
+                                <div class="flex justify-center w-full h-full">
+                                    <span class="md:h-500"
+                                        style="box-sizing: border-box; display: inline-block; overflow: hidden; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px;position: relative; max-width: 100%;">
+                                        <span
+                                            style="box-sizing: border-box; display: block; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; max-width: 100%;">
+                                            <img alt="" aria-hidden="true"
+                                                src="data:image/svg+xml,%3csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20version=%271.1%27%20width=%271911%27%20height=%27640%27/%3e"
+                                                style="display: block; max-width: 100%; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px;">
                                         </span>
-                                    </div>
+                                        <img alt="Banner Img" src="/images/pexels-binyaminmellish-106399 (1).jpg"
+                                            class="object-cover w-full h-full"
+                                            style="position: absolute; inset: 0px; box-sizing: border-box; padding: 0px; border: none; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%;">
+                                    </span>
                                 </div>
                             </div>
-                            <div class="absolute inset-0 top-[39px] 2xl:top-24 md:w-[700px] mx-auto md:mt-100">
-                                <div class="relative my-2">
-                                    <div class="flex items-start justify-center flex-col">
-                                        <div class="flex mb-2">
-                                            <div class="tab">
-                                                <div class="tab-item py-3 mr-6 text-white tab-item-home active"><button
-                                                        class="text-base" type="button">Mua bán</button>
-                                                </div>
+                        </div>
+                        <div class="absolute inset-0 top-[39px] 2xl:top-24 md:w-[700px] mx-auto md:mt-100">
+                            <div class="relative my-2">
+                                <div class="flex items-start justify-center flex-col">
+                                    <div class="flex mb-2">
+                                        <div class="tab">
+                                            <div class="tab-item py-3 mr-6 text-white tab-item-home active"><button
+                                                    class="text-base" type="button">Mua bán</button>
                                             </div>
-                                            <div class="tab">
-                                                <div class="tab-item py-3 mr-6 text-white tab-item-home"><button
-                                                        class="text-base undefined" type="button">Cho thuê</button>
-                                                </div>
+                                        </div>
+                                        <div class="tab">
+                                            <div class="tab-item py-3 mr-6 text-white tab-item-home"><button
+                                                    class="text-base undefined" type="button">Cho thuê</button>
                                             </div>
-                                            <div class="tab">
-                                                <div class="tab-item py-3 mr-6 text-white tab-item-home"><button
-                                                        class="text-base undefined" type="button">Sang nhượng</button>
-                                                </div>
+                                        </div>
+                                        <div class="tab">
+                                            <div class="tab-item py-3 mr-6 text-white tab-item-home"><button
+                                                    class="text-base undefined" type="button">Sang nhượng</button>
                                             </div>
                                         </div>
                                     </div>
-                                    <div
-                                        class="relative w-full bg-white rounded-2xl search-input_search-input-wrapper__R8nkU">
-                                        <div class="flex justify-between items-center p-2">
-                                            <div class="w-full flex items-center"><input
-                                                    class="w-full text-base px-[20px] text-black-v8 search-input_search-input__IqSQH"
-                                                    type="text" placeholder="Nhập địa chỉ hoặc dự án" maxlength="100"
-                                                    value="">
-                                            </div>
-                                            <button class="flex items-center justify-center 
+                                </div>
+                                <div
+                                    class="relative w-full bg-white rounded-2xl search-input_search-input-wrapper__R8nkU">
+                                    <div class="flex justify-between items-center p-2">
+                                        <div class="w-full flex items-center"><input
+                                                class="w-full text-base px-[20px] text-black-v8 search-input_search-input__IqSQH"
+                                                type="text" placeholder="Nhập địa chỉ hoặc dự án" maxlength="100"
+                                                value="">
+                                        </div>
+                                        <button class="flex items-center justify-center 
                                                    w-[137px] h-[48px] md:w-[120px] md:h-[40px] 
                                                    text-[1.5rem] md:text-[1rem]
                                                    button-primary rounded-[12px] shrink-0" type="button"
-                                                id="search-button">
-                                                <i class="ml ml-search text-white mr-1"></i>
-                                            </button>
+                                            id="search-button">
+                                            <i class="ml ml-search text-white mr-1"></i>
+                                        </button>
 
+                                    </div>
+                                </div>
+                                <div
+                                    class="relative inline-flex px-3 py-2 rounded-b-xl w-[633px] search-input_filter-desktop__yE7Y8 sm:p-0 sm:h-150 sm:search-input-flex sm:w-100">
+                                    <!-- Loại nhà đất -->
+                                    <div class="relative select pl-1.5 mr-2 sm:h-30">
+                                        <div class="cursor-pointer flex items-center justify-between text-base pl-2 py-1 hover:bg-[rgba(221,221,221,0.3)] hover:rounded-lg gap-2-lg"
+                                            id="property-type-dropdown">
+                                            <div class="truncate flex"><span
+                                                    class="overflow-hidden overflow-ellipsis">Loại nhà đất</span>
+                                            </div>
+                                            <i class="ml ml-expand_more text-white text-[1.5rem] flex-shrink-0"></i>
+                                        </div>
+                                        <div class="absolute bg-white shadow-lg rounded-lg mt-1 hidden 
+                                            z-9999 top-full left-0 w-[200px] p-2
+                                            max-h-60 overflow-y-auto dropdown-filter-box" id="property-type-options">
+                                            <label class="block px-4 py-2 text-black-v8"><input type="checkbox"
+                                                    value="0" class="property-type-checkbox"> Đất</label>
+                                            <label class="block px-4 py-2 text-black-v8"><input type="checkbox"
+                                                    value="1" class="property-type-checkbox"> Nhà ở</label>
+                                            <label class="block px-4 py-2 text-black-v8"><input type="checkbox"
+                                                    value="2" class="property-type-checkbox"> Căn hộ/Chung
+                                                cư</label>
+                                            <label class="block px-4 py-2 text-black-v8"><input type="checkbox"
+                                                    value="3" class="property-type-checkbox"> Văn phòng, Mặt
+                                                bằng</label>
+                                            <label class="block px-4 py-2 text-black-v8"><input type="checkbox"
+                                                    value="4" class="property-type-checkbox"> Kinh doanh</label>
+                                            <label class="block px-4 py-2 text-black-v8"><input type="checkbox"
+                                                    value="5" class="property-type-checkbox"> Phòng trọ</label>
+                                            <label class="block px-4 py-2 text-black-v8"><input type="checkbox"
+                                                    value="6" class="property-type-checkbox"> Khác</label>
                                         </div>
                                     </div>
-                                    <div
-                                        class="relative inline-flex px-3 py-2 rounded-b-xl w-[633px] search-input_filter-desktop__yE7Y8 sm:p-0 sm:h-150 sm:search-input-flex sm:w-100">
-                                        <!-- Loại nhà đất -->
-                                        <div class="relative select pl-1.5 w-[148px] mr-2 sm:h-30">
-                                            <div class="cursor-pointer flex items-center justify-between text-base pl-2 py-1 hover:bg-[rgba(221,221,221,0.3)] hover:rounded-lg"
-                                                id="property-type-dropdown">
-                                                <div class="truncate flex"><span
-                                                        class="overflow-hidden overflow-ellipsis">Loại nhà đất</span>
+                                    <!-- Khu vực -->
+                                    <div class="relative select pl-1.5 mr-2 sm:h-30 z-9999">
+                                        <div class="cursor-pointer flex items-center justify-between text-base pl-2 py-1 hover:bg-[rgba(221,221,221,0.3)] hover:rounded-lg gap-2-lg"
+                                            id="location-dropdown">
+                                            <div class="truncate flex">
+                                                <span class="overflow-hidden overflow-ellipsis"
+                                                    id="selected-locations">Khu vực</span>
+                                            </div>
+                                            <i class="ml ml-expand_more text-white text-[1.5rem] flex-shrink-0"></i>
+                                        </div>
+                                        <input type="hidden" id="selected-locations-ids">
+                                        <!-- Dropdown danh sách tỉnh thành -->
+                                        <div class="absolute bg-white shadow-lg rounded-lg mt-1 hidden z-9999 dropdown-filter-box"
+                                            id="location-options">
+                                            <!-- Các tỉnh thành nổi bật -->
+                                            <div class="p-2">
+                                                <h4 class="font-bold text-sm text-gray-700">Tỉnh thành nổi bật</h4>
+                                                <div class="grid grid-cols-3 gap-2 mt-2">
+                                                    <button class="province-item" data-id="2"
+                                                        onClick="handleProvinceClick(this)">Hà
+                                                        Nội</button>
+                                                    <button class="province-item" data-id="1"
+                                                        onClick="handleProvinceClick(this)">TP.
+                                                        Hồ Chí Minh</button>
+                                                    <button class="province-item" data-id="3"
+                                                        onClick="handleProvinceClick(this)">Đà
+                                                        Nẵng</button>
+                                                    <button class="province-item" data-id="4"
+                                                        onClick="handleProvinceClick(this)">Bình
+                                                        Dương</button>
+                                                    <button class="province-item" data-id="5"
+                                                        onClick="handleProvinceClick(this)">Đồng
+                                                        Nai</button>
+                                                    <button class="province-item" data-id="6"
+                                                        onClick="handleProvinceClick(this)">Khánh
+                                                        Hòa</button>
                                                 </div>
-                                                <i class="ml ml-expand_more text-white text-[1.5rem] flex-shrink-0"></i>
                                             </div>
-                                            <div class="absolute bg-white shadow-lg rounded-lg mt-1 hidden 
-                                            z-9999 top-full left-0 w-[200px] p-2
-                                            max-h-60 overflow-y-auto"
-                                                id="property-type-options">
-                                                <label class="block px-4 py-2 text-black-v8"><input type="checkbox"
-                                                        value="0" class="property-type-checkbox"> Đất</label>
-                                                <label class="block px-4 py-2 text-black-v8"><input type="checkbox"
-                                                        value="1" class="property-type-checkbox"> Nhà ở</label>
-                                                <label class="block px-4 py-2 text-black-v8"><input type="checkbox"
-                                                        value="2" class="property-type-checkbox"> Căn hộ/Chung
-                                                    cư</label>
-                                                <label class="block px-4 py-2 text-black-v8"><input type="checkbox"
-                                                        value="3" class="property-type-checkbox"> Văn phòng, Mặt
-                                                    bằng</label>
-                                                <label class="block px-4 py-2 text-black-v8"><input type="checkbox"
-                                                        value="4" class="property-type-checkbox"> Kinh doanh</label>
-                                                <label class="block px-4 py-2 text-black-v8"><input type="checkbox"
-                                                        value="5" class="property-type-checkbox"> Phòng trọ</label>
-                                                <label class="block px-4 py-2 text-black-v8"><input type="checkbox"
-                                                        value="6" class="property-type-checkbox"> Khác</label>
-                                            </div>
-                                        </div>
-                                        <!-- Khu vực -->
-                                        <div class="relative select pl-1.5 mr-2 w-[120px] sm:h-30">
-                                            <div class="cursor-pointer flex items-center justify-between text-base pl-2 py-1 hover:bg-[rgba(221,221,221,0.3)] hover:rounded-lg"
-                                                id="location-dropdown">
-                                                <div class="truncate flex"><span
-                                                        class="overflow-hidden overflow-ellipsis">Khu vực
-                                                    </span>
+
+                                            <!-- Danh sách đầy đủ -->
+                                            <div class="p-2" id="all-provinces">
+                                                <h4 class="font-bold text-sm text-gray-700">Tất cả tỉnh thành</h4>
+                                                <div class="grid grid-cols-3 gap-2 mt-2" id="all-provinces-list">
+                                                    <!-- Thêm các tỉnh khác ở đây -->
                                                 </div>
-                                                <i class="ml ml-expand_more text-white text-[1.5rem] flex-shrink-0"></i>
                                             </div>
-                                            <div class="absolute bg-white shadow-lg rounded-lg mt-1 hidden z-9999"
-                                                id="location-options">
-                                                <label class="block px-4 py-2 text-black-v8"><input type="checkbox"
-                                                        value="2" class="location-checkbox text-black-v8"> Hà
-                                                    Nội</label>
-                                                <label class="block px-4 py-2 text-black-v8"><input type="checkbox"
-                                                        value="1" class="location-checkbox text-black-v8"> TP. Hồ Chí
-                                                    Minh</label>
-                                                <label class="block px-4 py-2 text-black-v8"><input type="checkbox"
-                                                        value="3" class="location-checkbox"> Đà Nẵng</label>
-                                                <!-- Add more locations as needed -->
+
+                                            <!-- Nút "Xem thêm / Thu gọn" -->
+                                            <div class="p-2 text-center">
+                                                <button id="toggle-provinces" class="text-blue-500 text-sm">Xem
+                                                    thêm</button>
                                             </div>
                                         </div>
-                                        <div class="relative select pl-1.5 mr-2 w-[116px] sm:h-30">
-                                            <div class="cursor-pointer flex items-center justify-between text-base pl-2 py-1 hover:bg-[rgba(221,221,221,0.3)] hover:rounded-lg"
-                                                id="price-range-dropdown">
-                                                <div class="truncate flex"><span
-                                                        class="overflow-hidden overflow-ellipsis">Mức
-                                                        giá</span></div><i
-                                                    class="ml ml-expand_more text-white text-[1.5rem] flex-shrink-0"></i>
-                                            </div>
-                                            <div class="absolute bg-white shadow-lg rounded-lg mt-1 hidden z-9999"
-                                                id="price-range-options">
-                                                <label class="block px-4 py-2 text-black-v8"><input type="checkbox"
-                                                        value="0-1" class="price-range-checkbox"> Dưới 1 tỷ</label>
-                                                <label class="block px-4 py-2 text-black-v8"><input type="checkbox"
-                                                        value="1-3" class="price-range-checkbox"> 1 - 3 tỷ</label>
-                                                <label class="block px-4 py-2 text-black-v8"><input type="checkbox"
-                                                        value="3-5" class="price-range-checkbox"> 3 - 5 tỷ</label>
-                                                <label class="block px-4 py-2 text-black-v8"><input type="checkbox"
-                                                        value="5-10" class="price-range-checkbox"> 5 - 10 tỷ</label>
-                                                <label class="block px-4 py-2 text-black-v8"><input type="checkbox"
-                                                        value="10+" class="price-range-checkbox"> Trên 10 tỷ</label>
-                                            </div>
+                                    </div>
+
+                                    <div class="relative select pl-1.5 mr-2 sm:h-30">
+                                        <div class="cursor-pointer flex items-center justify-between text-base pl-2 py-1 hover:bg-[rgba(221,221,221,0.3)] hover:rounded-lg gap-2-lg"
+                                            id="price-range-dropdown">
+                                            <div class="truncate flex"><span
+                                                    class="overflow-hidden overflow-ellipsis">Mức
+                                                    giá</span></div><i
+                                                class="ml ml-expand_more text-white text-[1.5rem] flex-shrink-0"></i>
                                         </div>
-                                        <div class="relative select pl-1.5 mr-2 w-[126px] sm:h-30">
-                                            <div class="cursor-pointer flex items-center justify-between text-base pl-2 py-1 hover:bg-[rgba(221,221,221,0.3)] hover:rounded-lg"
-                                                id="area-range-dropdown">
-                                                <div class="truncate flex"><span
-                                                        class="overflow-hidden overflow-ellipsis">Diện
-                                                        tích</span></div><i
-                                                    class="ml ml-expand_more text-white text-[1.5rem] flex-shrink-0"></i>
-                                            </div>
-                                            <div class="absolute bg-white shadow-lg rounded-lg mt-1 hidden z-9999"
-                                                id="area-range-options">
-                                                <label class="block px-4 py-2 text-black-v8"><input type="checkbox"
-                                                        value="0-50" class="area-range-checkbox"> Dưới 50 m²</label>
-                                                <label class="block px-4 py-2 text-black-v8"><input type="checkbox"
-                                                        value="50-100" class="area-range-checkbox"> 50 - 100
-                                                    m²</label>
-                                                <label class="block px-4 py-2 text-black-v8"><input type="checkbox"
-                                                        value="100-200" class="area-range-checkbox"> 100 - 200
-                                                    m²</label>
-                                                <label class="block px-4 py-2 text-black-v8"><input type="checkbox"
-                                                        value="200+" class="area-range-checkbox"> Trên 200
-                                                    m²</label>
-                                            </div>
+                                        <div class="absolute bg-white shadow-lg rounded-lg mt-1 hidden z-9999 dropdown-filter-box"
+                                            id="price-range-options">
+                                            <label class="block px-4 py-2 text-black-v8"><input type="checkbox"
+                                                    data-min-price="0" data-max-price="1" class="price-range-checkbox">
+                                                Dưới 1 tỷ</label>
+                                            <label class="block px-4 py-2 text-black-v8"><input type="checkbox"
+                                                    data-min-price="1" data-max-price="3" class="price-range-checkbox">
+                                                1 - 3 tỷ</label>
+                                            <label class="block px-4 py-2 text-black-v8"><input type="checkbox"
+                                                    data-min-price="3" data-max-price="5" class="price-range-checkbox">
+                                                3 - 5 tỷ</label>
+                                            <label class="block px-4 py-2 text-black-v8"><input type="checkbox"
+                                                    data-min-price="5" data-max-price="10" class="price-range-checkbox">
+                                                5 - 10 tỷ</label>
+                                            <label class="block px-4 py-2 text-black-v8"><input type="checkbox"
+                                                    data-min-price="10" data-max-price="900"
+                                                    class="price-range-checkbox"> Trên 10 tỷ</label>
                                         </div>
-                                        <div class="relative select w-[116px] pl-1.5 sm:h-30">
-                                            <div class="cursor-pointer flex items-center justify-between text-base pl-2 py-1 hover:bg-[rgba(221,221,221,0.3)] hover:rounded-lg"
-                                                id="project-dropdown">
-                                                <div class="truncate flex"><span
-                                                        class="overflow-hidden overflow-ellipsis">Dự
-                                                        án</span></div><i
-                                                    class="ml ml-expand_more text-white text-[1.5rem] flex-shrink-0"></i>
-                                            </div>
-                                            <div class="absolute bg-white shadow-lg rounded-lg mt-1 hidden z-9999"
-                                                id="project-options">
-                                                <label class="block px-4 py-2 text-black-v8"><input type="checkbox"
-                                                        value="3072" class="project-checkbox">KINGDOM 101</label>
-                                                <label class="block px-4 py-2 text-black-v8"><input type="checkbox"
-                                                        value="3069" class="project-checkbox">SAIGON ASIANA</label>
-                                                <!-- Add more projects as needed -->
-                                            </div>
+                                    </div>
+                                    <div class="relative select pl-1.5 mr-2 sm:h-30">
+                                        <div class="cursor-pointer flex items-center justify-between text-base pl-2 py-1 hover:bg-[rgba(221,221,221,0.3)] hover:rounded-lg gap-2-lg"
+                                            id="area-range-dropdown">
+                                            <div class="truncate flex"><span
+                                                    class="overflow-hidden overflow-ellipsis">Diện
+                                                    tích</span></div><i
+                                                class="ml ml-expand_more text-white text-[1.5rem] flex-shrink-0"></i>
+                                        </div>
+                                        <div class="absolute bg-white shadow-lg rounded-lg mt-1 hidden z-9999 dropdown-filter-box"
+                                            id="area-range-options">
+                                            <label class="block px-4 py-2 text-black-v8"><input type="checkbox"
+                                                    data-min-price="0" data-max-price="50" class="area-range-checkbox">
+                                                Dưới 50 m²</label>
+                                            <label class="block px-4 py-2 text-black-v8"><input type="checkbox"
+                                                    data-min-price="50" data-max-price="100"
+                                                    class="area-range-checkbox"> 50 - 100
+                                                m²</label>
+                                            <label class="block px-4 py-2 text-black-v8"><input type="checkbox"
+                                                    data-min-price="100" data-max-price="200"
+                                                    class="area-range-checkbox"> 100 - 200
+                                                m²</label>
+                                            <label class="block px-4 py-2 text-black-v8"><input type="checkbox"
+                                                    data-min-price="200" data-max-price="1000"
+                                                    class="area-range-checkbox"> Trên 200
+                                                m²</label>
+                                        </div>
+                                    </div>
+                                    <div class="relative select pl-1.5 mr-2 sm:h-30">
+                                        <div class="cursor-pointer flex items-center justify-between text-base pl-2 py-1 hover:bg-[rgba(221,221,221,0.3)] hover:rounded-lg gap-2-lg"
+                                            id="project-dropdown">
+                                            <div class="truncate flex"><span
+                                                    class="overflow-hidden overflow-ellipsis">Dự
+                                                    án</span></div><i
+                                                class="ml ml-expand_more text-white text-[1.5rem] flex-shrink-0"></i>
+                                        </div>
+                                        <div class="absolute bg-white shadow-lg rounded-lg mt-1 hidden z-9999 dropdown-filter-box"
+                                            id="project-options">
+                                            <label class="block px-4 py-2 text-black-v8"><input type="checkbox"
+                                                    value="3072" class="project-checkbox"> KINGDOM 101</label>
+                                            <label class="block px-4 py-2 text-black-v8"><input type="checkbox"
+                                                    value="3069" class="project-checkbox"> SAIGON ASIANA</label>
+                                            <!-- Add more projects as needed -->
                                         </div>
                                     </div>
                                 </div>
@@ -639,17 +680,21 @@
             function saveSearchData() {
                 const query = searchInput.val().trim();
                 const propertyTypes = getSelectedValues('property-type-checkbox');
-                const locations = getSelectedValues('location-checkbox');
-                const priceRanges = getSelectedValues('price-range-checkbox');
-                const areaRanges = getSelectedValues('area-range-checkbox');
+                const locations = $('#selected-locations-ids').val();
+                const minPrice = $('#price-range-options input:checked').first().data('min-price');
+                const maxPrice = $('#price-range-options input:checked').first().data('max-price');
+                const minArea = $('#area-range-options input:checked').first().data('min-price');
+                const maxArea = $('#area-range-options input:checked').first().data('max-price');
                 const projects = getSelectedValues('project-checkbox');
 
                 const searchData = {
                     query,
                     propertyTypes,
                     locations,
-                    priceRanges,
-                    areaRanges,
+                    minPrice,
+                    maxPrice,
+                    minArea,
+                    maxArea,
                     projects
                 };
 
@@ -667,12 +712,6 @@
                             $(`.${className}[value="${value}"]`).prop("checked", true);
                         });
                     }
-
-                    restoreCheckboxes("property-type-checkbox", savedData.propertyTypes);
-                    restoreCheckboxes("location-checkbox", savedData.locations);
-                    restoreCheckboxes("price-range-checkbox", savedData.priceRanges);
-                    restoreCheckboxes("area-range-checkbox", savedData.areaRanges);
-                    restoreCheckboxes("project-checkbox", savedData.projects);
                 }
             }
 
@@ -683,9 +722,10 @@
             // Save search data before redirecting
             searchButton.on("click", function () {
                 saveSearchData();
-                // Redirect to list page with search data
-                window.location.href = "/realestate/list";
-
+                // Get search data from localStorage
+                const searchData = JSON.parse(localStorage.getItem("searchData"));
+                // Redirect to search page with search data
+                window.location.href = `/realestate/list?query=${searchData.query}&propertyTypes=${searchData.propertyTypes}&locations=${searchData.locations}&minPrice=${searchData.minPrice}&maxPrice=${searchData.maxPrice}&minArea=${searchData.minArea}&maxArea=${searchData.maxArea}&projects=${searchData.projects}`;
             });
         });
     </script>

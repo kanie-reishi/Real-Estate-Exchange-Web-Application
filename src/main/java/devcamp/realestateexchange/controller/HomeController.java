@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 @CrossOrigin
 @Controller
@@ -19,6 +20,11 @@ public class HomeController {
     @GetMapping("/realestate/create")
     public String createArticle() {
         return "article-create";
+    }
+
+    @GetMapping("/realestate/list")
+    public String realestateList() {
+        return "article-list";
     }
 
     @GetMapping("/admin")

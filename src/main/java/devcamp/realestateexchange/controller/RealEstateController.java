@@ -305,28 +305,6 @@ public class RealEstateController {
         return modelAndView;
     }
 
-    // REST API for returning real estate list
-    @GetMapping("/realestate/list")
-    public ModelAndView realestateList(
-            @RequestParam(required = false) String query,
-            @RequestParam(required = false) Integer propertyTypes,
-            @RequestParam(required = false) Integer locations,
-            @RequestParam(required = false) String priceRanges,
-            @RequestParam(required = false) String areaRanges,
-            @RequestParam(required = false) String projects) {
-
-        ModelAndView modelAndView = new ModelAndView("article-list");
-        RealEstateSearchParameters realEstateSearchParameters = new RealEstateSearchParameters();
-        realEstateSearchParameters.setSearchText(query);
-        realEstateSearchParameters.setType(propertyTypes);
-        realEstateSearchParameters.setProvinceId(locations);
-        
-        Page<RealEstateDto> realEstateDtos = realEstateService.search(realEstateSearchParameters);
-        modelAndView.addObject("realEstates", realEstateDtos); // Gửi dữ liệu đến view
-        // Gọi service để lấy danh sách bất động sản phù hợp với tiêu chí tìm kiếm
-        return modelAndView;
-    }
-
     // REST API for returning real estate detail
     @GetMapping("/admin/realestate/{id}/detail")
     public ModelAndView realestateDetail(@PathVariable("id") Long id, Model model) {

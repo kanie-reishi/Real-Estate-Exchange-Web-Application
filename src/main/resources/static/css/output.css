@@ -2925,9 +2925,11 @@ textarea {
     display: flex !important;
     flex-direction: column !important;
   }
-  .search-input_search-input__IqSQH{
+
+  .search-input_search-input__IqSQH {
     padding-left: 5px !important;
   }
+
   .sm\:h-30 {
     height: 30px !important;
   }
@@ -3022,10 +3024,12 @@ textarea {
   max-height: 400px;
   /* Prevents infinite height */
 }
+
 .realestate-card {
   position: relative;
   display: block;
-  overflow: hidden; /* Đảm bảo không bị lỗi layout */
+  overflow: hidden;
+  /* Đảm bảo không bị lỗi layout */
 }
 
 .image-container {
@@ -3036,7 +3040,8 @@ textarea {
   position: absolute;
   top: 10px;
   right: 10px;
-  z-index: 10; /* Đảm bảo nút luôn trên cùng */
+  z-index: 2;
+  /* Đảm bảo nút luôn trên cùng */
   background: rgba(255, 255, 255, 0.8);
   border: none;
   border-radius: 50%;
@@ -3057,8 +3062,10 @@ textarea {
 .image-container img {
   width: 100%;
   height: auto;
-  object-fit: cover; /* Tránh ảnh bị méo */
+  object-fit: cover;
+  /* Tránh ảnh bị méo */
 }
+
 .likeButton {
   font-size: 1rem;
   padding: 8px 12px;
@@ -3070,20 +3077,22 @@ textarea {
   color: #ff4d4d;
 }
 
-#likedPropertiesDropdown {
+#likedPropertiesDropdownDesktop {
   min-width: 200px;
-  max-width: 90vw;
+  width: 350px;
+  overflow-x: hidden;
+}
+
+#likedPropertiesDropdownMobile {
+  min-width: 200px;
+  width: 250px;
   overflow-x: hidden;
 }
 
 @media (max-width: 768px) {
   .likeButton {
-      font-size: 0.9rem;
-      padding: 6px 10px;
-  }
-
-  #likedPropertiesDropdown {
-      max-width: 100%;
+    font-size: 0.9rem;
+    padding: 6px 10px;
   }
 }
 
@@ -3095,36 +3104,42 @@ textarea {
 
 @media (max-width: 768px) {
   #navbarNav .navbar-nav {
-      width: 100%;
-      text-align: center;
+    width: 100%;
+    text-align: center;
   }
 
   #navbarNav .nav-item {
-      width: 100%;
+    width: 100%;
   }
 
-  #navbarNav .nav-link, 
+  #navbarNav .nav-link,
   #navbarNav .btn {
-      display: block;
-      width: 100%;
-      text-align: center;
-      padding: 10px;
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 10px;
   }
 }
+
 .likeButton.dropdown-toggle::after {
   display: none !important;
 }
+
 /* Giả sử file custom.css */
 .dropdown-menu {
-  max-width: 90vw; /* Giới hạn chiều rộng = 90% màn hình */
+  max-width: 90vw;
+  /* Giới hạn chiều rộng = 90% màn hình */
   overflow-wrap: break-word;
   /* Hoặc position: fixed; top: 60px; right: 10px; 
      ... tùy vào thiết kế mong muốn */
 }
+
 .max-h-60 {
-  max-height: 15rem; /* 60 * 0.25rem = 15rem = 240px */
+  max-height: 15rem;
+  /* 60 * 0.25rem = 15rem = 240px */
   overflow-y: auto;
 }
+
 .z-9999 {
   z-index: 9999;
   position: relative;
@@ -3133,4 +3148,61 @@ textarea {
 #map {
   border: 1px solid #ccc;
   border-radius: 8px;
+}
+
+.like-list-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+/* Province button */
+.province-item {
+  display: inline-block;
+  width: auto;
+  padding: 8px 10px;
+  font-size: 14px;
+  color: #333;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.3s;
+  border: 1px solid #ddd;
+}
+
+.province-item:hover {
+  background-color: #eaeaea;
+}
+
+/* Mobile responsive */
+@media screen and (max-width: 600px) {
+  .province-item {
+    font-size: 13px;
+    padding: 6px;
+  }
+  #location-options {
+    width: 100% !important;
+  }
+}
+@media screen and (min-width: 768px) {
+  .gap-2-lg {
+    gap: 0.5rem;
+  }
+}
+.dropdown-filter-box {
+  min-width: 250px; /* Đặt chiều rộng tối thiểu */
+  max-width: 400px; /* Giới hạn chiều rộng tối đa */
+  width: auto; /* Để nó tự động mở rộng theo nội dung */
+  padding: 10px;
+  white-space: normal; /* Đảm bảo nội dung xuống dòng hợp lý */
+} 
+#location-options {
+  min-width: 300px;
+  width: 600px;
+  overflow-x: hidden;
+}
+.province-item.selected {
+  background: #007bff;
+  color: white;
 }

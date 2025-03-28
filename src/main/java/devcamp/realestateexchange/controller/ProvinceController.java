@@ -54,7 +54,15 @@ public class ProvinceController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-
+    // get all provinces order by name
+    @GetMapping("/provinces/name")
+    public ResponseEntity<Object> getProvinceListOrderByName() {
+        try {
+            return ResponseEntity.ok(provinceService.getProvinceListOrderByName());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
     // Create a new province
     @PostMapping("/provinces")
     public ResponseEntity<Object> createProvince(@RequestBody ProvinceDto provinceDto) {
