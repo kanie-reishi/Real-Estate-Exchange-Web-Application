@@ -23,6 +23,8 @@ public interface RealEstateProjection {
     Integer getTotalFloors();
     Integer getBath();
     String getDescription();
+    Double getLatitude();
+    Double getLongitude();
 
     CustomerProjection getCustomer();
     ProvinceProjection getProvince();

@@ -256,19 +256,16 @@ public class RealEstateDto {
             this.customer = new CustomerDto(realEstate.getCustomer().getId(), realEstate.getCustomer().getFullName(),
                     realEstate.getCustomer().getPhoto() != null ? realEstate.getCustomer().getPhoto().getUrl() : null);
         }
-        if (realEstate.getAddressMap() != null) {
-            this.addressDetail = new AddressDto(realEstate.getAddress(),
-                    new ProvinceDto(realEstate.getProvince().getId(), realEstate.getProvince().getName()),
-                    new DistrictDto(realEstate.getDistrict().getId(), realEstate.getDistrict().getName(),
-                            realEstate.getDistrict().getPrefix()),
-                    new WardDto(realEstate.getWard().getId(), realEstate.getWard().getName(),
-                            realEstate.getWard().getPrefix()),
-                    new StreetDto(realEstate.getStreet().getId(), realEstate.getStreet().getName(),
-                            realEstate.getStreet().getPrefix()),
-                    realEstate.getAddressMap().getLatitude(),
-                    realEstate.getAddressMap().getLongitude());
-        }
-
+        this.addressDetail = new AddressDto(realEstate.getAddress(),
+                new ProvinceDto(realEstate.getProvince().getId(), realEstate.getProvince().getName()),
+                new DistrictDto(realEstate.getDistrict().getId(), realEstate.getDistrict().getName(),
+                        realEstate.getDistrict().getPrefix()),
+                new WardDto(realEstate.getWard().getId(), realEstate.getWard().getName(),
+                        realEstate.getWard().getPrefix()),
+                new StreetDto(realEstate.getStreet().getId(), realEstate.getStreet().getName(),
+                        realEstate.getStreet().getPrefix()),
+                realEstate.getLatitude(),
+                realEstate.getLongitude());
         if (realEstate.getArticle() != null) {
             this.article = new ArticleDto(realEstate.getArticle());
         }

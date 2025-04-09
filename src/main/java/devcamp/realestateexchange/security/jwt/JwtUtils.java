@@ -27,38 +27,38 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class JwtUtils {
     private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
-    @Value("${devcamp.app.jwtSecret}")
-    private String jwtSecret;
+        @Value("${devcamp.app.jwtSecret}")
+        private String jwtSecret;
 
-    @Value("${devcamp.app.jwtExpirationMs}")
-    private int jwtExpirationMs;
+        @Value("${devcamp.app.jwtExpirationMs}")
+        private int jwtExpirationMs;
 
-    long refreshExpirationDate = 86400000L;
-    // Generate JWT token
-    public String generateJwtToken(Authentication authentication) {
+        long refreshExpirationDate = 86400000L;
+        // Generate JWT token
+        public String generateJwtToken(Authentication authentication) {
 
-        UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
-        List<String> roles = userPrincipal.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority)
-                .collect(Collectors.toList());
-        return Jwts.builder()
-                .setSubject((userPrincipal.getUsername()))
-                .claim("scopes", roles)
-                .setIssuedAt(new Date())
-                .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
-                .signWith(SignatureAlgorithm.HS512, jwtSecret)
-                .compact();
-    }
+            UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
+            List<String> roles = userPrincipal.getAuthorities().stream()
+                    .map(GrantedAuthority::getAuthority)
+                    .collect(Collectors.toList());
+            return Jwts.builder()
+                    .setSubject((userPrincipal.getUsername()))
+                    .claim("scopes", roles)
+                    .setIssuedAt(new Date())
+                    .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
+                    .signWith(SignatureAlgorithm.HS512, jwtSecret)
+                    .compact();
+        }
 
-    // Generate refresh token
-    public String generateRefreshToken(Authentication authentication) {
-        return Jwts.builder()
-                .setSubject((authentication.getName()))
-                .setIssuedAt(new Date())
-                .setExpiration(new Date((new Date()).getTime() + refreshExpirationDate))
-                .signWith(SignatureAlgorithm.HS512, jwtSecret)
-                .compact();
-    }
+        // Generate refresh token
+        public String generateRefreshToken(Authentication authentication) {
+            return Jwts.builder()
+                    .setSubject((authentication.getName()))
+                    .setIssuedAt(new Date())
+                    .setExpiration(new Date((new Date()).getTime() + refreshExpirationDate))
+                    .signWith(SignatureAlgorithm.HS512, jwtSecret)
+                    .compact();
+        }
     // Get username from JWT token
     public String getUserNameFromJwtToken(String token) {
         return Jwts.parser()
@@ -127,7 +127,9 @@ public class JwtUtils {
             return false;
         }
         // Check if the token is expired and mismatched with the expiration date
-        return expiration.before(new Date());
+        long expirationTime = expiration.getTime();
+        long currentTime = System.currentTimeMillis();
+        return expirationTime < currentTime;
     }
 
     public String getJwtFromCookie(HttpServletRequest request) {

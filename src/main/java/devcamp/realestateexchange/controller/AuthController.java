@@ -95,7 +95,9 @@ public class AuthController {
 
                 // Add the cookie to the response
                 response.addCookie(jwtCookie);
-                response.addCookie(refreshCookie);
+                response.addCookie(refreshCookie);               
+                // Set the SameSite attribute for the cookie
+                response.setHeader("Set-Cookie", "key=value; HttpOnly; SameSite=strict");
 
                 // Get the UserDetailsImpl object from the authentication object
                 UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
@@ -161,6 +163,9 @@ public class AuthController {
                 // Add the cookie to the response
                 response.addCookie(jwtCookie);
                 response.addCookie(refreshCookie);
+
+                // Set the SameSite attribute for the cookie
+                response.addHeader("SameSite", "Strict");
                 // Get the UserDetailsImpl object from the authentication object
                 // Get the roles from the UserDetailsImpl object
                 List<String> roles = userDetails.getAuthorities().stream()
@@ -270,6 +275,8 @@ public class AuthController {
                 // jwtCookie.setSecure(true);
                 jwtCookie.setPath("/");
                 jwtCookie.setMaxAge(3600);
+                // Set same site
+                
                 // Add the cookie to the response
                 response.addCookie(jwtCookie);
                 // Create a response object

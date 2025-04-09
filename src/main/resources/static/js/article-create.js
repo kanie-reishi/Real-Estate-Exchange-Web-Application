@@ -205,7 +205,7 @@ function onBtnDangTinClick(){
                 // Redirect to Real Estate Detail Page
                 console.log(data);
                 alert('Đăng tin thành công');
-                // window.location.href = `http://localhost:8080/real-estates/${data.id}`;
+                window.location.href = `http://localhost:8080/real-estates/${data.id}`;
             },
             error: function (error) {
                 alert('Đăng tin thất bại');

@@ -96,11 +96,6 @@ public class RealEstate extends UserReferenceEntity {
     @JsonBackReference
     private Project project;
 
-    // Địa chỉ trên map
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "address_map_id")
-    private AddressMap addressMap;
-
     // Địa chỉ chi tiết nhà.
     @Column(name = "address")
     private String address;
@@ -171,7 +166,12 @@ public class RealEstate extends UserReferenceEntity {
     // Số nhà vệ sinh có
     @Column(name = "bath")
     private Integer bath;
-
+    // Kinh độ ở trên map
+    @Column(name = "longitude")
+    private Double longitude;
+    // Vĩ độ ở trên map
+    @Column(name = "latitude")
+    private Double latitude;
     // Thông tin chi tiết bất động sản
     @Embedded
     private RealEstateDetail detail;

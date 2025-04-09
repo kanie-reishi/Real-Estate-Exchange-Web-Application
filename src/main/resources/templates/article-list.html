@@ -18,7 +18,8 @@
     <link rel="stylesheet" href="/css/output.css">
 </head>
 
-<body>
+<body
+    class="overflow-x-hidden scrollbar-thin scrollbar-thumb-black-v3 scrollbar-thumb-rounded-full scrollbar-track-rounded-full w-screen h-screen relative">
     <!-- Navbar-->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="flex items-center justify-between container-fluid">
@@ -553,6 +554,8 @@
             </div>
         </div>
     </div>
+    <!-- Jquery --> 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Bootstrap JS-->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
@@ -568,22 +571,6 @@
         $(document).ready(function () {
             // Search data from query string
             loadDataFromQueryString();
-            // Toggle dropdown visibility
-            $('#property-type-dropdown').on('click', function () {
-                $('#property-type-options').toggleClass('hidden');
-            });
-            $('#location-dropdown').on('click', function () {
-                $('#location-options').toggleClass('hidden');
-            });
-            $('#price-range-dropdown').on('click', function () {
-                $('#price-range-options').toggleClass('hidden');
-            });
-            $('#area-range-dropdown').on('click', function () {
-                $('#area-range-options').toggleClass('hidden');
-            });
-            $('#project-dropdown').on('click', function () {
-                $('#project-options').toggleClass('hidden');
-            });
 
             $('#search-button').on('click', function () {
                 const query = $('#search-input').val();

@@ -233,7 +233,8 @@ public class RealEstateService {
         }
 
         addressDto.setAddressDetail(projection.getAddress());
-
+        addressDto.setLatitude(projection.getLatitude());
+        addressDto.setLongitude(projection.getLongitude());
         dto.setAddressDetail(addressDto);
         // Thêm thông tin ảnh vào RealEstateDto
         List<String> photoUrls = photoService.getUrlsByRealEstateId(dto.getId());
@@ -305,7 +306,8 @@ public class RealEstateService {
         realEstate.setAcreage(realEstateDto.getAcreage());
         realEstate.setAcreageUnit(realEstateDto.getAcreageUnit());
         realEstate.setBedroom(realEstateDto.getBedroom());
-
+        realEstate.setLongitude(realEstateDto.getAddressDetail().getLongitude());
+        realEstate.setLatitude(realEstateDto.getAddressDetail().getLatitude());
         Date createdAt = null;
         // Parse createdAt from ISO 8601 format
         try {

@@ -47,6 +47,19 @@ document.addEventListener("DOMContentLoaded", function () {
             geocodeAddress(address, marker, map);
         }
     });
+    $('#select-ward').change(function () {
+        var address = getAddress();
+        if (address) {
+            geocodeAddress(address, marker, map);
+        }
+    });
+    $('#select-street').change(function () {
+        var address = getAddress();
+        if (address) {
+            geocodeAddress(address, marker, map);
+        }
+    });
+
 });
 // Gọi hàm Geocoding
 function geocodeAddress(address, marker, map) {
@@ -72,7 +85,7 @@ function geocodeAddress(address, marker, map) {
                 document.getElementById('location-coords-lat').value = lat;
                 document.getElementById('location-coords-lng').value = lon;
             } else {
-                alert("Không tìm thấy địa chỉ. Vui lòng thử lại.");
+                //alert("Không tìm thấy địa chỉ. Vui lòng thử lại.");
             }
         })
         .catch(error => {
@@ -84,6 +97,8 @@ function geocodeAddress(address, marker, map) {
 function getAddress() {
     let province = $('#select-province :selected').text();
     let district = $('#select-district :selected').text();
+    let ward = $('#select-ward :selected').text();
+    let street = $('#select-street :selected').text();
     // check if address is not selected
     if ($('#select-province').val() == 0) {
         province = "";
@@ -91,6 +106,15 @@ function getAddress() {
     if ($('#select-district').val() == 0) {
         district = "";
     }
-    var address = document.getElementById('input-address').value + ", " + district + ", " + province;
+    if ($('#select-ward').val() == 0) {
+        ward = "";
+    }
+    if ($('#select-street').val() == 0) {
+        street = "";
+    }
+    var address = document.getElementById('input-address').value + " " + street + " " + ward + " " + district + " " + province;
+    console.log(address);
+    // Xóa khoảng trắng thừa
+    address = address.replace(/\s+/g, ' ').trim();
     return address;
 }
