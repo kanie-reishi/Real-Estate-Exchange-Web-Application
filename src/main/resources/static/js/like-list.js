@@ -13,6 +13,17 @@ document.addEventListener("DOMContentLoaded", function () {
         addLikedProperty(propertyName, propertyLink, propertyId, propertyImageUrl);
         $(this).addClass("liked");
     });
+    $(document).on("click", "#like-button", function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+    
+        const propertyName = $(this).attr("data-name");
+        const propertyLink = $(this).attr("data-link");
+        const propertyId = $(this).attr("data-id");
+        const propertyImageUrl = $(this).attr("data-image-url");
+        addLikedProperty(propertyName, propertyLink, propertyId, propertyImageUrl);
+        $(this).addClass("liked");
+    });
     // Ngăn chặn click trên thẻ `<a>` nếu nhấn vào nút like
     $(".realestate-link").on("click", function (event) {
         if ($(event.target).closest(".like-button").length > 0) {

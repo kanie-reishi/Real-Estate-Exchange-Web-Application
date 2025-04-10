@@ -161,9 +161,9 @@ public class RealEstateController {
                 return ResponseEntity.ok(realEstate);
             }
             // Check if real estate is not approved
-            if (realEstate.getVerify() == null || realEstate.getVerify() == 0) {
+            /* if (realEstate.getVerify() == null || realEstate.getVerify() == 0) {
                 return ResponseEntity.badRequest().body("Real estate is not approved");
-            }
+            } */
             return ResponseEntity.ok(realEstate);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -174,8 +174,8 @@ public class RealEstateController {
     @PostMapping("/realestate")
     public ResponseEntity<Object> createRealEstate(@RequestBody(required = false) RealEstateDto realEstateDto) {
         try {
-            realEstateService.saveRealEstate(realEstateDto);
-            return ResponseEntity.ok("Real estate created successfully");
+            RealEstateDto realEstate = realEstateService.saveRealEstate(realEstateDto);
+            return ResponseEntity.ok(realEstate);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e);
         }

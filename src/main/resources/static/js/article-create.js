@@ -205,7 +205,7 @@ function onBtnDangTinClick(){
             success: function (data) {
                 // Redirect to Real Estate Detail Page
                 alert('Đăng tin thành công');
-                window.location.href = `http://localhost:8080/realestates/${data.id}`;
+                window.location.href = `http://localhost:8080/realestate/${data.id}`;
             },
             error: function (error) {
                 alert('Đăng tin thất bại');
@@ -243,7 +243,9 @@ function collectDataFromForm() {
     let realestateObj = {};
     realestateObj.type = selectedChipValue;
     realestateObj.title = $('#input-title').val();
-    realestateObj.price = $('#input-price').val() + $('#select-price').val();
+    realestateObj.price = $('#input-price').val();
+    realestateObj.priceUnit = $('#select-price').val();
+    realestateObj.areaUnit = $('#select-areaUnit').val();
     realestateObj.acreage = $('#input-acreage').val();
     realestateObj.address = $('#input-address').val();
     realestateObj.description = quill.root.innerHTML;

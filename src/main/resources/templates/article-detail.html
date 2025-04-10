@@ -44,7 +44,8 @@
                                                 data-bs-display="static" aria-expanded="false">
                                                 <i class="fa-regular fa-heart text-[1.25rem]"></i>
                                             </button>
-                                            <ul class="dropdown-menu dropdown-menu-end" id="likedPropertiesDropdown">
+                                            <ul class="dropdown-menu dropdown-menu-end"
+                                                id="likedPropertiesDropdownMobile">
                                                 <li class="dropdown-header">Yêu thích</li>
                                                 <li><span class="dropdown-item text-muted">Chưa có bất động sản yêu
                                                         thích</span></li>
@@ -96,7 +97,7 @@
                                         <button class="btn dropdown-toggle likeButton" data-bs-toggle="dropdown">
                                             <i class="fa-regular fa-heart text-[1.25rem]"></i>
                                         </button>
-                                        <ul class="dropdown-menu" id="likedPropertiesDropdown">
+                                        <ul class="dropdown-menu" id="likedPropertiesDropdownDesktop">
                                             <li class="dropdown-header">Yêu thích</li>
                                             <li><span class="dropdown-item text-muted">Chưa có bất động sản yêu
                                                     thích</span></li>
@@ -173,7 +174,8 @@
                         <div class="layout">
                             <div
                                 class="flex justify-end items-center space-x-4 text-base font-medium text-black-v7 mb-4 mt-5 px-4 xl:px-0">
-                                <button aria-label="button-favorite" class="flex items-center cursor-pointer">
+                                <button aria-label="button-favorite" class="flex items-center cursor-pointer"
+                                    id="like-button">
                                     <i class="fa-regular fa-heart text-[1.25rem]"></i>
                                     <span class="ml-1 text-black-v7">Lưu</span>
                                 </button>
@@ -195,8 +197,6 @@
                                 </div>
                             </div>
                             <div>
-                                <h1 th:text="${mode == 'preview' ? 'Xem trước tin đăng' : 'Chi tiết tin đăng'}">
-                                </h1>
                                 <!--
                                 <div th:if="${mode != 'preview'}">
                                     <button>Chỉnh sửa</button>
@@ -660,6 +660,7 @@
             <!-- Custom JS-->
             <script src="/js/user-login.js"> </script>
             <script src="/js/user-register.js"> </script>
+            <script src="/js/like-list.js"> </script>
             <script type="module">
                 /*** REGION 1 - Global variables - Vùng khai báo biến, hằng số, tham số TOÀN CỤC */
 
@@ -674,14 +675,16 @@
                     // Get real estate id from path variable
                     var url = window.location.href;
                     var realEstateId = url.split('/').pop().split('#')[0];
-                    console.log(realEstateId);
                     $.ajax({
                         url: "http://localhost:8080/realestate/" + realEstateId + "/detail",
                         type: "GET",
                         contentType: "application/json",
                     }).then(function (data) {
-                        console.log(data);
+                        //console.log(data);
                         renderRealEstateDetail(data);
+                    }).fail(function (error) {
+                        //console.error("Error loading real estate detail:", error);
+                        alert("Có lỗi xảy ra khi tải thông tin bất động sản. Vui lòng thử lại sau.");
                     });
                 }
                 function getQueryParam(param) {
@@ -701,16 +704,18 @@
                     $('#p-price').text(realEstate.price + ' ' + "Tỷ");
                     $('#address').text(realEstate.addressDetail.addressDetail);
                     $('#description').html(realEstate.description);
-                    $('#h3-acreage').text(realEstate.acreage + ' ' + (realEstate.acreageUnit || 'm²'));
-                    $('#p-acreage').text(realEstate.acreage + ' ' + (realEstate.acreageUnit || 'm²'));
-                    $('#h3-price').text(realEstate.price + ' ' + (realEstate.priceUnit || 'Triệu'));
-                    $('#p-price').text(realEstate.price + ' ' + (realEstate.priceUnit || 'Triệu'));
+                    $('#h3-acreage').text(realEstate.acreage + ' ' + (convertAcreageUnit(realEstate.acreageUnit)));
+                    $('#p-acreage').text(realEstate.acreage + ' ' + (convertAcreageUnit(realEstate.acreageUnit)));
+                    $('#h3-price').text(realEstate.price + ' ' + (convertPriceUnit(realEstate.priceUnit)));
+                    $('#p-price').text(realEstate.price + ' ' + (convertPriceUnit(realEstate.priceUnit)));
                     $('#h3-bedroom').text(realEstate.bedroom);
                     $('#p-bedroom').text(realEstate.bedroom);
                     $('#createDate').text(convertDate(realEstate.createdAt));
                     $('#customer-name').text(realEstate.customer.fullName);
                     $('#customer-phone').text(realEstate.customer.phone);
 
+                    // Add data to like button
+                    addDataLikeButton(realEstate);
                     // Render real estate location
                     var map = L.map('mapid').setView([realEstate.addressDetail.latitude, realEstate.addressDetail.longitude], 13);
 
@@ -720,13 +725,46 @@
                     // Add a marker to the map
                     var marker = L.marker([realEstate.addressDetail.latitude, realEstate.addressDetail.longitude]).addTo(map);
                 }
-                // Hàm đổi date
+                // Hàm đổi đơn vị
                 function convertDate(paramDate) {
                     var date = new Date(paramDate);
                     var day = date.getDate();
                     var month = date.getMonth() + 1; // Months are zero based
                     var year = date.getFullYear();
                     return day + '/' + month + '/' + year;
+                }
+                function convertPriceUnit(paramPriceUnit) {
+                    // Đơn vị giá: 0.Triệu, 1.Tỷ, 2.Triệu/m2, 3.Tỷ/m2
+                    switch (paramPriceUnit) {
+                        case 0:
+                            return 'Triệu';
+                        case 1:
+                            return 'Tỷ';
+                        case 2:
+                            return 'Triệu/m²';
+                        case 3:
+                            return 'Tỷ/m²';
+                        default:
+                            return 'Tỷ';
+                    }
+                }
+                function convertAcreageUnit(paramAcreageUnit) {
+                    // Đơn vị diện tích: 0.m2, 1.ha
+                    switch (paramAcreageUnit) {
+                        case 0:
+                            return 'm²';
+                        case 1:
+                            return 'ha';
+                        default:
+                            return 'm²';
+                    }
+                }
+                function addDataLikeButton(paramRealEstate) {
+                    var likeButton = document.getElementById('like-button');
+                    likeButton.setAttribute('data-id', paramRealEstate.id);
+                    likeButton.setAttribute('data-name', paramRealEstate.title);
+                    likeButton.setAttribute('data-image-url', paramRealEstate.photoUrls[0]);
+                    likeButton.setAttribute('data-link', window.location.href);
                 }
             </script>
             <script type='module'>

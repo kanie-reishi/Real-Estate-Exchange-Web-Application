@@ -398,7 +398,7 @@
                                                             id="area">
                                                             <label
                                                                 class="text-base md:text-sm font-normal md:font-medium text-black-v7 md:text-black-v6 md:flex-shrink-0 px-4 md:px-0 ">Diện
-                                                                tích (m²)
+                                                                tích
                                                                 <span class="text-red-v6"> *</span>
                                                             </label>
                                                         </div>
@@ -414,17 +414,19 @@
                                                     </div>
                                                     <div class="mb-4 grid grid-cols-5 gap-2 md:block">
                                                         <div class="md:mb-1 col-span-2 flex items-center justify-start"
-                                                            id="areaUse">
+                                                            id="areaUnit">
                                                             <label
-                                                                class="text-base md:text-sm font-normal md:font-medium text-black-v7 md:text-black-v6 md:flex-shrink-0 px-4 md:px-0 ">Diện
-                                                                tích sử dụng (m²)</label>
+                                                                class="text-base md:text-sm font-normal md:font-medium text-black-v7 md:text-black-v6 md:flex-shrink-0 px-4 md:px-0 ">Đơn vị diện tích</label>
                                                         </div>
                                                         <div class="col-span-3 mr-4 md:mr-0">
                                                             <div
                                                                 class="md:rounded-lg text-base text-black-v8 flex items-center space-x-2 relative w-full bg-white">
-                                                                <input type="text" inputmode="decimal"
-                                                                    class="w-full placeholder:text-black-v6 form-control"
-                                                                    placeholder="Nhập số" value="">
+                                                                <select
+                                                                    class="form-select w-full h-9 text-sm md:text-base"
+                                                                    id="select-areaUnit">
+                                                                    <option value="0">m²</option>
+                                                                    <option value="1">ha</option>
+                                                                </select>
                                                             </div>
                                                             <div class=""></div>
                                                         </div>
@@ -454,11 +456,10 @@
                                                                         <select
                                                                             class="form-select w-full h-9 text-sm md:text-base"
                                                                             id="select-price">
-                                                                            <option value="0">Tỷ</option>
-                                                                            <option value="1">Triệu</option>
-                                                                            <option value="2">Tỷ/m²</option>
-                                                                            <option value="3">Triệu/m²</option>
-                                                                            <option value="4">Thương lượng</option>
+                                                                            <option value="0">Triệu</option>
+                                                                            <option value="1">Tỷ</option>
+                                                                            <option value="2">Triệu/m²</option>
+                                                                            <option value="3">Tỷ/m²</option>
                                                                         </select>
                                                                     </div>
                                                                 </div>
