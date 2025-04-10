@@ -3,6 +3,7 @@ package devcamp.realestateexchange.services.realestate;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -131,6 +132,7 @@ public class RealEstateService {
         }
         return realEstate;
     }
+
     // Phương thức xóa mềm RealEstateDto theo id
     public RealEstate softDeleteRealEstateById(Integer id) {
         RealEstate realEstate = realEstateRepository.findById(id).orElse(null);
@@ -140,6 +142,7 @@ public class RealEstateService {
         }
         return realEstate;
     }
+
     // Phương thức xác thực RealEstateDto theo id
     public RealEstate verifyRealEstateById(Integer id) {
         RealEstate realEstate = realEstateRepository.findById(id).orElse(null);
@@ -149,6 +152,7 @@ public class RealEstateService {
         }
         return realEstate;
     }
+
     // Phương thức khôi phục RealEstateDto theo id
     public RealEstate restoreRealEstateById(Integer id) {
         RealEstate realEstate = realEstateRepository.findById(id).orElse(null);
@@ -158,6 +162,7 @@ public class RealEstateService {
         }
         return realEstate;
     }
+
     // Phương thức chuyển đổi RealEstateProjection thành RealEstateDto
     public RealEstateDto convertProjectionToDto(RealEstateProjection projection) {
         // Chuyển đổi RealEstateProjection thành RealEstateDto
@@ -237,7 +242,7 @@ public class RealEstateService {
         addressDto.setLongitude(projection.getLongitude());
         dto.setAddressDetail(addressDto);
         // Thêm thông tin ảnh vào RealEstateDto
-        List<String> photoUrls = photoService.getUrlsByRealEstateId(dto.getId());
+        List<String> photoUrls = projection.getPhotosUrl() != null ? List.of(projection.getPhotosUrl().split(",")) : Collections.emptyList();
         dto.setPhotoUrls(photoUrls);
         // Trả về RealEstateDto
         return dto;
@@ -333,11 +338,6 @@ public class RealEstateService {
                 throw new RuntimeException("Customer not found");
             }
         }
-        // Link sented photo of real estate
-        if (realEstateDto.getPhotoIds() != null) {
-            List<Photo> photos = photoService.findByIds(realEstateDto.getPhotoIds());
-            realEstate.setPhotos(photos);
-        }
         Province province = provinceReposotory.findById(realEstateDto.getAddressDetail().getProvince().getId())
                 .orElseThrow(() -> new RuntimeException("Province not found"));
         if (province != null) {
@@ -368,6 +368,13 @@ public class RealEstateService {
             realEstate.setStreet(street);
         } else {
             throw new RuntimeException("Street not found");
+        }
+        // Link sented photo of real estate
+        if (realEstateDto.getPhotoIds() != null) {
+            List<Photo> photos = photoService.findByIds(realEstateDto.getPhotoIds());
+            List<String> photoUrls = photos.stream().map(Photo::getUrl).collect(Collectors.toList());
+            String photosUrl = String.join(",", photoUrls);
+            realEstate.setPhotosUrl(photosUrl);
         }
         if (realEstateDto.getType() != null) {
             if (realEstateDto.getType() == 2) {
@@ -548,7 +555,6 @@ public class RealEstateService {
                 JSONObject hit = hits.getJSONObject(i);
                 JSONObject source = hit.getJSONObject("_source");
                 RealEstateDto realEstateDto = mapper.readValue(source.toString(), RealEstateDto.class);
-                addPhotoUrls(realEstateDto);
                 result.add(realEstateDto);
             }
             // Create a Page object from the result list
@@ -794,12 +800,13 @@ public class RealEstateService {
             // Xử lý trường hợp thiếu trường createdAt
             realEstateDto.setCreatedAt("N/A"); // Hoặc giá trị mặc định khác
         }
-        return realEstateDto;
-    }
-
-    // Phương thức thêm photoUrls vào RealEstateDto
-    public void addPhotoUrls(RealEstateDto realEstateDto) {
-        List<String> photoUrls = photoService.getUrlsByRealEstateId(realEstateDto.getId());
+        List<String> photoUrls = new ArrayList<>();
+        if (realEstate.getPhotosUrl() != null) {
+            // Chia chuỗi thành danh sách các URL ảnh
+            photoUrls = Arrays.asList(realEstate.getPhotosUrl().split(","));
+        }
         realEstateDto.setPhotoUrls(photoUrls);
+        // Chuyển đổi các thuộc tính khác của RealEstateDto
+        return realEstateDto;
     }
 }

@@ -247,9 +247,9 @@ public class RealEstateDto {
         this.direction = realEstate.getDirection();
         this.totalFloors = realEstate.getTotalFloors();
         this.bath = realEstate.getBath();
-        if (realEstate.getPhotos() != null) {
-            this.photoIds = realEstate.getPhotos().stream().map(photo -> photo.getId())
-                    .collect(java.util.stream.Collectors.toList());
+        if (realEstate.getPhotosUrl() != null) {
+            List<String> urls = List.of(realEstate.getPhotosUrl().split(","));
+            this.photoUrls = urls;
         }
 
         if (realEstate.getCustomer() != null) {

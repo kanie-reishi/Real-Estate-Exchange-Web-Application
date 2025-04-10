@@ -33,10 +33,6 @@ public class PhotoService {
     public void deletePhoto(Photo photo){
         photoRepository.delete(photo);
     }
-    // Get all photo urls by real estate id
-    public List<String> getUrlsByRealEstateId(Integer id){
-        return photoRepository.findUrlsByRealEstateId(id);
-    }
     // Get all photo urls by project id
     public List<String> getPhotoUrlsByProjectId(Integer id){
         return photoRepository.findPhotoUrlsByProjectId(id);

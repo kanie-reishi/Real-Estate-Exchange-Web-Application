@@ -50,12 +50,6 @@ public class Photo extends BaseEntity {
     @Column(name = "size")
     private Long size;
 
-    // Quan hệ n-1 với RealEstate
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "real_estate_id")
-    @JsonIgnore
-    private RealEstate realEstate;
-
     // Ghi chú
     @Column(name = "note")
     private String note;

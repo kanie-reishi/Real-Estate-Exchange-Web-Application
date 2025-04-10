@@ -25,6 +25,7 @@ public interface RealEstateProjection {
     String getDescription();
     Double getLatitude();
     Double getLongitude();
+    String getPhotosUrl();
 
     CustomerProjection getCustomer();
     ProvinceProjection getProvince();

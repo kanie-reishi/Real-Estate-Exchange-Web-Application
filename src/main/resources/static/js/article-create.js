@@ -149,7 +149,7 @@ function onProvinceSelectChange(paramProvinceId) {
             });
         },
         error: function (error) {
-            console.log(error);
+            //console.log(error);
         }
     });
 }
@@ -168,7 +168,7 @@ function onDistrictSelectChange(paramDistrictId) {
             });
         },
         error: function (error) {
-            console.log(error);
+            //console.log(error);
         }
     });
     // Call API to get Street Data
@@ -185,7 +185,7 @@ function onDistrictSelectChange(paramDistrictId) {
             });
         },
         error: function (error) {
-            console.log(error);
+           // console.log(error);
         }
     });
 }
@@ -195,6 +195,7 @@ function onBtnDangTinClick(){
     realestateObj = collectDataFromForm();
     // Validate Real Estate Data
     if(validateRealEstateData(realestateObj)){
+        //console.log(realestateObj);
         // Post Request to create new real estate article
         $.ajax({
             url: 'http://localhost:8080/realestate',
@@ -203,13 +204,11 @@ function onBtnDangTinClick(){
             data: JSON.stringify(realestateObj),
             success: function (data) {
                 // Redirect to Real Estate Detail Page
-                console.log(data);
                 alert('Đăng tin thành công');
-                window.location.href = `http://localhost:8080/real-estates/${data.id}`;
+                window.location.href = `http://localhost:8080/realestates/${data.id}`;
             },
             error: function (error) {
                 alert('Đăng tin thất bại');
-                console.log(error);
             }
         });
     }
@@ -235,7 +234,7 @@ function loadProvinceData() {
             });
         },
         error: function (error) {
-            console.log(error);
+            //console.log(error);
         }
     });
 }
@@ -261,7 +260,7 @@ function collectDataFromForm() {
     realestateObj.addressDetail.longitude = $('#location-coords-lng').val();
     realestateObj.request = selectedChipNeedValue;
     realestateObj.photoIds = imageIds;
-    console.log(realestateObj);
+    //console.log(realestateObj);
     return realestateObj;
 }
 // Validate Real Estate Data

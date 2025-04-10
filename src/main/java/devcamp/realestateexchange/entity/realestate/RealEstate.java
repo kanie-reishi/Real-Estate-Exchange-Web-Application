@@ -39,10 +39,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@NamedEntityGraph(name = "RealEstate.photos", attributeNodes = {
-    @NamedAttributeNode("photos"),
-    @NamedAttributeNode("project"),
-})
 public class RealEstate extends UserReferenceEntity {
     // Tiêu đề tin
     @Column(name = "title")
@@ -111,9 +107,8 @@ public class RealEstate extends UserReferenceEntity {
     private Article article;
 
     // Lưu đường dẫn ảnh
-    @OneToMany(mappedBy = "realEstate", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    @JsonBackReference
-    private List<Photo> photos;
+    @Column(name = "photos_url")
+    private String photosUrl;
 
     // Lưu đường dẫn video
     @OneToMany(mappedBy = "realEstate", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)

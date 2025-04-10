@@ -10,9 +10,6 @@ import devcamp.realestateexchange.entity.media.Photo;
 import devcamp.realestateexchange.projections.PhotoUrlProjection;
 public interface IPhotoRepository extends JpaRepository<Photo, Integer>, JpaSpecificationExecutor<Photo> {
     Photo findByName(String name);
-    // Get all photo urls by real estate id
-    @Query("SELECT p.url FROM Photo p WHERE p.realEstate.id = :realEstateId")
-    List<String> findUrlsByRealEstateId(@Param("realEstateId") Integer realEstateId);
     // Get all photo urls by project id
     @Query("SELECT p.url AS url FROM Photo p WHERE p.project.id = :projectId")
     List<String> findPhotoUrlsByProjectId(@Param("projectId") Integer projectId);
