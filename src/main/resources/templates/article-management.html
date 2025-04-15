@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý tin</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body class="d-flex">
+    <div class="d-flex w-100">
+        <aside class="sidebar">
+            <h2>Realestate.com</h2>
+            <nav>
+                <ul>
+                    <li><i class="fas fa-home"></i> Tổng quan</li>
+                    <li class="active"><i class="fas fa-file-alt"></i> Tin đăng</li>
+                    <li><a href="/realestate/create" class="no-style-link"><i class="fas fa-plus-circle"></i> Đăng tin</a></li>
+                    <li><i class="fas fa-users"></i> Khách hàng</li>
+                    <li><i class="fas fa-user"></i> Tài khoản</li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="topbar">
+                <input type="text" placeholder="Nhập mã tin hoặc tiêu đề tin">
+                <button><i class="fas fa-filter"></i> Lọc</button>
+                <!-- Filter box-->
+                 <div class="filter-box">
+                    <div class="filter-item">
+                        <label for="status">Trạng thái:</label>
+                        <select id="status" name="status">
+                            <option value="">Tất cả</option>
+                            <option value="active">Đang hoạt động</option>
+                            <option value="inactive">Ngừng hoạt động</option>
+                        </select>
+                    </div>
+                    <div class="filter-item">
+                        <label for="category">Danh mục:</label>
+                        <select id="category" name="category">
+                            <option value="">Tất cả</option>
+                            <option value="real-estate">Bất động sản</option>
+                            <option value="car">Xe hơi</option>
+                        </select>
+                    </div>
+                 <!--End Filter box-->
+                <button class="excel-btn"><i class="fas fa-file-excel"></i> Xuất file Excel</button>
+            </header>
+
+            <div class="filter-tabs">
+                <button class="active">Tất cả (0)</button>
+                <button>Hết hạn (0)</button>
+                <button>Sắp hết hạn (0)</button>
+                <button>Đang hiển thị (0)</button>
+                <button>Chờ hiển thị (0)</button>
+                <button>Chờ xuất bản (0)</button>
+                <button>Chờ duyệt (0)</button>
+                <button>Chờ thanh toán (0)</button>
+                <button>Không duyệt (0)</button>
+                <button>Đã hạ (0)</button>
+            </div>
+
+            <div id="tin-dang-list" class="tin-dang-list">
+                <!-- Danh sách tin sẽ được render ở đây -->
+            </div>
+            <div class="empty-state">
+                <img src="https://cdn-icons-png.flaticon.com/512/2748/2748558.png" width="100" />
+                <h3>Chưa có tin đăng nào</h3>
+                <p>Hiện tại chưa có tin đăng nào</p>
+                <button class="btn-primary">Đăng tin ngay</button>
+            </div>
+        </main>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $(".filter-tabs button").click(function () {
+                $(".filter-tabs button").removeClass("active");
+                $(this).addClass("active");
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            // 1. Lấy customerId từ URL
+            const pathParts = window.location.pathname.split('/');
+            const customerId = pathParts[2]; // Giả sử path là /customers/1/real-estate-management
+
+            // 2. Gọi API lấy tin đăng
+            function loadTinDang() {
+
+                $.ajax({
+                    url: `http://localhost:8080/customers/${customerId}/realEstates`,
+                    method: 'GET',
+                    success: function (response) {
+                        const list = response.content;
+                        let html = '';
+                        console.log(list);
+                        if (!list || list.length === 0) {
+                            html = '<p>Không có tin đăng nào.</p>';
+                        } else {
+                            list.forEach(item => {
+                                const title = item.title || "(Không có tiêu đề)";
+                                const price = item.price || "N/A";
+                                const acreage = item.acreage || "N/A";
+                                const bedrooms = item.bedroom || 0;
+                                const address = item.addressDetail?.addressDetail || "Không rõ địa chỉ";
+
+                                html += `
+                  <div class="tin-item">
+                    <h4>${title}</h4>
+                    <p><strong>Giá:</strong> ${price} tỷ</p>
+                    <p><strong>Diện tích:</strong> ${acreage} m²</p>
+                    <p><strong>Phòng ngủ:</strong> ${bedrooms}</p>
+                    <p><strong>Địa chỉ:</strong> ${address}</p>
+                    <button class="btn-primary" onclick="onBtnViewDetailClick(${item.id})">Xem chi tiết</button>
+                    <button class="btn-secondary" onclick="onBtnUpdateClick(${item.id})">Chỉnh sửa</button>
+                  </div>
+                `;
+                            });
+                        }
+
+                        $('#tin-dang-list').html(html);
+                        // Ẩn empty state nếu có tin đăng
+                        if (list.length > 0) {
+                            $('.empty-state').hide();
+                        } else {
+                            $('.empty-state').show();
+                        }
+                        // update số lượng tin đăng trong các tab
+                        filterTabButtonUpdate(list);
+                    },
+                    error: function () {
+                        $('#tin-dang-list').html('<p>Lỗi khi tải dữ liệu.</p>');
+                    }
+                });
+            }
+
+            // Gọi API khi trang load
+            loadTinDang();
+        });
+        function filterTabButtonUpdate(paramList){
+            const filterTabs = document.querySelectorAll('.filter-tabs button');
+            const tabCounts = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]; // Tất cả, Hết hạn, Sắp hết hạn, Đang hiển thị, Chờ hiển thị, Chờ xuất bản, Chờ duyệt, Chờ thanh toán, Không duyệt, Đã hạ
+
+            paramList.forEach(item => {
+                // Cộng một cho tab tất cả
+                tabCounts[0]++;
+                // Giả sử bạn có thuộc tính "status" trong item để xác định trạng thái
+                const status = item.status; // Thay đổi theo cấu trúc dữ liệu thực tế của bạn
+                if (status >= 0 && status < tabCounts.length) {
+                    tabCounts[status]++;
+                }
+            });
+
+            filterTabs.forEach((tabButton, index) => {
+                // Bỏ số lượng tin cũ
+                const oldText = tabButton.innerText.split('(')[0].trim();
+                // Cập nhật số lượng tin mới
+                tabButton.innerText = `${oldText} (${tabCounts[index]})`;
+            });
+        }
+        function onBtnViewDetailClick(id) {
+            window.location.href = `/realestate/${id}`;
+        }
+        function onBtnUpdateClick(id) {
+            window.location.href = `/realestate/${id}/update`;
+        }
+    </script>
+    <script>
+        // Search function
+        $(document).ready(function () {
+            $('input[type="text"]').on('input', function () {
+                const searchValue = $(this).val().toLowerCase();
+                $('.tin-item').each(function () {
+                    const title = $(this).find('h4').text().toLowerCase();
+                    if (title.includes(searchValue)) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

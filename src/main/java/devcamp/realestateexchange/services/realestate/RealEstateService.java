@@ -440,6 +440,7 @@ public class RealEstateService {
                 multiMatchNode.put("analyzer", "vietnamese_analyzer");// Use the custom analyzer
                 // Add the fields to search in, and their weights. Formula is field^weight
                 multiMatchNode.putArray("fields")
+                        .add("addressDetail.province.name^3.0")
                         .add("title^1.0")
                         .add("description^0.5")
                         .add("address^2.0")
@@ -808,5 +809,13 @@ public class RealEstateService {
         realEstateDto.setPhotoUrls(photoUrls);
         // Chuyển đổi các thuộc tính khác của RealEstateDto
         return realEstateDto;
+    }
+    // Trả về danh sách bất động sản của người dùng
+    public Page<RealEstateDto> getRealEstatesByCustomerId(Integer customerId, Pageable pageable) {
+        Page<RealEstateProjection> realestates = realEstateRepository.findRealEstateByCustomerId(customerId, pageable);
+        List<RealEstateDto> realEstateDtos = realestates.stream()
+                .map(this::convertProjectionToDto)
+                .collect(Collectors.toList());
+        return new PageImpl<>(realEstateDtos, pageable, realestates.getTotalElements());
     }
 }

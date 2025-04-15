@@ -8,7 +8,7 @@
 	<script
 		type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 	<!-- bootstrap-css -->
-	<!-- <link rel="stylesheet" href="/css/bootstrap.css}"> -->
+	<link rel="stylesheet" href="/css/bootstrap.css" />
 	<!-- //bootstrap-css -->
 	<!-- Custom CSS -->
 	<link href="/css/style.css" rel='stylesheet' type='text/css' />
@@ -22,9 +22,7 @@
 		crossorigin="anonymous" referrerpolicy="no-referrer" />
 	<!-- font-awesome icons -->
 	<link href="/css/font.css" type="text/css" rel="stylesheet" />
-	<link href="/css/font-awesome.css" rel="stylesheet">
 
-	<link href="/css/adminlte.min.css" rel="stylesheet">
 	<link href="/css/home24h.min.css" rel="stylesheet">
 </head>
 
@@ -74,7 +72,7 @@
 							Quận huyện
 						</a>
 					</li>
-					<li>	
+					<li>
 						<a class="subnav-text" href="/admin/wards">
 							<i class="fa-solid fa-building-user"></i>
 							Phường xã
@@ -325,45 +323,47 @@
 							<div class="ew-action-option d-inline-block text-nowrap" data-name="button">
 								<div class="btn-group btn-group-sm ew-btn-group">
 									<a class="btn-toolbar ew-action ew-add" data-caption="Add"
-										href="/admin/realestate/form" data-bs-original-title="Add"
-										data-bs-toggle="tooltip" data-bs-placement="bottom" title="Thêm">
+										href="/admin/realestate/form" data-original-title="Add"
+										data-toggle="tooltip" data-placement="bottom" title="Thêm">
 										<i data-phrase="ViewPageAddLink" class="fas fa-plus ew-icon">
 											<span class="visually-hidden">Add</span>
 										</i>
 									</a>
-									<a class="btn-toolbar ew-action ew-edit" data-caption="Edit" href="#"
-										data-bs-original-title="Edit" data-bs-toggle="tooltip"
-										data-bs-placement="bottom" title="Sửa" id="a-edit">
+									<button class="btn-toolbar ew-action ew-edit" data-caption="Edit"
+										data-original-title="Edit" data-toggle="tooltip"
+										data-placement="bottom" title="Sửa" id="a-edit">
 										<i data-phrase="ViewPageEditLink" class="icon-edit ew-icon">
 											<span class="visually-hidden">Edit</span>
 										</i>
-									</a>
-									<a class="btn-toolbar ew-action ew-delete" data-caption="Delete"
-										href="#" data-bs-original-title="Delete" data-bs-toggle="tooltip"
-										data-bs-placement="bottom" title="Xóa mềm" id="a-solf-delete">
+									</button>
+									<button class="btn-toolbar ew-action ew-delete" data-caption="Delete"
+										data-original-title="Delete" data-toggle="tooltip"
+										data-placement="bottom" title="Xóa mềm" id="a-soft-delete">
 										<i data-phrase="ViewPageDeleteLink" class="fa-solid fa-trash ew-icon">
 											<span class="visually-hidden">Soft Delete</span>
 										</i>
-									</a>
-									<a class="btn-toolbar ew-action ew-delete" data-caption="Delete"
-										href="#" data-bs-original-title="Delete" data-bs-toggle="tooltip"
-										data-bs-placement="bottom" title="Xóa vĩnh viễn" id="a-hard-delete">
+									</button>
+									<button class="btn-toolbar ew-action ew-delete" data-caption="Delete" href="#"
+										data-original-title="Delete" data-toggle="tooltip"
+										data-placement="bottom" title="Xóa vĩnh viễn" id="a-hard-delete">
 										<i data-phrase="ViewPageDeleteLink" class="fa-solid fa-trash-alt ew-icon">
 											<span class="visually-hidden">Hard Delete</span>
 										</i>
-									</a>
-									<a class="btn-toolbar ew-action ew-restore" data-caption="Restore" href="#"
-										data-bs-original-title="Restore" data-bs-toggle="tooltip"
-										data-bs-placement="bottom" title="Khôi phục" id="a-restore">
-										<i data-phrase="ViewPageCloneLink" class="fa-solid fa-restore ew-icon">
+									</button>
+									<button class="btn-toolbar ew-action ew-restore" data-caption="Restore"
+										data-original-title="Restore" data-toggle="tooltip"
+										data-placement="bottom" title="Khôi phục" id="a-restore">
+										<i class="fa-solid fa-trash-can-arrow-up"></i>
 											<span class="visually-hidden">Restore</span>
 										</i>
-									</a>
-									<a class="btn-toolbar ew-action ew-verify" data-caption="Verify" href="#" data-bs-original-title="Verify" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Xác minh" id="a-verify">
+									</button>
+									<button class="btn-toolbar ew-action ew-verify" data-caption="Verify"
+										data-original-title="Verify" data-toggle="tooltip"
+										data-placement="bottom" title="Xác minh" id="a-verify">
 										<i data-phrase="ViewPageVerifyLink" class="fa-solid fa-check ew-icon">
 											<span class="visually-hidden">Verify</span>
 										</i>
-									</a>
+									</button>
 								</div>
 							</div>
 						</div>
@@ -1052,7 +1052,7 @@
 						<p>Bạn có chắc chắn muốn xóa mềm bất động sản này không?</p>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
 						<button type="submit" class="btn btn-primary" id="btn-solf-delete">Xóa mềm</button>
 					</div>
 				</form>
@@ -1060,7 +1060,7 @@
 		</div>
 	</div>
 	<!-- Modal Hard Delete-->
-	<div class="modal fade" id="modal-hard-delete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal fade" id="modal-hard-delete" tabindex="-1" aria-labelledby="confirmHardDeleteModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<form action="#" method="post">
@@ -1072,8 +1072,8 @@
 						<p>Bạn có chắc chắn muốn xóa vĩnh viễn bất động sản này không?</p>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-						<button type="submit" class="btn btn-primary" id="btn-hard-delete">Xóa vĩnh viễn</button>
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+						<button type="submit" class="btn btn-danger" id="btn-hard-delete">Xóa vĩnh viễn</button>
 					</div>
 				</form>
 			</div>
@@ -1086,13 +1086,13 @@
 				<form action="#" method="post">
 					<div class="modal-header">
 						<h5 class="modal-title" id="exampleModalLabel">Xác nhận khôi phục</h5>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						<button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
 					</div>
 					<div class="modal-body">
 						<p>Bạn có chắc chắn muốn khôi phục bất động sản này không?</p>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
 						<button type="submit" class="btn btn-primary" id="btn-restore">Khôi phục</button>
 					</div>
 				</form>
@@ -1112,45 +1112,47 @@
 						<p>Bạn có chắc chắn muốn duyệt bất động sản này không?</p>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
 						<button type="submit" class="btn btn-primary" id="btn-verify">Duyệt</button>
 					</div>
 				</form>
 			</div>
 		</div>
-	<!-- Script -->
-	<!-- //font-awesome icons -->
-	<script src="https://code.jquery.com/jquery-3.7.1.min.js"
-		integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-	<script src="/js/modernizr.js"></script>
-	<script src="/js/jquery.cookie.js"></script>
-	<script src="/js/screenfull.js"></script>
-	<script>
-		$(function () {
-			$('#supported').text('Supported/allowed: ' + !!screenfull.enabled);
+		<!-- Script -->
+		<!-- jQuery  -->
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<!-- //font-awesome icons -->
+		<script src="https://code.jquery.com/jquery-3.7.1.min.js"
+			integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+		<script src="/js/modernizr.js"></script>
+		<script src="/js/jquery.cookie.js"></script>
+		<script src="/js/screenfull.js"></script>
+		<script>
+			$(function () {
+				$('#supported').text('Supported/allowed: ' + !!screenfull.enabled);
 
-			if (!screenfull.enabled) {
-				return false;
-			}
-			$('#toggle').click(function () {
-				screenfull.toggle($('#container')[0]);
+				if (!screenfull.enabled) {
+					return false;
+				}
+				$('#toggle').click(function () {
+					screenfull.toggle($('#container')[0]);
+				});
 			});
-		});
-	</script>
-	<!--skycons-icons-->
-	<script src="/js/skycons.js"></script>
-	<!--//skycons-icons-->
-	<script>
-		var theme = $.cookie('protonTheme') || 'default';
-		$('body').removeClass(function (index, css) {
-			return (css.match(/\btheme-\S+/g) || []).join(' ');
-		});
-		if (theme !== 'default') $('body').addClass(theme);
-	</script>
-	<script src="/js/bootstrap.js"></script>
-	<script src="/js/proton.js"></script>
+		</script>
+		<!--skycons-icons-->
+		<script src="/js/skycons.js"></script>
+		<!--//skycons-icons-->
+		<script>
+			var theme = $.cookie('protonTheme') || 'default';
+			$('body').removeClass(function (index, css) {
+				return (css.match(/\btheme-\S+/g) || []).join(' ');
+			});
+			if (theme !== 'default') $('body').addClass(theme);
+		</script>
+		<script src="/js/bootstrap.js"></script>
+		<script src="/js/proton.js"></script>
 
-	<script src="/js/realestate-detail.js"></script>
+		<script src="/js/realestate-detail.js"></script>
 </body>
 
 </html>

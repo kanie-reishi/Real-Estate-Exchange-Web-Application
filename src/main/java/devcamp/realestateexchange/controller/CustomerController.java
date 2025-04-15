@@ -19,6 +19,8 @@ import devcamp.realestateexchange.dto.realestate.RealEstateDto;
 import devcamp.realestateexchange.dto.user.CustomerDto;
 import devcamp.realestateexchange.entity.user.Customer;
 import devcamp.realestateexchange.services.user.CustomerService;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 @CrossOrigin
@@ -71,6 +73,12 @@ public class CustomerController {
     public ModelAndView getCustomerAdminPage(){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("customers-table");
+        return modelAndView;
+    }
+    @GetMapping("/customers/{customerId}/real-estate-management")
+    public ModelAndView getCustomerRealEstatePage(@PathVariable Integer customerId){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("article-management");
         return modelAndView;
     }
 }

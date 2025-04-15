@@ -86,10 +86,11 @@ public class WebSecurityConfig {
                 "/photo/**",
                 "/realestate/**",
                 "/favicon.ico",
-                "/upload/**"
+                "/upload/**",
+                "/customers/**"
             ).permitAll()
             .antMatchers("/admin/**", "/table/**", "/employee/**").hasAuthority("ROLE_ADMIN")
-            .antMatchers("/user/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN");
+            .antMatchers("/customer/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN");
         http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");
         // Cấu hình không sử dụng session
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

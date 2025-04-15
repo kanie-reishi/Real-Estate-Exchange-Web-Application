@@ -2,7 +2,9 @@ package devcamp.realestateexchange.controller;
 
 import java.security.Security;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 import javax.persistence.criteria.CriteriaBuilder.In;
 
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,6 +32,7 @@ import devcamp.realestateexchange.dto.realestate.RealEstateDto;
 import devcamp.realestateexchange.entity.authentication.User;
 import devcamp.realestateexchange.entity.realestate.RealEstate;
 import devcamp.realestateexchange.models.RealEstateSearchParameters;
+import devcamp.realestateexchange.security.jwt.JwtUtils;
 import devcamp.realestateexchange.security.services.UserDetailsImpl;
 import devcamp.realestateexchange.services.realestate.RealEstateService;
 
@@ -38,6 +42,9 @@ import devcamp.realestateexchange.services.realestate.RealEstateService;
 public class RealEstateController {
     @Autowired
     private RealEstateService realEstateService;
+
+    @Autowired
+    JwtUtils jwtUtils;
 
     // REST API for getting real estate list
     @GetMapping("/realestate")
@@ -148,22 +155,30 @@ public class RealEstateController {
         try {
             // Check user, only admin can see unapproved real estates
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            boolean isAdmin = authentication.getAuthorities().stream()
-                    .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
             // Get real estate by id
             RealEstateDto realEstate = realEstateService.getRealEstateById(id);
             // Check if real estate is not found
             if (realEstate == null) {
                 return ResponseEntity.badRequest().body("Real estate not found");
             }
-            // Check if user is admin, if true return real estate
-            if (isAdmin == true) {
-                return ResponseEntity.ok(realEstate);
+            if (authentication != null) {
+                boolean isAdmin = authentication.getAuthorities().stream()
+                        .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
+                // Check if user is admin, if true return real estate
+                if (isAdmin == true) {
+                    return ResponseEntity.ok(realEstate);
+                } else {
+                    // Check if user is not admin, check if real estate is not approved
+                    if (realEstate.getVerify() == null || realEstate.getVerify() == 0) {
+                        return ResponseEntity.badRequest().body("Real estate is not approved");
+                    }
+                }
+            } else {
+                // Check if user is not admin, check if real estate is not approved
+                if (realEstate.getVerify() == null || realEstate.getVerify() == 0) {
+                    return ResponseEntity.badRequest().body("Real estate is not approved");
+                }
             }
-            // Check if real estate is not approved
-            /* if (realEstate.getVerify() == null || realEstate.getVerify() == 0) {
-                return ResponseEntity.badRequest().body("Real estate is not approved");
-            } */
             return ResponseEntity.ok(realEstate);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -321,5 +336,33 @@ public class RealEstateController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("realestate-verify");
         return modelAndView;
+    }
+
+    @GetMapping("/customers/{customerId}/realestate")
+    public ResponseEntity<Page<RealEstateDto>> getArticlesByCustomer(
+            @PathVariable Integer customerId,
+            @RequestHeader("Authorization") String authorizationHeader,
+            Pageable pageable) {
+        // Lấy thông tin từ JWT
+        String token = authorizationHeader.substring(7);
+        String username = jwtUtils.getUserNameFromJwtToken(token);
+        // Kiểm tra xem người dùng có phải là chủ sở hữu tin đăng không
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || !authentication.isAuthenticated()) {
+            return ResponseEntity.status(403).build(); // Forbidden
+        }
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+
+        Integer userId = userDetails.getId();
+        if (userId != customerId) {
+            return ResponseEntity.status(403).build(); // Forbidden
+        }
+
+        // Lấy danh sách tin đăng của khách hàng
+        Page<RealEstateDto> articles = realEstateService.getRealEstatesByCustomerId(customerId, pageable);
+        if (articles.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(articles);
     }
 }

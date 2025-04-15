@@ -702,7 +702,8 @@
                     // Render real estate detail
                     $('#title').text(realEstate.title);
                     $('#p-price').text(realEstate.price + ' ' + "Tỷ");
-                    $('#address').text(realEstate.addressDetail.addressDetail);
+                    let fullAddress = fullAddressRealEstate(realEstate.addressDetail);
+                    $('#address').text(fullAddress);
                     $('#description').html(realEstate.description);
                     $('#h3-acreage').text(realEstate.acreage + ' ' + (convertAcreageUnit(realEstate.acreageUnit)));
                     $('#p-acreage').text(realEstate.acreage + ' ' + (convertAcreageUnit(realEstate.acreageUnit)));
@@ -765,6 +766,22 @@
                     likeButton.setAttribute('data-name', paramRealEstate.title);
                     likeButton.setAttribute('data-image-url', paramRealEstate.photoUrls[0]);
                     likeButton.setAttribute('data-link', window.location.href);
+                }
+                function fullAddressRealEstate(paramAddress) {
+                    var fullAddress = paramAddress.addressDetail;
+                    if(paramAddress.street.id != null) {
+                        fullAddress += ', ' + paramAddress.street.prefix + ' ' + paramAddress.street.name;
+                    }
+                    if(paramAddress.ward.id  != null) {
+                        fullAddress += ', ' + paramAddress.ward.prefix + ' ' + paramAddress.ward.name;
+                    }
+                    if(paramAddress.district.id  != null) {
+                        fullAddress += ', ' + paramAddress.district.prefix + ' ' + paramAddress.district.name;
+                    }
+                    if(paramAddress.province.id  != null) {
+                        fullAddress += ', ' + paramAddress.province.name;
+                    }   
+                    return fullAddress;
                 }
             </script>
             <script type='module'>

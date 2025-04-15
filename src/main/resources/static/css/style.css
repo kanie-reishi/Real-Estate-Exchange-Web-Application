@@ -963,7 +963,6 @@ body {
   body {
     width: 100%;
     height: 100%;
-    overflow: hidden
   }
 
   body {
@@ -6838,6 +6837,7 @@ div#vmap {
 .dropdown-toggle::after {
   display: none !important;
 }
+
 .card {
   border-radius: 10px;
   transition: transform 0.3s ease-in-out;
@@ -6856,6 +6856,7 @@ div#vmap {
   background: #28a745;
   color: white;
 }
+
 .btn-success {
   font-weight: bold;
   padding: 10px 20px;
@@ -6866,4 +6867,129 @@ div#vmap {
 .btn-success:hover {
   background-color: #28a745;
   transform: translateY(-2px);
+}
+
+.tin-dang-list {
+  background: #fff;
+  padding: 15px;
+  border: 1px solid #ddd;
+}
+
+.tin-item {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.tin-item:last-child {
+  border-bottom: none;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 50px;
+  background: #fff;
+  border: 1px dashed #ccc;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.topbar input {
+  flex: 1;
+  padding: 8px;
+}
+
+.topbar button {
+  padding: 8px 12px;
+  cursor: pointer;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.excel-btn {
+  background: #007bff;
+  color: #fff;
+  border: none;
+}
+
+.filter-tabs {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.filter-tabs button {
+  padding: 6px 12px;
+  border: none;
+  background: #eee;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.filter-tabs .active {
+  background: black;
+  color: white;
+}
+
+.promo-box {
+  background: #fff;
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+}
+
+.no-style-link {
+  all: unset;
+  /* Xóa sạch mọi style mặc định */
+  cursor: pointer;
+  /* Giữ lại con trỏ */
+}
+
+.excel-btn {
+  background: #007bff;
+  color: #fff;
+  border: none;
+}
+
+.sidebar {
+  width: 220px;
+  background: #fff;
+  padding: 20px;
+  border-right: 1px solid #ccc;
+  height: 100vh;
+}
+
+.sidebar h2 {
+  font-size: 20px;
+  margin-bottom: 30px;
+}
+
+.sidebar ul {
+  list-style: none;
+}
+
+.sidebar li {
+  margin: 15px 0;
+  cursor: pointer;
+  color: #444;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sidebar li.active {
+  font-weight: bold;
+  color: red;
+}
+
+.main-content {
+  flex: 1;
+  padding: 20px;
+  background: #f9fafb;
 }
