@@ -94,4 +94,33 @@ public class CustomerService {
         Page<RealEstateDto> page = new PageImpl<>(realEstateDtos, pageable, realEstateDtos.size());
         return page;
     }
+
+    // Get real estate by customer id method @param pageable, customerId, provinceId, type, areaRange, priceRange, bedroomRange
+    public Page<RealEstateDto> getRealEstateByCustomerId(Pageable pageable, Integer customerId, Integer provinceId, Integer type, String areaRange, String priceRange, Integer bedroom) {
+        // handle areaRange, priceRange, bedroomRange
+        String[] areaRangeArray = areaRange.split("-");
+        // if area contain +
+        if(areaRangeArray[0].contains("+")) {
+            areaRangeArray[0] = areaRangeArray[0].replace("+", "");
+            areaRangeArray[1] = "9999999999";
+        }
+        Integer minArea = Integer.parseInt(areaRangeArray[0]);
+        Integer maxArea = Integer.parseInt(areaRangeArray[1]);
+        String[] priceRangeArray = priceRange.split("-");
+        // if price contain +
+        if(priceRangeArray[0].contains("+")) {
+            priceRangeArray[0] = priceRangeArray[0].replace("+", "");
+            priceRangeArray[1] = "9999999999";
+        }
+        Integer minPrice = Integer.parseInt(priceRangeArray[0]);
+        Integer maxPrice = Integer.parseInt(priceRangeArray[1]);
+        List<RealEstateProjection> realEstateProjections = realEstateRepository.findRealEstateByCustomerIdAndProvinceIdAndTypeAndAreaRangeAndPriceRangeAndBedroomRange(pageable, customerId, provinceId, type, minArea, maxArea, minPrice, maxPrice, bedroom).getContent();
+        List<RealEstateDto> realEstateDtos = new ArrayList<>();
+        for(RealEstateProjection realEstateProjection : realEstateProjections) {
+            RealEstateDto realEstateDto = realEstateService.convertProjectionToDto(realEstateProjection);
+            realEstateDtos.add(realEstateDto);
+        }
+        Page<RealEstateDto> page = new PageImpl<>(realEstateDtos, pageable, realEstateDtos.size());
+        return page;
+    }
 }

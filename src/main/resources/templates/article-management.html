@@ -17,7 +17,8 @@
                 <ul>
                     <li><i class="fas fa-home"></i> Tổng quan</li>
                     <li class="active"><i class="fas fa-file-alt"></i> Tin đăng</li>
-                    <li><a href="/realestate/create" class="no-style-link"><i class="fas fa-plus-circle"></i> Đăng tin</a></li>
+                    <li><a href="/realestate/create" class="no-style-link"><i class="fas fa-plus-circle"></i> Đăng
+                            tin</a></li>
                     <li><i class="fas fa-users"></i> Khách hàng</li>
                     <li><i class="fas fa-user"></i> Tài khoản</li>
                 </ul>
@@ -27,27 +28,66 @@
         <main class="main-content">
             <header class="topbar">
                 <input type="text" placeholder="Nhập mã tin hoặc tiêu đề tin">
-                <button><i class="fas fa-filter"></i> Lọc</button>
+                <button id="btn-filter"><i class="fas fa-filter"></i> Lọc</button>
                 <!-- Filter box-->
-                 <div class="filter-box">
+                <div class="filter-box">
                     <div class="filter-item">
-                        <label for="status">Trạng thái:</label>
-                        <select id="status" name="status">
+                        <!-- Province Filter-->
+                        <label for="province">Tỉnh/Thành phố:</label>
+                        <select id="province" name="province">
                             <option value="">Tất cả</option>
-                            <option value="active">Đang hoạt động</option>
-                            <option value="inactive">Ngừng hoạt động</option>
+                            <!-- Load Province Data here-->
+                        </select>
+                    </div>
+
+                    <div class="filter-item">
+                        <!-- Type Filter-->
+                        <label for="type">Loại bất động sản:</label>
+                        <select id="type" name="type">
+                            <option value="">Tất cả</option>
+                            <option value="house">Nhà</option>
+                            <option value="apartment">Căn hộ</option>
+                            <option value="land">Đất</option>
                         </select>
                     </div>
                     <div class="filter-item">
-                        <label for="category">Danh mục:</label>
-                        <select id="category" name="category">
+                        <!-- Area Filter-->
+                        <label for="area">Diện tích:</label>
+                        <select id="area" name="area">
                             <option value="">Tất cả</option>
-                            <option value="real-estate">Bất động sản</option>
-                            <option value="car">Xe hơi</option>
+                            <option value="0-50">Dưới 50 m²</option>
+                            <option value="50-100">50 - 100 m²</option>
+                            <option value="100-200">100 - 200 m²</option>
+                            <option value="200-500">200 - 500 m²</option>
+                            <option value="500+">Trên 500 m²</option>
                         </select>
                     </div>
-                 <!--End Filter box-->
-                <button class="excel-btn"><i class="fas fa-file-excel"></i> Xuất file Excel</button>
+                    <div class="filter-item">
+                        <!-- Price Filter-->
+                        <label for="price">Giá:</label>
+                        <select id="price" name="price">
+                            <option value="">Tất cả</option>
+                            <option value="0-1">Dưới 1 tỷ</option>
+                            <option value="1-3">1 - 3 tỷ</option>
+                            <option value="3-5">3 - 5 tỷ</option>
+                            <option value="5-10">5 - 10 tỷ</option>
+                            <option value="10+">Trên 10 tỷ</option>
+                        </select>
+                    </div>
+                    <div class="filter-item">
+                        <!-- Bedroom Filter-->
+                        <label for="bedroom">Số phòng ngủ:</label>
+                        <select id="bedroom" name="bedroom">
+                            <option value="">Tất cả</option>
+                            <option value="1">1 phòng</option>
+                            <option value="2">2 phòng</option>
+                            <option value="3">3 phòng</option>
+                            <option value="4">4 phòng</option>
+                            <option value="5+">5 phòng trở lên</option>
+                        </select>
+                    </div>
+                    <!--End Filter box-->
+                    <button class="excel-btn"><i class="fas fa-file-excel"></i> Xuất file Excel</button>
             </header>
 
             <div class="filter-tabs">
@@ -140,8 +180,18 @@
 
             // Gọi API khi trang load
             loadTinDang();
+            // Gọi API để tải danh sách tỉnh thành phố
+            loadProvinces();
+            // Gọi hàm lọc khi người dùng chọn tỉnh thành phố
+            $('#province, #type, #area, #price, #bedroom').change(function () {
+                filterOnSelect();
+            });
+            // Gọi hàm lọc khi người dùng nhấn nút "Lọc"
+            $('#btn-filter').click(function () {
+                filterOnSelect();
+            });
         });
-        function filterTabButtonUpdate(paramList){
+        function filterTabButtonUpdate(paramList) {
             const filterTabs = document.querySelectorAll('.filter-tabs button');
             const tabCounts = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]; // Tất cả, Hết hạn, Sắp hết hạn, Đang hiển thị, Chờ hiển thị, Chờ xuất bản, Chờ duyệt, Chờ thanh toán, Không duyệt, Đã hạ
 
@@ -167,6 +217,74 @@
         }
         function onBtnUpdateClick(id) {
             window.location.href = `/realestate/${id}/update`;
+        }
+        // Gọi hàm để tải danh sách tỉnh thành phố khi trang được tải
+        function loadProvinces() {
+            $.ajax({
+                url: 'http://localhost:8080/provinces',
+                method: 'GET',
+                success: function (response) {
+                    const provinceSelect = $('#province');
+                    provinceSelect.empty();
+                    provinceSelect.append('<option value="">Tất cả</option>');
+                    response.forEach(province => {
+                        provinceSelect.append(`<option value="${province.id}">${province.name}</option>`);
+                    });
+                },
+                error: function () {
+                    console.error('Lỗi khi tải danh sách tỉnh thành phố.');
+                }
+            });
+        }
+        function filterOnSelect(){
+            const selectedProvince = $('#province').val();
+            const selectedType = $('#type').val();
+            const selectedArea = $('#area').val();
+            const selectedPrice = $('#price').val();
+            const selectedBedroom = $('#bedroom').val();
+
+            $.ajax({
+                url: `http://localhost:8080/customers/${customerId}/realEstates?province=${selectedProvince}&type=${selectedType}&area=${selectedArea}&price=${selectedPrice}&bedroom=${selectedBedroom}`,
+                method: 'GET',
+                success: function (response) {
+                    const list = response.content;
+                    let html = '';
+                    if (!list || list.length === 0) {
+                        html = '<p>Không có tin đăng nào.</p>';
+                    } else {
+                        list.forEach(item => {
+                            const title = item.title || "(Không có tiêu đề)";
+                            const price = item.price || "N/A";
+                            const acreage = item.acreage || "N/A";
+                            const bedrooms = item.bedroom || 0;
+                            const address = item.addressDetail?.addressDetail || "Không rõ địa chỉ";
+
+                            html += `
+                  <div class="tin-item">
+                    <h4>${title}</h4>
+                    <p><strong>Giá:</strong> ${price} tỷ</p>
+                    <p><strong>Diện tích:</strong> ${acreage} m²</p>
+                    <p><strong>Phòng ngủ:</strong> ${bedrooms}</p>
+                    <p><strong>Địa chỉ:</strong> ${address}</p>
+                    <button class="btn-primary" onclick="onBtnViewDetailClick(${item.id})">Xem chi tiết</button>
+                    <button class="btn-secondary" onclick="onBtnUpdateClick(${item.id})">Chỉnh sửa</button>
+                  </div>
+                `;
+                        });
+                    }
+
+                    $('#tin-dang-list').html(html);
+                    // Ẩn empty state nếu có tin đăng
+                    if (list.length > 0) {
+                        $('.empty-state').hide();
+                    } else {
+                        $('.empty-state').show();
+                    }
+                },
+                error: function () {
+                    $('#tin-dang-list').html('<p>Lỗi khi tải dữ liệu.</p>');
+                }
+            });
         }
     </script>
     <script>

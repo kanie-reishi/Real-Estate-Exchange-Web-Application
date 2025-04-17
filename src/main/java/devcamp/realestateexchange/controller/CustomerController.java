@@ -58,11 +58,24 @@ public class CustomerController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-    // Delete customer @param id
     @GetMapping("/customers/{customerId}/realEstates")
     public ResponseEntity<Object> getRealEstateListByCustomerId(Pageable pageable, @PathVariable Integer customerId){
         try {
             Page<RealEstateDto> realEstatePage = customerService.getRealEstateByCustomerId(pageable, customerId);
+            return ResponseEntity.ok(realEstatePage);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+    @GetMapping("/customers/{customerId}/realEstates")
+    public ResponseEntity<Object> getRealEstateListByCustomerId(@PathVariable Integer customerId, Pageable pageable,
+    @RequestParam Integer provinceId,
+    @RequestParam Integer type,
+    @RequestParam String areaRange,
+    @RequestParam String priceRange,
+    @RequestParam Integer bedroom){
+        try {
+            Page<RealEstateDto> realEstatePage = customerService.getRealEstateByCustomerId(pageable, customerId, provinceId, type, areaRange, priceRange, bedroom);
             return ResponseEntity.ok(realEstatePage);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());

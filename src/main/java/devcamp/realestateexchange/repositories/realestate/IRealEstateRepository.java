@@ -31,4 +31,11 @@ public interface IRealEstateRepository
         // Get real estate that verified by admin
         @Query("SELECT r FROM RealEstate r WHERE r.verify = 1")
         Page<RealEstateProjection> findVerifiedRealEstates(Pageable pageable);
+
+        // Get real estates by customer id method @param pageable, customerId, provinceId, type, areaRange, priceRange, bedroomRange
+        @Query("SELECT r FROM RealEstate r WHERE r.customer.id = :customerId AND r.province.id = :provinceId AND r.type = :type AND r.area BETWEEN :minArea AND :maxArea AND r.price BETWEEN :minPrice AND :maxPrice AND r.bedroom = :bedroom")
+        Page<RealEstateProjection> findRealEstateByCustomerIdAndProvinceIdAndTypeAndAreaRangeAndPriceRangeAndBedroomRange(
+                        Pageable pageable, Integer customerId, Integer provinceId, Integer type, 
+                        Integer minArea, Integer maxArea, Integer minPrice, Integer maxPrice, 
+                        Integer bedroom);
 }
