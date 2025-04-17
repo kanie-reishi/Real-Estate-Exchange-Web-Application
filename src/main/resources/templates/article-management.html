@@ -93,14 +93,9 @@
             <div class="filter-tabs">
                 <button class="active">Tất cả (0)</button>
                 <button>Hết hạn (0)</button>
-                <button>Sắp hết hạn (0)</button>
                 <button>Đang hiển thị (0)</button>
-                <button>Chờ hiển thị (0)</button>
-                <button>Chờ xuất bản (0)</button>
                 <button>Chờ duyệt (0)</button>
-                <button>Chờ thanh toán (0)</button>
                 <button>Không duyệt (0)</button>
-                <button>Đã hạ (0)</button>
             </div>
 
             <div id="tin-dang-list" class="tin-dang-list">
@@ -155,6 +150,10 @@
                     <p><strong>Diện tích:</strong> ${acreage} m²</p>
                     <p><strong>Phòng ngủ:</strong> ${bedrooms}</p>
                     <p><strong>Địa chỉ:</strong> ${address}</p>
+                    <p><strong>Trạng thái:</strong> ${item.status}</p>
+                    <p><strong>Ngày đăng:</strong> ${item.createdDate}</p>
+                    <p><strong>Ngày hết hạn:</strong> ${item.expiredDate}</p>
+                    <p><strong>Ngày duyệt:</strong> ${item.approvedDate}</p>
                     <button class="btn-primary" onclick="onBtnViewDetailClick(${item.id})">Xem chi tiết</button>
                     <button class="btn-secondary" onclick="onBtnUpdateClick(${item.id})">Chỉnh sửa</button>
                   </div>
@@ -189,6 +188,57 @@
             // Gọi hàm lọc khi người dùng nhấn nút "Lọc"
             $('#btn-filter').click(function () {
                 filterOnSelect();
+            });
+            // Hàm lọc trạng thái
+            $('.filter-tabs button').click(function () {
+                const status = $(this).text().split('(')[0].trim();
+                // Xử lý lọc theo trạng thái ở frontend
+                // Ví dụ: nếu bạn muốn lọc theo trạng thái "Hết hạn"
+                // thì bạn có thể gọi API với tham số status hoặc lọc danh sách đã tải về
+                // ở đây là một ví dụ đơn giản
+                const filteredList = list.filter(item => {
+                    if (status === 'Tất cả') return true; // Hiển thị tất cả
+                    if (status === 'Hết hạn') return item.status === 1; // Thay đổi theo trạng thái thực tế
+                    if (status === 'Đang hiển thị') return item.status === 2; // Thay đổi theo trạng thái thực tế
+                    if (status === 'Chờ duyệt') return item.status === 3; // Thay đổi theo trạng thái thực tế
+                    if (status === 'Không duyệt') return item.status === 4; // Thay đổi theo trạng thái thực tế
+                });
+                let html = '';
+                if (!filteredList || filteredList.length === 0) {
+                    html = '<p>Không có tin đăng nào.</p>';
+                } else {
+                    filteredList.forEach(item => {
+                        const title = item.title || "(Không có tiêu đề)";
+                        const price = item.price || "N/A";
+                        const acreage = item.acreage || "N/A";
+                        const bedrooms = item.bedroom || 0;
+                        const address = item.addressDetail?.addressDetail || "Không rõ địa chỉ";
+
+                        html += `
+                  <div class="tin-item">
+                    <h4>${title}</h4>
+                    <p><strong>Giá:</strong> ${price} tỷ</p>
+                    <p><strong>Diện tích:</strong> ${acreage} m²</p>
+                    <p><strong>Phòng ngủ:</strong> ${bedrooms}</p>
+                    <p><strong>Địa chỉ:</strong> ${address}</p>
+                    <p><strong>Trạng thái:</strong> ${item.status}</p>
+                    <p><strong>Ngày đăng:</strong> ${item.createdDate}</p>
+                    <p><strong>Ngày hết hạn:</strong> ${item.expiredDate}</p>
+                    <p><strong>Ngày duyệt:</strong> ${item.approvedDate}</p>
+                    <button class="btn-primary" onclick="onBtnViewDetailClick(${item.id})">Xem chi tiết</button>
+                    <button class="btn-secondary" onclick="onBtnUpdateClick(${item.id})">Chỉnh sửa</button>
+                  </div>
+                `;
+                    });
+                }
+                $('#tin-dang-list').html(html);
+                // Ẩn empty state nếu có tin đăng
+                if (filteredList.length > 0) {
+                    $('.empty-state').hide();
+                } else {
+                    $('.empty-state').show();
+                }
+
             });
         });
         function filterTabButtonUpdate(paramList) {
@@ -236,7 +286,7 @@
                 }
             });
         }
-        function filterOnSelect(){
+        function filterOnSelect() {
             const selectedProvince = $('#province').val();
             const selectedType = $('#type').val();
             const selectedArea = $('#area').val();
